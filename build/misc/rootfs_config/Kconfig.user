@@ -1,0 +1,22 @@
+menu "user packages " 
+config libgpiod-dev  
+	 bool "libgpiod-dev"
+	 help
+	
+config gpio-demo  
+	 bool "gpio-demo"
+	 help
+	
+config gpiod  
+	 bool "gpiod"
+	 help
+	
+config nano  
+	 bool "nano"
+	 help
+	
+config peekpoke  
+	 bool "peekpoke"
+	 help
+	
+endmenu
