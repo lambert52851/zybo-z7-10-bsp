@@ -1,10 +1,10 @@
-// Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+// Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
-// Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-// Date        : Fri Mar 23 14:34:07 2018
-// Host        : ubuntu running 64-bit Ubuntu 16.04.3 LTS
-// Command     : write_verilog -force -mode synth_stub -rename_top system_m00_regslice_0 -prefix
-//               system_m00_regslice_0_ system_m00_regslice_0_stub.v
+// Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+// Date        : Wed Dec 14 20:35:09 2022
+// Host        : linux-hyper running 64-bit Ubuntu 18.04.5 LTS
+// Command     : write_verilog -force -mode synth_stub
+//               /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_m00_regslice_0/system_m00_regslice_0_stub.v
 // Design      : system_m00_regslice_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7z010clg400-1
@@ -13,7 +13,7 @@
 // This empty module with port declaration file causes synthesis tools to infer a black box for IP.
 // The synthesis directives are for Synopsys Synplify support to prevent IO buffer insertion.
 // Please paste the declaration into a Verilog source file or add the file as an additional source.
-(* X_CORE_INFO = "axi_register_slice_v2_1_15_axi_register_slice,Vivado 2017.4" *)
+(* X_CORE_INFO = "axi_register_slice_v2_1_26_axi_register_slice,Vivado 2022.1" *)
 module system_m00_regslice_0(aclk, aresetn, s_axi_awid, s_axi_awaddr, 
   s_axi_awlen, s_axi_awsize, s_axi_awburst, s_axi_awlock, s_axi_awcache, s_axi_awprot, 
   s_axi_awqos, s_axi_awvalid, s_axi_awready, s_axi_wid, s_axi_wdata, s_axi_wstrb, s_axi_wlast, 

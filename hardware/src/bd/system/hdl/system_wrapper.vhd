@@ -1,8 +1,8 @@
---Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+--Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
---Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
---Date        : Tue Mar 27 14:07:38 2018
---Host        : ubuntu running 64-bit Ubuntu 16.04.3 LTS
+--Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+--Date        : Wed Dec 14 20:29:06 2022
+--Host        : linux-hyper running 64-bit Ubuntu 18.04.5 LTS
 --Command     : generate_target system_wrapper.bd
 --Design      : system_wrapper
 --Purpose     : IP block netlist
@@ -146,8 +146,8 @@ architecture STRUCTURE of system_wrapper is
     ac_recdat : in STD_LOGIC_VECTOR ( 0 to 0 );
     hdmi_in_hpd : out STD_LOGIC_VECTOR ( 0 to 0 );
     ac_bclk : out STD_LOGIC_VECTOR ( 0 to 0 );
-    ac_pblrc : out STD_LOGIC_VECTOR ( 0 to 0 );
     ac_reclrc : out STD_LOGIC_VECTOR ( 0 to 0 );
+    ac_pblrc : out STD_LOGIC_VECTOR ( 0 to 0 );
     ac_pbdat : out STD_LOGIC_VECTOR ( 0 to 0 );
     ac_mclk : out STD_LOGIC;
     sys_clock : in STD_LOGIC;

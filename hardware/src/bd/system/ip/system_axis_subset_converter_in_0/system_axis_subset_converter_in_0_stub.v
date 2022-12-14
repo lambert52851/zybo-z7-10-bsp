@@ -1,10 +1,10 @@
-// Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+// Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
-// Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
-// Date        : Fri Mar 23 14:19:48 2018
-// Host        : ubuntu running 64-bit Ubuntu 16.04.3 LTS
+// Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+// Date        : Wed Dec 14 20:32:41 2022
+// Host        : linux-hyper running 64-bit Ubuntu 18.04.5 LTS
 // Command     : write_verilog -force -mode synth_stub
-//               /home/digilent/work/git/Zybo-Z7-10-base-linux/src/bd/system/ip/system_axis_subset_converter_in_0/system_axis_subset_converter_in_0_stub.v
+//               /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axis_subset_converter_in_0/system_axis_subset_converter_in_0_stub.v
 // Design      : system_axis_subset_converter_in_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7z010clg400-1
@@ -13,7 +13,7 @@
 // This empty module with port declaration file causes synthesis tools to infer a black box for IP.
 // The synthesis directives are for Synopsys Synplify support to prevent IO buffer insertion.
 // Please paste the declaration into a Verilog source file or add the file as an additional source.
-(* X_CORE_INFO = "top_system_axis_subset_converter_in_0,Vivado 2017.4" *)
+(* X_CORE_INFO = "top_system_axis_subset_converter_in_0,Vivado 2022.1" *)
 module system_axis_subset_converter_in_0(aclk, aresetn, s_axis_tvalid, s_axis_tready, 
   s_axis_tdata, s_axis_tlast, s_axis_tuser, m_axis_tvalid, m_axis_tready, m_axis_tdata, 
   m_axis_tlast, m_axis_tuser)

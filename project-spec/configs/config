@@ -142,7 +142,7 @@ CONFIG_SUBSYSTEM_EXTRA_DT_FILES=""
 #
 CONFIG_SUBSYSTEM_BOOTARGS_AUTO=y
 CONFIG_SUBSYSTEM_BOOTARGS_EARLYPRINTK=y
-
+CONFIG_SUBSYSTEM_BOOTARGS_GENERATED="console=ttyPS0,115200 earlycon root=/dev/mmcblk0p2 rw rootwait"
 CONFIG_SUBSYSTEM_DEVICETREE_COMPILER_FLAGS="-@"
 # CONFIG_SUBSYSTEM_DTB_OVERLAY is not set
 # CONFIG_SUBSYSTEM_REMOVE_PL_DTB is not set
@@ -239,7 +239,7 @@ CONFIG_YOCTO_MACHINE_NAME="zynq-generic"
 #
 # TMPDIR Location
 #
-CONFIG_TMP_DIR_LOCATION="/home/linux/work/03.install_path/PETA22/TMPDIR_ARM"
+CONFIG_TMP_DIR_LOCATION="/home/linux/work/03.install_path/PETA22/TMPDIR_ARM_zybo"
 
 #
 # Devtool Workspace Location
@@ -269,5 +269,3 @@ CONFIG_YOCTO_LOCAL_SSTATE_FEEDS_URL="/home/linux/work/03.install_path/PETA22/arm
 # User Layers
 #
 CONFIG_USER_LAYER_0=""
-
-CONFIG_SUBSYSTEM_BOOTARGS_GENERATED="console=ttyPS0,115200 earlycon root=/dev/mmcblk0p2 rw rootwait"

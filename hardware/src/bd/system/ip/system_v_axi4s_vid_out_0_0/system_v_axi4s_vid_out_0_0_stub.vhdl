@@ -1,10 +1,10 @@
--- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
--- Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
--- Date        : Fri Mar 23 14:24:47 2018
--- Host        : ubuntu running 64-bit Ubuntu 16.04.3 LTS
+-- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+-- Date        : Wed Dec 14 20:35:26 2022
+-- Host        : linux-hyper running 64-bit Ubuntu 18.04.5 LTS
 -- Command     : write_vhdl -force -mode synth_stub
---               /home/digilent/work/git/Zybo-Z7-10-base-linux/src/bd/system/ip/system_v_axi4s_vid_out_0_0/system_v_axi4s_vid_out_0_0_stub.vhdl
+--               /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_v_axi4s_vid_out_0_0/system_v_axi4s_vid_out_0_0_stub.vhdl
 -- Design      : system_v_axi4s_vid_out_0_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7z010clg400-1
@@ -43,7 +43,9 @@ entity system_v_axi4s_vid_out_0_0 is
     locked : out STD_LOGIC;
     overflow : out STD_LOGIC;
     underflow : out STD_LOGIC;
-    status : out STD_LOGIC_VECTOR ( 31 downto 0 )
+    fifo_read_level : out STD_LOGIC_VECTOR ( 12 downto 0 );
+    status : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    sof_state_out : out STD_LOGIC
   );
 
 end system_v_axi4s_vid_out_0_0;
@@ -52,8 +54,8 @@ architecture stub of system_v_axi4s_vid_out_0_0 is
 attribute syn_black_box : boolean;
 attribute black_box_pad_pin : string;
 attribute syn_black_box of stub : architecture is true;
-attribute black_box_pad_pin of stub : architecture is "aclk,aclken,aresetn,s_axis_video_tdata[23:0],s_axis_video_tvalid,s_axis_video_tready,s_axis_video_tuser,s_axis_video_tlast,fid,vid_io_out_clk,vid_io_out_ce,vid_io_out_reset,vid_active_video,vid_vsync,vid_hsync,vid_vblank,vid_hblank,vid_field_id,vid_data[23:0],vtg_vsync,vtg_hsync,vtg_vblank,vtg_hblank,vtg_active_video,vtg_field_id,vtg_ce,locked,overflow,underflow,status[31:0]";
+attribute black_box_pad_pin of stub : architecture is "aclk,aclken,aresetn,s_axis_video_tdata[23:0],s_axis_video_tvalid,s_axis_video_tready,s_axis_video_tuser,s_axis_video_tlast,fid,vid_io_out_clk,vid_io_out_ce,vid_io_out_reset,vid_active_video,vid_vsync,vid_hsync,vid_vblank,vid_hblank,vid_field_id,vid_data[23:0],vtg_vsync,vtg_hsync,vtg_vblank,vtg_hblank,vtg_active_video,vtg_field_id,vtg_ce,locked,overflow,underflow,fifo_read_level[12:0],status[31:0],sof_state_out";
 attribute X_CORE_INFO : string;
-attribute X_CORE_INFO of stub : architecture is "v_axi4s_vid_out_v4_0_8,Vivado 2017.4";
+attribute X_CORE_INFO of stub : architecture is "v_axi4s_vid_out_v4_0_14,Vivado 2022.1";
 begin
 end;

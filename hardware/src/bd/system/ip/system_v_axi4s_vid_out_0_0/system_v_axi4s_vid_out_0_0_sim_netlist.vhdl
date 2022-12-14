@@ -1,10 +1,10 @@
--- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
--- Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
--- Date        : Fri Mar 23 14:24:48 2018
--- Host        : ubuntu running 64-bit Ubuntu 16.04.3 LTS
+-- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+-- Date        : Wed Dec 14 20:35:27 2022
+-- Host        : linux-hyper running 64-bit Ubuntu 18.04.5 LTS
 -- Command     : write_vhdl -force -mode funcsim
---               /home/digilent/work/git/Zybo-Z7-10-base-linux/src/bd/system/ip/system_v_axi4s_vid_out_0_0/system_v_axi4s_vid_out_0_0_sim_netlist.vhdl
+--               /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_v_axi4s_vid_out_0_0/system_v_axi4s_vid_out_0_0_sim_netlist.vhdl
 -- Design      : system_v_axi4s_vid_out_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -14,7 +14,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_formatter is
+entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_formatter is
   port (
     vid_active_video : out STD_LOGIC;
     vid_vsync : out STD_LOGIC;
@@ -24,7 +24,7 @@ entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_formatter is
     vid_field_id : out STD_LOGIC;
     fivid_reset_full_frame : out STD_LOGIC;
     vid_data : out STD_LOGIC_VECTOR ( 23 downto 0 );
-    \FSM_sequential_state_reg[2]\ : in STD_LOGIC;
+    SR : in STD_LOGIC_VECTOR ( 0 to 0 );
     vid_io_out_ce : in STD_LOGIC;
     vtg_active_video : in STD_LOGIC;
     vid_io_out_clk : in STD_LOGIC;
@@ -33,25 +33,25 @@ entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_formatter is
     vtg_vblank : in STD_LOGIC;
     vtg_hblank : in STD_LOGIC;
     vtg_field_id : in STD_LOGIC;
-    locked : in STD_LOGIC;
+    src_in : in STD_LOGIC;
     vid_io_out_reset : in STD_LOGIC;
+    E : in STD_LOGIC_VECTOR ( 0 to 0 );
     D : in STD_LOGIC_VECTOR ( 23 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_formatter : entity is "v_axi4s_vid_out_v4_0_8_formatter";
-end system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_formatter;
+  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_formatter : entity is "v_axi4s_vid_out_v4_0_14_formatter";
+end system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_formatter;
 
-architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_formatter is
+architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_formatter is
   signal \^fivid_reset_full_frame\ : STD_LOGIC;
   signal fivid_reset_full_frame_i_1_n_0 : STD_LOGIC;
-  signal in_data_mux : STD_LOGIC;
   signal vblank_rising : STD_LOGIC;
   signal vblank_rising_i_1_n_0 : STD_LOGIC;
   signal vtg_vblank_1 : STD_LOGIC;
   signal vtg_vblank_1_i_1_n_0 : STD_LOGIC;
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of vblank_rising_i_1 : label is "soft_lutpair24";
-  attribute SOFT_HLUTNM of vtg_vblank_1_i_1 : label is "soft_lutpair24";
+  attribute SOFT_HLUTNM of vblank_rising_i_1 : label is "soft_lutpair26";
+  attribute SOFT_HLUTNM of vtg_vblank_1_i_1 : label is "soft_lutpair26";
 begin
   fivid_reset_full_frame <= \^fivid_reset_full_frame\;
 fivid_reset_full_frame_i_1: unisim.vcomponents.LUT5
@@ -62,7 +62,7 @@ fivid_reset_full_frame_i_1: unisim.vcomponents.LUT5
       I0 => \^fivid_reset_full_frame\,
       I1 => vblank_rising,
       I2 => vid_io_out_ce,
-      I3 => locked,
+      I3 => src_in,
       I4 => vid_io_out_reset,
       O => fivid_reset_full_frame_i_1_n_0
     );
@@ -77,25 +77,16 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
       Q => \^fivid_reset_full_frame\,
       R => '0'
     );
-\in_data_mux[23]_i_1\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => vtg_active_video,
-      I1 => vid_io_out_ce,
-      O => in_data_mux
-    );
 \in_data_mux_reg[0]\: unisim.vcomponents.FDRE
     generic map(
       INIT => '0'
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(0),
       Q => vid_data(0),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[10]\: unisim.vcomponents.FDRE
     generic map(
@@ -103,10 +94,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(10),
       Q => vid_data(10),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[11]\: unisim.vcomponents.FDRE
     generic map(
@@ -114,10 +105,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(11),
       Q => vid_data(11),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[12]\: unisim.vcomponents.FDRE
     generic map(
@@ -125,10 +116,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(12),
       Q => vid_data(12),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[13]\: unisim.vcomponents.FDRE
     generic map(
@@ -136,10 +127,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(13),
       Q => vid_data(13),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[14]\: unisim.vcomponents.FDRE
     generic map(
@@ -147,10 +138,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(14),
       Q => vid_data(14),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[15]\: unisim.vcomponents.FDRE
     generic map(
@@ -158,10 +149,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(15),
       Q => vid_data(15),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[16]\: unisim.vcomponents.FDRE
     generic map(
@@ -169,10 +160,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(16),
       Q => vid_data(16),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[17]\: unisim.vcomponents.FDRE
     generic map(
@@ -180,10 +171,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(17),
       Q => vid_data(17),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[18]\: unisim.vcomponents.FDRE
     generic map(
@@ -191,10 +182,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(18),
       Q => vid_data(18),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[19]\: unisim.vcomponents.FDRE
     generic map(
@@ -202,10 +193,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(19),
       Q => vid_data(19),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[1]\: unisim.vcomponents.FDRE
     generic map(
@@ -213,10 +204,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(1),
       Q => vid_data(1),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[20]\: unisim.vcomponents.FDRE
     generic map(
@@ -224,10 +215,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(20),
       Q => vid_data(20),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[21]\: unisim.vcomponents.FDRE
     generic map(
@@ -235,10 +226,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(21),
       Q => vid_data(21),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[22]\: unisim.vcomponents.FDRE
     generic map(
@@ -246,10 +237,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(22),
       Q => vid_data(22),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[23]\: unisim.vcomponents.FDRE
     generic map(
@@ -257,10 +248,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(23),
       Q => vid_data(23),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[2]\: unisim.vcomponents.FDRE
     generic map(
@@ -268,10 +259,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(2),
       Q => vid_data(2),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[3]\: unisim.vcomponents.FDRE
     generic map(
@@ -279,10 +270,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(3),
       Q => vid_data(3),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[4]\: unisim.vcomponents.FDRE
     generic map(
@@ -290,10 +281,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(4),
       Q => vid_data(4),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[5]\: unisim.vcomponents.FDRE
     generic map(
@@ -301,10 +292,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(5),
       Q => vid_data(5),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[6]\: unisim.vcomponents.FDRE
     generic map(
@@ -312,10 +303,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(6),
       Q => vid_data(6),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[7]\: unisim.vcomponents.FDRE
     generic map(
@@ -323,10 +314,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(7),
       Q => vid_data(7),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[8]\: unisim.vcomponents.FDRE
     generic map(
@@ -334,10 +325,10 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(8),
       Q => vid_data(8),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 \in_data_mux_reg[9]\: unisim.vcomponents.FDRE
     generic map(
@@ -345,12 +336,12 @@ fivid_reset_full_frame_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => in_data_mux,
+      CE => E(0),
       D => D(9),
       Q => vid_data(9),
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
-in_de_mux_reg: unisim.vcomponents.FDRE
+\in_de_mux_reg[0]\: unisim.vcomponents.FDRE
     generic map(
       INIT => '0'
     )
@@ -359,7 +350,7 @@ in_de_mux_reg: unisim.vcomponents.FDRE
       CE => vid_io_out_ce,
       D => vtg_active_video,
       Q => vid_active_video,
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 in_field_id_mux_reg: unisim.vcomponents.FDRE
     generic map(
@@ -370,9 +361,9 @@ in_field_id_mux_reg: unisim.vcomponents.FDRE
       CE => vid_io_out_ce,
       D => vtg_field_id,
       Q => vid_field_id,
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
-in_hblank_mux_reg: unisim.vcomponents.FDRE
+\in_hblank_mux_reg[0]\: unisim.vcomponents.FDRE
     generic map(
       INIT => '0'
     )
@@ -381,9 +372,9 @@ in_hblank_mux_reg: unisim.vcomponents.FDRE
       CE => vid_io_out_ce,
       D => vtg_hblank,
       Q => vid_hblank,
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
-in_hsync_mux_reg: unisim.vcomponents.FDRE
+\in_hsync_mux_reg[0]\: unisim.vcomponents.FDRE
     generic map(
       INIT => '0'
     )
@@ -392,9 +383,9 @@ in_hsync_mux_reg: unisim.vcomponents.FDRE
       CE => vid_io_out_ce,
       D => vtg_hsync,
       Q => vid_hsync,
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
-in_vblank_mux_reg: unisim.vcomponents.FDRE
+\in_vblank_mux_reg[0]\: unisim.vcomponents.FDRE
     generic map(
       INIT => '0'
     )
@@ -403,9 +394,9 @@ in_vblank_mux_reg: unisim.vcomponents.FDRE
       CE => vid_io_out_ce,
       D => vtg_vblank,
       Q => vid_vblank,
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
-in_vsync_mux_reg: unisim.vcomponents.FDRE
+\in_vsync_mux_reg[0]\: unisim.vcomponents.FDRE
     generic map(
       INIT => '0'
     )
@@ -414,7 +405,7 @@ in_vsync_mux_reg: unisim.vcomponents.FDRE
       CE => vid_io_out_ce,
       D => vtg_vsync,
       Q => vid_vsync,
-      R => \FSM_sequential_state_reg[2]\
+      R => SR(0)
     );
 vblank_rising_i_1: unisim.vcomponents.LUT4
     generic map(
@@ -464,14 +455,13 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_sync is
+entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_sync is
   port (
     fifo_eol_dly : out STD_LOGIC;
-    fifo_sof_dly : out STD_LOGIC;
-    locked : out STD_LOGIC;
-    rd_en : out STD_LOGIC;
-    \in_data_mux_reg[0]\ : out STD_LOGIC;
-    \FSM_sequential_state_reg[1]_0\ : out STD_LOGIC;
+    src_in : out STD_LOGIC;
+    E : out STD_LOGIC_VECTOR ( 0 to 0 );
+    SR : out STD_LOGIC_VECTOR ( 0 to 0 );
+    fifo_rd_en : out STD_LOGIC;
     status : out STD_LOGIC_VECTOR ( 26 downto 0 );
     vid_io_out_reset : in STD_LOGIC;
     vid_io_out_ce : in STD_LOGIC;
@@ -479,57 +469,60 @@ entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_sync is
     vid_io_out_clk : in STD_LOGIC;
     vtg_vsync : in STD_LOGIC;
     dout : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    \gen_wr_a.gen_word_narrow.mem_reg_2\ : in STD_LOGIC;
-    \grdc.rd_data_count_i_reg[11]\ : in STD_LOGIC;
+    fifo_eol_re : in STD_LOGIC;
+    fifo_pix_cnt : in STD_LOGIC;
     vtg_field_id : in STD_LOGIC;
-    empty : in STD_LOGIC;
     fivid_reset_full_frame : in STD_LOGIC;
-    rd_data_count : in STD_LOGIC_VECTOR ( 10 downto 0 );
-    E : in STD_LOGIC_VECTOR ( 0 to 0 )
+    \FSM_sequential_state[0]_i_2_0\ : in STD_LOGIC;
+    \FSM_sequential_state[0]_i_2_1\ : in STD_LOGIC;
+    \FSM_sequential_state[0]_i_2_2\ : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_sync : entity is "v_axi4s_vid_out_v4_0_8_sync";
-end system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_sync;
+  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_sync : entity is "v_axi4s_vid_out_v4_0_14_sync";
+end system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_sync;
 
-architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_sync is
+architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_sync is
   signal \FSM_sequential_state[0]_i_1_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[0]_i_2_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[0]_i_3_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[0]_i_4_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[0]_i_5_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[0]_i_6_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[0]_i_7_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[0]_i_8_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[0]_i_9_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[1]_i_1_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[1]_i_2_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[1]_i_3_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[1]_i_4_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[1]_i_5_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[1]_i_6_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[1]_i_7_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[1]_i_8_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[1]_i_9_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[2]_i_10_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[2]_i_11_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[2]_i_12_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[2]_i_13_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[2]_i_1_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[2]_i_2_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[2]_i_3_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[2]_i_4_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[2]_i_5_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[2]_i_6_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[2]_i_7_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[2]_i_8_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[2]_i_9_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[3]_i_10_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[3]_i_11_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[3]_i_12_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[3]_i_13_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[3]_i_14_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[3]_i_17_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[3]_i_18_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[3]_i_19_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[3]_i_1_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[3]_i_20_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[3]_i_21_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[3]_i_22_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[3]_i_23_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[3]_i_24_n_0\ : STD_LOGIC;
+  signal \FSM_sequential_state[3]_i_25_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[3]_i_2_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[3]_i_3_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[3]_i_4_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[3]_i_5_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[3]_i_6_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[3]_i_7_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state[3]_i_8_n_0\ : STD_LOGIC;
   signal \FSM_sequential_state[3]_i_9_n_0\ : STD_LOGIC;
-  signal \FSM_sequential_state_reg[0]_i_6_n_0\ : STD_LOGIC;
-  signal \^fsm_sequential_state_reg[1]_0\ : STD_LOGIC;
-  signal \FSM_sequential_state_reg[1]_i_1_n_0\ : STD_LOGIC;
   signal fifo_eol_cnt : STD_LOGIC;
   signal fifo_eol_cnt1 : STD_LOGIC;
   signal \fifo_eol_cnt[0]_i_1_n_0\ : STD_LOGIC;
@@ -572,23 +565,18 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_sync
   signal fifo_eol_error1_carry_n_1 : STD_LOGIC;
   signal fifo_eol_error1_carry_n_2 : STD_LOGIC;
   signal fifo_eol_error1_carry_n_3 : STD_LOGIC;
+  signal fifo_eol_error2 : STD_LOGIC;
   signal fifo_eol_error_i_1_n_0 : STD_LOGIC;
-  signal fifo_eol_error_i_2_n_0 : STD_LOGIC;
   signal fifo_eol_error_i_3_n_0 : STD_LOGIC;
   signal fifo_eol_error_i_4_n_0 : STD_LOGIC;
   signal fifo_eol_re_dly : STD_LOGIC;
-  signal fifo_force_rd : STD_LOGIC;
   signal \fifo_pix_cnt[0]_i_1_n_0\ : STD_LOGIC;
-  signal \fifo_pix_cnt[0]_i_2_n_0\ : STD_LOGIC;
-  signal \fifo_pix_cnt[0]_i_4_n_0\ : STD_LOGIC;
+  signal \fifo_pix_cnt[0]_i_5_n_0\ : STD_LOGIC;
   signal fifo_pix_cnt_dly : STD_LOGIC_VECTOR ( 12 downto 0 );
   signal \fifo_pix_cnt_dly1__11\ : STD_LOGIC;
-  signal \fifo_pix_cnt_dly[12]_i_3_n_0\ : STD_LOGIC;
+  signal \fifo_pix_cnt_dly[12]_i_4_n_0\ : STD_LOGIC;
   signal \fifo_pix_cnt_dly[12]_i_5_n_0\ : STD_LOGIC;
-  signal \fifo_pix_cnt_dly[12]_i_6_n_0\ : STD_LOGIC;
-  signal \fifo_pix_cnt_dly[12]_i_7_n_0\ : STD_LOGIC;
-  signal \fifo_pix_cnt_dly[12]_i_8_n_0\ : STD_LOGIC;
-  signal fifo_pix_cnt_dly_0 : STD_LOGIC;
+  signal fifo_pix_cnt_dly_1 : STD_LOGIC;
   signal fifo_pix_cnt_reg : STD_LOGIC_VECTOR ( 12 downto 0 );
   signal \fifo_pix_cnt_reg[0]_i_3_n_0\ : STD_LOGIC;
   signal \fifo_pix_cnt_reg[0]_i_3_n_1\ : STD_LOGIC;
@@ -628,42 +616,57 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_sync
   signal fifo_pix_error1_carry_n_2 : STD_LOGIC;
   signal fifo_pix_error1_carry_n_3 : STD_LOGIC;
   signal fifo_pix_error_i_1_n_0 : STD_LOGIC;
+  signal fifo_sof_cnt : STD_LOGIC;
+  signal \fifo_sof_cnt[6]_i_2_n_0\ : STD_LOGIC;
   signal \fifo_sof_cnt[7]_i_2_n_0\ : STD_LOGIC;
-  signal \fifo_sof_cnt_reg__0\ : STD_LOGIC_VECTOR ( 7 downto 0 );
-  signal \^fifo_sof_dly\ : STD_LOGIC;
-  signal \^locked\ : STD_LOGIC;
-  signal \next_state1_inferred__0/FSM_sequential_state[1]_i_6_n_0\ : STD_LOGIC;
+  signal fifo_sof_cnt_reg : STD_LOGIC_VECTOR ( 7 downto 0 );
+  signal fifo_sof_dly : STD_LOGIC;
+  signal locked_i_1_n_0 : STD_LOGIC;
+  signal next_state110_out : STD_LOGIC;
+  signal next_state121_out : STD_LOGIC;
+  signal next_state124_out : STD_LOGIC;
+  signal \next_state1__0\ : STD_LOGIC;
   signal p_0_in : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal \p_0_in__0\ : STD_LOGIC_VECTOR ( 7 downto 0 );
-  signal \^rd_en\ : STD_LOGIC;
+  signal p_18_in : STD_LOGIC;
+  signal p_25_in : STD_LOGIC;
   signal sof_ignore : STD_LOGIC;
   signal sof_ignore0 : STD_LOGIC;
   signal sof_ignore_i_1_n_0 : STD_LOGIC;
-  signal state : STD_LOGIC_VECTOR ( 2 downto 0 );
-  attribute RTL_KEEP : string;
-  attribute RTL_KEEP of state : signal is "yes";
+  signal sof_ignore_i_2_n_0 : STD_LOGIC;
+  signal sof_ignore_i_3_n_0 : STD_LOGIC;
+  signal sof_ignore_i_4_n_0 : STD_LOGIC;
+  signal \^src_in\ : STD_LOGIC;
+  signal state : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal state_dly : STD_LOGIC_VECTOR ( 3 downto 0 );
-  signal \state_dly[3]_i_1_n_0\ : STD_LOGIC;
+  signal state_dly_0 : STD_LOGIC;
   signal state_reg : STD_LOGIC_VECTOR ( 3 downto 0 );
-  attribute RTL_KEEP of state_reg : signal is "yes";
   signal \^status\ : STD_LOGIC_VECTOR ( 26 downto 0 );
-  signal status_reg : STD_LOGIC_VECTOR ( 10 downto 0 );
   signal status_reg1 : STD_LOGIC;
   signal \status_reg[0]_i_1_n_0\ : STD_LOGIC;
+  signal \status_reg[0]_i_2_n_0\ : STD_LOGIC;
   signal \status_reg[10]_i_1_n_0\ : STD_LOGIC;
+  signal \status_reg[10]_i_2_n_0\ : STD_LOGIC;
   signal \status_reg[11]_i_1_n_0\ : STD_LOGIC;
-  signal \status_reg[11]_i_2_n_0\ : STD_LOGIC;
+  signal \status_reg[11]_i_3_n_0\ : STD_LOGIC;
+  signal \status_reg[11]_i_4_n_0\ : STD_LOGIC;
   signal \status_reg[12]_i_1_n_0\ : STD_LOGIC;
-  signal \status_reg[12]_i_3_n_0\ : STD_LOGIC;
+  signal \status_reg[12]_i_2_n_0\ : STD_LOGIC;
   signal \status_reg[1]_i_1_n_0\ : STD_LOGIC;
+  signal \status_reg[1]_i_2_n_0\ : STD_LOGIC;
   signal \status_reg[2]_i_1_n_0\ : STD_LOGIC;
+  signal \status_reg[2]_i_2_n_0\ : STD_LOGIC;
   signal \status_reg[3]_i_1_n_0\ : STD_LOGIC;
   signal \status_reg[4]_i_1_n_0\ : STD_LOGIC;
   signal \status_reg[5]_i_1_n_0\ : STD_LOGIC;
+  signal \status_reg[5]_i_2_n_0\ : STD_LOGIC;
   signal \status_reg[6]_i_1_n_0\ : STD_LOGIC;
+  signal \status_reg[6]_i_2_n_0\ : STD_LOGIC;
   signal \status_reg[7]_i_1_n_0\ : STD_LOGIC;
+  signal \status_reg[7]_i_2_n_0\ : STD_LOGIC;
   signal \status_reg[8]_i_1_n_0\ : STD_LOGIC;
   signal \status_reg[9]_i_1_n_0\ : STD_LOGIC;
+  signal \status_reg[9]_i_2_n_0\ : STD_LOGIC;
   signal vtg_de_dly : STD_LOGIC;
   signal vtg_lag : STD_LOGIC;
   signal \vtg_lag[0]_i_4_n_0\ : STD_LOGIC;
@@ -735,8 +738,9 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_sync
   signal vtg_sof : STD_LOGIC;
   signal vtg_sof_cnt : STD_LOGIC;
   signal vtg_sof_cnt0 : STD_LOGIC;
+  signal \vtg_sof_cnt[6]_i_2_n_0\ : STD_LOGIC;
   signal \vtg_sof_cnt[7]_i_4_n_0\ : STD_LOGIC;
-  signal \vtg_sof_cnt_reg__0\ : STD_LOGIC_VECTOR ( 7 downto 0 );
+  signal vtg_sof_cnt_reg : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal vtg_sof_dly : STD_LOGIC;
   signal vtg_vsync_bp_i_1_n_0 : STD_LOGIC;
   signal vtg_vsync_bp_reg_n_0 : STD_LOGIC;
@@ -753,378 +757,414 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_sync
   signal \NLW_fifo_pix_error1_carry__0_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal \NLW_vtg_lag_reg[28]_i_1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \FSM_sequential_state[1]_i_7\ : label is "soft_lutpair33";
-  attribute SOFT_HLUTNM of \FSM_sequential_state[1]_i_8\ : label is "soft_lutpair34";
-  attribute SOFT_HLUTNM of \FSM_sequential_state[1]_i_9\ : label is "soft_lutpair34";
-  attribute SOFT_HLUTNM of \FSM_sequential_state[2]_i_6\ : label is "soft_lutpair28";
-  attribute SOFT_HLUTNM of \FSM_sequential_state[2]_i_7\ : label is "soft_lutpair28";
-  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_2\ : label is "soft_lutpair29";
-  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_4\ : label is "soft_lutpair26";
-  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_6\ : label is "soft_lutpair29";
-  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_7\ : label is "soft_lutpair27";
-  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_8\ : label is "soft_lutpair25";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[0]_i_3\ : label is "soft_lutpair30";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[0]_i_9\ : label is "soft_lutpair28";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[1]_i_4\ : label is "soft_lutpair35";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[1]_i_5\ : label is "soft_lutpair33";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[1]_i_6\ : label is "soft_lutpair34";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[1]_i_8\ : label is "soft_lutpair28";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[2]_i_3\ : label is "soft_lutpair35";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_15\ : label is "soft_lutpair41";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_16\ : label is "soft_lutpair34";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_17\ : label is "soft_lutpair38";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_18\ : label is "soft_lutpair43";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_19\ : label is "soft_lutpair32";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_20\ : label is "soft_lutpair42";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_21\ : label is "soft_lutpair31";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_3\ : label is "soft_lutpair40";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_5\ : label is "soft_lutpair27";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_7\ : label is "soft_lutpair29";
+  attribute SOFT_HLUTNM of \FSM_sequential_state[3]_i_9\ : label is "soft_lutpair29";
   attribute FSM_ENCODED_STATES : string;
-  attribute FSM_ENCODED_STATES of \FSM_sequential_state_reg[0]\ : label is "C_SYNC_IDLE:0000,C_SYNC_CALN_SOF_FIFO:0001,C_SYNC_CALN_SOF_VTG:0010,C_SYNC_FALN_ACTIVE:0011,C_SYNC_FALN_EOL_LEADING:0100,C_SYNC_FALN_EOL_LAGGING:0101,C_SYNC_FALN_SOF_LEADING:0110,C_SYNC_FALN_SOF_LAGGING:0111,C_SYNC_FALN_LOCK:1000,C_SYNC_LALN_EOL_LEADING:1001,C_SYNC_LALN_EOL_LAGGING:1010,C_SYNC_LALN_SOF_LEADING:1011,C_SYNC_LALN_SOF_LAGGING:1100";
-  attribute KEEP : string;
-  attribute KEEP of \FSM_sequential_state_reg[0]\ : label is "yes";
-  attribute FSM_ENCODED_STATES of \FSM_sequential_state_reg[1]\ : label is "C_SYNC_IDLE:0000,C_SYNC_CALN_SOF_FIFO:0001,C_SYNC_CALN_SOF_VTG:0010,C_SYNC_FALN_ACTIVE:0011,C_SYNC_FALN_EOL_LEADING:0100,C_SYNC_FALN_EOL_LAGGING:0101,C_SYNC_FALN_SOF_LEADING:0110,C_SYNC_FALN_SOF_LAGGING:0111,C_SYNC_FALN_LOCK:1000,C_SYNC_LALN_EOL_LEADING:1001,C_SYNC_LALN_EOL_LAGGING:1010,C_SYNC_LALN_SOF_LEADING:1011,C_SYNC_LALN_SOF_LAGGING:1100";
-  attribute KEEP of \FSM_sequential_state_reg[1]\ : label is "yes";
-  attribute FSM_ENCODED_STATES of \FSM_sequential_state_reg[2]\ : label is "C_SYNC_IDLE:0000,C_SYNC_CALN_SOF_FIFO:0001,C_SYNC_CALN_SOF_VTG:0010,C_SYNC_FALN_ACTIVE:0011,C_SYNC_FALN_EOL_LEADING:0100,C_SYNC_FALN_EOL_LAGGING:0101,C_SYNC_FALN_SOF_LEADING:0110,C_SYNC_FALN_SOF_LAGGING:0111,C_SYNC_FALN_LOCK:1000,C_SYNC_LALN_EOL_LEADING:1001,C_SYNC_LALN_EOL_LAGGING:1010,C_SYNC_LALN_SOF_LEADING:1011,C_SYNC_LALN_SOF_LAGGING:1100";
-  attribute KEEP of \FSM_sequential_state_reg[2]\ : label is "yes";
-  attribute FSM_ENCODED_STATES of \FSM_sequential_state_reg[3]\ : label is "C_SYNC_IDLE:0000,C_SYNC_CALN_SOF_FIFO:0001,C_SYNC_CALN_SOF_VTG:0010,C_SYNC_FALN_ACTIVE:0011,C_SYNC_FALN_EOL_LEADING:0100,C_SYNC_FALN_EOL_LAGGING:0101,C_SYNC_FALN_SOF_LEADING:0110,C_SYNC_FALN_SOF_LAGGING:0111,C_SYNC_FALN_LOCK:1000,C_SYNC_LALN_EOL_LEADING:1001,C_SYNC_LALN_EOL_LAGGING:1010,C_SYNC_LALN_SOF_LEADING:1011,C_SYNC_LALN_SOF_LAGGING:1100";
-  attribute KEEP of \FSM_sequential_state_reg[3]\ : label is "yes";
-  attribute SOFT_HLUTNM of fifo_pix_error_i_1 : label is "soft_lutpair26";
-  attribute SOFT_HLUTNM of \fifo_sof_cnt[0]_i_1\ : label is "soft_lutpair36";
-  attribute SOFT_HLUTNM of \fifo_sof_cnt[1]_i_1\ : label is "soft_lutpair36";
-  attribute SOFT_HLUTNM of \fifo_sof_cnt[2]_i_1\ : label is "soft_lutpair30";
-  attribute SOFT_HLUTNM of \fifo_sof_cnt[3]_i_1\ : label is "soft_lutpair30";
-  attribute SOFT_HLUTNM of \fifo_sof_cnt[4]_i_1\ : label is "soft_lutpair27";
-  attribute SOFT_HLUTNM of \fifo_sof_cnt[6]_i_1\ : label is "soft_lutpair35";
-  attribute SOFT_HLUTNM of \fifo_sof_cnt[7]_i_1\ : label is "soft_lutpair35";
-  attribute SOFT_HLUTNM of \vtg_sof_cnt[0]_i_1\ : label is "soft_lutpair37";
-  attribute SOFT_HLUTNM of \vtg_sof_cnt[1]_i_1\ : label is "soft_lutpair37";
-  attribute SOFT_HLUTNM of \vtg_sof_cnt[2]_i_1\ : label is "soft_lutpair31";
-  attribute SOFT_HLUTNM of \vtg_sof_cnt[3]_i_1\ : label is "soft_lutpair31";
-  attribute SOFT_HLUTNM of \vtg_sof_cnt[4]_i_1\ : label is "soft_lutpair25";
-  attribute SOFT_HLUTNM of \vtg_sof_cnt[6]_i_1\ : label is "soft_lutpair32";
-  attribute SOFT_HLUTNM of \vtg_sof_cnt[7]_i_3\ : label is "soft_lutpair32";
-  attribute SOFT_HLUTNM of vtg_sof_dly_i_1 : label is "soft_lutpair33";
+  attribute FSM_ENCODED_STATES of \FSM_sequential_state_reg[0]\ : label is "C_SYNC_FALN_EOL_LAGGING:0011,C_SYNC_FALN_EOL_LEADING:0000,C_SYNC_CALN_SOF_FIFO:0100,C_SYNC_LALN_SOF_LEADING:0111,C_SYNC_LALN_SOF_LAGGING:0110,C_SYNC_LALN_EOL_LAGGING:1000,C_SYNC_CALN_SOF_VTG:0101,C_SYNC_IDLE:0001,C_SYNC_LALN_EOL_LEADING:1100,C_SYNC_FALN_ACTIVE:0010,C_SYNC_FALN_LOCK:1011,C_SYNC_FALN_SOF_LAGGING:1010,C_SYNC_FALN_SOF_LEADING:1001";
+  attribute FSM_ENCODED_STATES of \FSM_sequential_state_reg[1]\ : label is "C_SYNC_FALN_EOL_LAGGING:0011,C_SYNC_FALN_EOL_LEADING:0000,C_SYNC_CALN_SOF_FIFO:0100,C_SYNC_LALN_SOF_LEADING:0111,C_SYNC_LALN_SOF_LAGGING:0110,C_SYNC_LALN_EOL_LAGGING:1000,C_SYNC_CALN_SOF_VTG:0101,C_SYNC_IDLE:0001,C_SYNC_LALN_EOL_LEADING:1100,C_SYNC_FALN_ACTIVE:0010,C_SYNC_FALN_LOCK:1011,C_SYNC_FALN_SOF_LAGGING:1010,C_SYNC_FALN_SOF_LEADING:1001";
+  attribute FSM_ENCODED_STATES of \FSM_sequential_state_reg[2]\ : label is "C_SYNC_FALN_EOL_LAGGING:0011,C_SYNC_FALN_EOL_LEADING:0000,C_SYNC_CALN_SOF_FIFO:0100,C_SYNC_LALN_SOF_LEADING:0111,C_SYNC_LALN_SOF_LAGGING:0110,C_SYNC_LALN_EOL_LAGGING:1000,C_SYNC_CALN_SOF_VTG:0101,C_SYNC_IDLE:0001,C_SYNC_LALN_EOL_LEADING:1100,C_SYNC_FALN_ACTIVE:0010,C_SYNC_FALN_LOCK:1011,C_SYNC_FALN_SOF_LAGGING:1010,C_SYNC_FALN_SOF_LEADING:1001";
+  attribute FSM_ENCODED_STATES of \FSM_sequential_state_reg[3]\ : label is "C_SYNC_FALN_EOL_LAGGING:0011,C_SYNC_FALN_EOL_LEADING:0000,C_SYNC_CALN_SOF_FIFO:0100,C_SYNC_LALN_SOF_LEADING:0111,C_SYNC_LALN_SOF_LAGGING:0110,C_SYNC_LALN_EOL_LAGGING:1000,C_SYNC_CALN_SOF_VTG:0101,C_SYNC_IDLE:0001,C_SYNC_LALN_EOL_LEADING:1100,C_SYNC_FALN_ACTIVE:0010,C_SYNC_FALN_LOCK:1011,C_SYNC_FALN_SOF_LAGGING:1010,C_SYNC_FALN_SOF_LEADING:1001";
+  attribute ADDER_THRESHOLD : integer;
+  attribute ADDER_THRESHOLD of \fifo_eol_cnt_reg[0]_i_3\ : label is 11;
+  attribute ADDER_THRESHOLD of \fifo_eol_cnt_reg[12]_i_1\ : label is 11;
+  attribute ADDER_THRESHOLD of \fifo_eol_cnt_reg[4]_i_1\ : label is 11;
+  attribute ADDER_THRESHOLD of \fifo_eol_cnt_reg[8]_i_1\ : label is 11;
+  attribute ADDER_THRESHOLD of \fifo_pix_cnt_reg[0]_i_3\ : label is 11;
+  attribute ADDER_THRESHOLD of \fifo_pix_cnt_reg[12]_i_1\ : label is 11;
+  attribute ADDER_THRESHOLD of \fifo_pix_cnt_reg[4]_i_1\ : label is 11;
+  attribute ADDER_THRESHOLD of \fifo_pix_cnt_reg[8]_i_1\ : label is 11;
+  attribute SOFT_HLUTNM of fifo_pix_error_i_1 : label is "soft_lutpair27";
+  attribute SOFT_HLUTNM of fifo_pix_error_i_2 : label is "soft_lutpair41";
+  attribute SOFT_HLUTNM of \fifo_sof_cnt[0]_i_1\ : label is "soft_lutpair46";
+  attribute SOFT_HLUTNM of \fifo_sof_cnt[1]_i_1\ : label is "soft_lutpair46";
+  attribute SOFT_HLUTNM of \fifo_sof_cnt[2]_i_1\ : label is "soft_lutpair43";
+  attribute SOFT_HLUTNM of \fifo_sof_cnt[3]_i_1\ : label is "soft_lutpair37";
+  attribute SOFT_HLUTNM of \fifo_sof_cnt[4]_i_1\ : label is "soft_lutpair37";
+  attribute SOFT_HLUTNM of \fifo_sof_cnt[6]_i_2\ : label is "soft_lutpair32";
+  attribute SOFT_HLUTNM of locked_i_1 : label is "soft_lutpair40";
+  attribute SOFT_HLUTNM of \state_dly[0]_i_1\ : label is "soft_lutpair33";
+  attribute SOFT_HLUTNM of \state_dly[1]_i_1\ : label is "soft_lutpair39";
+  attribute SOFT_HLUTNM of \state_dly[2]_i_1\ : label is "soft_lutpair39";
+  attribute SOFT_HLUTNM of \state_dly[3]_i_2\ : label is "soft_lutpair38";
+  attribute SOFT_HLUTNM of \status_reg[11]_i_3\ : label is "soft_lutpair30";
+  attribute SOFT_HLUTNM of \status_reg[7]_i_2\ : label is "soft_lutpair44";
+  attribute SOFT_HLUTNM of \status_reg[9]_i_2\ : label is "soft_lutpair44";
+  attribute ADDER_THRESHOLD of \vtg_lag_reg[0]_i_3\ : label is 11;
+  attribute ADDER_THRESHOLD of \vtg_lag_reg[12]_i_1\ : label is 11;
+  attribute ADDER_THRESHOLD of \vtg_lag_reg[16]_i_1\ : label is 11;
+  attribute ADDER_THRESHOLD of \vtg_lag_reg[20]_i_1\ : label is 11;
+  attribute ADDER_THRESHOLD of \vtg_lag_reg[24]_i_1\ : label is 11;
+  attribute ADDER_THRESHOLD of \vtg_lag_reg[28]_i_1\ : label is 11;
+  attribute ADDER_THRESHOLD of \vtg_lag_reg[4]_i_1\ : label is 11;
+  attribute ADDER_THRESHOLD of \vtg_lag_reg[8]_i_1\ : label is 11;
+  attribute SOFT_HLUTNM of \vtg_sof_cnt[0]_i_1\ : label is "soft_lutpair45";
+  attribute SOFT_HLUTNM of \vtg_sof_cnt[1]_i_1\ : label is "soft_lutpair45";
+  attribute SOFT_HLUTNM of \vtg_sof_cnt[2]_i_1\ : label is "soft_lutpair42";
+  attribute SOFT_HLUTNM of \vtg_sof_cnt[3]_i_1\ : label is "soft_lutpair36";
+  attribute SOFT_HLUTNM of \vtg_sof_cnt[4]_i_1\ : label is "soft_lutpair36";
+  attribute SOFT_HLUTNM of \vtg_sof_cnt[6]_i_2\ : label is "soft_lutpair31";
 begin
-  \FSM_sequential_state_reg[1]_0\ <= \^fsm_sequential_state_reg[1]_0\;
-  fifo_sof_dly <= \^fifo_sof_dly\;
-  locked <= \^locked\;
-  rd_en <= \^rd_en\;
+  src_in <= \^src_in\;
   status(26 downto 0) <= \^status\(26 downto 0);
 \FSM_sequential_state[0]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0F004F4F0F004040"
+      INIT => X"FFEAFFEAFFEAAAEA"
     )
         port map (
-      I0 => state(0),
-      I1 => \FSM_sequential_state[0]_i_2_n_0\,
-      I2 => state_reg(3),
-      I3 => \FSM_sequential_state[0]_i_3_n_0\,
-      I4 => state(2),
-      I5 => \FSM_sequential_state[0]_i_4_n_0\,
+      I0 => \FSM_sequential_state[0]_i_2_n_0\,
+      I1 => \FSM_sequential_state[0]_i_3_n_0\,
+      I2 => \FSM_sequential_state[0]_i_4_n_0\,
+      I3 => state(3),
+      I4 => \FSM_sequential_state[0]_i_5_n_0\,
+      I5 => state(2),
       O => \FSM_sequential_state[0]_i_1_n_0\
     );
 \FSM_sequential_state[0]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"00000000045D0404"
+      INIT => X"AAAAAAA800000000"
     )
         port map (
-      I0 => fifo_eol_re_dly,
-      I1 => vtg_de_dly,
-      I2 => vtg_active_video,
-      I3 => \FSM_sequential_state[3]_i_4_n_0\,
-      I4 => vtg_sof_dly,
-      I5 => state(1),
+      I0 => \FSM_sequential_state[0]_i_6_n_0\,
+      I1 => \FSM_sequential_state[3]_i_13_n_0\,
+      I2 => \FSM_sequential_state[1]_i_7_n_0\,
+      I3 => \FSM_sequential_state[3]_i_10_n_0\,
+      I4 => state(2),
+      I5 => \FSM_sequential_state[0]_i_7_n_0\,
       O => \FSM_sequential_state[0]_i_2_n_0\
     );
-\FSM_sequential_state[0]_i_3\: unisim.vcomponents.LUT6
+\FSM_sequential_state[0]_i_3\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"FFFFFFFF04540404"
+      INIT => X"00B00FB0"
     )
         port map (
-      I0 => \FSM_sequential_state[2]_i_5_n_0\,
-      I1 => fifo_eol_re_dly,
-      I2 => state(1),
-      I3 => dout(1),
-      I4 => \^fifo_sof_dly\,
-      I5 => state(0),
+      I0 => dout(2),
+      I1 => dout(1),
+      I2 => state(0),
+      I3 => state(1),
+      I4 => \next_state1__0\,
       O => \FSM_sequential_state[0]_i_3_n_0\
     );
-\FSM_sequential_state[0]_i_4\: unisim.vcomponents.LUT3
+\FSM_sequential_state[0]_i_4\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"E4"
+      INIT => X"5555545455555554"
+    )
+        port map (
+      I0 => state(2),
+      I1 => state(0),
+      I2 => \FSM_sequential_state[1]_i_5_n_0\,
+      I3 => next_state121_out,
+      I4 => \FSM_sequential_state[3]_i_9_n_0\,
+      I5 => next_state124_out,
+      O => \FSM_sequential_state[0]_i_4_n_0\
+    );
+\FSM_sequential_state[0]_i_5\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"BBBBBBBBBBBBBBB8"
+    )
+        port map (
+      I0 => \FSM_sequential_state[0]_i_8_n_0\,
+      I1 => state(1),
+      I2 => \FSM_sequential_state[3]_i_13_n_0\,
+      I3 => \FSM_sequential_state[1]_i_7_n_0\,
+      I4 => \FSM_sequential_state[3]_i_10_n_0\,
+      I5 => \FSM_sequential_state[0]_i_9_n_0\,
+      O => \FSM_sequential_state[0]_i_5_n_0\
+    );
+\FSM_sequential_state[0]_i_6\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"FFFFEFFFFFFFFFFF"
+    )
+        port map (
+      I0 => state(1),
+      I1 => vtg_de_dly,
+      I2 => vtg_vsync_bp_reg_n_0,
+      I3 => vtg_active_video,
+      I4 => vtg_field_id,
+      I5 => state(0),
+      O => \FSM_sequential_state[0]_i_6_n_0\
+    );
+\FSM_sequential_state[0]_i_7\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"FFFFFFFE11111111"
     )
         port map (
       I0 => state(0),
-      I1 => \FSM_sequential_state[0]_i_5_n_0\,
-      I2 => \FSM_sequential_state_reg[0]_i_6_n_0\,
-      O => \FSM_sequential_state[0]_i_4_n_0\
-    );
-\FSM_sequential_state[0]_i_5\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"20202F20"
-    )
-        port map (
-      I0 => vtg_sof,
-      I1 => vtg_field_id,
-      I2 => state(1),
-      I3 => dout(1),
-      I4 => dout(2),
-      O => \FSM_sequential_state[0]_i_5_n_0\
+      I1 => state(1),
+      I2 => \FSM_sequential_state[0]_i_2_0\,
+      I3 => \FSM_sequential_state[0]_i_2_1\,
+      I4 => \FSM_sequential_state[0]_i_2_2\,
+      I5 => state(2),
+      O => \FSM_sequential_state[0]_i_7_n_0\
     );
 \FSM_sequential_state[0]_i_8\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"00000000AAAAFFBF"
-    )
-        port map (
-      I0 => \FSM_sequential_state[3]_i_6_n_0\,
-      I1 => \FSM_sequential_state[3]_i_5_n_0\,
-      I2 => \FSM_sequential_state[1]_i_9_n_0\,
-      I3 => \FSM_sequential_state[2]_i_6_n_0\,
-      I4 => \FSM_sequential_state[2]_i_7_n_0\,
-      I5 => \FSM_sequential_state[3]_i_2_n_0\,
-      O => \FSM_sequential_state[0]_i_8_n_0\
-    );
-\FSM_sequential_state[1]_i_2\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"B8B8BBBBBB888888"
-    )
-        port map (
-      I0 => \FSM_sequential_state[1]_i_4_n_0\,
-      I1 => state(2),
-      I2 => \FSM_sequential_state[1]_i_5_n_0\,
-      I3 => \next_state1_inferred__0/FSM_sequential_state[1]_i_6_n_0\,
-      I4 => state(0),
-      I5 => state(1),
-      O => \FSM_sequential_state[1]_i_2_n_0\
-    );
-\FSM_sequential_state[1]_i_3\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"0000000000001110"
-    )
-        port map (
-      I0 => state(0),
-      I1 => \FSM_sequential_state[3]_i_2_n_0\,
-      I2 => \FSM_sequential_state[1]_i_7_n_0\,
-      I3 => \FSM_sequential_state[1]_i_8_n_0\,
-      I4 => state(1),
-      I5 => state(2),
-      O => \FSM_sequential_state[1]_i_3_n_0\
-    );
-\FSM_sequential_state[1]_i_4\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"FF54"
-    )
-        port map (
-      I0 => \FSM_sequential_state[2]_i_5_n_0\,
-      I1 => state(1),
-      I2 => fifo_eol_re_dly,
-      I3 => state(0),
-      O => \FSM_sequential_state[1]_i_4_n_0\
-    );
-\FSM_sequential_state[1]_i_5\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"0000000055555515"
-    )
-        port map (
-      I0 => \FSM_sequential_state[3]_i_6_n_0\,
-      I1 => \FSM_sequential_state[3]_i_5_n_0\,
-      I2 => \FSM_sequential_state[1]_i_9_n_0\,
-      I3 => \FSM_sequential_state[2]_i_6_n_0\,
-      I4 => \FSM_sequential_state[2]_i_7_n_0\,
-      I5 => \FSM_sequential_state[3]_i_2_n_0\,
-      O => \FSM_sequential_state[1]_i_5_n_0\
-    );
-\FSM_sequential_state[1]_i_7\: unisim.vcomponents.LUT3
-    generic map(
-      INIT => X"8A"
+      INIT => X"6500650000006500"
     )
         port map (
       I0 => fifo_eol_re_dly,
       I1 => vtg_active_video,
       I2 => vtg_de_dly,
-      O => \FSM_sequential_state[1]_i_7_n_0\
+      I3 => state(0),
+      I4 => p_18_in,
+      I5 => vtg_sof_dly,
+      O => \FSM_sequential_state[0]_i_8_n_0\
     );
-\FSM_sequential_state[1]_i_8\: unisim.vcomponents.LUT3
+\FSM_sequential_state[0]_i_9\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"8A"
-    )
-        port map (
-      I0 => vtg_sof_dly,
-      I1 => dout(1),
-      I2 => \^fifo_sof_dly\,
-      O => \FSM_sequential_state[1]_i_8_n_0\
-    );
-\FSM_sequential_state[1]_i_9\: unisim.vcomponents.LUT3
-    generic map(
-      INIT => X"40"
+      INIT => X"BF"
     )
         port map (
       I0 => dout(1),
-      I1 => \^fifo_sof_dly\,
-      I2 => vtg_sof_dly,
-      O => \FSM_sequential_state[1]_i_9_n_0\
+      I1 => fifo_sof_dly,
+      I2 => state(0),
+      O => \FSM_sequential_state[0]_i_9_n_0\
     );
-\FSM_sequential_state[2]_i_1\: unisim.vcomponents.LUT6
+\FSM_sequential_state[1]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0F004F4F0F004040"
+      INIT => X"04040C0C04040CFC"
+    )
+        port map (
+      I0 => \FSM_sequential_state[1]_i_2_n_0\,
+      I1 => \FSM_sequential_state[1]_i_3_n_0\,
+      I2 => state(2),
+      I3 => \FSM_sequential_state[1]_i_4_n_0\,
+      I4 => state(1),
+      I5 => state(3),
+      O => \FSM_sequential_state[1]_i_1_n_0\
+    );
+\FSM_sequential_state[1]_i_2\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"0000000000000004"
+    )
+        port map (
+      I0 => p_18_in,
+      I1 => vtg_sof_dly,
+      I2 => sof_ignore,
+      I3 => state(3),
+      I4 => state(0),
+      I5 => \FSM_sequential_state[1]_i_5_n_0\,
+      O => \FSM_sequential_state[1]_i_2_n_0\
+    );
+\FSM_sequential_state[1]_i_3\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"888888888888888B"
+    )
+        port map (
+      I0 => \FSM_sequential_state[1]_i_6_n_0\,
+      I1 => state(1),
+      I2 => \FSM_sequential_state[3]_i_13_n_0\,
+      I3 => \FSM_sequential_state[1]_i_7_n_0\,
+      I4 => \FSM_sequential_state[3]_i_10_n_0\,
+      I5 => \FSM_sequential_state[1]_i_8_n_0\,
+      O => \FSM_sequential_state[1]_i_3_n_0\
+    );
+\FSM_sequential_state[1]_i_4\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"FFFFDFFF"
     )
         port map (
       I0 => state(0),
-      I1 => \FSM_sequential_state[2]_i_2_n_0\,
-      I2 => state_reg(3),
-      I3 => \FSM_sequential_state[2]_i_3_n_0\,
+      I1 => vtg_field_id,
+      I2 => vtg_active_video,
+      I3 => vtg_vsync_bp_reg_n_0,
+      I4 => vtg_de_dly,
+      O => \FSM_sequential_state[1]_i_4_n_0\
+    );
+\FSM_sequential_state[1]_i_5\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"AAAAAAA8"
+    )
+        port map (
+      I0 => p_25_in,
+      I1 => state(0),
+      I2 => state(3),
+      I3 => state(1),
       I4 => state(2),
-      I5 => \FSM_sequential_state[2]_i_4_n_0\,
-      O => \FSM_sequential_state[2]_i_1_n_0\
+      O => \FSM_sequential_state[1]_i_5_n_0\
     );
-\FSM_sequential_state[2]_i_10\: unisim.vcomponents.LUT5
+\FSM_sequential_state[1]_i_6\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"00000001"
+      INIT => X"4BFFFFFB"
     )
         port map (
-      I0 => \vtg_lag_reg__0\(27),
-      I1 => \vtg_lag_reg__0\(26),
-      I2 => \vtg_lag_reg__0\(23),
-      I3 => \vtg_lag_reg__0\(24),
-      I4 => \vtg_lag_reg__0\(25),
-      O => \FSM_sequential_state[2]_i_10_n_0\
+      I0 => vtg_active_video,
+      I1 => vtg_de_dly,
+      I2 => fifo_eol_re_dly,
+      I3 => state(0),
+      I4 => state(3),
+      O => \FSM_sequential_state[1]_i_6_n_0\
     );
-\FSM_sequential_state[2]_i_11\: unisim.vcomponents.LUT4
+\FSM_sequential_state[1]_i_7\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0001"
+      INIT => X"FFFFFFFFEEEEEEEF"
     )
         port map (
-      I0 => \vtg_lag_reg__0\(30),
+      I0 => \FSM_sequential_state[3]_i_11_n_0\,
       I1 => \vtg_lag_reg__0\(31),
-      I2 => \vtg_lag_reg__0\(29),
-      I3 => \vtg_lag_reg__0\(28),
-      O => \FSM_sequential_state[2]_i_11_n_0\
+      I2 => \FSM_sequential_state[3]_i_24_n_0\,
+      I3 => \FSM_sequential_state[3]_i_23_n_0\,
+      I4 => \FSM_sequential_state[3]_i_22_n_0\,
+      I5 => \FSM_sequential_state[1]_i_9_n_0\,
+      O => \FSM_sequential_state[1]_i_7_n_0\
     );
-\FSM_sequential_state[2]_i_12\: unisim.vcomponents.LUT6
+\FSM_sequential_state[1]_i_8\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"8000000000000000"
+      INIT => X"BFF0BFFF"
     )
         port map (
-      I0 => vtg_lag_reg(3),
-      I1 => vtg_lag_reg(4),
-      I2 => vtg_lag_reg(5),
-      I3 => vtg_lag_reg(2),
-      I4 => vtg_lag_reg(0),
-      I5 => vtg_lag_reg(1),
-      O => \FSM_sequential_state[2]_i_12_n_0\
+      I0 => dout(1),
+      I1 => fifo_sof_dly,
+      I2 => state(0),
+      I3 => state(3),
+      I4 => fifo_eol_re_dly,
+      O => \FSM_sequential_state[1]_i_8_n_0\
     );
-\FSM_sequential_state[2]_i_13\: unisim.vcomponents.LUT6
+\FSM_sequential_state[1]_i_9\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"8000000000000000"
+      INIT => X"E"
     )
         port map (
-      I0 => vtg_lag_reg(9),
-      I1 => vtg_lag_reg(11),
-      I2 => vtg_lag_reg(10),
-      I3 => vtg_lag_reg(8),
-      I4 => vtg_lag_reg(6),
-      I5 => vtg_lag_reg(7),
-      O => \FSM_sequential_state[2]_i_13_n_0\
+      I0 => \vtg_lag_reg__0\(29),
+      I1 => \vtg_lag_reg__0\(30),
+      O => \FSM_sequential_state[1]_i_9_n_0\
+    );
+\FSM_sequential_state[2]_i_1\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"2AAA0000"
+    )
+        port map (
+      I0 => \FSM_sequential_state[2]_i_2_n_0\,
+      I1 => state(0),
+      I2 => next_state110_out,
+      I3 => state(2),
+      I4 => \FSM_sequential_state[2]_i_4_n_0\,
+      O => \FSM_sequential_state[2]_i_1_n_0\
     );
 \FSM_sequential_state[2]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000000004004044"
+      INIT => X"06066F06FFFFFFFF"
     )
         port map (
-      I0 => vtg_sof_dly,
-      I1 => \FSM_sequential_state[3]_i_4_n_0\,
-      I2 => vtg_active_video,
+      I0 => p_18_in,
+      I1 => vtg_sof_dly,
+      I2 => fifo_eol_re_dly,
       I3 => vtg_de_dly,
-      I4 => fifo_eol_re_dly,
+      I4 => vtg_active_video,
       I5 => state(1),
       O => \FSM_sequential_state[2]_i_2_n_0\
     );
-\FSM_sequential_state[2]_i_3\: unisim.vcomponents.LUT6
+\FSM_sequential_state[2]_i_3\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"0000000045004555"
+      INIT => X"0040"
     )
         port map (
-      I0 => state(0),
-      I1 => dout(1),
-      I2 => \^fifo_sof_dly\,
-      I3 => state(1),
-      I4 => fifo_eol_re_dly,
-      I5 => \FSM_sequential_state[2]_i_5_n_0\,
-      O => \FSM_sequential_state[2]_i_3_n_0\
+      I0 => vtg_de_dly,
+      I1 => vtg_vsync_bp_reg_n_0,
+      I2 => vtg_active_video,
+      I3 => vtg_field_id,
+      O => next_state110_out
     );
 \FSM_sequential_state[2]_i_4\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAAAAAA800000000"
+      INIT => X"1111111189880000"
     )
         port map (
       I0 => state(1),
-      I1 => \FSM_sequential_state[3]_i_6_n_0\,
-      I2 => \FSM_sequential_state[2]_i_6_n_0\,
-      I3 => \FSM_sequential_state[2]_i_7_n_0\,
-      I4 => \FSM_sequential_state[3]_i_2_n_0\,
-      I5 => state(0),
+      I1 => state(3),
+      I2 => dout(2),
+      I3 => dout(1),
+      I4 => state(0),
+      I5 => state(2),
       O => \FSM_sequential_state[2]_i_4_n_0\
-    );
-\FSM_sequential_state[2]_i_5\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"FFFFBFFFBFFFBFFF"
-    )
-        port map (
-      I0 => \FSM_sequential_state[2]_i_8_n_0\,
-      I1 => \FSM_sequential_state[2]_i_9_n_0\,
-      I2 => \FSM_sequential_state[2]_i_10_n_0\,
-      I3 => \FSM_sequential_state[2]_i_11_n_0\,
-      I4 => \FSM_sequential_state[2]_i_12_n_0\,
-      I5 => \FSM_sequential_state[2]_i_13_n_0\,
-      O => \FSM_sequential_state[2]_i_5_n_0\
-    );
-\FSM_sequential_state[2]_i_6\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"00000010"
-    )
-        port map (
-      I0 => sof_ignore,
-      I1 => dout(1),
-      I2 => \^fifo_sof_dly\,
-      I3 => vtg_sof_dly,
-      I4 => fifo_force_rd,
-      O => \FSM_sequential_state[2]_i_6_n_0\
-    );
-\FSM_sequential_state[2]_i_7\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"00D0"
-    )
-        port map (
-      I0 => \^fifo_sof_dly\,
-      I1 => dout(1),
-      I2 => vtg_sof_dly,
-      I3 => sof_ignore,
-      O => \FSM_sequential_state[2]_i_7_n_0\
-    );
-\FSM_sequential_state[2]_i_8\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"FFFFFFFFFFFFFFFE"
-    )
-        port map (
-      I0 => \vtg_lag_reg__0\(14),
-      I1 => \vtg_lag_reg__0\(12),
-      I2 => \vtg_lag_reg__0\(13),
-      I3 => \vtg_lag_reg__0\(17),
-      I4 => \vtg_lag_reg__0\(15),
-      I5 => \vtg_lag_reg__0\(16),
-      O => \FSM_sequential_state[2]_i_8_n_0\
-    );
-\FSM_sequential_state[2]_i_9\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"00000001"
-    )
-        port map (
-      I0 => \vtg_lag_reg__0\(22),
-      I1 => \vtg_lag_reg__0\(21),
-      I2 => \vtg_lag_reg__0\(18),
-      I3 => \vtg_lag_reg__0\(19),
-      I4 => \vtg_lag_reg__0\(20),
-      O => \FSM_sequential_state[2]_i_9_n_0\
     );
 \FSM_sequential_state[3]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000000004002222"
+      INIT => X"AAAA000200000002"
     )
         port map (
-      I0 => state_reg(3),
-      I1 => state(0),
-      I2 => \FSM_sequential_state[3]_i_2_n_0\,
-      I3 => \FSM_sequential_state[3]_i_3_n_0\,
+      I0 => \FSM_sequential_state[3]_i_2_n_0\,
+      I1 => \FSM_sequential_state[3]_i_3_n_0\,
+      I2 => \FSM_sequential_state[3]_i_4_n_0\,
+      I3 => p_18_in,
       I4 => state(1),
-      I5 => state(2),
+      I5 => \FSM_sequential_state[3]_i_6_n_0\,
       O => \FSM_sequential_state[3]_i_1_n_0\
     );
-\FSM_sequential_state[3]_i_2\: unisim.vcomponents.LUT3
+\FSM_sequential_state[3]_i_10\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"FFFFFFFE"
+    )
+        port map (
+      I0 => \vtg_lag_reg__0\(12),
+      I1 => \vtg_lag_reg__0\(15),
+      I2 => \vtg_lag_reg__0\(16),
+      I3 => \vtg_lag_reg__0\(13),
+      I4 => \vtg_lag_reg__0\(14),
+      O => \FSM_sequential_state[3]_i_10_n_0\
+    );
+\FSM_sequential_state[3]_i_11\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"FFFE"
+    )
+        port map (
+      I0 => \vtg_lag_reg__0\(26),
+      I1 => \vtg_lag_reg__0\(25),
+      I2 => \vtg_lag_reg__0\(28),
+      I3 => \vtg_lag_reg__0\(27),
+      O => \FSM_sequential_state[3]_i_11_n_0\
+    );
+\FSM_sequential_state[3]_i_12\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"FFFFFFFFEEEEEEEF"
+    )
+        port map (
+      I0 => \vtg_lag_reg__0\(30),
+      I1 => \vtg_lag_reg__0\(29),
+      I2 => \FSM_sequential_state[3]_i_22_n_0\,
+      I3 => \FSM_sequential_state[3]_i_23_n_0\,
+      I4 => \FSM_sequential_state[3]_i_24_n_0\,
+      I5 => \vtg_lag_reg__0\(31),
+      O => \FSM_sequential_state[3]_i_12_n_0\
+    );
+\FSM_sequential_state[3]_i_13\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"FFFFFFFE"
+    )
+        port map (
+      I0 => \vtg_lag_reg__0\(19),
+      I1 => \vtg_lag_reg__0\(20),
+      I2 => \vtg_lag_reg__0\(17),
+      I3 => \vtg_lag_reg__0\(18),
+      I4 => \FSM_sequential_state[3]_i_25_n_0\,
+      O => \FSM_sequential_state[3]_i_13_n_0\
+    );
+\FSM_sequential_state[3]_i_14\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"2D"
+    )
+        port map (
+      I0 => fifo_sof_dly,
+      I1 => dout(1),
+      I2 => vtg_sof_dly,
+      O => \FSM_sequential_state[3]_i_14_n_0\
+    );
+\FSM_sequential_state[3]_i_15\: unisim.vcomponents.LUT3
     generic map(
       INIT => X"04"
     )
@@ -1132,118 +1172,234 @@ begin
       I0 => vtg_active_video,
       I1 => vtg_de_dly,
       I2 => fifo_eol_re_dly,
-      O => \FSM_sequential_state[3]_i_2_n_0\
+      O => \next_state1__0\
     );
-\FSM_sequential_state[3]_i_3\: unisim.vcomponents.LUT4
+\FSM_sequential_state[3]_i_16\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"0080"
+      INIT => X"8A"
     )
         port map (
-      I0 => \FSM_sequential_state[3]_i_4_n_0\,
-      I1 => vtg_sof_dly,
-      I2 => \FSM_sequential_state[3]_i_5_n_0\,
-      I3 => \FSM_sequential_state[3]_i_6_n_0\,
-      O => \FSM_sequential_state[3]_i_3_n_0\
-    );
-\FSM_sequential_state[3]_i_4\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"2"
-    )
-        port map (
-      I0 => \^fifo_sof_dly\,
-      I1 => dout(1),
-      O => \FSM_sequential_state[3]_i_4_n_0\
-    );
-\FSM_sequential_state[3]_i_5\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"FFFEFFFEFFFE0000"
-    )
-        port map (
-      I0 => \FSM_sequential_state[3]_i_7_n_0\,
-      I1 => \fifo_sof_cnt_reg__0\(7),
-      I2 => \fifo_sof_cnt_reg__0\(5),
-      I3 => \fifo_sof_cnt_reg__0\(6),
-      I4 => \FSM_sequential_state[3]_i_8_n_0\,
-      I5 => \FSM_sequential_state[3]_i_9_n_0\,
-      O => \FSM_sequential_state[3]_i_5_n_0\
-    );
-\FSM_sequential_state[3]_i_6\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"00D0"
-    )
-        port map (
-      I0 => vtg_de_dly,
+      I0 => fifo_eol_re_dly,
       I1 => vtg_active_video,
-      I2 => fifo_eol_re_dly,
-      I3 => fifo_force_rd,
-      O => \FSM_sequential_state[3]_i_6_n_0\
+      I2 => vtg_de_dly,
+      O => p_25_in
     );
-\FSM_sequential_state[3]_i_7\: unisim.vcomponents.LUT5
+\FSM_sequential_state[3]_i_17\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"FFFFFEEE"
+      INIT => X"0001"
     )
         port map (
-      I0 => \fifo_sof_cnt_reg__0\(3),
-      I1 => \fifo_sof_cnt_reg__0\(4),
-      I2 => \fifo_sof_cnt_reg__0\(0),
-      I3 => \fifo_sof_cnt_reg__0\(1),
-      I4 => \fifo_sof_cnt_reg__0\(2),
-      O => \FSM_sequential_state[3]_i_7_n_0\
+      I0 => state(2),
+      I1 => state(1),
+      I2 => state(3),
+      I3 => state(0),
+      O => \FSM_sequential_state[3]_i_17_n_0\
     );
-\FSM_sequential_state[3]_i_8\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"FFFFFEEE"
-    )
-        port map (
-      I0 => \vtg_sof_cnt_reg__0\(3),
-      I1 => \vtg_sof_cnt_reg__0\(4),
-      I2 => \vtg_sof_cnt_reg__0\(0),
-      I3 => \vtg_sof_cnt_reg__0\(1),
-      I4 => \vtg_sof_cnt_reg__0\(2),
-      O => \FSM_sequential_state[3]_i_8_n_0\
-    );
-\FSM_sequential_state[3]_i_9\: unisim.vcomponents.LUT3
+\FSM_sequential_state[3]_i_18\: unisim.vcomponents.LUT3
     generic map(
       INIT => X"FE"
     )
         port map (
-      I0 => \vtg_sof_cnt_reg__0\(7),
-      I1 => \vtg_sof_cnt_reg__0\(5),
-      I2 => \vtg_sof_cnt_reg__0\(6),
+      I0 => fifo_sof_cnt_reg(2),
+      I1 => fifo_sof_cnt_reg(4),
+      I2 => fifo_sof_cnt_reg(3),
+      O => \FSM_sequential_state[3]_i_18_n_0\
+    );
+\FSM_sequential_state[3]_i_19\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"FFFFFEEE"
+    )
+        port map (
+      I0 => fifo_sof_cnt_reg(6),
+      I1 => fifo_sof_cnt_reg(5),
+      I2 => fifo_sof_cnt_reg(1),
+      I3 => fifo_sof_cnt_reg(0),
+      I4 => fifo_sof_cnt_reg(7),
+      O => \FSM_sequential_state[3]_i_19_n_0\
+    );
+\FSM_sequential_state[3]_i_2\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"55555554"
+    )
+        port map (
+      I0 => state(2),
+      I1 => next_state124_out,
+      I2 => next_state121_out,
+      I3 => \FSM_sequential_state[3]_i_9_n_0\,
+      I4 => state(0),
+      O => \FSM_sequential_state[3]_i_2_n_0\
+    );
+\FSM_sequential_state[3]_i_20\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"FE"
+    )
+        port map (
+      I0 => vtg_sof_cnt_reg(2),
+      I1 => vtg_sof_cnt_reg(4),
+      I2 => vtg_sof_cnt_reg(3),
+      O => \FSM_sequential_state[3]_i_20_n_0\
+    );
+\FSM_sequential_state[3]_i_21\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"FFFFFEEE"
+    )
+        port map (
+      I0 => vtg_sof_cnt_reg(6),
+      I1 => vtg_sof_cnt_reg(5),
+      I2 => vtg_sof_cnt_reg(1),
+      I3 => vtg_sof_cnt_reg(0),
+      I4 => vtg_sof_cnt_reg(7),
+      O => \FSM_sequential_state[3]_i_21_n_0\
+    );
+\FSM_sequential_state[3]_i_22\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"7FFF"
+    )
+        port map (
+      I0 => vtg_lag_reg(2),
+      I1 => vtg_lag_reg(1),
+      I2 => vtg_lag_reg(4),
+      I3 => vtg_lag_reg(3),
+      O => \FSM_sequential_state[3]_i_22_n_0\
+    );
+\FSM_sequential_state[3]_i_23\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"7FFF"
+    )
+        port map (
+      I0 => vtg_lag_reg(10),
+      I1 => vtg_lag_reg(9),
+      I2 => vtg_lag_reg(0),
+      I3 => vtg_lag_reg(11),
+      O => \FSM_sequential_state[3]_i_23_n_0\
+    );
+\FSM_sequential_state[3]_i_24\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"7FFF"
+    )
+        port map (
+      I0 => vtg_lag_reg(6),
+      I1 => vtg_lag_reg(5),
+      I2 => vtg_lag_reg(8),
+      I3 => vtg_lag_reg(7),
+      O => \FSM_sequential_state[3]_i_24_n_0\
+    );
+\FSM_sequential_state[3]_i_25\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"FFFE"
+    )
+        port map (
+      I0 => \vtg_lag_reg__0\(22),
+      I1 => \vtg_lag_reg__0\(21),
+      I2 => \vtg_lag_reg__0\(24),
+      I3 => \vtg_lag_reg__0\(23),
+      O => \FSM_sequential_state[3]_i_25_n_0\
+    );
+\FSM_sequential_state[3]_i_3\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"7"
+    )
+        port map (
+      I0 => state(0),
+      I1 => state(3),
+      O => \FSM_sequential_state[3]_i_3_n_0\
+    );
+\FSM_sequential_state[3]_i_4\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"FFFE"
+    )
+        port map (
+      I0 => \FSM_sequential_state[3]_i_10_n_0\,
+      I1 => \FSM_sequential_state[3]_i_11_n_0\,
+      I2 => \FSM_sequential_state[3]_i_12_n_0\,
+      I3 => \FSM_sequential_state[3]_i_13_n_0\,
+      O => \FSM_sequential_state[3]_i_4_n_0\
+    );
+\FSM_sequential_state[3]_i_5\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => fifo_sof_dly,
+      I1 => dout(1),
+      O => p_18_in
+    );
+\FSM_sequential_state[3]_i_6\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"CCC8CCC803030003"
+    )
+        port map (
+      I0 => \FSM_sequential_state[3]_i_14_n_0\,
+      I1 => state(0),
+      I2 => \next_state1__0\,
+      I3 => p_25_in,
+      I4 => \FSM_sequential_state[3]_i_17_n_0\,
+      I5 => state(3),
+      O => \FSM_sequential_state[3]_i_6_n_0\
+    );
+\FSM_sequential_state[3]_i_7\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"00000004"
+    )
+        port map (
+      I0 => vtg_sof_dly,
+      I1 => fifo_sof_dly,
+      I2 => dout(1),
+      I3 => sof_ignore,
+      I4 => \FSM_sequential_state[3]_i_17_n_0\,
+      O => next_state124_out
+    );
+\FSM_sequential_state[3]_i_8\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"E000E000E0000000"
+    )
+        port map (
+      I0 => \FSM_sequential_state[3]_i_18_n_0\,
+      I1 => \FSM_sequential_state[3]_i_19_n_0\,
+      I2 => vtg_sof_dly,
+      I3 => p_18_in,
+      I4 => \FSM_sequential_state[3]_i_20_n_0\,
+      I5 => \FSM_sequential_state[3]_i_21_n_0\,
+      O => next_state121_out
+    );
+\FSM_sequential_state[3]_i_9\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"00D0"
+    )
+        port map (
+      I0 => fifo_sof_dly,
+      I1 => dout(1),
+      I2 => vtg_sof_dly,
+      I3 => sof_ignore,
       O => \FSM_sequential_state[3]_i_9_n_0\
     );
-\FSM_sequential_state_reg[0]\: unisim.vcomponents.FDRE
-     port map (
+\FSM_sequential_state_reg[0]\: unisim.vcomponents.FDSE
+    generic map(
+      INIT => '1'
+    )
+        port map (
       C => vid_io_out_clk,
       CE => vid_io_out_ce,
       D => \FSM_sequential_state[0]_i_1_n_0\,
       Q => state(0),
-      R => vid_io_out_reset
-    );
-\FSM_sequential_state_reg[0]_i_6\: unisim.vcomponents.MUXF7
-     port map (
-      I0 => \grdc.rd_data_count_i_reg[11]\,
-      I1 => \FSM_sequential_state[0]_i_8_n_0\,
-      O => \FSM_sequential_state_reg[0]_i_6_n_0\,
-      S => state(1)
+      S => vid_io_out_reset
     );
 \FSM_sequential_state_reg[1]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => vid_io_out_clk,
       CE => vid_io_out_ce,
-      D => \FSM_sequential_state_reg[1]_i_1_n_0\,
+      D => \FSM_sequential_state[1]_i_1_n_0\,
       Q => state(1),
       R => vid_io_out_reset
     );
-\FSM_sequential_state_reg[1]_i_1\: unisim.vcomponents.MUXF7
-     port map (
-      I0 => \FSM_sequential_state[1]_i_2_n_0\,
-      I1 => \FSM_sequential_state[1]_i_3_n_0\,
-      O => \FSM_sequential_state_reg[1]_i_1_n_0\,
-      S => state_reg(3)
-    );
 \FSM_sequential_state_reg[2]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => vid_io_out_clk,
       CE => vid_io_out_ce,
       D => \FSM_sequential_state[2]_i_1_n_0\,
@@ -1251,11 +1407,14 @@ begin
       R => vid_io_out_reset
     );
 \FSM_sequential_state_reg[3]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => vid_io_out_clk,
       CE => vid_io_out_ce,
       D => \FSM_sequential_state[3]_i_1_n_0\,
-      Q => state_reg(3),
+      Q => state(3),
       R => vid_io_out_reset
     );
 \fifo_eol_cnt[0]_i_1\: unisim.vcomponents.LUT4
@@ -1264,7 +1423,7 @@ begin
     )
         port map (
       I0 => fifo_eol_cnt1,
-      I1 => \^fifo_sof_dly\,
+      I1 => fifo_sof_dly,
       I2 => dout(1),
       I3 => vid_io_out_ce,
       O => \fifo_eol_cnt[0]_i_1_n_0\
@@ -1286,13 +1445,23 @@ begin
       I0 => fifo_eol_cnt_reg(0),
       O => \fifo_eol_cnt[0]_i_4_n_0\
     );
+\fifo_eol_cnt_dly[12]_i_1\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"20"
+    )
+        port map (
+      I0 => fifo_sof_dly,
+      I1 => dout(1),
+      I2 => vid_io_out_ce,
+      O => fifo_sof_cnt
+    );
 \fifo_eol_cnt_dly_reg[0]\: unisim.vcomponents.FDRE
     generic map(
       INIT => '0'
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => fifo_eol_cnt_reg(0),
       Q => fifo_eol_cnt_dly(0),
       R => fifo_eol_cnt1
@@ -1303,7 +1472,7 @@ begin
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => fifo_eol_cnt_reg(10),
       Q => fifo_eol_cnt_dly(10),
       R => fifo_eol_cnt1
@@ -1314,7 +1483,7 @@ begin
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => fifo_eol_cnt_reg(11),
       Q => fifo_eol_cnt_dly(11),
       R => fifo_eol_cnt1
@@ -1325,7 +1494,7 @@ begin
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => fifo_eol_cnt_reg(12),
       Q => fifo_eol_cnt_dly(12),
       R => fifo_eol_cnt1
@@ -1336,7 +1505,7 @@ begin
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => fifo_eol_cnt_reg(1),
       Q => fifo_eol_cnt_dly(1),
       R => fifo_eol_cnt1
@@ -1347,7 +1516,7 @@ begin
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => fifo_eol_cnt_reg(2),
       Q => fifo_eol_cnt_dly(2),
       R => fifo_eol_cnt1
@@ -1358,7 +1527,7 @@ begin
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => fifo_eol_cnt_reg(3),
       Q => fifo_eol_cnt_dly(3),
       R => fifo_eol_cnt1
@@ -1369,7 +1538,7 @@ begin
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => fifo_eol_cnt_reg(4),
       Q => fifo_eol_cnt_dly(4),
       R => fifo_eol_cnt1
@@ -1380,7 +1549,7 @@ begin
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => fifo_eol_cnt_reg(5),
       Q => fifo_eol_cnt_dly(5),
       R => fifo_eol_cnt1
@@ -1391,7 +1560,7 @@ begin
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => fifo_eol_cnt_reg(6),
       Q => fifo_eol_cnt_dly(6),
       R => fifo_eol_cnt1
@@ -1402,7 +1571,7 @@ begin
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => fifo_eol_cnt_reg(7),
       Q => fifo_eol_cnt_dly(7),
       R => fifo_eol_cnt1
@@ -1413,7 +1582,7 @@ begin
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => fifo_eol_cnt_reg(8),
       Q => fifo_eol_cnt_dly(8),
       R => fifo_eol_cnt1
@@ -1424,7 +1593,7 @@ begin
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => fifo_eol_cnt_reg(9),
       Q => fifo_eol_cnt_dly(9),
       R => fifo_eol_cnt1
@@ -1729,14 +1898,14 @@ fifo_eol_error1_carry_i_4: unisim.vcomponents.LUT6
     );
 fifo_eol_error_i_1: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFFFFFFF00008000"
+      INIT => X"FFFFFFFF00800000"
     )
         port map (
-      I0 => fifo_eol_error_i_2_n_0,
-      I1 => fifo_eol_error1,
+      I0 => fifo_eol_error1,
+      I1 => fifo_eol_error2,
       I2 => vid_io_out_ce,
-      I3 => \^fifo_sof_dly\,
-      I4 => dout(1),
+      I3 => dout(1),
+      I4 => fifo_sof_dly,
       I5 => fifo_eol_error,
       O => fifo_eol_error_i_1_n_0
     );
@@ -1747,22 +1916,22 @@ fifo_eol_error_i_2: unisim.vcomponents.LUT6
         port map (
       I0 => fifo_eol_error_i_3_n_0,
       I1 => fifo_eol_error_i_4_n_0,
-      I2 => fifo_eol_cnt_dly(6),
-      I3 => fifo_eol_cnt_dly(7),
-      I4 => fifo_eol_cnt_dly(4),
-      I5 => fifo_eol_cnt_dly(5),
-      O => fifo_eol_error_i_2_n_0
+      I2 => fifo_eol_cnt_dly(7),
+      I3 => fifo_eol_cnt_dly(6),
+      I4 => fifo_eol_cnt_dly(9),
+      I5 => fifo_eol_cnt_dly(8),
+      O => fifo_eol_error2
     );
 fifo_eol_error_i_3: unisim.vcomponents.LUT5
     generic map(
       INIT => X"FFFFFFFE"
     )
         port map (
-      I0 => fifo_eol_cnt_dly(11),
-      I1 => fifo_eol_cnt_dly(9),
-      I2 => fifo_eol_cnt_dly(8),
-      I3 => fifo_eol_cnt_dly(12),
-      I4 => fifo_eol_cnt_dly(10),
+      I0 => fifo_eol_cnt_dly(1),
+      I1 => fifo_eol_cnt_dly(4),
+      I2 => fifo_eol_cnt_dly(5),
+      I3 => fifo_eol_cnt_dly(2),
+      I4 => fifo_eol_cnt_dly(3),
       O => fifo_eol_error_i_3_n_0
     );
 fifo_eol_error_i_4: unisim.vcomponents.LUT4
@@ -1770,10 +1939,10 @@ fifo_eol_error_i_4: unisim.vcomponents.LUT4
       INIT => X"FFFE"
     )
         port map (
-      I0 => fifo_eol_cnt_dly(2),
-      I1 => fifo_eol_cnt_dly(3),
+      I0 => fifo_eol_cnt_dly(11),
+      I1 => fifo_eol_cnt_dly(10),
       I2 => fifo_eol_cnt_dly(0),
-      I3 => fifo_eol_cnt_dly(1),
+      I3 => fifo_eol_cnt_dly(12),
       O => fifo_eol_error_i_4_n_0
     );
 fifo_eol_error_reg: unisim.vcomponents.FDRE
@@ -1794,7 +1963,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
         port map (
       C => vid_io_out_clk,
       CE => vid_io_out_ce,
-      D => \gen_wr_a.gen_word_narrow.mem_reg_2\,
+      D => fifo_eol_re,
       Q => fifo_eol_re_dly,
       R => vid_io_out_reset
     );
@@ -1808,32 +1977,36 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
       I2 => vid_io_out_ce,
       O => \fifo_pix_cnt[0]_i_1_n_0\
     );
-\fifo_pix_cnt[0]_i_2\: unisim.vcomponents.LUT2
+\fifo_pix_cnt[0]_i_4\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"2"
+      INIT => X"A8AAA8AA00020000"
     )
         port map (
-      I0 => \^rd_en\,
-      I1 => empty,
-      O => \fifo_pix_cnt[0]_i_2_n_0\
+      I0 => vid_io_out_ce,
+      I1 => state(1),
+      I2 => state(3),
+      I3 => state(2),
+      I4 => state(0),
+      I5 => vtg_active_video,
+      O => fifo_rd_en
     );
-\fifo_pix_cnt[0]_i_4\: unisim.vcomponents.LUT1
+\fifo_pix_cnt[0]_i_5\: unisim.vcomponents.LUT1
     generic map(
       INIT => X"1"
     )
         port map (
       I0 => fifo_pix_cnt_reg(0),
-      O => \fifo_pix_cnt[0]_i_4_n_0\
+      O => \fifo_pix_cnt[0]_i_5_n_0\
     );
 \fifo_pix_cnt_dly[12]_i_1\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"AAAB"
+      INIT => X"ABAA"
     )
         port map (
       I0 => vid_io_out_reset,
-      I1 => state(0),
-      I2 => state(2),
-      I3 => state_reg(3),
+      I1 => state(3),
+      I2 => state(1),
+      I3 => state(0),
       O => fifo_eol_cnt1
     );
 \fifo_pix_cnt_dly[12]_i_2\: unisim.vcomponents.LUT4
@@ -1842,82 +2015,46 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => vid_io_out_ce,
-      I1 => \fifo_pix_cnt_dly[12]_i_3_n_0\,
+      I1 => sof_ignore_i_2_n_0,
       I2 => \fifo_pix_cnt_dly1__11\,
       I3 => fifo_eol_re_dly,
-      O => fifo_pix_cnt_dly_0
+      O => fifo_pix_cnt_dly_1
     );
-\fifo_pix_cnt_dly[12]_i_3\: unisim.vcomponents.LUT5
+\fifo_pix_cnt_dly[12]_i_3\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFFEFFFF"
+      INIT => X"FFFFFFFFFFFFFFFE"
     )
         port map (
-      I0 => \fifo_pix_cnt_dly[12]_i_5_n_0\,
-      I1 => fifo_eol_cnt_reg(5),
-      I2 => fifo_eol_cnt_reg(4),
-      I3 => fifo_eol_cnt_reg(6),
-      I4 => \fifo_pix_cnt_dly[12]_i_6_n_0\,
-      O => \fifo_pix_cnt_dly[12]_i_3_n_0\
+      I0 => \fifo_pix_cnt_dly[12]_i_4_n_0\,
+      I1 => \fifo_pix_cnt_dly[12]_i_5_n_0\,
+      I2 => fifo_pix_cnt_dly(7),
+      I3 => fifo_pix_cnt_dly(6),
+      I4 => fifo_pix_cnt_dly(9),
+      I5 => fifo_pix_cnt_dly(8),
+      O => \fifo_pix_cnt_dly1__11\
     );
 \fifo_pix_cnt_dly[12]_i_4\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"FFFEFFFF"
+      INIT => X"FFFFFFFE"
     )
         port map (
-      I0 => \fifo_pix_cnt_dly[12]_i_7_n_0\,
-      I1 => fifo_pix_cnt_dly(5),
-      I2 => fifo_pix_cnt_dly(4),
-      I3 => fifo_pix_cnt_dly(6),
-      I4 => \fifo_pix_cnt_dly[12]_i_8_n_0\,
-      O => \fifo_pix_cnt_dly1__11\
+      I0 => fifo_pix_cnt_dly(1),
+      I1 => fifo_pix_cnt_dly(4),
+      I2 => fifo_pix_cnt_dly(5),
+      I3 => fifo_pix_cnt_dly(2),
+      I4 => fifo_pix_cnt_dly(3),
+      O => \fifo_pix_cnt_dly[12]_i_4_n_0\
     );
 \fifo_pix_cnt_dly[12]_i_5\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"FFFE"
     )
         port map (
-      I0 => fifo_eol_cnt_reg(1),
-      I1 => fifo_eol_cnt_reg(0),
-      I2 => fifo_eol_cnt_reg(3),
-      I3 => fifo_eol_cnt_reg(2),
-      O => \fifo_pix_cnt_dly[12]_i_5_n_0\
-    );
-\fifo_pix_cnt_dly[12]_i_6\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"0000000000000001"
-    )
-        port map (
-      I0 => fifo_eol_cnt_reg(11),
-      I1 => fifo_eol_cnt_reg(10),
-      I2 => fifo_eol_cnt_reg(12),
-      I3 => fifo_eol_cnt_reg(7),
-      I4 => fifo_eol_cnt_reg(8),
-      I5 => fifo_eol_cnt_reg(9),
-      O => \fifo_pix_cnt_dly[12]_i_6_n_0\
-    );
-\fifo_pix_cnt_dly[12]_i_7\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"FFFE"
-    )
-        port map (
-      I0 => fifo_pix_cnt_dly(1),
-      I1 => fifo_pix_cnt_dly(0),
-      I2 => fifo_pix_cnt_dly(3),
-      I3 => fifo_pix_cnt_dly(2),
-      O => \fifo_pix_cnt_dly[12]_i_7_n_0\
-    );
-\fifo_pix_cnt_dly[12]_i_8\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"0000000000000001"
-    )
-        port map (
       I0 => fifo_pix_cnt_dly(11),
       I1 => fifo_pix_cnt_dly(10),
-      I2 => fifo_pix_cnt_dly(12),
-      I3 => fifo_pix_cnt_dly(7),
-      I4 => fifo_pix_cnt_dly(8),
-      I5 => fifo_pix_cnt_dly(9),
-      O => \fifo_pix_cnt_dly[12]_i_8_n_0\
+      I2 => fifo_pix_cnt_dly(0),
+      I3 => fifo_pix_cnt_dly(12),
+      O => \fifo_pix_cnt_dly[12]_i_5_n_0\
     );
 \fifo_pix_cnt_dly_reg[0]\: unisim.vcomponents.FDRE
     generic map(
@@ -1925,7 +2062,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => fifo_pix_cnt_dly_0,
+      CE => fifo_pix_cnt_dly_1,
       D => fifo_pix_cnt_reg(0),
       Q => fifo_pix_cnt_dly(0),
       R => fifo_eol_cnt1
@@ -1936,7 +2073,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => fifo_pix_cnt_dly_0,
+      CE => fifo_pix_cnt_dly_1,
       D => fifo_pix_cnt_reg(10),
       Q => fifo_pix_cnt_dly(10),
       R => fifo_eol_cnt1
@@ -1947,7 +2084,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => fifo_pix_cnt_dly_0,
+      CE => fifo_pix_cnt_dly_1,
       D => fifo_pix_cnt_reg(11),
       Q => fifo_pix_cnt_dly(11),
       R => fifo_eol_cnt1
@@ -1958,7 +2095,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => fifo_pix_cnt_dly_0,
+      CE => fifo_pix_cnt_dly_1,
       D => fifo_pix_cnt_reg(12),
       Q => fifo_pix_cnt_dly(12),
       R => fifo_eol_cnt1
@@ -1969,7 +2106,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => fifo_pix_cnt_dly_0,
+      CE => fifo_pix_cnt_dly_1,
       D => fifo_pix_cnt_reg(1),
       Q => fifo_pix_cnt_dly(1),
       R => fifo_eol_cnt1
@@ -1980,7 +2117,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => fifo_pix_cnt_dly_0,
+      CE => fifo_pix_cnt_dly_1,
       D => fifo_pix_cnt_reg(2),
       Q => fifo_pix_cnt_dly(2),
       R => fifo_eol_cnt1
@@ -1991,7 +2128,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => fifo_pix_cnt_dly_0,
+      CE => fifo_pix_cnt_dly_1,
       D => fifo_pix_cnt_reg(3),
       Q => fifo_pix_cnt_dly(3),
       R => fifo_eol_cnt1
@@ -2002,7 +2139,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => fifo_pix_cnt_dly_0,
+      CE => fifo_pix_cnt_dly_1,
       D => fifo_pix_cnt_reg(4),
       Q => fifo_pix_cnt_dly(4),
       R => fifo_eol_cnt1
@@ -2013,7 +2150,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => fifo_pix_cnt_dly_0,
+      CE => fifo_pix_cnt_dly_1,
       D => fifo_pix_cnt_reg(5),
       Q => fifo_pix_cnt_dly(5),
       R => fifo_eol_cnt1
@@ -2024,7 +2161,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => fifo_pix_cnt_dly_0,
+      CE => fifo_pix_cnt_dly_1,
       D => fifo_pix_cnt_reg(6),
       Q => fifo_pix_cnt_dly(6),
       R => fifo_eol_cnt1
@@ -2035,7 +2172,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => fifo_pix_cnt_dly_0,
+      CE => fifo_pix_cnt_dly_1,
       D => fifo_pix_cnt_reg(7),
       Q => fifo_pix_cnt_dly(7),
       R => fifo_eol_cnt1
@@ -2046,7 +2183,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => fifo_pix_cnt_dly_0,
+      CE => fifo_pix_cnt_dly_1,
       D => fifo_pix_cnt_reg(8),
       Q => fifo_pix_cnt_dly(8),
       R => fifo_eol_cnt1
@@ -2057,7 +2194,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => fifo_pix_cnt_dly_0,
+      CE => fifo_pix_cnt_dly_1,
       D => fifo_pix_cnt_reg(9),
       Q => fifo_pix_cnt_dly(9),
       R => fifo_eol_cnt1
@@ -2068,7 +2205,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \fifo_pix_cnt[0]_i_2_n_0\,
+      CE => fifo_pix_cnt,
       D => \fifo_pix_cnt_reg[0]_i_3_n_7\,
       Q => fifo_pix_cnt_reg(0),
       R => \fifo_pix_cnt[0]_i_1_n_0\
@@ -2087,7 +2224,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
       O(1) => \fifo_pix_cnt_reg[0]_i_3_n_6\,
       O(0) => \fifo_pix_cnt_reg[0]_i_3_n_7\,
       S(3 downto 1) => fifo_pix_cnt_reg(3 downto 1),
-      S(0) => \fifo_pix_cnt[0]_i_4_n_0\
+      S(0) => \fifo_pix_cnt[0]_i_5_n_0\
     );
 \fifo_pix_cnt_reg[10]\: unisim.vcomponents.FDRE
     generic map(
@@ -2095,7 +2232,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \fifo_pix_cnt[0]_i_2_n_0\,
+      CE => fifo_pix_cnt,
       D => \fifo_pix_cnt_reg[8]_i_1_n_5\,
       Q => fifo_pix_cnt_reg(10),
       R => \fifo_pix_cnt[0]_i_1_n_0\
@@ -2106,7 +2243,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \fifo_pix_cnt[0]_i_2_n_0\,
+      CE => fifo_pix_cnt,
       D => \fifo_pix_cnt_reg[8]_i_1_n_4\,
       Q => fifo_pix_cnt_reg(11),
       R => \fifo_pix_cnt[0]_i_1_n_0\
@@ -2117,7 +2254,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \fifo_pix_cnt[0]_i_2_n_0\,
+      CE => fifo_pix_cnt,
       D => \fifo_pix_cnt_reg[12]_i_1_n_7\,
       Q => fifo_pix_cnt_reg(12),
       R => \fifo_pix_cnt[0]_i_1_n_0\
@@ -2139,7 +2276,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \fifo_pix_cnt[0]_i_2_n_0\,
+      CE => fifo_pix_cnt,
       D => \fifo_pix_cnt_reg[0]_i_3_n_6\,
       Q => fifo_pix_cnt_reg(1),
       R => \fifo_pix_cnt[0]_i_1_n_0\
@@ -2150,7 +2287,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \fifo_pix_cnt[0]_i_2_n_0\,
+      CE => fifo_pix_cnt,
       D => \fifo_pix_cnt_reg[0]_i_3_n_5\,
       Q => fifo_pix_cnt_reg(2),
       R => \fifo_pix_cnt[0]_i_1_n_0\
@@ -2161,7 +2298,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \fifo_pix_cnt[0]_i_2_n_0\,
+      CE => fifo_pix_cnt,
       D => \fifo_pix_cnt_reg[0]_i_3_n_4\,
       Q => fifo_pix_cnt_reg(3),
       R => \fifo_pix_cnt[0]_i_1_n_0\
@@ -2172,7 +2309,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \fifo_pix_cnt[0]_i_2_n_0\,
+      CE => fifo_pix_cnt,
       D => \fifo_pix_cnt_reg[4]_i_1_n_7\,
       Q => fifo_pix_cnt_reg(4),
       R => \fifo_pix_cnt[0]_i_1_n_0\
@@ -2198,7 +2335,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \fifo_pix_cnt[0]_i_2_n_0\,
+      CE => fifo_pix_cnt,
       D => \fifo_pix_cnt_reg[4]_i_1_n_6\,
       Q => fifo_pix_cnt_reg(5),
       R => \fifo_pix_cnt[0]_i_1_n_0\
@@ -2209,7 +2346,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \fifo_pix_cnt[0]_i_2_n_0\,
+      CE => fifo_pix_cnt,
       D => \fifo_pix_cnt_reg[4]_i_1_n_5\,
       Q => fifo_pix_cnt_reg(6),
       R => \fifo_pix_cnt[0]_i_1_n_0\
@@ -2220,7 +2357,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \fifo_pix_cnt[0]_i_2_n_0\,
+      CE => fifo_pix_cnt,
       D => \fifo_pix_cnt_reg[4]_i_1_n_4\,
       Q => fifo_pix_cnt_reg(7),
       R => \fifo_pix_cnt[0]_i_1_n_0\
@@ -2231,7 +2368,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \fifo_pix_cnt[0]_i_2_n_0\,
+      CE => fifo_pix_cnt,
       D => \fifo_pix_cnt_reg[8]_i_1_n_7\,
       Q => fifo_pix_cnt_reg(8),
       R => \fifo_pix_cnt[0]_i_1_n_0\
@@ -2257,7 +2394,7 @@ fifo_eol_re_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \fifo_pix_cnt[0]_i_2_n_0\,
+      CE => fifo_pix_cnt,
       D => \fifo_pix_cnt_reg[8]_i_1_n_6\,
       Q => fifo_pix_cnt_reg(9),
       R => \fifo_pix_cnt[0]_i_1_n_0\
@@ -2355,7 +2492,7 @@ fifo_pix_error_i_1: unisim.vcomponents.LUT5
     )
         port map (
       I0 => vid_io_out_ce,
-      I1 => \^fifo_sof_dly\,
+      I1 => fifo_sof_dly,
       I2 => dout(1),
       I3 => fifo_pix_error0,
       I4 => fifo_pix_error,
@@ -2366,9 +2503,9 @@ fifo_pix_error_i_2: unisim.vcomponents.LUT3
       INIT => X"80"
     )
         port map (
-      I0 => fifo_pix_error1,
-      I1 => fifo_eol_re_dly,
-      I2 => \fifo_pix_cnt_dly1__11\,
+      I0 => fifo_eol_re_dly,
+      I1 => \fifo_pix_cnt_dly1__11\,
+      I2 => fifo_pix_error1,
       O => fifo_pix_error0
     );
 fifo_pix_error_reg: unisim.vcomponents.FDRE
@@ -2387,7 +2524,7 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
       INIT => X"1"
     )
         port map (
-      I0 => \fifo_sof_cnt_reg__0\(0),
+      I0 => fifo_sof_cnt_reg(0),
       O => \p_0_in__0\(0)
     );
 \fifo_sof_cnt[1]_i_1\: unisim.vcomponents.LUT2
@@ -2395,8 +2532,8 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
       INIT => X"6"
     )
         port map (
-      I0 => \fifo_sof_cnt_reg__0\(0),
-      I1 => \fifo_sof_cnt_reg__0\(1),
+      I0 => fifo_sof_cnt_reg(0),
+      I1 => fifo_sof_cnt_reg(1),
       O => \p_0_in__0\(1)
     );
 \fifo_sof_cnt[2]_i_1\: unisim.vcomponents.LUT3
@@ -2404,9 +2541,9 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
       INIT => X"78"
     )
         port map (
-      I0 => \fifo_sof_cnt_reg__0\(0),
-      I1 => \fifo_sof_cnt_reg__0\(1),
-      I2 => \fifo_sof_cnt_reg__0\(2),
+      I0 => fifo_sof_cnt_reg(0),
+      I1 => fifo_sof_cnt_reg(1),
+      I2 => fifo_sof_cnt_reg(2),
       O => \p_0_in__0\(2)
     );
 \fifo_sof_cnt[3]_i_1\: unisim.vcomponents.LUT4
@@ -2414,10 +2551,10 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
       INIT => X"7F80"
     )
         port map (
-      I0 => \fifo_sof_cnt_reg__0\(1),
-      I1 => \fifo_sof_cnt_reg__0\(0),
-      I2 => \fifo_sof_cnt_reg__0\(2),
-      I3 => \fifo_sof_cnt_reg__0\(3),
+      I0 => fifo_sof_cnt_reg(1),
+      I1 => fifo_sof_cnt_reg(0),
+      I2 => fifo_sof_cnt_reg(2),
+      I3 => fifo_sof_cnt_reg(3),
       O => \p_0_in__0\(3)
     );
 \fifo_sof_cnt[4]_i_1\: unisim.vcomponents.LUT5
@@ -2425,11 +2562,11 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
       INIT => X"7FFF8000"
     )
         port map (
-      I0 => \fifo_sof_cnt_reg__0\(2),
-      I1 => \fifo_sof_cnt_reg__0\(0),
-      I2 => \fifo_sof_cnt_reg__0\(1),
-      I3 => \fifo_sof_cnt_reg__0\(3),
-      I4 => \fifo_sof_cnt_reg__0\(4),
+      I0 => fifo_sof_cnt_reg(2),
+      I1 => fifo_sof_cnt_reg(0),
+      I2 => fifo_sof_cnt_reg(1),
+      I3 => fifo_sof_cnt_reg(3),
+      I4 => fifo_sof_cnt_reg(4),
       O => \p_0_in__0\(4)
     );
 \fifo_sof_cnt[5]_i_1\: unisim.vcomponents.LUT6
@@ -2437,22 +2574,35 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
       INIT => X"7FFFFFFF80000000"
     )
         port map (
-      I0 => \fifo_sof_cnt_reg__0\(3),
-      I1 => \fifo_sof_cnt_reg__0\(1),
-      I2 => \fifo_sof_cnt_reg__0\(0),
-      I3 => \fifo_sof_cnt_reg__0\(2),
-      I4 => \fifo_sof_cnt_reg__0\(4),
-      I5 => \fifo_sof_cnt_reg__0\(5),
+      I0 => fifo_sof_cnt_reg(3),
+      I1 => fifo_sof_cnt_reg(1),
+      I2 => fifo_sof_cnt_reg(0),
+      I3 => fifo_sof_cnt_reg(2),
+      I4 => fifo_sof_cnt_reg(4),
+      I5 => fifo_sof_cnt_reg(5),
       O => \p_0_in__0\(5)
     );
-\fifo_sof_cnt[6]_i_1\: unisim.vcomponents.LUT2
+\fifo_sof_cnt[6]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"6"
+      INIT => X"7FFFFFFF80000000"
     )
         port map (
-      I0 => \fifo_sof_cnt[7]_i_2_n_0\,
-      I1 => \fifo_sof_cnt_reg__0\(6),
+      I0 => fifo_sof_cnt_reg(4),
+      I1 => fifo_sof_cnt_reg(2),
+      I2 => \fifo_sof_cnt[6]_i_2_n_0\,
+      I3 => fifo_sof_cnt_reg(3),
+      I4 => fifo_sof_cnt_reg(5),
+      I5 => fifo_sof_cnt_reg(6),
       O => \p_0_in__0\(6)
+    );
+\fifo_sof_cnt[6]_i_2\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => fifo_sof_cnt_reg(1),
+      I1 => fifo_sof_cnt_reg(0),
+      O => \fifo_sof_cnt[6]_i_2_n_0\
     );
 \fifo_sof_cnt[7]_i_1\: unisim.vcomponents.LUT3
     generic map(
@@ -2460,8 +2610,8 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \fifo_sof_cnt[7]_i_2_n_0\,
-      I1 => \fifo_sof_cnt_reg__0\(6),
-      I2 => \fifo_sof_cnt_reg__0\(7),
+      I1 => fifo_sof_cnt_reg(6),
+      I2 => fifo_sof_cnt_reg(7),
       O => \p_0_in__0\(7)
     );
 \fifo_sof_cnt[7]_i_2\: unisim.vcomponents.LUT6
@@ -2469,12 +2619,12 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
       INIT => X"8000000000000000"
     )
         port map (
-      I0 => \fifo_sof_cnt_reg__0\(5),
-      I1 => \fifo_sof_cnt_reg__0\(3),
-      I2 => \fifo_sof_cnt_reg__0\(1),
-      I3 => \fifo_sof_cnt_reg__0\(0),
-      I4 => \fifo_sof_cnt_reg__0\(2),
-      I5 => \fifo_sof_cnt_reg__0\(4),
+      I0 => fifo_sof_cnt_reg(5),
+      I1 => fifo_sof_cnt_reg(3),
+      I2 => fifo_sof_cnt_reg(1),
+      I3 => fifo_sof_cnt_reg(0),
+      I4 => fifo_sof_cnt_reg(2),
+      I5 => fifo_sof_cnt_reg(4),
       O => \fifo_sof_cnt[7]_i_2_n_0\
     );
 \fifo_sof_cnt_reg[0]\: unisim.vcomponents.FDRE
@@ -2483,9 +2633,9 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => \p_0_in__0\(0),
-      Q => \fifo_sof_cnt_reg__0\(0),
+      Q => fifo_sof_cnt_reg(0),
       R => vtg_sof_cnt0
     );
 \fifo_sof_cnt_reg[1]\: unisim.vcomponents.FDRE
@@ -2494,9 +2644,9 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => \p_0_in__0\(1),
-      Q => \fifo_sof_cnt_reg__0\(1),
+      Q => fifo_sof_cnt_reg(1),
       R => vtg_sof_cnt0
     );
 \fifo_sof_cnt_reg[2]\: unisim.vcomponents.FDRE
@@ -2505,9 +2655,9 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => \p_0_in__0\(2),
-      Q => \fifo_sof_cnt_reg__0\(2),
+      Q => fifo_sof_cnt_reg(2),
       R => vtg_sof_cnt0
     );
 \fifo_sof_cnt_reg[3]\: unisim.vcomponents.FDRE
@@ -2516,9 +2666,9 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => \p_0_in__0\(3),
-      Q => \fifo_sof_cnt_reg__0\(3),
+      Q => fifo_sof_cnt_reg(3),
       R => vtg_sof_cnt0
     );
 \fifo_sof_cnt_reg[4]\: unisim.vcomponents.FDRE
@@ -2527,9 +2677,9 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => \p_0_in__0\(4),
-      Q => \fifo_sof_cnt_reg__0\(4),
+      Q => fifo_sof_cnt_reg(4),
       R => vtg_sof_cnt0
     );
 \fifo_sof_cnt_reg[5]\: unisim.vcomponents.FDRE
@@ -2538,9 +2688,9 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => \p_0_in__0\(5),
-      Q => \fifo_sof_cnt_reg__0\(5),
+      Q => fifo_sof_cnt_reg(5),
       R => vtg_sof_cnt0
     );
 \fifo_sof_cnt_reg[6]\: unisim.vcomponents.FDRE
@@ -2549,9 +2699,9 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => \p_0_in__0\(6),
-      Q => \fifo_sof_cnt_reg__0\(6),
+      Q => fifo_sof_cnt_reg(6),
       R => vtg_sof_cnt0
     );
 \fifo_sof_cnt_reg[7]\: unisim.vcomponents.FDRE
@@ -2560,9 +2710,9 @@ fifo_pix_error_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => E(0),
+      CE => fifo_sof_cnt,
       D => \p_0_in__0\(7),
-      Q => \fifo_sof_cnt_reg__0\(7),
+      Q => fifo_sof_cnt_reg(7),
       R => vtg_sof_cnt0
     );
 fifo_sof_dly_reg: unisim.vcomponents.FDRE
@@ -2573,83 +2723,98 @@ fifo_sof_dly_reg: unisim.vcomponents.FDRE
       C => vid_io_out_clk,
       CE => vid_io_out_ce,
       D => dout(1),
-      Q => \^fifo_sof_dly\,
+      Q => fifo_sof_dly,
       R => vid_io_out_reset
     );
-\gnuram_async_fifo.xpm_fifo_base_inst_i_2\: unisim.vcomponents.LUT6
+\in_data_mux[23]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAA8AA8B00000000"
+      INIT => X"AAAAAA0E00000000"
     )
         port map (
       I0 => vtg_active_video,
-      I1 => state_reg(3),
-      I2 => state(1),
-      I3 => state(2),
-      I4 => state(0),
+      I1 => state(0),
+      I2 => state(2),
+      I3 => state(3),
+      I4 => state(1),
       I5 => vid_io_out_ce,
-      O => \^rd_en\
+      O => E(0)
     );
-in_de_mux_i_1: unisim.vcomponents.LUT6
+\in_de_mux[0]_i_1\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"FFFFFEFFFFFFFFFF"
+      INIT => X"DF"
     )
         port map (
-      I0 => state(2),
-      I1 => state(1),
-      I2 => state(0),
-      I3 => state_reg(3),
-      I4 => vid_io_out_reset,
-      I5 => fivid_reset_full_frame,
-      O => \in_data_mux_reg[0]\
+      I0 => \^src_in\,
+      I1 => vid_io_out_reset,
+      I2 => fivid_reset_full_frame,
+      O => SR(0)
     );
-locked_INST_0: unisim.vcomponents.LUT4
+locked_i_1: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"0100"
+      INIT => X"0800"
     )
         port map (
-      I0 => state(2),
-      I1 => state(1),
-      I2 => state(0),
-      I3 => state_reg(3),
-      O => \^locked\
+      I0 => state(0),
+      I1 => state(3),
+      I2 => state(2),
+      I3 => state(1),
+      O => locked_i_1_n_0
     );
-\next_state1_inferred__0/FSM_sequential_state[1]_i_10\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"0000000000000111"
-    )
-        port map (
-      I0 => rd_data_count(5),
-      I1 => rd_data_count(4),
-      I2 => rd_data_count(0),
-      I3 => rd_data_count(1),
-      I4 => rd_data_count(2),
-      I5 => rd_data_count(3),
-      O => \^fsm_sequential_state_reg[1]_0\
-    );
-\next_state1_inferred__0/FSM_sequential_state[1]_i_6\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"FFFFFFFFFFFFFFFD"
-    )
-        port map (
-      I0 => \^fsm_sequential_state_reg[1]_0\,
-      I1 => rd_data_count(8),
-      I2 => rd_data_count(7),
-      I3 => rd_data_count(6),
-      I4 => rd_data_count(10),
-      I5 => rd_data_count(9),
-      O => \next_state1_inferred__0/FSM_sequential_state[1]_i_6_n_0\
+locked_reg: unisim.vcomponents.FDRE
+     port map (
+      C => vid_io_out_clk,
+      CE => '1',
+      D => locked_i_1_n_0,
+      Q => \^src_in\,
+      R => '0'
     );
 sof_ignore_i_1: unisim.vcomponents.LUT5
     generic map(
       INIT => X"FFFFDF00"
     )
         port map (
-      I0 => \fifo_pix_cnt_dly[12]_i_3_n_0\,
+      I0 => vid_io_out_ce,
       I1 => dout(2),
-      I2 => vid_io_out_ce,
+      I2 => sof_ignore_i_2_n_0,
       I3 => sof_ignore,
       I4 => sof_ignore0,
       O => sof_ignore_i_1_n_0
+    );
+sof_ignore_i_2: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"FFFFFFFFFFFFFFFE"
+    )
+        port map (
+      I0 => sof_ignore_i_3_n_0,
+      I1 => sof_ignore_i_4_n_0,
+      I2 => fifo_eol_cnt_reg(7),
+      I3 => fifo_eol_cnt_reg(6),
+      I4 => fifo_eol_cnt_reg(9),
+      I5 => fifo_eol_cnt_reg(8),
+      O => sof_ignore_i_2_n_0
+    );
+sof_ignore_i_3: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"FFFFFFFE"
+    )
+        port map (
+      I0 => fifo_eol_cnt_reg(1),
+      I1 => fifo_eol_cnt_reg(4),
+      I2 => fifo_eol_cnt_reg(5),
+      I3 => fifo_eol_cnt_reg(2),
+      I4 => fifo_eol_cnt_reg(3),
+      O => sof_ignore_i_3_n_0
+    );
+sof_ignore_i_4: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"FFFE"
+    )
+        port map (
+      I0 => fifo_eol_cnt_reg(11),
+      I1 => fifo_eol_cnt_reg(10),
+      I2 => fifo_eol_cnt_reg(0),
+      I3 => fifo_eol_cnt_reg(12),
+      O => sof_ignore_i_4_n_0
     );
 sof_ignore_reg: unisim.vcomponents.FDRE
     generic map(
@@ -2664,21 +2829,21 @@ sof_ignore_reg: unisim.vcomponents.FDRE
     );
 \state_dly[0]_i_1\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"1D18"
+      INIT => X"F4C3"
     )
         port map (
-      I0 => state_reg(3),
-      I1 => state(0),
+      I0 => state(1),
+      I1 => state(3),
       I2 => state(2),
-      I3 => state(1),
+      I3 => state(0),
       O => state_reg(0)
     );
 \state_dly[1]_i_1\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"4D18"
+      INIT => X"401F"
     )
         port map (
-      I0 => state_reg(3),
+      I0 => state(3),
       I1 => state(1),
       I2 => state(2),
       I3 => state(0),
@@ -2686,13 +2851,13 @@ sof_ignore_reg: unisim.vcomponents.FDRE
     );
 \state_dly[2]_i_1\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"DCC8"
+      INIT => X"1708"
     )
         port map (
-      I0 => state_reg(3),
-      I1 => state(2),
-      I2 => state(1),
-      I3 => state(0),
+      I0 => state(3),
+      I1 => state(0),
+      I2 => state(2),
+      I3 => state(1),
       O => state_reg(2)
     );
 \state_dly[3]_i_1\: unisim.vcomponents.LUT2
@@ -2702,7 +2867,18 @@ sof_ignore_reg: unisim.vcomponents.FDRE
         port map (
       I0 => vid_io_out_ce,
       I1 => vid_io_out_reset,
-      O => \state_dly[3]_i_1_n_0\
+      O => state_dly_0
+    );
+\state_dly[3]_i_2\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"F8C4"
+    )
+        port map (
+      I0 => state(0),
+      I1 => state(3),
+      I2 => state(2),
+      I3 => state(1),
+      O => state_reg(3)
     );
 \state_dly_reg[0]\: unisim.vcomponents.FDRE
     generic map(
@@ -2710,7 +2886,7 @@ sof_ignore_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \state_dly[3]_i_1_n_0\,
+      CE => state_dly_0,
       D => state_reg(0),
       Q => state_dly(0),
       R => '0'
@@ -2721,7 +2897,7 @@ sof_ignore_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \state_dly[3]_i_1_n_0\,
+      CE => state_dly_0,
       D => state_reg(1),
       Q => state_dly(1),
       R => '0'
@@ -2732,7 +2908,7 @@ sof_ignore_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \state_dly[3]_i_1_n_0\,
+      CE => state_dly_0,
       D => state_reg(2),
       Q => state_dly(2),
       R => '0'
@@ -2743,282 +2919,318 @@ sof_ignore_reg: unisim.vcomponents.FDRE
     )
         port map (
       C => vid_io_out_clk,
-      CE => \state_dly[3]_i_1_n_0\,
+      CE => state_dly_0,
       D => state_reg(3),
       Q => state_dly(3),
       R => '0'
     );
-\status_reg[0]_i_1\: unisim.vcomponents.LUT4
+\status_reg[0]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FF80"
+      INIT => X"FFFFFFFF00080000"
     )
         port map (
       I0 => vid_io_out_ce,
-      I1 => status_reg(0),
-      I2 => status_reg1,
-      I3 => \^status\(0),
+      I1 => status_reg1,
+      I2 => state(3),
+      I3 => state(2),
+      I4 => \status_reg[0]_i_2_n_0\,
+      I5 => \^status\(0),
       O => \status_reg[0]_i_1_n_0\
     );
-\status_reg[0]_i_2\: unisim.vcomponents.LUT4
+\status_reg[0]_i_2\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"0001"
+      INIT => X"2"
     )
         port map (
-      I0 => state(2),
+      I0 => state(0),
       I1 => state(1),
-      I2 => state(0),
-      I3 => state_reg(3),
-      O => status_reg(0)
+      O => \status_reg[0]_i_2_n_0\
     );
-\status_reg[10]_i_1\: unisim.vcomponents.LUT4
+\status_reg[10]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FF80"
+      INIT => X"0002FFFF00020000"
+    )
+        port map (
+      I0 => state(3),
+      I1 => state(2),
+      I2 => state(1),
+      I3 => state(0),
+      I4 => \status_reg[10]_i_2_n_0\,
+      I5 => \^status\(10),
+      O => \status_reg[10]_i_1_n_0\
+    );
+\status_reg[10]_i_2\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"0000000000080000"
     )
         port map (
       I0 => vid_io_out_ce,
-      I1 => status_reg(10),
-      I2 => status_reg1,
-      I3 => \^status\(10),
-      O => \status_reg[10]_i_1_n_0\
-    );
-\status_reg[10]_i_2\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"0400"
-    )
-        port map (
-      I0 => state(2),
-      I1 => state(1),
-      I2 => state(0),
-      I3 => state_reg(3),
-      O => status_reg(10)
+      I1 => status_reg1,
+      I2 => state(2),
+      I3 => state(0),
+      I4 => state(3),
+      I5 => state(1),
+      O => \status_reg[10]_i_2_n_0\
     );
 \status_reg[11]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFFFFFFF20000000"
+      INIT => X"FFFFFFFF00000080"
     )
         port map (
       I0 => vid_io_out_ce,
-      I1 => state(2),
-      I2 => \status_reg[11]_i_2_n_0\,
-      I3 => state_reg(3),
-      I4 => status_reg1,
+      I1 => status_reg1,
+      I2 => state(2),
+      I3 => state(3),
+      I4 => \status_reg[11]_i_3_n_0\,
       I5 => \^status\(11),
       O => \status_reg[11]_i_1_n_0\
     );
-\status_reg[11]_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => state(1),
-      I1 => state(0),
-      O => \status_reg[11]_i_2_n_0\
-    );
-\status_reg[12]_i_1\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"FFFF8000"
-    )
-        port map (
-      I0 => vid_io_out_ce,
-      I1 => state(2),
-      I2 => state_reg(3),
-      I3 => status_reg1,
-      I4 => \^status\(12),
-      O => \status_reg[12]_i_1_n_0\
-    );
-\status_reg[12]_i_2\: unisim.vcomponents.LUT5
+\status_reg[11]_i_2\: unisim.vcomponents.LUT5
     generic map(
       INIT => X"F6FFFFF6"
     )
         port map (
       I0 => state_dly(3),
       I1 => state_reg(3),
-      I2 => \status_reg[12]_i_3_n_0\,
+      I2 => \status_reg[11]_i_4_n_0\,
       I3 => state_reg(0),
       I4 => state_dly(0),
       O => status_reg1
     );
-\status_reg[12]_i_3\: unisim.vcomponents.LUT6
+\status_reg[11]_i_3\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"B7D7BBEDBBDEBDEE"
+      INIT => X"7"
+    )
+        port map (
+      I0 => state(1),
+      I1 => state(0),
+      O => \status_reg[11]_i_3_n_0\
+    );
+\status_reg[11]_i_4\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"EDEBEB77EEEDBEDD"
     )
         port map (
       I0 => state_dly(1),
       I1 => state_dly(2),
-      I2 => state_reg(3),
-      I3 => state(2),
-      I4 => state(1),
-      I5 => state(0),
-      O => \status_reg[12]_i_3_n_0\
+      I2 => state(3),
+      I3 => state(0),
+      I4 => state(2),
+      I5 => state(1),
+      O => \status_reg[11]_i_4_n_0\
     );
-\status_reg[1]_i_1\: unisim.vcomponents.LUT4
+\status_reg[12]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FF80"
+      INIT => X"0020FFFF00200000"
+    )
+        port map (
+      I0 => state(1),
+      I1 => state(0),
+      I2 => state(2),
+      I3 => state(3),
+      I4 => \status_reg[12]_i_2_n_0\,
+      I5 => \^status\(12),
+      O => \status_reg[12]_i_1_n_0\
+    );
+\status_reg[12]_i_2\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"0000000000008000"
     )
         port map (
       I0 => vid_io_out_ce,
-      I1 => status_reg(1),
-      I2 => status_reg1,
-      I3 => \^status\(1),
+      I1 => status_reg1,
+      I2 => state(1),
+      I3 => state(2),
+      I4 => state(3),
+      I5 => state(0),
+      O => \status_reg[12]_i_2_n_0\
+    );
+\status_reg[1]_i_1\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"0020FFFF00200000"
+    )
+        port map (
+      I0 => state(0),
+      I1 => state(1),
+      I2 => state(2),
+      I3 => state(3),
+      I4 => \status_reg[1]_i_2_n_0\,
+      I5 => \^status\(1),
       O => \status_reg[1]_i_1_n_0\
     );
-\status_reg[1]_i_2\: unisim.vcomponents.LUT4
+\status_reg[1]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0004"
-    )
-        port map (
-      I0 => state(2),
-      I1 => state(1),
-      I2 => state(0),
-      I3 => state_reg(3),
-      O => status_reg(1)
-    );
-\status_reg[2]_i_1\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"FF80"
+      INIT => X"0008000000000000"
     )
         port map (
       I0 => vid_io_out_ce,
-      I1 => status_reg(2),
-      I2 => status_reg1,
-      I3 => \^status\(2),
+      I1 => status_reg1,
+      I2 => state(3),
+      I3 => state(1),
+      I4 => state(0),
+      I5 => state(2),
+      O => \status_reg[1]_i_2_n_0\
+    );
+\status_reg[2]_i_1\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"0010FFFF00100000"
+    )
+        port map (
+      I0 => state(1),
+      I1 => state(0),
+      I2 => state(2),
+      I3 => state(3),
+      I4 => \status_reg[2]_i_2_n_0\,
+      I5 => \^status\(2),
       O => \status_reg[2]_i_1_n_0\
     );
-\status_reg[2]_i_2\: unisim.vcomponents.LUT4
+\status_reg[2]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0004"
-    )
-        port map (
-      I0 => state(2),
-      I1 => state(0),
-      I2 => state(1),
-      I3 => state_reg(3),
-      O => status_reg(2)
-    );
-\status_reg[3]_i_1\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"FF80"
+      INIT => X"0000000000080000"
     )
         port map (
       I0 => vid_io_out_ce,
-      I1 => fifo_force_rd,
-      I2 => status_reg1,
-      I3 => \^status\(3),
+      I1 => status_reg1,
+      I2 => state(3),
+      I3 => state(0),
+      I4 => state(2),
+      I5 => state(1),
+      O => \status_reg[2]_i_2_n_0\
+    );
+\status_reg[3]_i_1\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"FFFFFFFF00080000"
+    )
+        port map (
+      I0 => vid_io_out_ce,
+      I1 => status_reg1,
+      I2 => state(3),
+      I3 => state(2),
+      I4 => \status_reg[9]_i_2_n_0\,
+      I5 => \^status\(3),
       O => \status_reg[3]_i_1_n_0\
     );
-\status_reg[3]_i_2\: unisim.vcomponents.LUT4
+\status_reg[4]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0002"
-    )
-        port map (
-      I0 => state(2),
-      I1 => state(1),
-      I2 => state(0),
-      I3 => state_reg(3),
-      O => fifo_force_rd
-    );
-\status_reg[4]_i_1\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"FF80"
+      INIT => X"FFFFFFFF00000008"
     )
         port map (
       I0 => vid_io_out_ce,
-      I1 => status_reg(4),
-      I2 => status_reg1,
-      I3 => \^status\(4),
+      I1 => status_reg1,
+      I2 => state(3),
+      I3 => state(2),
+      I4 => \status_reg[11]_i_3_n_0\,
+      I5 => \^status\(4),
       O => \status_reg[4]_i_1_n_0\
     );
-\status_reg[4]_i_2\: unisim.vcomponents.LUT4
+\status_reg[5]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0008"
+      INIT => X"0020FFFF00200000"
     )
         port map (
-      I0 => state(2),
-      I1 => state(0),
-      I2 => state(1),
-      I3 => state_reg(3),
-      O => status_reg(4)
+      I0 => state(3),
+      I1 => state(2),
+      I2 => state(0),
+      I3 => state(1),
+      I4 => \status_reg[5]_i_2_n_0\,
+      I5 => \^status\(5),
+      O => \status_reg[5]_i_1_n_0\
     );
-\status_reg[5]_i_1\: unisim.vcomponents.LUT4
+\status_reg[5]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FF80"
+      INIT => X"0008000000000000"
     )
         port map (
       I0 => vid_io_out_ce,
-      I1 => status_reg(5),
-      I2 => status_reg1,
-      I3 => \^status\(5),
-      O => \status_reg[5]_i_1_n_0\
-    );
-\status_reg[5]_i_2\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"0008"
-    )
-        port map (
-      I0 => state(2),
-      I1 => state(1),
-      I2 => state(0),
-      I3 => state_reg(3),
-      O => status_reg(5)
+      I1 => status_reg1,
+      I2 => state(1),
+      I3 => state(2),
+      I4 => state(0),
+      I5 => state(3),
+      O => \status_reg[5]_i_2_n_0\
     );
 \status_reg[6]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFFFFFFF00800000"
+      INIT => X"0020FFFF00200000"
     )
         port map (
-      I0 => vid_io_out_ce,
+      I0 => state(3),
       I1 => state(2),
-      I2 => \status_reg[11]_i_2_n_0\,
-      I3 => state_reg(3),
-      I4 => status_reg1,
+      I2 => state(1),
+      I3 => state(0),
+      I4 => \status_reg[6]_i_2_n_0\,
       I5 => \^status\(6),
       O => \status_reg[6]_i_1_n_0\
     );
-\status_reg[7]_i_1\: unisim.vcomponents.LUT6
+\status_reg[6]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFFFFFFF00200000"
+      INIT => X"0008000000000000"
     )
         port map (
       I0 => vid_io_out_ce,
-      I1 => state(2),
-      I2 => \status_reg[11]_i_2_n_0\,
-      I3 => state_reg(3),
-      I4 => status_reg1,
+      I1 => status_reg1,
+      I2 => state(0),
+      I3 => state(2),
+      I4 => state(1),
+      I5 => state(3),
+      O => \status_reg[6]_i_2_n_0\
+    );
+\status_reg[7]_i_1\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"FFFFFFFF00080000"
+    )
+        port map (
+      I0 => vid_io_out_ce,
+      I1 => status_reg1,
+      I2 => state(3),
+      I3 => state(2),
+      I4 => \status_reg[7]_i_2_n_0\,
       I5 => \^status\(7),
       O => \status_reg[7]_i_1_n_0\
     );
-\status_reg[8]_i_1\: unisim.vcomponents.LUT4
+\status_reg[7]_i_2\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"FF80"
+      INIT => X"2"
+    )
+        port map (
+      I0 => state(1),
+      I1 => state(0),
+      O => \status_reg[7]_i_2_n_0\
+    );
+\status_reg[8]_i_1\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"FFFFFFFF00000800"
     )
         port map (
       I0 => vid_io_out_ce,
-      I1 => \^locked\,
-      I2 => status_reg1,
-      I3 => \^status\(8),
+      I1 => status_reg1,
+      I2 => state(2),
+      I3 => state(3),
+      I4 => \status_reg[11]_i_3_n_0\,
+      I5 => \^status\(8),
       O => \status_reg[8]_i_1_n_0\
     );
-\status_reg[9]_i_1\: unisim.vcomponents.LUT4
+\status_reg[9]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FF80"
+      INIT => X"FFFFFFFF80000000"
     )
         port map (
       I0 => vid_io_out_ce,
-      I1 => status_reg(9),
-      I2 => status_reg1,
-      I3 => \^status\(9),
+      I1 => status_reg1,
+      I2 => \status_reg[9]_i_2_n_0\,
+      I3 => state(3),
+      I4 => state(2),
+      I5 => \^status\(9),
       O => \status_reg[9]_i_1_n_0\
     );
-\status_reg[9]_i_2\: unisim.vcomponents.LUT4
+\status_reg[9]_i_2\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"0400"
+      INIT => X"1"
     )
         port map (
-      I0 => state(2),
+      I0 => state(1),
       I1 => state(0),
-      I2 => state(1),
-      I3 => state_reg(3),
-      O => status_reg(9)
+      O => \status_reg[9]_i_2_n_0\
     );
 \status_reg_reg[0]\: unisim.vcomponents.FDRE
     generic map(
@@ -3330,25 +3542,26 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
     );
 \vtg_lag[0]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"AAAAAAAB"
+      INIT => X"AAABAAAA"
     )
         port map (
       I0 => vid_io_out_reset,
-      I1 => state_reg(3),
-      I2 => state(0),
-      I3 => state(1),
-      I4 => state(2),
+      I1 => state(3),
+      I2 => state(1),
+      I3 => state(2),
+      I4 => state(0),
       O => sof_ignore0
     );
-\vtg_lag[0]_i_2\: unisim.vcomponents.LUT4
+\vtg_lag[0]_i_2\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"0008"
+      INIT => X"00200002"
     )
         port map (
       I0 => vid_io_out_ce,
-      I1 => state(2),
-      I2 => state(0),
-      I3 => state_reg(3),
+      I1 => state(1),
+      I2 => state(3),
+      I3 => state(2),
+      I4 => state(0),
       O => vtg_lag
     );
 \vtg_lag[0]_i_4\: unisim.vcomponents.LUT1
@@ -3837,7 +4050,7 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       INIT => X"1"
     )
         port map (
-      I0 => \vtg_sof_cnt_reg__0\(0),
+      I0 => vtg_sof_cnt_reg(0),
       O => p_0_in(0)
     );
 \vtg_sof_cnt[1]_i_1\: unisim.vcomponents.LUT2
@@ -3845,8 +4058,8 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       INIT => X"6"
     )
         port map (
-      I0 => \vtg_sof_cnt_reg__0\(0),
-      I1 => \vtg_sof_cnt_reg__0\(1),
+      I0 => vtg_sof_cnt_reg(0),
+      I1 => vtg_sof_cnt_reg(1),
       O => p_0_in(1)
     );
 \vtg_sof_cnt[2]_i_1\: unisim.vcomponents.LUT3
@@ -3854,9 +4067,9 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       INIT => X"78"
     )
         port map (
-      I0 => \vtg_sof_cnt_reg__0\(0),
-      I1 => \vtg_sof_cnt_reg__0\(1),
-      I2 => \vtg_sof_cnt_reg__0\(2),
+      I0 => vtg_sof_cnt_reg(0),
+      I1 => vtg_sof_cnt_reg(1),
+      I2 => vtg_sof_cnt_reg(2),
       O => p_0_in(2)
     );
 \vtg_sof_cnt[3]_i_1\: unisim.vcomponents.LUT4
@@ -3864,10 +4077,10 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       INIT => X"7F80"
     )
         port map (
-      I0 => \vtg_sof_cnt_reg__0\(1),
-      I1 => \vtg_sof_cnt_reg__0\(0),
-      I2 => \vtg_sof_cnt_reg__0\(2),
-      I3 => \vtg_sof_cnt_reg__0\(3),
+      I0 => vtg_sof_cnt_reg(1),
+      I1 => vtg_sof_cnt_reg(0),
+      I2 => vtg_sof_cnt_reg(2),
+      I3 => vtg_sof_cnt_reg(3),
       O => p_0_in(3)
     );
 \vtg_sof_cnt[4]_i_1\: unisim.vcomponents.LUT5
@@ -3875,11 +4088,11 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       INIT => X"7FFF8000"
     )
         port map (
-      I0 => \vtg_sof_cnt_reg__0\(2),
-      I1 => \vtg_sof_cnt_reg__0\(0),
-      I2 => \vtg_sof_cnt_reg__0\(1),
-      I3 => \vtg_sof_cnt_reg__0\(3),
-      I4 => \vtg_sof_cnt_reg__0\(4),
+      I0 => vtg_sof_cnt_reg(2),
+      I1 => vtg_sof_cnt_reg(0),
+      I2 => vtg_sof_cnt_reg(1),
+      I3 => vtg_sof_cnt_reg(3),
+      I4 => vtg_sof_cnt_reg(4),
       O => p_0_in(4)
     );
 \vtg_sof_cnt[5]_i_1\: unisim.vcomponents.LUT6
@@ -3887,31 +4100,44 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       INIT => X"7FFFFFFF80000000"
     )
         port map (
-      I0 => \vtg_sof_cnt_reg__0\(3),
-      I1 => \vtg_sof_cnt_reg__0\(1),
-      I2 => \vtg_sof_cnt_reg__0\(0),
-      I3 => \vtg_sof_cnt_reg__0\(2),
-      I4 => \vtg_sof_cnt_reg__0\(4),
-      I5 => \vtg_sof_cnt_reg__0\(5),
+      I0 => vtg_sof_cnt_reg(3),
+      I1 => vtg_sof_cnt_reg(1),
+      I2 => vtg_sof_cnt_reg(0),
+      I3 => vtg_sof_cnt_reg(2),
+      I4 => vtg_sof_cnt_reg(4),
+      I5 => vtg_sof_cnt_reg(5),
       O => p_0_in(5)
     );
-\vtg_sof_cnt[6]_i_1\: unisim.vcomponents.LUT2
+\vtg_sof_cnt[6]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"6"
+      INIT => X"7FFFFFFF80000000"
     )
         port map (
-      I0 => \vtg_sof_cnt[7]_i_4_n_0\,
-      I1 => \vtg_sof_cnt_reg__0\(6),
+      I0 => vtg_sof_cnt_reg(4),
+      I1 => vtg_sof_cnt_reg(2),
+      I2 => \vtg_sof_cnt[6]_i_2_n_0\,
+      I3 => vtg_sof_cnt_reg(3),
+      I4 => vtg_sof_cnt_reg(5),
+      I5 => vtg_sof_cnt_reg(6),
       O => p_0_in(6)
+    );
+\vtg_sof_cnt[6]_i_2\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => vtg_sof_cnt_reg(1),
+      I1 => vtg_sof_cnt_reg(0),
+      O => \vtg_sof_cnt[6]_i_2_n_0\
     );
 \vtg_sof_cnt[7]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"BBABBBBB"
+      INIT => X"AABEAFEF"
     )
         port map (
       I0 => vid_io_out_reset,
-      I1 => state_reg(3),
-      I2 => state(0),
+      I1 => state(0),
+      I2 => state(3),
       I3 => state(2),
       I4 => state(1),
       O => vtg_sof_cnt0
@@ -3931,8 +4157,8 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \vtg_sof_cnt[7]_i_4_n_0\,
-      I1 => \vtg_sof_cnt_reg__0\(6),
-      I2 => \vtg_sof_cnt_reg__0\(7),
+      I1 => vtg_sof_cnt_reg(6),
+      I2 => vtg_sof_cnt_reg(7),
       O => p_0_in(7)
     );
 \vtg_sof_cnt[7]_i_4\: unisim.vcomponents.LUT6
@@ -3940,12 +4166,12 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       INIT => X"8000000000000000"
     )
         port map (
-      I0 => \vtg_sof_cnt_reg__0\(5),
-      I1 => \vtg_sof_cnt_reg__0\(3),
-      I2 => \vtg_sof_cnt_reg__0\(1),
-      I3 => \vtg_sof_cnt_reg__0\(0),
-      I4 => \vtg_sof_cnt_reg__0\(2),
-      I5 => \vtg_sof_cnt_reg__0\(4),
+      I0 => vtg_sof_cnt_reg(5),
+      I1 => vtg_sof_cnt_reg(3),
+      I2 => vtg_sof_cnt_reg(1),
+      I3 => vtg_sof_cnt_reg(0),
+      I4 => vtg_sof_cnt_reg(2),
+      I5 => vtg_sof_cnt_reg(4),
       O => \vtg_sof_cnt[7]_i_4_n_0\
     );
 \vtg_sof_cnt_reg[0]\: unisim.vcomponents.FDRE
@@ -3956,7 +4182,7 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       C => vid_io_out_clk,
       CE => vtg_sof_cnt,
       D => p_0_in(0),
-      Q => \vtg_sof_cnt_reg__0\(0),
+      Q => vtg_sof_cnt_reg(0),
       R => vtg_sof_cnt0
     );
 \vtg_sof_cnt_reg[1]\: unisim.vcomponents.FDRE
@@ -3967,7 +4193,7 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       C => vid_io_out_clk,
       CE => vtg_sof_cnt,
       D => p_0_in(1),
-      Q => \vtg_sof_cnt_reg__0\(1),
+      Q => vtg_sof_cnt_reg(1),
       R => vtg_sof_cnt0
     );
 \vtg_sof_cnt_reg[2]\: unisim.vcomponents.FDRE
@@ -3978,7 +4204,7 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       C => vid_io_out_clk,
       CE => vtg_sof_cnt,
       D => p_0_in(2),
-      Q => \vtg_sof_cnt_reg__0\(2),
+      Q => vtg_sof_cnt_reg(2),
       R => vtg_sof_cnt0
     );
 \vtg_sof_cnt_reg[3]\: unisim.vcomponents.FDRE
@@ -3989,7 +4215,7 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       C => vid_io_out_clk,
       CE => vtg_sof_cnt,
       D => p_0_in(3),
-      Q => \vtg_sof_cnt_reg__0\(3),
+      Q => vtg_sof_cnt_reg(3),
       R => vtg_sof_cnt0
     );
 \vtg_sof_cnt_reg[4]\: unisim.vcomponents.FDRE
@@ -4000,7 +4226,7 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       C => vid_io_out_clk,
       CE => vtg_sof_cnt,
       D => p_0_in(4),
-      Q => \vtg_sof_cnt_reg__0\(4),
+      Q => vtg_sof_cnt_reg(4),
       R => vtg_sof_cnt0
     );
 \vtg_sof_cnt_reg[5]\: unisim.vcomponents.FDRE
@@ -4011,7 +4237,7 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       C => vid_io_out_clk,
       CE => vtg_sof_cnt,
       D => p_0_in(5),
-      Q => \vtg_sof_cnt_reg__0\(5),
+      Q => vtg_sof_cnt_reg(5),
       R => vtg_sof_cnt0
     );
 \vtg_sof_cnt_reg[6]\: unisim.vcomponents.FDRE
@@ -4022,7 +4248,7 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       C => vid_io_out_clk,
       CE => vtg_sof_cnt,
       D => p_0_in(6),
-      Q => \vtg_sof_cnt_reg__0\(6),
+      Q => vtg_sof_cnt_reg(6),
       R => vtg_sof_cnt0
     );
 \vtg_sof_cnt_reg[7]\: unisim.vcomponents.FDRE
@@ -4033,17 +4259,17 @@ vtg_de_dly_reg: unisim.vcomponents.FDRE
       C => vid_io_out_clk,
       CE => vtg_sof_cnt,
       D => p_0_in(7),
-      Q => \vtg_sof_cnt_reg__0\(7),
+      Q => vtg_sof_cnt_reg(7),
       R => vtg_sof_cnt0
     );
 vtg_sof_dly_i_1: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"40"
+      INIT => X"08"
     )
         port map (
-      I0 => vtg_de_dly,
-      I1 => vtg_active_video,
-      I2 => vtg_vsync_bp_reg_n_0,
+      I0 => vtg_active_video,
+      I1 => vtg_vsync_bp_reg_n_0,
+      I2 => vtg_de_dly,
       O => vtg_sof
     );
 vtg_sof_dly_reg: unisim.vcomponents.FDRE
@@ -4059,12 +4285,12 @@ vtg_sof_dly_reg: unisim.vcomponents.FDRE
     );
 vtg_vsync_bp_i_1: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"000000000000BAAA"
+      INIT => X"000000000000AEAA"
     )
         port map (
       I0 => vtg_vsync_bp_reg_n_0,
-      I1 => vtg_vsync,
-      I2 => vid_io_out_ce,
+      I1 => vid_io_out_ce,
+      I2 => vtg_vsync,
       I3 => vtg_vsync_dly,
       I4 => vtg_de_dly,
       I5 => vid_io_out_reset,
@@ -4107,7 +4333,7 @@ entity system_v_axi4s_vid_out_0_0_xpm_cdc_gray is
   attribute DEST_SYNC_FF : integer;
   attribute DEST_SYNC_FF of system_v_axi4s_vid_out_0_0_xpm_cdc_gray : entity is 4;
   attribute INIT_SYNC_FF : integer;
-  attribute INIT_SYNC_FF of system_v_axi4s_vid_out_0_0_xpm_cdc_gray : entity is 0;
+  attribute INIT_SYNC_FF of system_v_axi4s_vid_out_0_0_xpm_cdc_gray : entity is 1;
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_xpm_cdc_gray : entity is "xpm_cdc_gray";
   attribute REG_OUTPUT : integer;
@@ -4122,6 +4348,8 @@ entity system_v_axi4s_vid_out_0_0_xpm_cdc_gray is
   attribute WIDTH of system_v_axi4s_vid_out_0_0_xpm_cdc_gray : entity is 12;
   attribute XPM_MODULE : string;
   attribute XPM_MODULE of system_v_axi4s_vid_out_0_0_xpm_cdc_gray : entity is "TRUE";
+  attribute keep_hierarchy : string;
+  attribute keep_hierarchy of system_v_axi4s_vid_out_0_0_xpm_cdc_gray : entity is "true";
   attribute xpm_cdc : string;
   attribute xpm_cdc of system_v_axi4s_vid_out_0_0_xpm_cdc_gray : entity is "GRAY";
 end system_v_axi4s_vid_out_0_0_xpm_cdc_gray;
@@ -4147,107 +4375,152 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_cdc_gray is
   attribute async_reg of \dest_graysync_ff[3]\ : signal is "true";
   attribute xpm_cdc of \dest_graysync_ff[3]\ : signal is "GRAY";
   signal \^dest_out_bin\ : STD_LOGIC_VECTOR ( 10 downto 0 );
-  signal \dest_out_bin[0]_INST_0_i_1_n_0\ : STD_LOGIC;
-  signal \dest_out_bin[1]_INST_0_i_1_n_0\ : STD_LOGIC;
-  signal \dest_out_bin[2]_INST_0_i_1_n_0\ : STD_LOGIC;
-  signal \dest_out_bin[3]_INST_0_i_1_n_0\ : STD_LOGIC;
   signal gray_enc : STD_LOGIC_VECTOR ( 10 downto 0 );
   attribute ASYNC_REG_boolean : boolean;
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][0]\ : label is std.standard.true;
+  attribute KEEP : string;
+  attribute KEEP of \dest_graysync_ff_reg[0][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][9]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][9]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][9]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][9]\ : label is "GRAY";
   attribute SOFT_HLUTNM : string;
   attribute SOFT_HLUTNM of \src_gray_ff[0]_i_1\ : label is "soft_lutpair11";
@@ -4647,37 +4920,22 @@ begin
       Q => \dest_graysync_ff[3]\(9),
       R => '0'
     );
-\dest_out_bin[0]_INST_0\: unisim.vcomponents.LUT6
+\dest_out_bin[0]_INST_0\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"6996966996696996"
+      INIT => X"6"
     )
         port map (
-      I0 => \^dest_out_bin\(8),
-      I1 => \dest_graysync_ff[3]\(2),
-      I2 => \dest_graysync_ff[3]\(3),
-      I3 => \dest_graysync_ff[3]\(0),
-      I4 => \dest_graysync_ff[3]\(1),
-      I5 => \dest_out_bin[0]_INST_0_i_1_n_0\,
+      I0 => \dest_graysync_ff[3]\(0),
+      I1 => \^dest_out_bin\(1),
       O => \^dest_out_bin\(0)
-    );
-\dest_out_bin[0]_INST_0_i_1\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"6996"
-    )
-        port map (
-      I0 => \dest_graysync_ff[3]\(6),
-      I1 => \dest_graysync_ff[3]\(7),
-      I2 => \dest_graysync_ff[3]\(4),
-      I3 => \dest_graysync_ff[3]\(5),
-      O => \dest_out_bin[0]_INST_0_i_1_n_0\
     );
 \dest_out_bin[10]_INST_0\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"6"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(11),
-      I1 => \dest_graysync_ff[3]\(10),
+      I0 => \dest_graysync_ff[3]\(10),
+      I1 => \dest_graysync_ff[3]\(11),
       O => \^dest_out_bin\(10)
     );
 \dest_out_bin[1]_INST_0\: unisim.vcomponents.LUT6
@@ -4685,95 +4943,54 @@ begin
       INIT => X"6996966996696996"
     )
         port map (
-      I0 => \^dest_out_bin\(9),
+      I0 => \dest_graysync_ff[3]\(1),
       I1 => \dest_graysync_ff[3]\(3),
-      I2 => \dest_graysync_ff[3]\(4),
-      I3 => \dest_graysync_ff[3]\(1),
-      I4 => \dest_graysync_ff[3]\(2),
-      I5 => \dest_out_bin[1]_INST_0_i_1_n_0\,
+      I2 => \dest_graysync_ff[3]\(5),
+      I3 => \^dest_out_bin\(6),
+      I4 => \dest_graysync_ff[3]\(4),
+      I5 => \dest_graysync_ff[3]\(2),
       O => \^dest_out_bin\(1)
     );
-\dest_out_bin[1]_INST_0_i_1\: unisim.vcomponents.LUT4
+\dest_out_bin[2]_INST_0\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"6996"
+      INIT => X"96696996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(7),
-      I1 => \dest_graysync_ff[3]\(8),
-      I2 => \dest_graysync_ff[3]\(5),
-      I3 => \dest_graysync_ff[3]\(6),
-      O => \dest_out_bin[1]_INST_0_i_1_n_0\
-    );
-\dest_out_bin[2]_INST_0\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"6996966996696996"
-    )
-        port map (
-      I0 => \^dest_out_bin\(10),
+      I0 => \dest_graysync_ff[3]\(2),
       I1 => \dest_graysync_ff[3]\(4),
-      I2 => \dest_graysync_ff[3]\(5),
-      I3 => \dest_graysync_ff[3]\(2),
+      I2 => \^dest_out_bin\(6),
+      I3 => \dest_graysync_ff[3]\(5),
       I4 => \dest_graysync_ff[3]\(3),
-      I5 => \dest_out_bin[2]_INST_0_i_1_n_0\,
       O => \^dest_out_bin\(2)
     );
-\dest_out_bin[2]_INST_0_i_1\: unisim.vcomponents.LUT4
+\dest_out_bin[3]_INST_0\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"6996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(8),
-      I1 => \dest_graysync_ff[3]\(9),
-      I2 => \dest_graysync_ff[3]\(6),
-      I3 => \dest_graysync_ff[3]\(7),
-      O => \dest_out_bin[2]_INST_0_i_1_n_0\
-    );
-\dest_out_bin[3]_INST_0\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"6996966996696996"
-    )
-        port map (
-      I0 => \dest_graysync_ff[3]\(11),
+      I0 => \dest_graysync_ff[3]\(3),
       I1 => \dest_graysync_ff[3]\(5),
-      I2 => \dest_graysync_ff[3]\(6),
-      I3 => \dest_graysync_ff[3]\(3),
-      I4 => \dest_graysync_ff[3]\(4),
-      I5 => \dest_out_bin[3]_INST_0_i_1_n_0\,
+      I2 => \^dest_out_bin\(6),
+      I3 => \dest_graysync_ff[3]\(4),
       O => \^dest_out_bin\(3)
     );
-\dest_out_bin[3]_INST_0_i_1\: unisim.vcomponents.LUT4
+\dest_out_bin[4]_INST_0\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"6996"
+      INIT => X"96"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(9),
-      I1 => \dest_graysync_ff[3]\(10),
-      I2 => \dest_graysync_ff[3]\(7),
-      I3 => \dest_graysync_ff[3]\(8),
-      O => \dest_out_bin[3]_INST_0_i_1_n_0\
-    );
-\dest_out_bin[4]_INST_0\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"96696996"
-    )
-        port map (
-      I0 => \^dest_out_bin\(8),
-      I1 => \dest_graysync_ff[3]\(5),
-      I2 => \dest_graysync_ff[3]\(4),
-      I3 => \dest_graysync_ff[3]\(7),
-      I4 => \dest_graysync_ff[3]\(6),
+      I0 => \dest_graysync_ff[3]\(4),
+      I1 => \^dest_out_bin\(6),
+      I2 => \dest_graysync_ff[3]\(5),
       O => \^dest_out_bin\(4)
     );
-\dest_out_bin[5]_INST_0\: unisim.vcomponents.LUT5
+\dest_out_bin[5]_INST_0\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"96696996"
+      INIT => X"6"
     )
         port map (
-      I0 => \^dest_out_bin\(9),
-      I1 => \dest_graysync_ff[3]\(6),
-      I2 => \dest_graysync_ff[3]\(5),
-      I3 => \dest_graysync_ff[3]\(8),
-      I4 => \dest_graysync_ff[3]\(7),
+      I0 => \dest_graysync_ff[3]\(5),
+      I1 => \^dest_out_bin\(6),
       O => \^dest_out_bin\(5)
     );
 \dest_out_bin[6]_INST_0\: unisim.vcomponents.LUT6
@@ -4781,12 +4998,12 @@ begin
       INIT => X"6996966996696996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(10),
-      I1 => \dest_graysync_ff[3]\(11),
-      I2 => \dest_graysync_ff[3]\(7),
-      I3 => \dest_graysync_ff[3]\(6),
+      I0 => \dest_graysync_ff[3]\(6),
+      I1 => \dest_graysync_ff[3]\(8),
+      I2 => \dest_graysync_ff[3]\(10),
+      I3 => \dest_graysync_ff[3]\(11),
       I4 => \dest_graysync_ff[3]\(9),
-      I5 => \dest_graysync_ff[3]\(8),
+      I5 => \dest_graysync_ff[3]\(7),
       O => \^dest_out_bin\(6)
     );
 \dest_out_bin[7]_INST_0\: unisim.vcomponents.LUT5
@@ -4794,11 +5011,11 @@ begin
       INIT => X"96696996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(11),
-      I1 => \dest_graysync_ff[3]\(8),
-      I2 => \dest_graysync_ff[3]\(7),
+      I0 => \dest_graysync_ff[3]\(7),
+      I1 => \dest_graysync_ff[3]\(9),
+      I2 => \dest_graysync_ff[3]\(11),
       I3 => \dest_graysync_ff[3]\(10),
-      I4 => \dest_graysync_ff[3]\(9),
+      I4 => \dest_graysync_ff[3]\(8),
       O => \^dest_out_bin\(7)
     );
 \dest_out_bin[8]_INST_0\: unisim.vcomponents.LUT4
@@ -4806,9 +5023,9 @@ begin
       INIT => X"6996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(10),
-      I1 => \dest_graysync_ff[3]\(11),
-      I2 => \dest_graysync_ff[3]\(8),
+      I0 => \dest_graysync_ff[3]\(8),
+      I1 => \dest_graysync_ff[3]\(10),
+      I2 => \dest_graysync_ff[3]\(11),
       I3 => \dest_graysync_ff[3]\(9),
       O => \^dest_out_bin\(8)
     );
@@ -4817,8 +5034,8 @@ begin
       INIT => X"96"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(11),
-      I1 => \dest_graysync_ff[3]\(9),
+      I0 => \dest_graysync_ff[3]\(9),
+      I1 => \dest_graysync_ff[3]\(11),
       I2 => \dest_graysync_ff[3]\(10),
       O => \^dest_out_bin\(9)
     );
@@ -4827,8 +5044,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(0),
-      I1 => src_in_bin(1),
+      I0 => src_in_bin(1),
+      I1 => src_in_bin(0),
       O => gray_enc(0)
     );
 \src_gray_ff[10]_i_1\: unisim.vcomponents.LUT2
@@ -4836,8 +5053,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(10),
-      I1 => src_in_bin(11),
+      I0 => src_in_bin(11),
+      I1 => src_in_bin(10),
       O => gray_enc(10)
     );
 \src_gray_ff[1]_i_1\: unisim.vcomponents.LUT2
@@ -4845,8 +5062,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(1),
-      I1 => src_in_bin(2),
+      I0 => src_in_bin(2),
+      I1 => src_in_bin(1),
       O => gray_enc(1)
     );
 \src_gray_ff[2]_i_1\: unisim.vcomponents.LUT2
@@ -4854,8 +5071,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(2),
-      I1 => src_in_bin(3),
+      I0 => src_in_bin(3),
+      I1 => src_in_bin(2),
       O => gray_enc(2)
     );
 \src_gray_ff[3]_i_1\: unisim.vcomponents.LUT2
@@ -4863,8 +5080,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(3),
-      I1 => src_in_bin(4),
+      I0 => src_in_bin(4),
+      I1 => src_in_bin(3),
       O => gray_enc(3)
     );
 \src_gray_ff[4]_i_1\: unisim.vcomponents.LUT2
@@ -4872,8 +5089,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(4),
-      I1 => src_in_bin(5),
+      I0 => src_in_bin(5),
+      I1 => src_in_bin(4),
       O => gray_enc(4)
     );
 \src_gray_ff[5]_i_1\: unisim.vcomponents.LUT2
@@ -4881,8 +5098,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(5),
-      I1 => src_in_bin(6),
+      I0 => src_in_bin(6),
+      I1 => src_in_bin(5),
       O => gray_enc(5)
     );
 \src_gray_ff[6]_i_1\: unisim.vcomponents.LUT2
@@ -4890,8 +5107,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(6),
-      I1 => src_in_bin(7),
+      I0 => src_in_bin(7),
+      I1 => src_in_bin(6),
       O => gray_enc(6)
     );
 \src_gray_ff[7]_i_1\: unisim.vcomponents.LUT2
@@ -4899,8 +5116,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(7),
-      I1 => src_in_bin(8),
+      I0 => src_in_bin(8),
+      I1 => src_in_bin(7),
       O => gray_enc(7)
     );
 \src_gray_ff[8]_i_1\: unisim.vcomponents.LUT2
@@ -4908,8 +5125,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(8),
-      I1 => src_in_bin(9),
+      I0 => src_in_bin(9),
+      I1 => src_in_bin(8),
       O => gray_enc(8)
     );
 \src_gray_ff[9]_i_1\: unisim.vcomponents.LUT2
@@ -4917,8 +5134,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(9),
-      I1 => src_in_bin(10),
+      I0 => src_in_bin(10),
+      I1 => src_in_bin(9),
       O => gray_enc(9)
     );
 \src_gray_ff_reg[0]\: unisim.vcomponents.FDRE
@@ -5022,7 +5239,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\ is
+entity \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\ is
   port (
     src_clk : in STD_LOGIC;
     src_in_bin : in STD_LOGIC_VECTOR ( 11 downto 0 );
@@ -5030,28 +5247,30 @@ entity \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\ is
     dest_out_bin : out STD_LOGIC_VECTOR ( 11 downto 0 )
   );
   attribute DEST_SYNC_FF : integer;
-  attribute DEST_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\ : entity is 4;
+  attribute DEST_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\ : entity is 4;
   attribute INIT_SYNC_FF : integer;
-  attribute INIT_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\ : entity is 0;
+  attribute INIT_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\ : entity is 1;
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\ : entity is "xpm_cdc_gray";
+  attribute ORIG_REF_NAME of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\ : entity is "xpm_cdc_gray";
   attribute REG_OUTPUT : integer;
-  attribute REG_OUTPUT of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\ : entity is 0;
+  attribute REG_OUTPUT of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\ : entity is 0;
   attribute SIM_ASSERT_CHK : integer;
-  attribute SIM_ASSERT_CHK of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\ : entity is 0;
+  attribute SIM_ASSERT_CHK of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\ : entity is 0;
   attribute SIM_LOSSLESS_GRAY_CHK : integer;
-  attribute SIM_LOSSLESS_GRAY_CHK of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\ : entity is 0;
+  attribute SIM_LOSSLESS_GRAY_CHK of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\ : entity is 0;
   attribute VERSION : integer;
-  attribute VERSION of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\ : entity is 0;
+  attribute VERSION of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\ : entity is 0;
   attribute WIDTH : integer;
-  attribute WIDTH of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\ : entity is 12;
+  attribute WIDTH of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\ : entity is 12;
   attribute XPM_MODULE : string;
-  attribute XPM_MODULE of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\ : entity is "TRUE";
+  attribute XPM_MODULE of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\ : entity is "TRUE";
+  attribute keep_hierarchy : string;
+  attribute keep_hierarchy of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\ : entity is "true";
   attribute xpm_cdc : string;
-  attribute xpm_cdc of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\ : entity is "GRAY";
-end \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\;
+  attribute xpm_cdc of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\ : entity is "GRAY";
+end \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\;
 
-architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\ is
+architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\ is
   signal async_path : STD_LOGIC_VECTOR ( 11 downto 0 );
   signal \dest_graysync_ff[0]\ : STD_LOGIC_VECTOR ( 11 downto 0 );
   attribute RTL_KEEP : string;
@@ -5072,107 +5291,152 @@ architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\ is
   attribute async_reg of \dest_graysync_ff[3]\ : signal is "true";
   attribute xpm_cdc of \dest_graysync_ff[3]\ : signal is "GRAY";
   signal \^dest_out_bin\ : STD_LOGIC_VECTOR ( 10 downto 0 );
-  signal \dest_out_bin[0]_INST_0_i_1_n_0\ : STD_LOGIC;
-  signal \dest_out_bin[1]_INST_0_i_1_n_0\ : STD_LOGIC;
-  signal \dest_out_bin[2]_INST_0_i_1_n_0\ : STD_LOGIC;
-  signal \dest_out_bin[3]_INST_0_i_1_n_0\ : STD_LOGIC;
   signal gray_enc : STD_LOGIC_VECTOR ( 10 downto 0 );
   attribute ASYNC_REG_boolean : boolean;
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][0]\ : label is std.standard.true;
+  attribute KEEP : string;
+  attribute KEEP of \dest_graysync_ff_reg[0][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][9]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][9]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][9]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][9]\ : label is "GRAY";
   attribute SOFT_HLUTNM : string;
   attribute SOFT_HLUTNM of \src_gray_ff[0]_i_1\ : label is "soft_lutpair0";
@@ -5572,37 +5836,22 @@ begin
       Q => \dest_graysync_ff[3]\(9),
       R => '0'
     );
-\dest_out_bin[0]_INST_0\: unisim.vcomponents.LUT6
+\dest_out_bin[0]_INST_0\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"6996966996696996"
+      INIT => X"6"
     )
         port map (
-      I0 => \^dest_out_bin\(8),
-      I1 => \dest_graysync_ff[3]\(2),
-      I2 => \dest_graysync_ff[3]\(3),
-      I3 => \dest_graysync_ff[3]\(0),
-      I4 => \dest_graysync_ff[3]\(1),
-      I5 => \dest_out_bin[0]_INST_0_i_1_n_0\,
+      I0 => \dest_graysync_ff[3]\(0),
+      I1 => \^dest_out_bin\(1),
       O => \^dest_out_bin\(0)
-    );
-\dest_out_bin[0]_INST_0_i_1\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"6996"
-    )
-        port map (
-      I0 => \dest_graysync_ff[3]\(6),
-      I1 => \dest_graysync_ff[3]\(7),
-      I2 => \dest_graysync_ff[3]\(4),
-      I3 => \dest_graysync_ff[3]\(5),
-      O => \dest_out_bin[0]_INST_0_i_1_n_0\
     );
 \dest_out_bin[10]_INST_0\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"6"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(11),
-      I1 => \dest_graysync_ff[3]\(10),
+      I0 => \dest_graysync_ff[3]\(10),
+      I1 => \dest_graysync_ff[3]\(11),
       O => \^dest_out_bin\(10)
     );
 \dest_out_bin[1]_INST_0\: unisim.vcomponents.LUT6
@@ -5610,95 +5859,54 @@ begin
       INIT => X"6996966996696996"
     )
         port map (
-      I0 => \^dest_out_bin\(9),
+      I0 => \dest_graysync_ff[3]\(1),
       I1 => \dest_graysync_ff[3]\(3),
-      I2 => \dest_graysync_ff[3]\(4),
-      I3 => \dest_graysync_ff[3]\(1),
-      I4 => \dest_graysync_ff[3]\(2),
-      I5 => \dest_out_bin[1]_INST_0_i_1_n_0\,
+      I2 => \dest_graysync_ff[3]\(5),
+      I3 => \^dest_out_bin\(6),
+      I4 => \dest_graysync_ff[3]\(4),
+      I5 => \dest_graysync_ff[3]\(2),
       O => \^dest_out_bin\(1)
     );
-\dest_out_bin[1]_INST_0_i_1\: unisim.vcomponents.LUT4
+\dest_out_bin[2]_INST_0\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"6996"
+      INIT => X"96696996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(7),
-      I1 => \dest_graysync_ff[3]\(8),
-      I2 => \dest_graysync_ff[3]\(5),
-      I3 => \dest_graysync_ff[3]\(6),
-      O => \dest_out_bin[1]_INST_0_i_1_n_0\
-    );
-\dest_out_bin[2]_INST_0\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"6996966996696996"
-    )
-        port map (
-      I0 => \^dest_out_bin\(10),
+      I0 => \dest_graysync_ff[3]\(2),
       I1 => \dest_graysync_ff[3]\(4),
-      I2 => \dest_graysync_ff[3]\(5),
-      I3 => \dest_graysync_ff[3]\(2),
+      I2 => \^dest_out_bin\(6),
+      I3 => \dest_graysync_ff[3]\(5),
       I4 => \dest_graysync_ff[3]\(3),
-      I5 => \dest_out_bin[2]_INST_0_i_1_n_0\,
       O => \^dest_out_bin\(2)
     );
-\dest_out_bin[2]_INST_0_i_1\: unisim.vcomponents.LUT4
+\dest_out_bin[3]_INST_0\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"6996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(8),
-      I1 => \dest_graysync_ff[3]\(9),
-      I2 => \dest_graysync_ff[3]\(6),
-      I3 => \dest_graysync_ff[3]\(7),
-      O => \dest_out_bin[2]_INST_0_i_1_n_0\
-    );
-\dest_out_bin[3]_INST_0\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"6996966996696996"
-    )
-        port map (
-      I0 => \dest_graysync_ff[3]\(11),
+      I0 => \dest_graysync_ff[3]\(3),
       I1 => \dest_graysync_ff[3]\(5),
-      I2 => \dest_graysync_ff[3]\(6),
-      I3 => \dest_graysync_ff[3]\(3),
-      I4 => \dest_graysync_ff[3]\(4),
-      I5 => \dest_out_bin[3]_INST_0_i_1_n_0\,
+      I2 => \^dest_out_bin\(6),
+      I3 => \dest_graysync_ff[3]\(4),
       O => \^dest_out_bin\(3)
     );
-\dest_out_bin[3]_INST_0_i_1\: unisim.vcomponents.LUT4
+\dest_out_bin[4]_INST_0\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"6996"
+      INIT => X"96"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(9),
-      I1 => \dest_graysync_ff[3]\(10),
-      I2 => \dest_graysync_ff[3]\(7),
-      I3 => \dest_graysync_ff[3]\(8),
-      O => \dest_out_bin[3]_INST_0_i_1_n_0\
-    );
-\dest_out_bin[4]_INST_0\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"96696996"
-    )
-        port map (
-      I0 => \^dest_out_bin\(8),
-      I1 => \dest_graysync_ff[3]\(5),
-      I2 => \dest_graysync_ff[3]\(4),
-      I3 => \dest_graysync_ff[3]\(7),
-      I4 => \dest_graysync_ff[3]\(6),
+      I0 => \dest_graysync_ff[3]\(4),
+      I1 => \^dest_out_bin\(6),
+      I2 => \dest_graysync_ff[3]\(5),
       O => \^dest_out_bin\(4)
     );
-\dest_out_bin[5]_INST_0\: unisim.vcomponents.LUT5
+\dest_out_bin[5]_INST_0\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"96696996"
+      INIT => X"6"
     )
         port map (
-      I0 => \^dest_out_bin\(9),
-      I1 => \dest_graysync_ff[3]\(6),
-      I2 => \dest_graysync_ff[3]\(5),
-      I3 => \dest_graysync_ff[3]\(8),
-      I4 => \dest_graysync_ff[3]\(7),
+      I0 => \dest_graysync_ff[3]\(5),
+      I1 => \^dest_out_bin\(6),
       O => \^dest_out_bin\(5)
     );
 \dest_out_bin[6]_INST_0\: unisim.vcomponents.LUT6
@@ -5706,12 +5914,12 @@ begin
       INIT => X"6996966996696996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(10),
-      I1 => \dest_graysync_ff[3]\(11),
-      I2 => \dest_graysync_ff[3]\(7),
-      I3 => \dest_graysync_ff[3]\(6),
+      I0 => \dest_graysync_ff[3]\(6),
+      I1 => \dest_graysync_ff[3]\(8),
+      I2 => \dest_graysync_ff[3]\(10),
+      I3 => \dest_graysync_ff[3]\(11),
       I4 => \dest_graysync_ff[3]\(9),
-      I5 => \dest_graysync_ff[3]\(8),
+      I5 => \dest_graysync_ff[3]\(7),
       O => \^dest_out_bin\(6)
     );
 \dest_out_bin[7]_INST_0\: unisim.vcomponents.LUT5
@@ -5719,11 +5927,11 @@ begin
       INIT => X"96696996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(11),
-      I1 => \dest_graysync_ff[3]\(8),
-      I2 => \dest_graysync_ff[3]\(7),
+      I0 => \dest_graysync_ff[3]\(7),
+      I1 => \dest_graysync_ff[3]\(9),
+      I2 => \dest_graysync_ff[3]\(11),
       I3 => \dest_graysync_ff[3]\(10),
-      I4 => \dest_graysync_ff[3]\(9),
+      I4 => \dest_graysync_ff[3]\(8),
       O => \^dest_out_bin\(7)
     );
 \dest_out_bin[8]_INST_0\: unisim.vcomponents.LUT4
@@ -5731,9 +5939,9 @@ begin
       INIT => X"6996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(10),
-      I1 => \dest_graysync_ff[3]\(11),
-      I2 => \dest_graysync_ff[3]\(8),
+      I0 => \dest_graysync_ff[3]\(8),
+      I1 => \dest_graysync_ff[3]\(10),
+      I2 => \dest_graysync_ff[3]\(11),
       I3 => \dest_graysync_ff[3]\(9),
       O => \^dest_out_bin\(8)
     );
@@ -5742,8 +5950,8 @@ begin
       INIT => X"96"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(11),
-      I1 => \dest_graysync_ff[3]\(9),
+      I0 => \dest_graysync_ff[3]\(9),
+      I1 => \dest_graysync_ff[3]\(11),
       I2 => \dest_graysync_ff[3]\(10),
       O => \^dest_out_bin\(9)
     );
@@ -5752,8 +5960,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(0),
-      I1 => src_in_bin(1),
+      I0 => src_in_bin(1),
+      I1 => src_in_bin(0),
       O => gray_enc(0)
     );
 \src_gray_ff[10]_i_1\: unisim.vcomponents.LUT2
@@ -5761,8 +5969,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(10),
-      I1 => src_in_bin(11),
+      I0 => src_in_bin(11),
+      I1 => src_in_bin(10),
       O => gray_enc(10)
     );
 \src_gray_ff[1]_i_1\: unisim.vcomponents.LUT2
@@ -5770,8 +5978,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(1),
-      I1 => src_in_bin(2),
+      I0 => src_in_bin(2),
+      I1 => src_in_bin(1),
       O => gray_enc(1)
     );
 \src_gray_ff[2]_i_1\: unisim.vcomponents.LUT2
@@ -5779,8 +5987,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(2),
-      I1 => src_in_bin(3),
+      I0 => src_in_bin(3),
+      I1 => src_in_bin(2),
       O => gray_enc(2)
     );
 \src_gray_ff[3]_i_1\: unisim.vcomponents.LUT2
@@ -5788,8 +5996,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(3),
-      I1 => src_in_bin(4),
+      I0 => src_in_bin(4),
+      I1 => src_in_bin(3),
       O => gray_enc(3)
     );
 \src_gray_ff[4]_i_1\: unisim.vcomponents.LUT2
@@ -5797,8 +6005,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(4),
-      I1 => src_in_bin(5),
+      I0 => src_in_bin(5),
+      I1 => src_in_bin(4),
       O => gray_enc(4)
     );
 \src_gray_ff[5]_i_1\: unisim.vcomponents.LUT2
@@ -5806,8 +6014,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(5),
-      I1 => src_in_bin(6),
+      I0 => src_in_bin(6),
+      I1 => src_in_bin(5),
       O => gray_enc(5)
     );
 \src_gray_ff[6]_i_1\: unisim.vcomponents.LUT2
@@ -5815,8 +6023,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(6),
-      I1 => src_in_bin(7),
+      I0 => src_in_bin(7),
+      I1 => src_in_bin(6),
       O => gray_enc(6)
     );
 \src_gray_ff[7]_i_1\: unisim.vcomponents.LUT2
@@ -5824,8 +6032,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(7),
-      I1 => src_in_bin(8),
+      I0 => src_in_bin(8),
+      I1 => src_in_bin(7),
       O => gray_enc(7)
     );
 \src_gray_ff[8]_i_1\: unisim.vcomponents.LUT2
@@ -5833,8 +6041,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(8),
-      I1 => src_in_bin(9),
+      I0 => src_in_bin(9),
+      I1 => src_in_bin(8),
       O => gray_enc(8)
     );
 \src_gray_ff[9]_i_1\: unisim.vcomponents.LUT2
@@ -5842,8 +6050,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(9),
-      I1 => src_in_bin(10),
+      I0 => src_in_bin(10),
+      I1 => src_in_bin(9),
       O => gray_enc(9)
     );
 \src_gray_ff_reg[0]\: unisim.vcomponents.FDRE
@@ -5957,7 +6165,7 @@ entity \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized0\ is
   attribute DEST_SYNC_FF : integer;
   attribute DEST_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized0\ : entity is 6;
   attribute INIT_SYNC_FF : integer;
-  attribute INIT_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized0\ : entity is 0;
+  attribute INIT_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized0\ : entity is 1;
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized0\ : entity is "xpm_cdc_gray";
   attribute REG_OUTPUT : integer;
@@ -5972,6 +6180,8 @@ entity \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized0\ is
   attribute WIDTH of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized0\ : entity is 13;
   attribute XPM_MODULE : string;
   attribute XPM_MODULE of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized0\ : entity is "TRUE";
+  attribute keep_hierarchy : string;
+  attribute keep_hierarchy of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized0\ : entity is "true";
   attribute xpm_cdc : string;
   attribute xpm_cdc of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized0\ : entity is "GRAY";
 end \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized0\;
@@ -6005,167 +6215,242 @@ architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterize
   attribute async_reg of \dest_graysync_ff[5]\ : signal is "true";
   attribute xpm_cdc of \dest_graysync_ff[5]\ : signal is "GRAY";
   signal \^dest_out_bin\ : STD_LOGIC_VECTOR ( 11 downto 0 );
-  signal \dest_out_bin[1]_INST_0_i_1_n_0\ : STD_LOGIC;
-  signal \dest_out_bin[2]_INST_0_i_1_n_0\ : STD_LOGIC;
-  signal \dest_out_bin[3]_INST_0_i_1_n_0\ : STD_LOGIC;
-  signal \dest_out_bin[4]_INST_0_i_1_n_0\ : STD_LOGIC;
   signal gray_enc : STD_LOGIC_VECTOR ( 11 downto 0 );
   attribute ASYNC_REG_boolean : boolean;
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][0]\ : label is std.standard.true;
+  attribute KEEP : string;
+  attribute KEEP of \dest_graysync_ff_reg[0][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][12]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][12]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][12]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][9]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][12]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][12]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][12]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][9]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][12]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][12]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][12]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][9]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][12]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][12]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][12]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][9]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[4][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[4][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[4][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[4][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[4][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[4][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[4][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[4][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[4][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[4][12]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[4][12]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[4][12]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[4][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[4][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[4][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[4][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[4][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[4][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[4][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[4][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[4][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[4][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[4][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[4][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[4][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[4][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[4][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[4][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[4][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[4][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[4][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[4][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[4][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[4][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[4][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[4][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[4][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[4][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[4][9]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[5][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[5][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[5][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[5][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[5][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[5][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[5][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[5][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[5][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[5][12]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[5][12]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[5][12]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[5][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[5][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[5][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[5][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[5][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[5][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[5][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[5][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[5][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[5][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[5][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[5][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[5][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[5][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[5][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[5][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[5][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[5][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[5][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[5][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[5][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[5][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[5][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[5][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[5][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[5][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[5][9]\ : label is "GRAY";
   attribute SOFT_HLUTNM : string;
   attribute SOFT_HLUTNM of \src_gray_ff[0]_i_1\ : label is "soft_lutpair5";
@@ -6807,17 +7092,14 @@ begin
       Q => \dest_graysync_ff[5]\(9),
       R => '0'
     );
-\dest_out_bin[0]_INST_0\: unisim.vcomponents.LUT6
+\dest_out_bin[0]_INST_0\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"6996966996696996"
+      INIT => X"96"
     )
         port map (
-      I0 => \^dest_out_bin\(8),
-      I1 => \dest_graysync_ff[5]\(2),
-      I2 => \dest_graysync_ff[5]\(3),
-      I3 => \dest_graysync_ff[5]\(0),
-      I4 => \dest_graysync_ff[5]\(1),
-      I5 => \dest_out_bin[4]_INST_0_i_1_n_0\,
+      I0 => \dest_graysync_ff[5]\(0),
+      I1 => \^dest_out_bin\(2),
+      I2 => \dest_graysync_ff[5]\(1),
       O => \^dest_out_bin\(0)
     );
 \dest_out_bin[10]_INST_0\: unisim.vcomponents.LUT3
@@ -6825,8 +7107,8 @@ begin
       INIT => X"96"
     )
         port map (
-      I0 => \dest_graysync_ff[5]\(12),
-      I1 => \dest_graysync_ff[5]\(10),
+      I0 => \dest_graysync_ff[5]\(10),
+      I1 => \dest_graysync_ff[5]\(12),
       I2 => \dest_graysync_ff[5]\(11),
       O => \^dest_out_bin\(10)
     );
@@ -6835,128 +7117,72 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => \dest_graysync_ff[5]\(12),
-      I1 => \dest_graysync_ff[5]\(11),
+      I0 => \dest_graysync_ff[5]\(11),
+      I1 => \dest_graysync_ff[5]\(12),
       O => \^dest_out_bin\(11)
     );
-\dest_out_bin[1]_INST_0\: unisim.vcomponents.LUT6
+\dest_out_bin[1]_INST_0\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"6996966996696996"
+      INIT => X"6"
     )
         port map (
-      I0 => \^dest_out_bin\(9),
-      I1 => \dest_graysync_ff[5]\(3),
-      I2 => \dest_graysync_ff[5]\(4),
-      I3 => \dest_graysync_ff[5]\(1),
-      I4 => \dest_graysync_ff[5]\(2),
-      I5 => \dest_out_bin[1]_INST_0_i_1_n_0\,
+      I0 => \dest_graysync_ff[5]\(1),
+      I1 => \^dest_out_bin\(2),
       O => \^dest_out_bin\(1)
-    );
-\dest_out_bin[1]_INST_0_i_1\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"6996"
-    )
-        port map (
-      I0 => \dest_graysync_ff[5]\(7),
-      I1 => \dest_graysync_ff[5]\(8),
-      I2 => \dest_graysync_ff[5]\(5),
-      I3 => \dest_graysync_ff[5]\(6),
-      O => \dest_out_bin[1]_INST_0_i_1_n_0\
     );
 \dest_out_bin[2]_INST_0\: unisim.vcomponents.LUT6
     generic map(
       INIT => X"6996966996696996"
     )
         port map (
-      I0 => \^dest_out_bin\(10),
+      I0 => \dest_graysync_ff[5]\(2),
       I1 => \dest_graysync_ff[5]\(4),
-      I2 => \dest_graysync_ff[5]\(5),
-      I3 => \dest_graysync_ff[5]\(2),
-      I4 => \dest_graysync_ff[5]\(3),
-      I5 => \dest_out_bin[2]_INST_0_i_1_n_0\,
+      I2 => \dest_graysync_ff[5]\(6),
+      I3 => \^dest_out_bin\(7),
+      I4 => \dest_graysync_ff[5]\(5),
+      I5 => \dest_graysync_ff[5]\(3),
       O => \^dest_out_bin\(2)
     );
-\dest_out_bin[2]_INST_0_i_1\: unisim.vcomponents.LUT4
+\dest_out_bin[3]_INST_0\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"6996"
+      INIT => X"96696996"
     )
         port map (
-      I0 => \dest_graysync_ff[5]\(8),
-      I1 => \dest_graysync_ff[5]\(9),
-      I2 => \dest_graysync_ff[5]\(6),
-      I3 => \dest_graysync_ff[5]\(7),
-      O => \dest_out_bin[2]_INST_0_i_1_n_0\
-    );
-\dest_out_bin[3]_INST_0\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"6996966996696996"
-    )
-        port map (
-      I0 => \^dest_out_bin\(11),
+      I0 => \dest_graysync_ff[5]\(3),
       I1 => \dest_graysync_ff[5]\(5),
-      I2 => \dest_graysync_ff[5]\(6),
-      I3 => \dest_graysync_ff[5]\(3),
+      I2 => \^dest_out_bin\(7),
+      I3 => \dest_graysync_ff[5]\(6),
       I4 => \dest_graysync_ff[5]\(4),
-      I5 => \dest_out_bin[3]_INST_0_i_1_n_0\,
       O => \^dest_out_bin\(3)
     );
-\dest_out_bin[3]_INST_0_i_1\: unisim.vcomponents.LUT4
+\dest_out_bin[4]_INST_0\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"6996"
     )
         port map (
-      I0 => \dest_graysync_ff[5]\(9),
-      I1 => \dest_graysync_ff[5]\(10),
-      I2 => \dest_graysync_ff[5]\(7),
-      I3 => \dest_graysync_ff[5]\(8),
-      O => \dest_out_bin[3]_INST_0_i_1_n_0\
-    );
-\dest_out_bin[4]_INST_0\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"6996966996696996"
-    )
-        port map (
-      I0 => \dest_graysync_ff[5]\(12),
-      I1 => \dest_out_bin[4]_INST_0_i_1_n_0\,
-      I2 => \dest_graysync_ff[5]\(10),
-      I3 => \dest_graysync_ff[5]\(11),
-      I4 => \dest_graysync_ff[5]\(8),
-      I5 => \dest_graysync_ff[5]\(9),
+      I0 => \dest_graysync_ff[5]\(4),
+      I1 => \dest_graysync_ff[5]\(6),
+      I2 => \^dest_out_bin\(7),
+      I3 => \dest_graysync_ff[5]\(5),
       O => \^dest_out_bin\(4)
     );
-\dest_out_bin[4]_INST_0_i_1\: unisim.vcomponents.LUT4
+\dest_out_bin[5]_INST_0\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"6996"
+      INIT => X"96"
+    )
+        port map (
+      I0 => \dest_graysync_ff[5]\(5),
+      I1 => \^dest_out_bin\(7),
+      I2 => \dest_graysync_ff[5]\(6),
+      O => \^dest_out_bin\(5)
+    );
+\dest_out_bin[6]_INST_0\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"6"
     )
         port map (
       I0 => \dest_graysync_ff[5]\(6),
-      I1 => \dest_graysync_ff[5]\(7),
-      I2 => \dest_graysync_ff[5]\(4),
-      I3 => \dest_graysync_ff[5]\(5),
-      O => \dest_out_bin[4]_INST_0_i_1_n_0\
-    );
-\dest_out_bin[5]_INST_0\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"96696996"
-    )
-        port map (
-      I0 => \^dest_out_bin\(9),
-      I1 => \dest_graysync_ff[5]\(6),
-      I2 => \dest_graysync_ff[5]\(5),
-      I3 => \dest_graysync_ff[5]\(8),
-      I4 => \dest_graysync_ff[5]\(7),
-      O => \^dest_out_bin\(5)
-    );
-\dest_out_bin[6]_INST_0\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"96696996"
-    )
-        port map (
-      I0 => \^dest_out_bin\(10),
-      I1 => \dest_graysync_ff[5]\(7),
-      I2 => \dest_graysync_ff[5]\(6),
-      I3 => \dest_graysync_ff[5]\(9),
-      I4 => \dest_graysync_ff[5]\(8),
+      I1 => \^dest_out_bin\(7),
       O => \^dest_out_bin\(6)
     );
 \dest_out_bin[7]_INST_0\: unisim.vcomponents.LUT6
@@ -6964,12 +7190,12 @@ begin
       INIT => X"6996966996696996"
     )
         port map (
-      I0 => \dest_graysync_ff[5]\(11),
-      I1 => \dest_graysync_ff[5]\(12),
-      I2 => \dest_graysync_ff[5]\(8),
-      I3 => \dest_graysync_ff[5]\(7),
+      I0 => \dest_graysync_ff[5]\(7),
+      I1 => \dest_graysync_ff[5]\(9),
+      I2 => \dest_graysync_ff[5]\(11),
+      I3 => \dest_graysync_ff[5]\(12),
       I4 => \dest_graysync_ff[5]\(10),
-      I5 => \dest_graysync_ff[5]\(9),
+      I5 => \dest_graysync_ff[5]\(8),
       O => \^dest_out_bin\(7)
     );
 \dest_out_bin[8]_INST_0\: unisim.vcomponents.LUT5
@@ -6977,11 +7203,11 @@ begin
       INIT => X"96696996"
     )
         port map (
-      I0 => \dest_graysync_ff[5]\(12),
-      I1 => \dest_graysync_ff[5]\(9),
-      I2 => \dest_graysync_ff[5]\(8),
+      I0 => \dest_graysync_ff[5]\(8),
+      I1 => \dest_graysync_ff[5]\(10),
+      I2 => \dest_graysync_ff[5]\(12),
       I3 => \dest_graysync_ff[5]\(11),
-      I4 => \dest_graysync_ff[5]\(10),
+      I4 => \dest_graysync_ff[5]\(9),
       O => \^dest_out_bin\(8)
     );
 \dest_out_bin[9]_INST_0\: unisim.vcomponents.LUT4
@@ -6989,9 +7215,9 @@ begin
       INIT => X"6996"
     )
         port map (
-      I0 => \dest_graysync_ff[5]\(11),
-      I1 => \dest_graysync_ff[5]\(12),
-      I2 => \dest_graysync_ff[5]\(9),
+      I0 => \dest_graysync_ff[5]\(9),
+      I1 => \dest_graysync_ff[5]\(11),
+      I2 => \dest_graysync_ff[5]\(12),
       I3 => \dest_graysync_ff[5]\(10),
       O => \^dest_out_bin\(9)
     );
@@ -7000,8 +7226,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(0),
-      I1 => src_in_bin(1),
+      I0 => src_in_bin(1),
+      I1 => src_in_bin(0),
       O => gray_enc(0)
     );
 \src_gray_ff[10]_i_1\: unisim.vcomponents.LUT2
@@ -7009,8 +7235,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(10),
-      I1 => src_in_bin(11),
+      I0 => src_in_bin(11),
+      I1 => src_in_bin(10),
       O => gray_enc(10)
     );
 \src_gray_ff[11]_i_1\: unisim.vcomponents.LUT2
@@ -7018,8 +7244,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(11),
-      I1 => src_in_bin(12),
+      I0 => src_in_bin(12),
+      I1 => src_in_bin(11),
       O => gray_enc(11)
     );
 \src_gray_ff[1]_i_1\: unisim.vcomponents.LUT2
@@ -7027,8 +7253,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(1),
-      I1 => src_in_bin(2),
+      I0 => src_in_bin(2),
+      I1 => src_in_bin(1),
       O => gray_enc(1)
     );
 \src_gray_ff[2]_i_1\: unisim.vcomponents.LUT2
@@ -7036,8 +7262,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(2),
-      I1 => src_in_bin(3),
+      I0 => src_in_bin(3),
+      I1 => src_in_bin(2),
       O => gray_enc(2)
     );
 \src_gray_ff[3]_i_1\: unisim.vcomponents.LUT2
@@ -7045,8 +7271,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(3),
-      I1 => src_in_bin(4),
+      I0 => src_in_bin(4),
+      I1 => src_in_bin(3),
       O => gray_enc(3)
     );
 \src_gray_ff[4]_i_1\: unisim.vcomponents.LUT2
@@ -7054,8 +7280,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(4),
-      I1 => src_in_bin(5),
+      I0 => src_in_bin(5),
+      I1 => src_in_bin(4),
       O => gray_enc(4)
     );
 \src_gray_ff[5]_i_1\: unisim.vcomponents.LUT2
@@ -7063,8 +7289,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(5),
-      I1 => src_in_bin(6),
+      I0 => src_in_bin(6),
+      I1 => src_in_bin(5),
       O => gray_enc(5)
     );
 \src_gray_ff[6]_i_1\: unisim.vcomponents.LUT2
@@ -7072,8 +7298,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(6),
-      I1 => src_in_bin(7),
+      I0 => src_in_bin(7),
+      I1 => src_in_bin(6),
       O => gray_enc(6)
     );
 \src_gray_ff[7]_i_1\: unisim.vcomponents.LUT2
@@ -7081,8 +7307,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(7),
-      I1 => src_in_bin(8),
+      I0 => src_in_bin(8),
+      I1 => src_in_bin(7),
       O => gray_enc(7)
     );
 \src_gray_ff[8]_i_1\: unisim.vcomponents.LUT2
@@ -7090,8 +7316,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(8),
-      I1 => src_in_bin(9),
+      I0 => src_in_bin(9),
+      I1 => src_in_bin(8),
       O => gray_enc(8)
     );
 \src_gray_ff[9]_i_1\: unisim.vcomponents.LUT2
@@ -7099,8 +7325,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(9),
-      I1 => src_in_bin(10),
+      I0 => src_in_bin(10),
+      I1 => src_in_bin(9),
       O => gray_enc(9)
     );
 \src_gray_ff_reg[0]\: unisim.vcomponents.FDRE
@@ -7222,7 +7448,7 @@ entity \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized1\ is
   attribute DEST_SYNC_FF : integer;
   attribute DEST_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized1\ : entity is 4;
   attribute INIT_SYNC_FF : integer;
-  attribute INIT_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized1\ : entity is 0;
+  attribute INIT_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized1\ : entity is 1;
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized1\ : entity is "xpm_cdc_gray";
   attribute REG_OUTPUT : integer;
@@ -7237,6 +7463,8 @@ entity \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized1\ is
   attribute WIDTH of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized1\ : entity is 13;
   attribute XPM_MODULE : string;
   attribute XPM_MODULE of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized1\ : entity is "TRUE";
+  attribute keep_hierarchy : string;
+  attribute keep_hierarchy of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized1\ : entity is "true";
   attribute xpm_cdc : string;
   attribute xpm_cdc of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized1\ : entity is "GRAY";
 end \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized1\;
@@ -7262,127 +7490,178 @@ architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterize
   attribute async_reg of \dest_graysync_ff[3]\ : signal is "true";
   attribute xpm_cdc of \dest_graysync_ff[3]\ : signal is "GRAY";
   signal \^dest_out_bin\ : STD_LOGIC_VECTOR ( 11 downto 0 );
-  signal \dest_out_bin[1]_INST_0_i_1_n_0\ : STD_LOGIC;
-  signal \dest_out_bin[2]_INST_0_i_1_n_0\ : STD_LOGIC;
-  signal \dest_out_bin[3]_INST_0_i_1_n_0\ : STD_LOGIC;
-  signal \dest_out_bin[4]_INST_0_i_1_n_0\ : STD_LOGIC;
   signal gray_enc : STD_LOGIC_VECTOR ( 11 downto 0 );
   attribute ASYNC_REG_boolean : boolean;
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][0]\ : label is std.standard.true;
+  attribute KEEP : string;
+  attribute KEEP of \dest_graysync_ff_reg[0][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][12]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][12]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][12]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[0][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[0][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[0][9]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][12]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][12]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][12]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[1][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[1][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[1][9]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][12]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][12]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][12]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[2][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[2][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[2][9]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][0]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][0]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][0]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][10]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][10]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][10]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][11]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][11]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][11]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][12]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][12]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][12]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][1]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][1]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][1]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][2]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][2]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][2]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][3]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][3]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][3]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][4]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][4]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][4]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][5]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][5]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][5]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][6]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][6]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][6]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][7]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][7]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][7]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][8]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][8]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][8]\ : label is "GRAY";
   attribute ASYNC_REG_boolean of \dest_graysync_ff_reg[3][9]\ : label is std.standard.true;
+  attribute KEEP of \dest_graysync_ff_reg[3][9]\ : label is "true";
   attribute XPM_CDC of \dest_graysync_ff_reg[3][9]\ : label is "GRAY";
   attribute SOFT_HLUTNM : string;
+  attribute SOFT_HLUTNM of \src_gray_ff[0]_i_1\ : label is "soft_lutpair21";
   attribute SOFT_HLUTNM of \src_gray_ff[10]_i_1\ : label is "soft_lutpair16";
   attribute SOFT_HLUTNM of \src_gray_ff[11]_i_1\ : label is "soft_lutpair16";
-  attribute SOFT_HLUTNM of \src_gray_ff[1]_i_1\ : label is "soft_lutpair20";
+  attribute SOFT_HLUTNM of \src_gray_ff[1]_i_1\ : label is "soft_lutpair21";
   attribute SOFT_HLUTNM of \src_gray_ff[2]_i_1\ : label is "soft_lutpair20";
-  attribute SOFT_HLUTNM of \src_gray_ff[3]_i_1\ : label is "soft_lutpair18";
-  attribute SOFT_HLUTNM of \src_gray_ff[4]_i_1\ : label is "soft_lutpair18";
+  attribute SOFT_HLUTNM of \src_gray_ff[3]_i_1\ : label is "soft_lutpair20";
+  attribute SOFT_HLUTNM of \src_gray_ff[4]_i_1\ : label is "soft_lutpair19";
   attribute SOFT_HLUTNM of \src_gray_ff[5]_i_1\ : label is "soft_lutpair19";
-  attribute SOFT_HLUTNM of \src_gray_ff[6]_i_1\ : label is "soft_lutpair19";
-  attribute SOFT_HLUTNM of \src_gray_ff[7]_i_1\ : label is "soft_lutpair17";
+  attribute SOFT_HLUTNM of \src_gray_ff[6]_i_1\ : label is "soft_lutpair18";
+  attribute SOFT_HLUTNM of \src_gray_ff[7]_i_1\ : label is "soft_lutpair18";
   attribute SOFT_HLUTNM of \src_gray_ff[8]_i_1\ : label is "soft_lutpair17";
+  attribute SOFT_HLUTNM of \src_gray_ff[9]_i_1\ : label is "soft_lutpair17";
 begin
   dest_out_bin(12) <= \dest_graysync_ff[3]\(12);
   dest_out_bin(11 downto 0) <= \^dest_out_bin\(11 downto 0);
@@ -7802,17 +8081,14 @@ begin
       Q => \dest_graysync_ff[3]\(9),
       R => '0'
     );
-\dest_out_bin[0]_INST_0\: unisim.vcomponents.LUT6
+\dest_out_bin[0]_INST_0\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"6996966996696996"
+      INIT => X"96"
     )
         port map (
-      I0 => \^dest_out_bin\(8),
-      I1 => \dest_graysync_ff[3]\(2),
-      I2 => \dest_graysync_ff[3]\(3),
-      I3 => \dest_graysync_ff[3]\(0),
-      I4 => \dest_graysync_ff[3]\(1),
-      I5 => \dest_out_bin[4]_INST_0_i_1_n_0\,
+      I0 => \dest_graysync_ff[3]\(0),
+      I1 => \^dest_out_bin\(2),
+      I2 => \dest_graysync_ff[3]\(1),
       O => \^dest_out_bin\(0)
     );
 \dest_out_bin[10]_INST_0\: unisim.vcomponents.LUT3
@@ -7820,8 +8096,8 @@ begin
       INIT => X"96"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(12),
-      I1 => \dest_graysync_ff[3]\(10),
+      I0 => \dest_graysync_ff[3]\(10),
+      I1 => \dest_graysync_ff[3]\(12),
       I2 => \dest_graysync_ff[3]\(11),
       O => \^dest_out_bin\(10)
     );
@@ -7830,128 +8106,72 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(12),
-      I1 => \dest_graysync_ff[3]\(11),
+      I0 => \dest_graysync_ff[3]\(11),
+      I1 => \dest_graysync_ff[3]\(12),
       O => \^dest_out_bin\(11)
     );
-\dest_out_bin[1]_INST_0\: unisim.vcomponents.LUT6
+\dest_out_bin[1]_INST_0\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"6996966996696996"
+      INIT => X"6"
     )
         port map (
-      I0 => \^dest_out_bin\(9),
-      I1 => \dest_graysync_ff[3]\(3),
-      I2 => \dest_graysync_ff[3]\(4),
-      I3 => \dest_graysync_ff[3]\(1),
-      I4 => \dest_graysync_ff[3]\(2),
-      I5 => \dest_out_bin[1]_INST_0_i_1_n_0\,
+      I0 => \dest_graysync_ff[3]\(1),
+      I1 => \^dest_out_bin\(2),
       O => \^dest_out_bin\(1)
-    );
-\dest_out_bin[1]_INST_0_i_1\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"6996"
-    )
-        port map (
-      I0 => \dest_graysync_ff[3]\(7),
-      I1 => \dest_graysync_ff[3]\(8),
-      I2 => \dest_graysync_ff[3]\(5),
-      I3 => \dest_graysync_ff[3]\(6),
-      O => \dest_out_bin[1]_INST_0_i_1_n_0\
     );
 \dest_out_bin[2]_INST_0\: unisim.vcomponents.LUT6
     generic map(
       INIT => X"6996966996696996"
     )
         port map (
-      I0 => \^dest_out_bin\(10),
+      I0 => \dest_graysync_ff[3]\(2),
       I1 => \dest_graysync_ff[3]\(4),
-      I2 => \dest_graysync_ff[3]\(5),
-      I3 => \dest_graysync_ff[3]\(2),
-      I4 => \dest_graysync_ff[3]\(3),
-      I5 => \dest_out_bin[2]_INST_0_i_1_n_0\,
+      I2 => \dest_graysync_ff[3]\(6),
+      I3 => \^dest_out_bin\(7),
+      I4 => \dest_graysync_ff[3]\(5),
+      I5 => \dest_graysync_ff[3]\(3),
       O => \^dest_out_bin\(2)
     );
-\dest_out_bin[2]_INST_0_i_1\: unisim.vcomponents.LUT4
+\dest_out_bin[3]_INST_0\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"6996"
+      INIT => X"96696996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(8),
-      I1 => \dest_graysync_ff[3]\(9),
-      I2 => \dest_graysync_ff[3]\(6),
-      I3 => \dest_graysync_ff[3]\(7),
-      O => \dest_out_bin[2]_INST_0_i_1_n_0\
-    );
-\dest_out_bin[3]_INST_0\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"6996966996696996"
-    )
-        port map (
-      I0 => \^dest_out_bin\(11),
+      I0 => \dest_graysync_ff[3]\(3),
       I1 => \dest_graysync_ff[3]\(5),
-      I2 => \dest_graysync_ff[3]\(6),
-      I3 => \dest_graysync_ff[3]\(3),
+      I2 => \^dest_out_bin\(7),
+      I3 => \dest_graysync_ff[3]\(6),
       I4 => \dest_graysync_ff[3]\(4),
-      I5 => \dest_out_bin[3]_INST_0_i_1_n_0\,
       O => \^dest_out_bin\(3)
     );
-\dest_out_bin[3]_INST_0_i_1\: unisim.vcomponents.LUT4
+\dest_out_bin[4]_INST_0\: unisim.vcomponents.LUT4
     generic map(
       INIT => X"6996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(9),
-      I1 => \dest_graysync_ff[3]\(10),
-      I2 => \dest_graysync_ff[3]\(7),
-      I3 => \dest_graysync_ff[3]\(8),
-      O => \dest_out_bin[3]_INST_0_i_1_n_0\
-    );
-\dest_out_bin[4]_INST_0\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"6996966996696996"
-    )
-        port map (
-      I0 => \dest_graysync_ff[3]\(12),
-      I1 => \dest_out_bin[4]_INST_0_i_1_n_0\,
-      I2 => \dest_graysync_ff[3]\(10),
-      I3 => \dest_graysync_ff[3]\(11),
-      I4 => \dest_graysync_ff[3]\(8),
-      I5 => \dest_graysync_ff[3]\(9),
+      I0 => \dest_graysync_ff[3]\(4),
+      I1 => \dest_graysync_ff[3]\(6),
+      I2 => \^dest_out_bin\(7),
+      I3 => \dest_graysync_ff[3]\(5),
       O => \^dest_out_bin\(4)
     );
-\dest_out_bin[4]_INST_0_i_1\: unisim.vcomponents.LUT4
+\dest_out_bin[5]_INST_0\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"6996"
+      INIT => X"96"
+    )
+        port map (
+      I0 => \dest_graysync_ff[3]\(5),
+      I1 => \^dest_out_bin\(7),
+      I2 => \dest_graysync_ff[3]\(6),
+      O => \^dest_out_bin\(5)
+    );
+\dest_out_bin[6]_INST_0\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"6"
     )
         port map (
       I0 => \dest_graysync_ff[3]\(6),
-      I1 => \dest_graysync_ff[3]\(7),
-      I2 => \dest_graysync_ff[3]\(4),
-      I3 => \dest_graysync_ff[3]\(5),
-      O => \dest_out_bin[4]_INST_0_i_1_n_0\
-    );
-\dest_out_bin[5]_INST_0\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"96696996"
-    )
-        port map (
-      I0 => \^dest_out_bin\(9),
-      I1 => \dest_graysync_ff[3]\(6),
-      I2 => \dest_graysync_ff[3]\(5),
-      I3 => \dest_graysync_ff[3]\(8),
-      I4 => \dest_graysync_ff[3]\(7),
-      O => \^dest_out_bin\(5)
-    );
-\dest_out_bin[6]_INST_0\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"96696996"
-    )
-        port map (
-      I0 => \^dest_out_bin\(10),
-      I1 => \dest_graysync_ff[3]\(7),
-      I2 => \dest_graysync_ff[3]\(6),
-      I3 => \dest_graysync_ff[3]\(9),
-      I4 => \dest_graysync_ff[3]\(8),
+      I1 => \^dest_out_bin\(7),
       O => \^dest_out_bin\(6)
     );
 \dest_out_bin[7]_INST_0\: unisim.vcomponents.LUT6
@@ -7959,12 +8179,12 @@ begin
       INIT => X"6996966996696996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(11),
-      I1 => \dest_graysync_ff[3]\(12),
-      I2 => \dest_graysync_ff[3]\(8),
-      I3 => \dest_graysync_ff[3]\(7),
+      I0 => \dest_graysync_ff[3]\(7),
+      I1 => \dest_graysync_ff[3]\(9),
+      I2 => \dest_graysync_ff[3]\(11),
+      I3 => \dest_graysync_ff[3]\(12),
       I4 => \dest_graysync_ff[3]\(10),
-      I5 => \dest_graysync_ff[3]\(9),
+      I5 => \dest_graysync_ff[3]\(8),
       O => \^dest_out_bin\(7)
     );
 \dest_out_bin[8]_INST_0\: unisim.vcomponents.LUT5
@@ -7972,11 +8192,11 @@ begin
       INIT => X"96696996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(12),
-      I1 => \dest_graysync_ff[3]\(9),
-      I2 => \dest_graysync_ff[3]\(8),
+      I0 => \dest_graysync_ff[3]\(8),
+      I1 => \dest_graysync_ff[3]\(10),
+      I2 => \dest_graysync_ff[3]\(12),
       I3 => \dest_graysync_ff[3]\(11),
-      I4 => \dest_graysync_ff[3]\(10),
+      I4 => \dest_graysync_ff[3]\(9),
       O => \^dest_out_bin\(8)
     );
 \dest_out_bin[9]_INST_0\: unisim.vcomponents.LUT4
@@ -7984,9 +8204,9 @@ begin
       INIT => X"6996"
     )
         port map (
-      I0 => \dest_graysync_ff[3]\(11),
-      I1 => \dest_graysync_ff[3]\(12),
-      I2 => \dest_graysync_ff[3]\(9),
+      I0 => \dest_graysync_ff[3]\(9),
+      I1 => \dest_graysync_ff[3]\(11),
+      I2 => \dest_graysync_ff[3]\(12),
       I3 => \dest_graysync_ff[3]\(10),
       O => \^dest_out_bin\(9)
     );
@@ -7995,8 +8215,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(0),
-      I1 => src_in_bin(1),
+      I0 => src_in_bin(1),
+      I1 => src_in_bin(0),
       O => gray_enc(0)
     );
 \src_gray_ff[10]_i_1\: unisim.vcomponents.LUT2
@@ -8004,8 +8224,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(10),
-      I1 => src_in_bin(11),
+      I0 => src_in_bin(11),
+      I1 => src_in_bin(10),
       O => gray_enc(10)
     );
 \src_gray_ff[11]_i_1\: unisim.vcomponents.LUT2
@@ -8013,8 +8233,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(11),
-      I1 => src_in_bin(12),
+      I0 => src_in_bin(12),
+      I1 => src_in_bin(11),
       O => gray_enc(11)
     );
 \src_gray_ff[1]_i_1\: unisim.vcomponents.LUT2
@@ -8022,8 +8242,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(1),
-      I1 => src_in_bin(2),
+      I0 => src_in_bin(2),
+      I1 => src_in_bin(1),
       O => gray_enc(1)
     );
 \src_gray_ff[2]_i_1\: unisim.vcomponents.LUT2
@@ -8031,8 +8251,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(2),
-      I1 => src_in_bin(3),
+      I0 => src_in_bin(3),
+      I1 => src_in_bin(2),
       O => gray_enc(2)
     );
 \src_gray_ff[3]_i_1\: unisim.vcomponents.LUT2
@@ -8040,8 +8260,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(3),
-      I1 => src_in_bin(4),
+      I0 => src_in_bin(4),
+      I1 => src_in_bin(3),
       O => gray_enc(3)
     );
 \src_gray_ff[4]_i_1\: unisim.vcomponents.LUT2
@@ -8049,8 +8269,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(4),
-      I1 => src_in_bin(5),
+      I0 => src_in_bin(5),
+      I1 => src_in_bin(4),
       O => gray_enc(4)
     );
 \src_gray_ff[5]_i_1\: unisim.vcomponents.LUT2
@@ -8058,8 +8278,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(5),
-      I1 => src_in_bin(6),
+      I0 => src_in_bin(6),
+      I1 => src_in_bin(5),
       O => gray_enc(5)
     );
 \src_gray_ff[6]_i_1\: unisim.vcomponents.LUT2
@@ -8067,8 +8287,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(6),
-      I1 => src_in_bin(7),
+      I0 => src_in_bin(7),
+      I1 => src_in_bin(6),
       O => gray_enc(6)
     );
 \src_gray_ff[7]_i_1\: unisim.vcomponents.LUT2
@@ -8076,8 +8296,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(7),
-      I1 => src_in_bin(8),
+      I0 => src_in_bin(8),
+      I1 => src_in_bin(7),
       O => gray_enc(7)
     );
 \src_gray_ff[8]_i_1\: unisim.vcomponents.LUT2
@@ -8085,8 +8305,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(8),
-      I1 => src_in_bin(9),
+      I0 => src_in_bin(9),
+      I1 => src_in_bin(8),
       O => gray_enc(8)
     );
 \src_gray_ff[9]_i_1\: unisim.vcomponents.LUT2
@@ -8094,8 +8314,8 @@ begin
       INIT => X"6"
     )
         port map (
-      I0 => src_in_bin(9),
-      I1 => src_in_bin(10),
+      I0 => src_in_bin(10),
+      I1 => src_in_bin(9),
       O => gray_enc(9)
     );
 \src_gray_ff_reg[0]\: unisim.vcomponents.FDRE
@@ -8228,6 +8448,8 @@ entity system_v_axi4s_vid_out_0_0_xpm_cdc_single is
   attribute VERSION of system_v_axi4s_vid_out_0_0_xpm_cdc_single : entity is 0;
   attribute XPM_MODULE : string;
   attribute XPM_MODULE of system_v_axi4s_vid_out_0_0_xpm_cdc_single : entity is "TRUE";
+  attribute keep_hierarchy : string;
+  attribute keep_hierarchy of system_v_axi4s_vid_out_0_0_xpm_cdc_single : entity is "true";
   attribute xpm_cdc : string;
   attribute xpm_cdc of system_v_axi4s_vid_out_0_0_xpm_cdc_single : entity is "SINGLE";
 end system_v_axi4s_vid_out_0_0_xpm_cdc_single;
@@ -8241,12 +8463,104 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_cdc_single is
   attribute xpm_cdc of syncstages_ff : signal is "SINGLE";
   attribute ASYNC_REG_boolean : boolean;
   attribute ASYNC_REG_boolean of \syncstages_ff_reg[0]\ : label is std.standard.true;
+  attribute KEEP : string;
+  attribute KEEP of \syncstages_ff_reg[0]\ : label is "true";
   attribute XPM_CDC of \syncstages_ff_reg[0]\ : label is "SINGLE";
   attribute ASYNC_REG_boolean of \syncstages_ff_reg[1]\ : label is std.standard.true;
+  attribute KEEP of \syncstages_ff_reg[1]\ : label is "true";
   attribute XPM_CDC of \syncstages_ff_reg[1]\ : label is "SINGLE";
   attribute ASYNC_REG_boolean of \syncstages_ff_reg[2]\ : label is std.standard.true;
+  attribute KEEP of \syncstages_ff_reg[2]\ : label is "true";
   attribute XPM_CDC of \syncstages_ff_reg[2]\ : label is "SINGLE";
   attribute ASYNC_REG_boolean of \syncstages_ff_reg[3]\ : label is std.standard.true;
+  attribute KEEP of \syncstages_ff_reg[3]\ : label is "true";
+  attribute XPM_CDC of \syncstages_ff_reg[3]\ : label is "SINGLE";
+begin
+  dest_out <= syncstages_ff(3);
+\syncstages_ff_reg[0]\: unisim.vcomponents.FDRE
+     port map (
+      C => dest_clk,
+      CE => '1',
+      D => src_in,
+      Q => syncstages_ff(0),
+      R => '0'
+    );
+\syncstages_ff_reg[1]\: unisim.vcomponents.FDRE
+     port map (
+      C => dest_clk,
+      CE => '1',
+      D => syncstages_ff(0),
+      Q => syncstages_ff(1),
+      R => '0'
+    );
+\syncstages_ff_reg[2]\: unisim.vcomponents.FDRE
+     port map (
+      C => dest_clk,
+      CE => '1',
+      D => syncstages_ff(1),
+      Q => syncstages_ff(2),
+      R => '0'
+    );
+\syncstages_ff_reg[3]\: unisim.vcomponents.FDRE
+     port map (
+      C => dest_clk,
+      CE => '1',
+      D => syncstages_ff(2),
+      Q => syncstages_ff(3),
+      R => '0'
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity \system_v_axi4s_vid_out_0_0_xpm_cdc_single__2\ is
+  port (
+    src_clk : in STD_LOGIC;
+    src_in : in STD_LOGIC;
+    dest_clk : in STD_LOGIC;
+    dest_out : out STD_LOGIC
+  );
+  attribute DEST_SYNC_FF : integer;
+  attribute DEST_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_single__2\ : entity is 4;
+  attribute INIT_SYNC_FF : integer;
+  attribute INIT_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_single__2\ : entity is 0;
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of \system_v_axi4s_vid_out_0_0_xpm_cdc_single__2\ : entity is "xpm_cdc_single";
+  attribute SIM_ASSERT_CHK : integer;
+  attribute SIM_ASSERT_CHK of \system_v_axi4s_vid_out_0_0_xpm_cdc_single__2\ : entity is 0;
+  attribute SRC_INPUT_REG : integer;
+  attribute SRC_INPUT_REG of \system_v_axi4s_vid_out_0_0_xpm_cdc_single__2\ : entity is 0;
+  attribute VERSION : integer;
+  attribute VERSION of \system_v_axi4s_vid_out_0_0_xpm_cdc_single__2\ : entity is 0;
+  attribute XPM_MODULE : string;
+  attribute XPM_MODULE of \system_v_axi4s_vid_out_0_0_xpm_cdc_single__2\ : entity is "TRUE";
+  attribute keep_hierarchy : string;
+  attribute keep_hierarchy of \system_v_axi4s_vid_out_0_0_xpm_cdc_single__2\ : entity is "true";
+  attribute xpm_cdc : string;
+  attribute xpm_cdc of \system_v_axi4s_vid_out_0_0_xpm_cdc_single__2\ : entity is "SINGLE";
+end \system_v_axi4s_vid_out_0_0_xpm_cdc_single__2\;
+
+architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_cdc_single__2\ is
+  signal syncstages_ff : STD_LOGIC_VECTOR ( 3 downto 0 );
+  attribute RTL_KEEP : string;
+  attribute RTL_KEEP of syncstages_ff : signal is "true";
+  attribute async_reg : string;
+  attribute async_reg of syncstages_ff : signal is "true";
+  attribute xpm_cdc of syncstages_ff : signal is "SINGLE";
+  attribute ASYNC_REG_boolean : boolean;
+  attribute ASYNC_REG_boolean of \syncstages_ff_reg[0]\ : label is std.standard.true;
+  attribute KEEP : string;
+  attribute KEEP of \syncstages_ff_reg[0]\ : label is "true";
+  attribute XPM_CDC of \syncstages_ff_reg[0]\ : label is "SINGLE";
+  attribute ASYNC_REG_boolean of \syncstages_ff_reg[1]\ : label is std.standard.true;
+  attribute KEEP of \syncstages_ff_reg[1]\ : label is "true";
+  attribute XPM_CDC of \syncstages_ff_reg[1]\ : label is "SINGLE";
+  attribute ASYNC_REG_boolean of \syncstages_ff_reg[2]\ : label is std.standard.true;
+  attribute KEEP of \syncstages_ff_reg[2]\ : label is "true";
+  attribute XPM_CDC of \syncstages_ff_reg[2]\ : label is "SINGLE";
+  attribute ASYNC_REG_boolean of \syncstages_ff_reg[3]\ : label is std.standard.true;
+  attribute KEEP of \syncstages_ff_reg[3]\ : label is "true";
   attribute XPM_CDC of \syncstages_ff_reg[3]\ : label is "SINGLE";
 begin
   dest_out <= syncstages_ff(3);
@@ -8300,15 +8614,17 @@ entity system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst is
   attribute INIT : string;
   attribute INIT of system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst : entity is "0";
   attribute INIT_SYNC_FF : integer;
-  attribute INIT_SYNC_FF of system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst : entity is 0;
+  attribute INIT_SYNC_FF of system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst : entity is 1;
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst : entity is "xpm_cdc_sync_rst";
   attribute SIM_ASSERT_CHK : integer;
-  attribute SIM_ASSERT_CHK of system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst : entity is 1;
+  attribute SIM_ASSERT_CHK of system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst : entity is 0;
   attribute VERSION : integer;
   attribute VERSION of system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst : entity is 0;
   attribute XPM_MODULE : string;
   attribute XPM_MODULE of system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst : entity is "TRUE";
+  attribute keep_hierarchy : string;
+  attribute keep_hierarchy of system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst : entity is "true";
   attribute xpm_cdc : string;
   attribute xpm_cdc of system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst : entity is "SYNC_RST";
 end system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst;
@@ -8322,12 +8638,17 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst is
   attribute xpm_cdc of syncstages_ff : signal is "SYNC_RST";
   attribute ASYNC_REG_boolean : boolean;
   attribute ASYNC_REG_boolean of \syncstages_ff_reg[0]\ : label is std.standard.true;
+  attribute KEEP : string;
+  attribute KEEP of \syncstages_ff_reg[0]\ : label is "true";
   attribute XPM_CDC of \syncstages_ff_reg[0]\ : label is "SYNC_RST";
   attribute ASYNC_REG_boolean of \syncstages_ff_reg[1]\ : label is std.standard.true;
+  attribute KEEP of \syncstages_ff_reg[1]\ : label is "true";
   attribute XPM_CDC of \syncstages_ff_reg[1]\ : label is "SYNC_RST";
   attribute ASYNC_REG_boolean of \syncstages_ff_reg[2]\ : label is std.standard.true;
+  attribute KEEP of \syncstages_ff_reg[2]\ : label is "true";
   attribute XPM_CDC of \syncstages_ff_reg[2]\ : label is "SYNC_RST";
   attribute ASYNC_REG_boolean of \syncstages_ff_reg[3]\ : label is std.standard.true;
+  attribute KEEP of \syncstages_ff_reg[3]\ : label is "true";
   attribute XPM_CDC of \syncstages_ff_reg[3]\ : label is "SYNC_RST";
 begin
   dest_rst <= syncstages_ff(3);
@@ -8380,33 +8701,35 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__1\ is
+entity \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__2\ is
   port (
     src_rst : in STD_LOGIC;
     dest_clk : in STD_LOGIC;
     dest_rst : out STD_LOGIC
   );
   attribute DEF_VAL : string;
-  attribute DEF_VAL of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__1\ : entity is "1'b0";
+  attribute DEF_VAL of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__2\ : entity is "1'b0";
   attribute DEST_SYNC_FF : integer;
-  attribute DEST_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__1\ : entity is 4;
+  attribute DEST_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__2\ : entity is 4;
   attribute INIT : string;
-  attribute INIT of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__1\ : entity is "0";
+  attribute INIT of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__2\ : entity is "0";
   attribute INIT_SYNC_FF : integer;
-  attribute INIT_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__1\ : entity is 0;
+  attribute INIT_SYNC_FF of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__2\ : entity is 1;
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__1\ : entity is "xpm_cdc_sync_rst";
+  attribute ORIG_REF_NAME of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__2\ : entity is "xpm_cdc_sync_rst";
   attribute SIM_ASSERT_CHK : integer;
-  attribute SIM_ASSERT_CHK of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__1\ : entity is 1;
+  attribute SIM_ASSERT_CHK of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__2\ : entity is 0;
   attribute VERSION : integer;
-  attribute VERSION of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__1\ : entity is 0;
+  attribute VERSION of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__2\ : entity is 0;
   attribute XPM_MODULE : string;
-  attribute XPM_MODULE of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__1\ : entity is "TRUE";
+  attribute XPM_MODULE of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__2\ : entity is "TRUE";
+  attribute keep_hierarchy : string;
+  attribute keep_hierarchy of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__2\ : entity is "true";
   attribute xpm_cdc : string;
-  attribute xpm_cdc of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__1\ : entity is "SYNC_RST";
-end \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__1\;
+  attribute xpm_cdc of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__2\ : entity is "SYNC_RST";
+end \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__2\;
 
-architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__1\ is
+architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__2\ is
   signal syncstages_ff : STD_LOGIC_VECTOR ( 3 downto 0 );
   attribute RTL_KEEP : string;
   attribute RTL_KEEP of syncstages_ff : signal is "true";
@@ -8415,12 +8738,17 @@ architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__1\ is
   attribute xpm_cdc of syncstages_ff : signal is "SYNC_RST";
   attribute ASYNC_REG_boolean : boolean;
   attribute ASYNC_REG_boolean of \syncstages_ff_reg[0]\ : label is std.standard.true;
+  attribute KEEP : string;
+  attribute KEEP of \syncstages_ff_reg[0]\ : label is "true";
   attribute XPM_CDC of \syncstages_ff_reg[0]\ : label is "SYNC_RST";
   attribute ASYNC_REG_boolean of \syncstages_ff_reg[1]\ : label is std.standard.true;
+  attribute KEEP of \syncstages_ff_reg[1]\ : label is "true";
   attribute XPM_CDC of \syncstages_ff_reg[1]\ : label is "SYNC_RST";
   attribute ASYNC_REG_boolean of \syncstages_ff_reg[2]\ : label is std.standard.true;
+  attribute KEEP of \syncstages_ff_reg[2]\ : label is "true";
   attribute XPM_CDC of \syncstages_ff_reg[2]\ : label is "SYNC_RST";
   attribute ASYNC_REG_boolean of \syncstages_ff_reg[3]\ : label is std.standard.true;
+  attribute KEEP of \syncstages_ff_reg[3]\ : label is "true";
   attribute XPM_CDC of \syncstages_ff_reg[3]\ : label is "SYNC_RST";
 begin
   dest_rst <= syncstages_ff(3);
@@ -8479,11 +8807,11 @@ entity system_v_axi4s_vid_out_0_0_xpm_counter_updn is
     DI : out STD_LOGIC_VECTOR ( 0 to 0 );
     count_value_i : out STD_LOGIC_VECTOR ( 1 downto 0 );
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    \reg_out_i_reg[1]\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    \gen_fwft.curr_fwft_state_reg[1]\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    ram_empty_i : in STD_LOGIC;
+    \grdc.rd_data_count_i_reg[3]\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    \count_value_i_reg[1]_0\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
     rd_en : in STD_LOGIC;
-    SR : in STD_LOGIC_VECTOR ( 0 to 0 );
+    ram_empty_i : in STD_LOGIC;
+    \count_value_i_reg[1]_1\ : in STD_LOGIC;
     rd_clk : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
@@ -8504,39 +8832,40 @@ begin
   count_value_i(1 downto 0) <= \^count_value_i\(1 downto 0);
 \count_value_i[0]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"000000005AA98585"
+      INIT => X"000000005A88A655"
     )
         port map (
       I0 => \^count_value_i\(0),
-      I1 => \gen_fwft.curr_fwft_state_reg[1]\(1),
-      I2 => ram_empty_i,
-      I3 => rd_en,
-      I4 => \gen_fwft.curr_fwft_state_reg[1]\(0),
-      I5 => SR(0),
+      I1 => \count_value_i_reg[1]_0\(0),
+      I2 => rd_en,
+      I3 => \count_value_i_reg[1]_0\(1),
+      I4 => ram_empty_i,
+      I5 => \count_value_i_reg[1]_1\,
       O => \count_value_i[0]_i_1_n_0\
     );
-\count_value_i[1]_i_1\: unisim.vcomponents.LUT5
+\count_value_i[1]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000AA8A"
+      INIT => X"00000000AA88AAAA"
     )
         port map (
       I0 => \count_value_i[1]_i_2_n_0\,
-      I1 => \gen_fwft.curr_fwft_state_reg[1]\(1),
-      I2 => ram_empty_i,
-      I3 => \gen_fwft.curr_fwft_state_reg[1]\(0),
-      I4 => SR(0),
+      I1 => \count_value_i_reg[1]_0\(0),
+      I2 => rd_en,
+      I3 => \count_value_i_reg[1]_0\(1),
+      I4 => ram_empty_i,
+      I5 => \count_value_i_reg[1]_1\,
       O => \count_value_i[1]_i_1_n_0\
     );
 \count_value_i[1]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AFFDF5F550020A0A"
+      INIT => X"AFFFF755500008AA"
     )
         port map (
       I0 => \^count_value_i\(0),
-      I1 => \gen_fwft.curr_fwft_state_reg[1]\(1),
-      I2 => ram_empty_i,
-      I3 => rd_en,
-      I4 => \gen_fwft.curr_fwft_state_reg[1]\(0),
+      I1 => \count_value_i_reg[1]_0\(0),
+      I2 => rd_en,
+      I3 => \count_value_i_reg[1]_0\(1),
+      I4 => ram_empty_i,
       I5 => \^count_value_i\(1),
       O => \count_value_i[1]_i_2_n_0\
     );
@@ -8579,7 +8908,7 @@ begin
       I0 => \^di\(0),
       I1 => \^count_value_i\(1),
       I2 => Q(1),
-      I3 => \reg_out_i_reg[1]\(1),
+      I3 => \grdc.rd_data_count_i_reg[3]\(1),
       O => S(1)
     );
 \grdc.rd_data_count_i[3]_i_8\: unisim.vcomponents.LUT3
@@ -8589,7 +8918,7 @@ begin
         port map (
       I0 => \^count_value_i\(0),
       I1 => Q(0),
-      I2 => \reg_out_i_reg[1]\(0),
+      I2 => \grdc.rd_data_count_i_reg[3]\(0),
       O => S(0)
     );
 end STRUCTURE;
@@ -8602,21 +8931,21 @@ entity \system_v_axi4s_vid_out_0_0_xpm_counter_updn__parameterized0\ is
     Q : out STD_LOGIC_VECTOR ( 11 downto 0 );
     src_in_bin : out STD_LOGIC_VECTOR ( 12 downto 0 );
     S : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \grdc.rd_data_count_i_reg[7]\ : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    \grdc.rd_data_count_i_reg[11]\ : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    \count_value_i_reg[6]_0\ : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    \count_value_i_reg[10]_0\ : out STD_LOGIC_VECTOR ( 3 downto 0 );
     DI : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \grdc.rd_data_count_i_reg[12]\ : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]\ : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    \count_value_i_reg[11]_0\ : out STD_LOGIC_VECTOR ( 0 to 0 );
+    \count_value_i_reg[3]_0\ : out STD_LOGIC_VECTOR ( 3 downto 0 );
     E : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\ : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\ : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    \reg_out_i_reg[12]\ : in STD_LOGIC_VECTOR ( 11 downto 0 );
+    \count_value_i_reg[11]_1\ : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    \count_value_i_reg[7]_0\ : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    \grdc.rd_data_count_i_reg[12]\ : in STD_LOGIC_VECTOR ( 11 downto 0 );
     count_value_i : in STD_LOGIC_VECTOR ( 1 downto 0 );
     ram_empty_i : in STD_LOGIC;
     rd_en : in STD_LOGIC;
-    \gen_fwft.curr_fwft_state_reg[1]\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    \reg_out_i_reg[11]\ : in STD_LOGIC_VECTOR ( 10 downto 0 );
-    SR : in STD_LOGIC_VECTOR ( 0 to 0 );
+    \count_value_i_reg[0]_0\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\ : in STD_LOGIC_VECTOR ( 10 downto 0 );
+    \count_value_i_reg[12]_0\ : in STD_LOGIC;
     rd_clk : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
@@ -8682,23 +9011,32 @@ architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_counter_updn__paramete
   signal \NLW_count_value_i_reg[12]_i_1__0_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 1 );
   signal \NLW_gen_cdc_pntr.rd_pntr_cdc_dc_inst_i_1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal \NLW_gen_cdc_pntr.rd_pntr_cdc_dc_inst_i_1_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 1 );
+  attribute ADDER_THRESHOLD : integer;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[11]_i_1__3\ : label is 35;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[12]_i_1__0\ : label is 35;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[3]_i_1__3\ : label is 35;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[7]_i_1__3\ : label is 35;
+  attribute ADDER_THRESHOLD of \gen_cdc_pntr.rd_pntr_cdc_dc_inst_i_1\ : label is 35;
   attribute METHODOLOGY_DRC_VIOS : string;
   attribute METHODOLOGY_DRC_VIOS of \gen_cdc_pntr.rd_pntr_cdc_dc_inst_i_1\ : label is "{SYNTH-8 {cell *THIS*}}";
+  attribute ADDER_THRESHOLD of \gen_cdc_pntr.rd_pntr_cdc_dc_inst_i_2\ : label is 35;
   attribute METHODOLOGY_DRC_VIOS of \gen_cdc_pntr.rd_pntr_cdc_dc_inst_i_2\ : label is "{SYNTH-8 {cell *THIS*}}";
+  attribute ADDER_THRESHOLD of \gen_cdc_pntr.rd_pntr_cdc_dc_inst_i_3\ : label is 35;
   attribute METHODOLOGY_DRC_VIOS of \gen_cdc_pntr.rd_pntr_cdc_dc_inst_i_3\ : label is "{SYNTH-8 {cell *THIS*}}";
+  attribute ADDER_THRESHOLD of \gen_cdc_pntr.rd_pntr_cdc_dc_inst_i_4\ : label is 35;
   attribute METHODOLOGY_DRC_VIOS of \gen_cdc_pntr.rd_pntr_cdc_dc_inst_i_4\ : label is "{SYNTH-8 {cell *THIS*}}";
 begin
   E(0) <= \^e\(0);
   Q(11 downto 0) <= \^q\(11 downto 0);
 \count_value_i[3]_i_2__3\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"BAAA4555"
+      INIT => X"ABAA5455"
     )
         port map (
       I0 => ram_empty_i,
       I1 => rd_en,
-      I2 => \gen_fwft.curr_fwft_state_reg[1]\(1),
-      I3 => \gen_fwft.curr_fwft_state_reg[1]\(0),
+      I2 => \count_value_i_reg[0]_0\(0),
+      I3 => \count_value_i_reg[0]_0\(1),
       I4 => \^q\(0),
       O => \count_value_i[3]_i_2__3_n_0\
     );
@@ -8711,7 +9049,7 @@ begin
       CE => \^e\(0),
       D => \count_value_i_reg[3]_i_1__3_n_7\,
       Q => \^q\(0),
-      R => SR(0)
+      R => \count_value_i_reg[12]_0\
     );
 \count_value_i_reg[10]\: unisim.vcomponents.FDRE
     generic map(
@@ -8722,7 +9060,7 @@ begin
       CE => \^e\(0),
       D => \count_value_i_reg[11]_i_1__3_n_5\,
       Q => \^q\(10),
-      R => SR(0)
+      R => \count_value_i_reg[12]_0\
     );
 \count_value_i_reg[11]\: unisim.vcomponents.FDRE
     generic map(
@@ -8733,7 +9071,7 @@ begin
       CE => \^e\(0),
       D => \count_value_i_reg[11]_i_1__3_n_4\,
       Q => \^q\(11),
-      R => SR(0)
+      R => \count_value_i_reg[12]_0\
     );
 \count_value_i_reg[11]_i_1__3\: unisim.vcomponents.CARRY4
      port map (
@@ -8759,7 +9097,7 @@ begin
       CE => \^e\(0),
       D => \count_value_i_reg[12]_i_1__0_n_7\,
       Q => \count_value_i_reg_n_0_[12]\,
-      R => SR(0)
+      R => \count_value_i_reg[12]_0\
     );
 \count_value_i_reg[12]_i_1__0\: unisim.vcomponents.CARRY4
      port map (
@@ -8781,7 +9119,7 @@ begin
       CE => \^e\(0),
       D => \count_value_i_reg[3]_i_1__3_n_6\,
       Q => \^q\(1),
-      R => SR(0)
+      R => \count_value_i_reg[12]_0\
     );
 \count_value_i_reg[2]\: unisim.vcomponents.FDRE
     generic map(
@@ -8792,7 +9130,7 @@ begin
       CE => \^e\(0),
       D => \count_value_i_reg[3]_i_1__3_n_5\,
       Q => \^q\(2),
-      R => SR(0)
+      R => \count_value_i_reg[12]_0\
     );
 \count_value_i_reg[3]\: unisim.vcomponents.FDRE
     generic map(
@@ -8803,7 +9141,7 @@ begin
       CE => \^e\(0),
       D => \count_value_i_reg[3]_i_1__3_n_4\,
       Q => \^q\(3),
-      R => SR(0)
+      R => \count_value_i_reg[12]_0\
     );
 \count_value_i_reg[3]_i_1__3\: unisim.vcomponents.CARRY4
      port map (
@@ -8831,7 +9169,7 @@ begin
       CE => \^e\(0),
       D => \count_value_i_reg[7]_i_1__3_n_7\,
       Q => \^q\(4),
-      R => SR(0)
+      R => \count_value_i_reg[12]_0\
     );
 \count_value_i_reg[5]\: unisim.vcomponents.FDRE
     generic map(
@@ -8842,7 +9180,7 @@ begin
       CE => \^e\(0),
       D => \count_value_i_reg[7]_i_1__3_n_6\,
       Q => \^q\(5),
-      R => SR(0)
+      R => \count_value_i_reg[12]_0\
     );
 \count_value_i_reg[6]\: unisim.vcomponents.FDRE
     generic map(
@@ -8853,7 +9191,7 @@ begin
       CE => \^e\(0),
       D => \count_value_i_reg[7]_i_1__3_n_5\,
       Q => \^q\(6),
-      R => SR(0)
+      R => \count_value_i_reg[12]_0\
     );
 \count_value_i_reg[7]\: unisim.vcomponents.FDRE
     generic map(
@@ -8864,7 +9202,7 @@ begin
       CE => \^e\(0),
       D => \count_value_i_reg[7]_i_1__3_n_4\,
       Q => \^q\(7),
-      R => SR(0)
+      R => \count_value_i_reg[12]_0\
     );
 \count_value_i_reg[7]_i_1__3\: unisim.vcomponents.CARRY4
      port map (
@@ -8890,7 +9228,7 @@ begin
       CE => \^e\(0),
       D => \count_value_i_reg[11]_i_1__3_n_7\,
       Q => \^q\(8),
-      R => SR(0)
+      R => \count_value_i_reg[12]_0\
     );
 \count_value_i_reg[9]\: unisim.vcomponents.FDRE
     generic map(
@@ -8901,7 +9239,7 @@ begin
       CE => \^e\(0),
       D => \count_value_i_reg[11]_i_1__3_n_6\,
       Q => \^q\(9),
-      R => SR(0)
+      R => \count_value_i_reg[12]_0\
     );
 \gen_cdc_pntr.rd_pntr_cdc_dc_inst_i_1\: unisim.vcomponents.CARRY4
      port map (
@@ -9071,8 +9409,8 @@ begin
     )
         port map (
       I0 => \^q\(11),
-      I1 => \reg_out_i_reg[11]\(10),
-      O => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(3)
+      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(10),
+      O => \count_value_i_reg[11]_1\(3)
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[11]_i_3\: unisim.vcomponents.LUT2
     generic map(
@@ -9080,8 +9418,8 @@ begin
     )
         port map (
       I0 => \^q\(10),
-      I1 => \reg_out_i_reg[11]\(9),
-      O => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(2)
+      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(9),
+      O => \count_value_i_reg[11]_1\(2)
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[11]_i_4\: unisim.vcomponents.LUT2
     generic map(
@@ -9089,8 +9427,8 @@ begin
     )
         port map (
       I0 => \^q\(9),
-      I1 => \reg_out_i_reg[11]\(8),
-      O => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(1)
+      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(8),
+      O => \count_value_i_reg[11]_1\(1)
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[11]_i_5\: unisim.vcomponents.LUT2
     generic map(
@@ -9098,8 +9436,8 @@ begin
     )
         port map (
       I0 => \^q\(8),
-      I1 => \reg_out_i_reg[11]\(7),
-      O => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(0)
+      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(7),
+      O => \count_value_i_reg[11]_1\(0)
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[3]_i_3\: unisim.vcomponents.LUT2
     generic map(
@@ -9107,8 +9445,8 @@ begin
     )
         port map (
       I0 => \^q\(3),
-      I1 => \reg_out_i_reg[11]\(2),
-      O => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]\(3)
+      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(2),
+      O => \count_value_i_reg[3]_0\(3)
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[3]_i_4\: unisim.vcomponents.LUT2
     generic map(
@@ -9116,8 +9454,8 @@ begin
     )
         port map (
       I0 => \^q\(2),
-      I1 => \reg_out_i_reg[11]\(1),
-      O => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]\(2)
+      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(1),
+      O => \count_value_i_reg[3]_0\(2)
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[3]_i_5\: unisim.vcomponents.LUT2
     generic map(
@@ -9125,20 +9463,20 @@ begin
     )
         port map (
       I0 => \^q\(1),
-      I1 => \reg_out_i_reg[11]\(0),
-      O => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]\(1)
+      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(0),
+      O => \count_value_i_reg[3]_0\(1)
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[3]_i_6\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"BAAA4555"
+      INIT => X"ABAA5455"
     )
         port map (
       I0 => ram_empty_i,
       I1 => rd_en,
-      I2 => \gen_fwft.curr_fwft_state_reg[1]\(1),
-      I3 => \gen_fwft.curr_fwft_state_reg[1]\(0),
+      I2 => \count_value_i_reg[0]_0\(0),
+      I3 => \count_value_i_reg[0]_0\(1),
       I4 => \^q\(0),
-      O => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]\(0)
+      O => \count_value_i_reg[3]_0\(0)
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[7]_i_2\: unisim.vcomponents.LUT2
     generic map(
@@ -9146,8 +9484,8 @@ begin
     )
         port map (
       I0 => \^q\(7),
-      I1 => \reg_out_i_reg[11]\(6),
-      O => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\(3)
+      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(6),
+      O => \count_value_i_reg[7]_0\(3)
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[7]_i_3\: unisim.vcomponents.LUT2
     generic map(
@@ -9155,8 +9493,8 @@ begin
     )
         port map (
       I0 => \^q\(6),
-      I1 => \reg_out_i_reg[11]\(5),
-      O => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\(2)
+      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(5),
+      O => \count_value_i_reg[7]_0\(2)
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[7]_i_4\: unisim.vcomponents.LUT2
     generic map(
@@ -9164,8 +9502,8 @@ begin
     )
         port map (
       I0 => \^q\(5),
-      I1 => \reg_out_i_reg[11]\(4),
-      O => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\(1)
+      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(4),
+      O => \count_value_i_reg[7]_0\(1)
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[7]_i_5\: unisim.vcomponents.LUT2
     generic map(
@@ -9173,16 +9511,16 @@ begin
     )
         port map (
       I0 => \^q\(4),
-      I1 => \reg_out_i_reg[11]\(3),
-      O => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\(0)
+      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(3),
+      O => \count_value_i_reg[7]_0\(0)
     );
-\gen_sdpram.xpm_memory_base_inst_i_3\: unisim.vcomponents.LUT4
+\gen_sdpram.xpm_memory_base_inst_i_2\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"00F7"
+      INIT => X"00FD"
     )
         port map (
-      I0 => \gen_fwft.curr_fwft_state_reg[1]\(0),
-      I1 => \gen_fwft.curr_fwft_state_reg[1]\(1),
+      I0 => \count_value_i_reg[0]_0\(1),
+      I1 => \count_value_i_reg[0]_0\(0),
       I2 => rd_en,
       I3 => ram_empty_i,
       O => \^e\(0)
@@ -9193,10 +9531,10 @@ begin
     )
         port map (
       I0 => \^q\(10),
-      I1 => \reg_out_i_reg[12]\(9),
+      I1 => \grdc.rd_data_count_i_reg[12]\(9),
       I2 => \^q\(11),
-      I3 => \reg_out_i_reg[12]\(10),
-      O => \grdc.rd_data_count_i_reg[11]\(3)
+      I3 => \grdc.rd_data_count_i_reg[12]\(10),
+      O => \count_value_i_reg[10]_0\(3)
     );
 \grdc.rd_data_count_i[11]_i_7\: unisim.vcomponents.LUT4
     generic map(
@@ -9204,10 +9542,10 @@ begin
     )
         port map (
       I0 => \^q\(9),
-      I1 => \reg_out_i_reg[12]\(8),
+      I1 => \grdc.rd_data_count_i_reg[12]\(8),
       I2 => \^q\(10),
-      I3 => \reg_out_i_reg[12]\(9),
-      O => \grdc.rd_data_count_i_reg[11]\(2)
+      I3 => \grdc.rd_data_count_i_reg[12]\(9),
+      O => \count_value_i_reg[10]_0\(2)
     );
 \grdc.rd_data_count_i[11]_i_8\: unisim.vcomponents.LUT4
     generic map(
@@ -9215,10 +9553,10 @@ begin
     )
         port map (
       I0 => \^q\(8),
-      I1 => \reg_out_i_reg[12]\(7),
+      I1 => \grdc.rd_data_count_i_reg[12]\(7),
       I2 => \^q\(9),
-      I3 => \reg_out_i_reg[12]\(8),
-      O => \grdc.rd_data_count_i_reg[11]\(1)
+      I3 => \grdc.rd_data_count_i_reg[12]\(8),
+      O => \count_value_i_reg[10]_0\(1)
     );
 \grdc.rd_data_count_i[11]_i_9\: unisim.vcomponents.LUT4
     generic map(
@@ -9226,10 +9564,10 @@ begin
     )
         port map (
       I0 => \^q\(7),
-      I1 => \reg_out_i_reg[12]\(6),
+      I1 => \grdc.rd_data_count_i_reg[12]\(6),
       I2 => \^q\(8),
-      I3 => \reg_out_i_reg[12]\(7),
-      O => \grdc.rd_data_count_i_reg[11]\(0)
+      I3 => \grdc.rd_data_count_i_reg[12]\(7),
+      O => \count_value_i_reg[10]_0\(0)
     );
 \grdc.rd_data_count_i[12]_i_3\: unisim.vcomponents.LUT4
     generic map(
@@ -9237,10 +9575,10 @@ begin
     )
         port map (
       I0 => \^q\(11),
-      I1 => \reg_out_i_reg[12]\(10),
+      I1 => \grdc.rd_data_count_i_reg[12]\(10),
       I2 => \count_value_i_reg_n_0_[12]\,
-      I3 => \reg_out_i_reg[12]\(11),
-      O => \grdc.rd_data_count_i_reg[12]\(0)
+      I3 => \grdc.rd_data_count_i_reg[12]\(11),
+      O => \count_value_i_reg[11]_0\(0)
     );
 \grdc.rd_data_count_i[3]_i_3\: unisim.vcomponents.LUT3
     generic map(
@@ -9249,7 +9587,7 @@ begin
         port map (
       I0 => \^q\(1),
       I1 => count_value_i(1),
-      I2 => \reg_out_i_reg[12]\(0),
+      I2 => \grdc.rd_data_count_i_reg[12]\(0),
       O => DI(0)
     );
 \grdc.rd_data_count_i[3]_i_5\: unisim.vcomponents.LUT4
@@ -9258,9 +9596,9 @@ begin
     )
         port map (
       I0 => \^q\(2),
-      I1 => \reg_out_i_reg[12]\(1),
+      I1 => \grdc.rd_data_count_i_reg[12]\(1),
       I2 => \^q\(3),
-      I3 => \reg_out_i_reg[12]\(2),
+      I3 => \grdc.rd_data_count_i_reg[12]\(2),
       O => S(0)
     );
 \grdc.rd_data_count_i[7]_i_6\: unisim.vcomponents.LUT4
@@ -9269,10 +9607,10 @@ begin
     )
         port map (
       I0 => \^q\(6),
-      I1 => \reg_out_i_reg[12]\(5),
+      I1 => \grdc.rd_data_count_i_reg[12]\(5),
       I2 => \^q\(7),
-      I3 => \reg_out_i_reg[12]\(6),
-      O => \grdc.rd_data_count_i_reg[7]\(3)
+      I3 => \grdc.rd_data_count_i_reg[12]\(6),
+      O => \count_value_i_reg[6]_0\(3)
     );
 \grdc.rd_data_count_i[7]_i_7\: unisim.vcomponents.LUT4
     generic map(
@@ -9280,10 +9618,10 @@ begin
     )
         port map (
       I0 => \^q\(5),
-      I1 => \reg_out_i_reg[12]\(4),
+      I1 => \grdc.rd_data_count_i_reg[12]\(4),
       I2 => \^q\(6),
-      I3 => \reg_out_i_reg[12]\(5),
-      O => \grdc.rd_data_count_i_reg[7]\(2)
+      I3 => \grdc.rd_data_count_i_reg[12]\(5),
+      O => \count_value_i_reg[6]_0\(2)
     );
 \grdc.rd_data_count_i[7]_i_8\: unisim.vcomponents.LUT4
     generic map(
@@ -9291,10 +9629,10 @@ begin
     )
         port map (
       I0 => \^q\(4),
-      I1 => \reg_out_i_reg[12]\(3),
+      I1 => \grdc.rd_data_count_i_reg[12]\(3),
       I2 => \^q\(5),
-      I3 => \reg_out_i_reg[12]\(4),
-      O => \grdc.rd_data_count_i_reg[7]\(1)
+      I3 => \grdc.rd_data_count_i_reg[12]\(4),
+      O => \count_value_i_reg[6]_0\(1)
     );
 \grdc.rd_data_count_i[7]_i_9\: unisim.vcomponents.LUT4
     generic map(
@@ -9302,10 +9640,10 @@ begin
     )
         port map (
       I0 => \^q\(3),
-      I1 => \reg_out_i_reg[12]\(2),
+      I1 => \grdc.rd_data_count_i_reg[12]\(2),
       I2 => \^q\(4),
-      I3 => \reg_out_i_reg[12]\(3),
-      O => \grdc.rd_data_count_i_reg[7]\(0)
+      I3 => \grdc.rd_data_count_i_reg[12]\(3),
+      O => \count_value_i_reg[6]_0\(0)
     );
 end STRUCTURE;
 library IEEE;
@@ -9316,10 +9654,10 @@ entity \system_v_axi4s_vid_out_0_0_xpm_counter_updn__parameterized0_2\ is
   port (
     Q : out STD_LOGIC_VECTOR ( 12 downto 0 );
     D : out STD_LOGIC_VECTOR ( 12 downto 0 );
-    S : in STD_LOGIC_VECTOR ( 0 to 0 );
-    \reg_out_i_reg[12]\ : in STD_LOGIC_VECTOR ( 12 downto 0 );
-    SR : in STD_LOGIC_VECTOR ( 0 to 0 );
-    ena : in STD_LOGIC;
+    \count_value_i_reg[3]_0\ : in STD_LOGIC_VECTOR ( 0 to 0 );
+    \gwdc.wr_data_count_i_reg[12]\ : in STD_LOGIC_VECTOR ( 12 downto 0 );
+    wrst_busy : in STD_LOGIC;
+    E : in STD_LOGIC_VECTOR ( 0 to 0 );
     wr_clk : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
@@ -9382,6 +9720,15 @@ architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_counter_updn__paramete
   signal \NLW_count_value_i_reg[12]_i_1_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 1 );
   signal \NLW_gwdc.wr_data_count_i_reg[12]_i_1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal \NLW_gwdc.wr_data_count_i_reg[12]_i_1_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 1 );
+  attribute ADDER_THRESHOLD : integer;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[11]_i_1__1\ : label is 35;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[12]_i_1\ : label is 35;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[3]_i_1__1\ : label is 35;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[7]_i_1__1\ : label is 35;
+  attribute ADDER_THRESHOLD of \gwdc.wr_data_count_i_reg[11]_i_1\ : label is 35;
+  attribute ADDER_THRESHOLD of \gwdc.wr_data_count_i_reg[12]_i_1\ : label is 35;
+  attribute ADDER_THRESHOLD of \gwdc.wr_data_count_i_reg[3]_i_1\ : label is 35;
+  attribute ADDER_THRESHOLD of \gwdc.wr_data_count_i_reg[7]_i_1\ : label is 35;
 begin
   Q(12 downto 0) <= \^q\(12 downto 0);
 \count_value_i_reg[0]\: unisim.vcomponents.FDRE
@@ -9390,10 +9737,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[3]_i_1__1_n_7\,
       Q => \^q\(0),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[10]\: unisim.vcomponents.FDRE
     generic map(
@@ -9401,10 +9748,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[11]_i_1__1_n_5\,
       Q => \^q\(10),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[11]\: unisim.vcomponents.FDRE
     generic map(
@@ -9412,10 +9759,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[11]_i_1__1_n_4\,
       Q => \^q\(11),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[11]_i_1__1\: unisim.vcomponents.CARRY4
      port map (
@@ -9438,10 +9785,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[12]_i_1_n_7\,
       Q => \^q\(12),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[12]_i_1\: unisim.vcomponents.CARRY4
      port map (
@@ -9460,10 +9807,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[3]_i_1__1_n_6\,
       Q => \^q\(1),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[2]\: unisim.vcomponents.FDRE
     generic map(
@@ -9471,10 +9818,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[3]_i_1__1_n_5\,
       Q => \^q\(2),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[3]\: unisim.vcomponents.FDRE
     generic map(
@@ -9482,10 +9829,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[3]_i_1__1_n_4\,
       Q => \^q\(3),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[3]_i_1__1\: unisim.vcomponents.CARRY4
      port map (
@@ -9502,7 +9849,7 @@ begin
       O(1) => \count_value_i_reg[3]_i_1__1_n_6\,
       O(0) => \count_value_i_reg[3]_i_1__1_n_7\,
       S(3 downto 1) => \^q\(3 downto 1),
-      S(0) => S(0)
+      S(0) => \count_value_i_reg[3]_0\(0)
     );
 \count_value_i_reg[4]\: unisim.vcomponents.FDRE
     generic map(
@@ -9510,10 +9857,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[7]_i_1__1_n_7\,
       Q => \^q\(4),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[5]\: unisim.vcomponents.FDRE
     generic map(
@@ -9521,10 +9868,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[7]_i_1__1_n_6\,
       Q => \^q\(5),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[6]\: unisim.vcomponents.FDRE
     generic map(
@@ -9532,10 +9879,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[7]_i_1__1_n_5\,
       Q => \^q\(6),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[7]\: unisim.vcomponents.FDRE
     generic map(
@@ -9543,10 +9890,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[7]_i_1__1_n_4\,
       Q => \^q\(7),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[7]_i_1__1\: unisim.vcomponents.CARRY4
      port map (
@@ -9569,10 +9916,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[11]_i_1__1_n_7\,
       Q => \^q\(8),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[9]\: unisim.vcomponents.FDRE
     generic map(
@@ -9580,10 +9927,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[11]_i_1__1_n_6\,
       Q => \^q\(9),
-      R => SR(0)
+      R => wrst_busy
     );
 \gwdc.wr_data_count_i[11]_i_2\: unisim.vcomponents.LUT2
     generic map(
@@ -9591,7 +9938,7 @@ begin
     )
         port map (
       I0 => \^q\(11),
-      I1 => \reg_out_i_reg[12]\(11),
+      I1 => \gwdc.wr_data_count_i_reg[12]\(11),
       O => \gwdc.wr_data_count_i[11]_i_2_n_0\
     );
 \gwdc.wr_data_count_i[11]_i_3\: unisim.vcomponents.LUT2
@@ -9600,7 +9947,7 @@ begin
     )
         port map (
       I0 => \^q\(10),
-      I1 => \reg_out_i_reg[12]\(10),
+      I1 => \gwdc.wr_data_count_i_reg[12]\(10),
       O => \gwdc.wr_data_count_i[11]_i_3_n_0\
     );
 \gwdc.wr_data_count_i[11]_i_4\: unisim.vcomponents.LUT2
@@ -9609,7 +9956,7 @@ begin
     )
         port map (
       I0 => \^q\(9),
-      I1 => \reg_out_i_reg[12]\(9),
+      I1 => \gwdc.wr_data_count_i_reg[12]\(9),
       O => \gwdc.wr_data_count_i[11]_i_4_n_0\
     );
 \gwdc.wr_data_count_i[11]_i_5\: unisim.vcomponents.LUT2
@@ -9618,7 +9965,7 @@ begin
     )
         port map (
       I0 => \^q\(8),
-      I1 => \reg_out_i_reg[12]\(8),
+      I1 => \gwdc.wr_data_count_i_reg[12]\(8),
       O => \gwdc.wr_data_count_i[11]_i_5_n_0\
     );
 \gwdc.wr_data_count_i[12]_i_2\: unisim.vcomponents.LUT2
@@ -9627,7 +9974,7 @@ begin
     )
         port map (
       I0 => \^q\(12),
-      I1 => \reg_out_i_reg[12]\(12),
+      I1 => \gwdc.wr_data_count_i_reg[12]\(12),
       O => \gwdc.wr_data_count_i[12]_i_2_n_0\
     );
 \gwdc.wr_data_count_i[3]_i_2\: unisim.vcomponents.LUT2
@@ -9636,7 +9983,7 @@ begin
     )
         port map (
       I0 => \^q\(3),
-      I1 => \reg_out_i_reg[12]\(3),
+      I1 => \gwdc.wr_data_count_i_reg[12]\(3),
       O => \gwdc.wr_data_count_i[3]_i_2_n_0\
     );
 \gwdc.wr_data_count_i[3]_i_3\: unisim.vcomponents.LUT2
@@ -9645,7 +9992,7 @@ begin
     )
         port map (
       I0 => \^q\(2),
-      I1 => \reg_out_i_reg[12]\(2),
+      I1 => \gwdc.wr_data_count_i_reg[12]\(2),
       O => \gwdc.wr_data_count_i[3]_i_3_n_0\
     );
 \gwdc.wr_data_count_i[3]_i_4\: unisim.vcomponents.LUT2
@@ -9654,7 +10001,7 @@ begin
     )
         port map (
       I0 => \^q\(1),
-      I1 => \reg_out_i_reg[12]\(1),
+      I1 => \gwdc.wr_data_count_i_reg[12]\(1),
       O => \gwdc.wr_data_count_i[3]_i_4_n_0\
     );
 \gwdc.wr_data_count_i[3]_i_5\: unisim.vcomponents.LUT2
@@ -9663,7 +10010,7 @@ begin
     )
         port map (
       I0 => \^q\(0),
-      I1 => \reg_out_i_reg[12]\(0),
+      I1 => \gwdc.wr_data_count_i_reg[12]\(0),
       O => \gwdc.wr_data_count_i[3]_i_5_n_0\
     );
 \gwdc.wr_data_count_i[7]_i_2\: unisim.vcomponents.LUT2
@@ -9672,7 +10019,7 @@ begin
     )
         port map (
       I0 => \^q\(7),
-      I1 => \reg_out_i_reg[12]\(7),
+      I1 => \gwdc.wr_data_count_i_reg[12]\(7),
       O => \gwdc.wr_data_count_i[7]_i_2_n_0\
     );
 \gwdc.wr_data_count_i[7]_i_3\: unisim.vcomponents.LUT2
@@ -9681,7 +10028,7 @@ begin
     )
         port map (
       I0 => \^q\(6),
-      I1 => \reg_out_i_reg[12]\(6),
+      I1 => \gwdc.wr_data_count_i_reg[12]\(6),
       O => \gwdc.wr_data_count_i[7]_i_3_n_0\
     );
 \gwdc.wr_data_count_i[7]_i_4\: unisim.vcomponents.LUT2
@@ -9690,7 +10037,7 @@ begin
     )
         port map (
       I0 => \^q\(5),
-      I1 => \reg_out_i_reg[12]\(5),
+      I1 => \gwdc.wr_data_count_i_reg[12]\(5),
       O => \gwdc.wr_data_count_i[7]_i_4_n_0\
     );
 \gwdc.wr_data_count_i[7]_i_5\: unisim.vcomponents.LUT2
@@ -9699,7 +10046,7 @@ begin
     )
         port map (
       I0 => \^q\(4),
-      I1 => \reg_out_i_reg[12]\(4),
+      I1 => \gwdc.wr_data_count_i_reg[12]\(4),
       O => \gwdc.wr_data_count_i[7]_i_5_n_0\
     );
 \gwdc.wr_data_count_i_reg[11]_i_1\: unisim.vcomponents.CARRY4
@@ -9768,8 +10115,8 @@ entity \system_v_axi4s_vid_out_0_0_xpm_counter_updn__parameterized1\ is
     Q : out STD_LOGIC_VECTOR ( 11 downto 0 );
     ram_empty_i : in STD_LOGIC;
     rd_en : in STD_LOGIC;
-    \gen_fwft.curr_fwft_state_reg[1]\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    SR : in STD_LOGIC_VECTOR ( 0 to 0 );
+    \count_value_i_reg[3]_0\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    \count_value_i_reg[0]_0\ : in STD_LOGIC;
     E : in STD_LOGIC_VECTOR ( 0 to 0 );
     rd_clk : in STD_LOGIC
   );
@@ -9804,17 +10151,21 @@ architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_counter_updn__paramete
   signal \count_value_i_reg[7]_i_1__2_n_6\ : STD_LOGIC;
   signal \count_value_i_reg[7]_i_1__2_n_7\ : STD_LOGIC;
   signal \NLW_count_value_i_reg[11]_i_1__2_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
+  attribute ADDER_THRESHOLD : integer;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[11]_i_1__2\ : label is 35;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[3]_i_1__2\ : label is 35;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[7]_i_1__2\ : label is 35;
 begin
   Q(11 downto 0) <= \^q\(11 downto 0);
 \count_value_i[3]_i_2__2\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"BAAA4555"
+      INIT => X"ABAA5455"
     )
         port map (
       I0 => ram_empty_i,
       I1 => rd_en,
-      I2 => \gen_fwft.curr_fwft_state_reg[1]\(1),
-      I3 => \gen_fwft.curr_fwft_state_reg[1]\(0),
+      I2 => \count_value_i_reg[3]_0\(0),
+      I3 => \count_value_i_reg[3]_0\(1),
       I4 => \^q\(0),
       O => \count_value_i[3]_i_2__2_n_0\
     );
@@ -9827,7 +10178,7 @@ begin
       CE => E(0),
       D => \count_value_i_reg[3]_i_1__2_n_7\,
       Q => \^q\(0),
-      S => SR(0)
+      S => \count_value_i_reg[0]_0\
     );
 \count_value_i_reg[10]\: unisim.vcomponents.FDRE
     generic map(
@@ -9838,7 +10189,7 @@ begin
       CE => E(0),
       D => \count_value_i_reg[11]_i_1__2_n_5\,
       Q => \^q\(10),
-      R => SR(0)
+      R => \count_value_i_reg[0]_0\
     );
 \count_value_i_reg[11]\: unisim.vcomponents.FDRE
     generic map(
@@ -9849,7 +10200,7 @@ begin
       CE => E(0),
       D => \count_value_i_reg[11]_i_1__2_n_4\,
       Q => \^q\(11),
-      R => SR(0)
+      R => \count_value_i_reg[0]_0\
     );
 \count_value_i_reg[11]_i_1__2\: unisim.vcomponents.CARRY4
      port map (
@@ -9875,7 +10226,7 @@ begin
       CE => E(0),
       D => \count_value_i_reg[3]_i_1__2_n_6\,
       Q => \^q\(1),
-      R => SR(0)
+      R => \count_value_i_reg[0]_0\
     );
 \count_value_i_reg[2]\: unisim.vcomponents.FDRE
     generic map(
@@ -9886,7 +10237,7 @@ begin
       CE => E(0),
       D => \count_value_i_reg[3]_i_1__2_n_5\,
       Q => \^q\(2),
-      R => SR(0)
+      R => \count_value_i_reg[0]_0\
     );
 \count_value_i_reg[3]\: unisim.vcomponents.FDRE
     generic map(
@@ -9897,7 +10248,7 @@ begin
       CE => E(0),
       D => \count_value_i_reg[3]_i_1__2_n_4\,
       Q => \^q\(3),
-      R => SR(0)
+      R => \count_value_i_reg[0]_0\
     );
 \count_value_i_reg[3]_i_1__2\: unisim.vcomponents.CARRY4
      port map (
@@ -9925,7 +10276,7 @@ begin
       CE => E(0),
       D => \count_value_i_reg[7]_i_1__2_n_7\,
       Q => \^q\(4),
-      R => SR(0)
+      R => \count_value_i_reg[0]_0\
     );
 \count_value_i_reg[5]\: unisim.vcomponents.FDRE
     generic map(
@@ -9936,7 +10287,7 @@ begin
       CE => E(0),
       D => \count_value_i_reg[7]_i_1__2_n_6\,
       Q => \^q\(5),
-      R => SR(0)
+      R => \count_value_i_reg[0]_0\
     );
 \count_value_i_reg[6]\: unisim.vcomponents.FDRE
     generic map(
@@ -9947,7 +10298,7 @@ begin
       CE => E(0),
       D => \count_value_i_reg[7]_i_1__2_n_5\,
       Q => \^q\(6),
-      R => SR(0)
+      R => \count_value_i_reg[0]_0\
     );
 \count_value_i_reg[7]\: unisim.vcomponents.FDRE
     generic map(
@@ -9958,7 +10309,7 @@ begin
       CE => E(0),
       D => \count_value_i_reg[7]_i_1__2_n_4\,
       Q => \^q\(7),
-      R => SR(0)
+      R => \count_value_i_reg[0]_0\
     );
 \count_value_i_reg[7]_i_1__2\: unisim.vcomponents.CARRY4
      port map (
@@ -9984,7 +10335,7 @@ begin
       CE => E(0),
       D => \count_value_i_reg[11]_i_1__2_n_7\,
       Q => \^q\(8),
-      R => SR(0)
+      R => \count_value_i_reg[0]_0\
     );
 \count_value_i_reg[9]\: unisim.vcomponents.FDRE
     generic map(
@@ -9995,7 +10346,7 @@ begin
       CE => E(0),
       D => \count_value_i_reg[11]_i_1__2_n_6\,
       Q => \^q\(9),
-      R => SR(0)
+      R => \count_value_i_reg[0]_0\
     );
 end STRUCTURE;
 library IEEE;
@@ -10006,10 +10357,10 @@ entity \system_v_axi4s_vid_out_0_0_xpm_counter_updn__parameterized1_3\ is
   port (
     Q : out STD_LOGIC_VECTOR ( 11 downto 0 );
     D : out STD_LOGIC_VECTOR ( 8 downto 0 );
-    S : in STD_LOGIC_VECTOR ( 0 to 0 );
-    ena : in STD_LOGIC;
-    \reg_out_i_reg[11]\ : in STD_LOGIC_VECTOR ( 11 downto 0 );
-    SR : in STD_LOGIC_VECTOR ( 0 to 0 );
+    \count_value_i_reg[3]_0\ : in STD_LOGIC_VECTOR ( 0 to 0 );
+    E : in STD_LOGIC_VECTOR ( 0 to 0 );
+    \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\ : in STD_LOGIC_VECTOR ( 11 downto 0 );
+    wrst_busy : in STD_LOGIC;
     wr_clk : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
@@ -10067,6 +10418,13 @@ architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_counter_updn__paramete
   signal \NLW_count_value_i_reg[11]_i_1__0_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
   signal \NLW_gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]_i_1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
   signal \NLW_gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[4]_i_1_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 2 downto 0 );
+  attribute ADDER_THRESHOLD : integer;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[11]_i_1__0\ : label is 35;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[3]_i_1__0\ : label is 35;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[7]_i_1__0\ : label is 35;
+  attribute ADDER_THRESHOLD of \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]_i_1\ : label is 35;
+  attribute ADDER_THRESHOLD of \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[4]_i_1\ : label is 35;
+  attribute ADDER_THRESHOLD of \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[8]_i_1\ : label is 35;
 begin
   Q(11 downto 0) <= \^q\(11 downto 0);
 \count_value_i_reg[0]\: unisim.vcomponents.FDSE
@@ -10075,10 +10433,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[3]_i_1__0_n_7\,
       Q => \^q\(0),
-      S => SR(0)
+      S => wrst_busy
     );
 \count_value_i_reg[10]\: unisim.vcomponents.FDRE
     generic map(
@@ -10086,10 +10444,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[11]_i_1__0_n_5\,
       Q => \^q\(10),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[11]\: unisim.vcomponents.FDRE
     generic map(
@@ -10097,10 +10455,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[11]_i_1__0_n_4\,
       Q => \^q\(11),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[11]_i_1__0\: unisim.vcomponents.CARRY4
      port map (
@@ -10123,10 +10481,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[3]_i_1__0_n_6\,
       Q => \^q\(1),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[2]\: unisim.vcomponents.FDRE
     generic map(
@@ -10134,10 +10492,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[3]_i_1__0_n_5\,
       Q => \^q\(2),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[3]\: unisim.vcomponents.FDRE
     generic map(
@@ -10145,10 +10503,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[3]_i_1__0_n_4\,
       Q => \^q\(3),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[3]_i_1__0\: unisim.vcomponents.CARRY4
      port map (
@@ -10165,7 +10523,7 @@ begin
       O(1) => \count_value_i_reg[3]_i_1__0_n_6\,
       O(0) => \count_value_i_reg[3]_i_1__0_n_7\,
       S(3 downto 1) => \^q\(3 downto 1),
-      S(0) => S(0)
+      S(0) => \count_value_i_reg[3]_0\(0)
     );
 \count_value_i_reg[4]\: unisim.vcomponents.FDRE
     generic map(
@@ -10173,10 +10531,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[7]_i_1__0_n_7\,
       Q => \^q\(4),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[5]\: unisim.vcomponents.FDRE
     generic map(
@@ -10184,10 +10542,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[7]_i_1__0_n_6\,
       Q => \^q\(5),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[6]\: unisim.vcomponents.FDRE
     generic map(
@@ -10195,10 +10553,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[7]_i_1__0_n_5\,
       Q => \^q\(6),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[7]\: unisim.vcomponents.FDRE
     generic map(
@@ -10206,10 +10564,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[7]_i_1__0_n_4\,
       Q => \^q\(7),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[7]_i_1__0\: unisim.vcomponents.CARRY4
      port map (
@@ -10232,10 +10590,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[11]_i_1__0_n_7\,
       Q => \^q\(8),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[9]\: unisim.vcomponents.FDRE
     generic map(
@@ -10243,10 +10601,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[11]_i_1__0_n_6\,
       Q => \^q\(9),
-      R => SR(0)
+      R => wrst_busy
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[12]_i_2\: unisim.vcomponents.LUT2
     generic map(
@@ -10254,7 +10612,7 @@ begin
     )
         port map (
       I0 => \^q\(11),
-      I1 => \reg_out_i_reg[11]\(11),
+      I1 => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\(11),
       O => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[12]_i_2_n_0\
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[12]_i_3\: unisim.vcomponents.LUT2
@@ -10263,7 +10621,7 @@ begin
     )
         port map (
       I0 => \^q\(10),
-      I1 => \reg_out_i_reg[11]\(10),
+      I1 => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\(10),
       O => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[12]_i_3_n_0\
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[12]_i_4\: unisim.vcomponents.LUT2
@@ -10272,7 +10630,7 @@ begin
     )
         port map (
       I0 => \^q\(9),
-      I1 => \reg_out_i_reg[11]\(9),
+      I1 => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\(9),
       O => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[12]_i_4_n_0\
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[12]_i_5\: unisim.vcomponents.LUT2
@@ -10281,7 +10639,7 @@ begin
     )
         port map (
       I0 => \^q\(8),
-      I1 => \reg_out_i_reg[11]\(8),
+      I1 => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\(8),
       O => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[12]_i_5_n_0\
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[4]_i_2\: unisim.vcomponents.LUT2
@@ -10290,7 +10648,7 @@ begin
     )
         port map (
       I0 => \^q\(3),
-      I1 => \reg_out_i_reg[11]\(3),
+      I1 => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\(3),
       O => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[4]_i_2_n_0\
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[4]_i_3\: unisim.vcomponents.LUT2
@@ -10299,7 +10657,7 @@ begin
     )
         port map (
       I0 => \^q\(2),
-      I1 => \reg_out_i_reg[11]\(2),
+      I1 => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\(2),
       O => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[4]_i_3_n_0\
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[4]_i_4\: unisim.vcomponents.LUT2
@@ -10308,7 +10666,7 @@ begin
     )
         port map (
       I0 => \^q\(1),
-      I1 => \reg_out_i_reg[11]\(1),
+      I1 => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\(1),
       O => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[4]_i_4_n_0\
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[4]_i_5\: unisim.vcomponents.LUT2
@@ -10317,7 +10675,7 @@ begin
     )
         port map (
       I0 => \^q\(0),
-      I1 => \reg_out_i_reg[11]\(0),
+      I1 => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\(0),
       O => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[4]_i_5_n_0\
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[8]_i_2\: unisim.vcomponents.LUT2
@@ -10326,7 +10684,7 @@ begin
     )
         port map (
       I0 => \^q\(7),
-      I1 => \reg_out_i_reg[11]\(7),
+      I1 => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\(7),
       O => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[8]_i_2_n_0\
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[8]_i_3\: unisim.vcomponents.LUT2
@@ -10335,7 +10693,7 @@ begin
     )
         port map (
       I0 => \^q\(6),
-      I1 => \reg_out_i_reg[11]\(6),
+      I1 => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\(6),
       O => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[8]_i_3_n_0\
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[8]_i_4\: unisim.vcomponents.LUT2
@@ -10344,7 +10702,7 @@ begin
     )
         port map (
       I0 => \^q\(5),
-      I1 => \reg_out_i_reg[11]\(5),
+      I1 => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\(5),
       O => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[8]_i_4_n_0\
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[8]_i_5\: unisim.vcomponents.LUT2
@@ -10353,7 +10711,7 @@ begin
     )
         port map (
       I0 => \^q\(4),
-      I1 => \reg_out_i_reg[11]\(4),
+      I1 => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\(4),
       O => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q[8]_i_5_n_0\
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]_i_1\: unisim.vcomponents.CARRY4
@@ -10379,7 +10737,7 @@ begin
       CO(2) => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[4]_i_1_n_1\,
       CO(1) => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[4]_i_1_n_2\,
       CO(0) => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[4]_i_1_n_3\,
-      CYINIT => ena,
+      CYINIT => E(0),
       DI(3 downto 0) => \^q\(3 downto 0),
       O(3) => D(0),
       O(2 downto 0) => \NLW_gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[4]_i_1_O_UNCONNECTED\(2 downto 0),
@@ -10412,8 +10770,8 @@ entity \system_v_axi4s_vid_out_0_0_xpm_counter_updn__parameterized2\ is
   port (
     Q : out STD_LOGIC_VECTOR ( 11 downto 0 );
     S : in STD_LOGIC_VECTOR ( 0 to 0 );
-    SR : in STD_LOGIC_VECTOR ( 0 to 0 );
-    ena : in STD_LOGIC;
+    wrst_busy : in STD_LOGIC;
+    E : in STD_LOGIC_VECTOR ( 0 to 0 );
     wr_clk : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
@@ -10446,6 +10804,10 @@ architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_counter_updn__paramete
   signal \count_value_i_reg[7]_i_1_n_6\ : STD_LOGIC;
   signal \count_value_i_reg[7]_i_1_n_7\ : STD_LOGIC;
   signal \NLW_count_value_i_reg[11]_i_1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
+  attribute ADDER_THRESHOLD : integer;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[11]_i_1\ : label is 35;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[3]_i_1\ : label is 35;
+  attribute ADDER_THRESHOLD of \count_value_i_reg[7]_i_1\ : label is 35;
 begin
   Q(11 downto 0) <= \^q\(11 downto 0);
 \count_value_i_reg[0]\: unisim.vcomponents.FDRE
@@ -10454,10 +10816,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[3]_i_1_n_7\,
       Q => \^q\(0),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[10]\: unisim.vcomponents.FDRE
     generic map(
@@ -10465,10 +10827,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[11]_i_1_n_5\,
       Q => \^q\(10),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[11]\: unisim.vcomponents.FDRE
     generic map(
@@ -10476,10 +10838,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[11]_i_1_n_4\,
       Q => \^q\(11),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[11]_i_1\: unisim.vcomponents.CARRY4
      port map (
@@ -10502,10 +10864,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[3]_i_1_n_6\,
       Q => \^q\(1),
-      S => SR(0)
+      S => wrst_busy
     );
 \count_value_i_reg[2]\: unisim.vcomponents.FDRE
     generic map(
@@ -10513,10 +10875,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[3]_i_1_n_5\,
       Q => \^q\(2),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[3]\: unisim.vcomponents.FDRE
     generic map(
@@ -10524,10 +10886,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[3]_i_1_n_4\,
       Q => \^q\(3),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[3]_i_1\: unisim.vcomponents.CARRY4
      port map (
@@ -10552,10 +10914,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[7]_i_1_n_7\,
       Q => \^q\(4),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[5]\: unisim.vcomponents.FDRE
     generic map(
@@ -10563,10 +10925,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[7]_i_1_n_6\,
       Q => \^q\(5),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[6]\: unisim.vcomponents.FDRE
     generic map(
@@ -10574,10 +10936,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[7]_i_1_n_5\,
       Q => \^q\(6),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[7]\: unisim.vcomponents.FDRE
     generic map(
@@ -10585,10 +10947,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[7]_i_1_n_4\,
       Q => \^q\(7),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[7]_i_1\: unisim.vcomponents.CARRY4
      port map (
@@ -10611,10 +10973,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[11]_i_1_n_7\,
       Q => \^q\(8),
-      R => SR(0)
+      R => wrst_busy
     );
 \count_value_i_reg[9]\: unisim.vcomponents.FDRE
     generic map(
@@ -10622,10 +10984,10 @@ begin
     )
         port map (
       C => wr_clk,
-      CE => ena,
+      CE => E(0),
       D => \count_value_i_reg[11]_i_1_n_6\,
       Q => \^q\(9),
-      R => SR(0)
+      R => wrst_busy
     );
 end STRUCTURE;
 library IEEE;
@@ -10635,13 +10997,21 @@ use UNISIM.VCOMPONENTS.ALL;
 entity system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit is
   port (
     rst_d1 : out STD_LOGIC;
-    \gen_pf_ic_rc.gpf_ic.prog_full_i_reg\ : out STD_LOGIC;
-    SR : in STD_LOGIC_VECTOR ( 0 to 0 );
+    d_out_reg_0 : out STD_LOGIC;
+    overflow_i0 : out STD_LOGIC;
+    S : out STD_LOGIC_VECTOR ( 0 to 0 );
+    d_out_reg_1 : out STD_LOGIC_VECTOR ( 0 to 0 );
+    d_out_reg_2 : out STD_LOGIC_VECTOR ( 0 to 0 );
+    wrst_busy : in STD_LOGIC;
     wr_clk : in STD_LOGIC;
-    \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[9]\ : in STD_LOGIC;
+    \gen_pf_ic_rc.gpf_ic.prog_full_i_reg\ : in STD_LOGIC;
     rst : in STD_LOGIC;
-    \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\ : in STD_LOGIC;
-    prog_full : in STD_LOGIC
+    \gof.overflow_i_reg\ : in STD_LOGIC;
+    prog_full : in STD_LOGIC;
+    wr_en : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 0 to 0 );
+    \count_value_i_reg[3]\ : in STD_LOGIC_VECTOR ( 0 to 0 );
+    \count_value_i_reg[3]_0\ : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit : entity is "xpm_fifo_reg_bit";
@@ -10651,6 +11021,42 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit is
   signal \^rst_d1\ : STD_LOGIC;
 begin
   rst_d1 <= \^rst_d1\;
+\count_value_i[3]_i_2\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"FEFF0100"
+    )
+        port map (
+      I0 => \^rst_d1\,
+      I1 => wrst_busy,
+      I2 => \gof.overflow_i_reg\,
+      I3 => wr_en,
+      I4 => Q(0),
+      O => S(0)
+    );
+\count_value_i[3]_i_2__0\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"FEFF0100"
+    )
+        port map (
+      I0 => \^rst_d1\,
+      I1 => wrst_busy,
+      I2 => \gof.overflow_i_reg\,
+      I3 => wr_en,
+      I4 => \count_value_i_reg[3]\(0),
+      O => d_out_reg_1(0)
+    );
+\count_value_i[3]_i_2__1\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"FEFF0100"
+    )
+        port map (
+      I0 => \^rst_d1\,
+      I1 => wrst_busy,
+      I2 => \gof.overflow_i_reg\,
+      I3 => wr_en,
+      I4 => \count_value_i_reg[3]_0\(0),
+      O => d_out_reg_2(0)
+    );
 d_out_reg: unisim.vcomponents.FDRE
     generic map(
       INIT => '0'
@@ -10658,7 +11064,7 @@ d_out_reg: unisim.vcomponents.FDRE
         port map (
       C => wr_clk,
       CE => '1',
-      D => SR(0),
+      D => wrst_busy,
       Q => \^rst_d1\,
       R => '0'
     );
@@ -10667,192 +11073,23 @@ d_out_reg: unisim.vcomponents.FDRE
       INIT => X"F3A200A2"
     )
         port map (
-      I0 => \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[9]\,
+      I0 => \gen_pf_ic_rc.gpf_ic.prog_full_i_reg\,
       I1 => \^rst_d1\,
       I2 => rst,
-      I3 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\,
+      I3 => \gof.overflow_i_reg\,
       I4 => prog_full,
-      O => \gen_pf_ic_rc.gpf_ic.prog_full_i_reg\
+      O => d_out_reg_0
     );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_4 is
-  port (
-    d_out : out STD_LOGIC;
-    \gen_rst_ic.fifo_wr_rst_i_reg\ : in STD_LOGIC;
-    wr_clk : in STD_LOGIC
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_4 : entity is "xpm_fifo_reg_bit";
-end system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_4;
-
-architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_4 is
-begin
-d_out_reg: unisim.vcomponents.FDRE
+\gof.overflow_i_i_1\: unisim.vcomponents.LUT4
     generic map(
-      INIT => '0'
+      INIT => X"FE00"
     )
         port map (
-      C => wr_clk,
-      CE => '1',
-      D => \gen_rst_ic.fifo_wr_rst_i_reg\,
-      Q => d_out,
-      R => '0'
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_5 is
-  port (
-    \gen_rst_ic.fifo_wr_rst_d2\ : out STD_LOGIC;
-    \gen_rst_ic.fifo_wr_rst_done_reg\ : out STD_LOGIC;
-    d_out : in STD_LOGIC;
-    wr_clk : in STD_LOGIC;
-    rst : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 0 to 0 );
-    \gen_rst_ic.fifo_wr_rst_done\ : in STD_LOGIC;
-    \gen_rst_ic.fifo_rd_rst_done\ : in STD_LOGIC;
-    \gen_rst_ic.fifo_wr_rst_d3\ : in STD_LOGIC
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_5 : entity is "xpm_fifo_reg_bit";
-end system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_5;
-
-architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_5 is
-  signal \^gen_rst_ic.fifo_wr_rst_d2\ : STD_LOGIC;
-begin
-  \gen_rst_ic.fifo_wr_rst_d2\ <= \^gen_rst_ic.fifo_wr_rst_d2\;
-d_out_reg: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => wr_clk,
-      CE => '1',
-      D => d_out,
-      Q => \^gen_rst_ic.fifo_wr_rst_d2\,
-      R => '0'
-    );
-\gen_rst_ic.fifo_wr_rst_done_i_1\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"E0F0FFFFE0F0E0F0"
-    )
-        port map (
-      I0 => rst,
-      I1 => Q(0),
-      I2 => \gen_rst_ic.fifo_wr_rst_done\,
-      I3 => \gen_rst_ic.fifo_rd_rst_done\,
-      I4 => \gen_rst_ic.fifo_wr_rst_d3\,
-      I5 => \^gen_rst_ic.fifo_wr_rst_d2\,
-      O => \gen_rst_ic.fifo_wr_rst_done_reg\
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_6 is
-  port (
-    d_out_reg : out STD_LOGIC;
-    dest_rst : in STD_LOGIC;
-    rd_clk : in STD_LOGIC
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_6 : entity is "xpm_fifo_reg_bit";
-end system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_6;
-
-architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_6 is
-  attribute srl_bus_name : string;
-  attribute srl_bus_name of d_out_reg_srl2 : label is "inst/\COUPLER_INST/generate_async_fifo.FIFO_INST/XPM_FIFO_ASYNC_INST/gnuram_async_fifo.xpm_fifo_base_inst /\xpm_fifo_rst_inst/gen_rst_ic.rrst_rd_inst/gen_pipe_bit ";
-  attribute srl_name : string;
-  attribute srl_name of d_out_reg_srl2 : label is "inst/\COUPLER_INST/generate_async_fifo.FIFO_INST/XPM_FIFO_ASYNC_INST/gnuram_async_fifo.xpm_fifo_base_inst /\xpm_fifo_rst_inst/gen_rst_ic.rrst_rd_inst/gen_pipe_bit[1].pipe_bit_inst/d_out_reg_srl2 ";
-begin
-d_out_reg_srl2: unisim.vcomponents.SRL16E
-    generic map(
-      INIT => X"0000"
-    )
-        port map (
-      A0 => '1',
-      A1 => '0',
-      A2 => '0',
-      A3 => '0',
-      CE => '1',
-      CLK => rd_clk,
-      D => dest_rst,
-      Q => d_out_reg
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_7 is
-  port (
-    \syncstages_ff_reg[0]\ : out STD_LOGIC;
-    underflow_i0 : out STD_LOGIC;
-    \grdc.rd_data_count_i_reg[0]\ : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \count_value_i_reg[0]\ : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \syncstages_ff_reg[3]\ : in STD_LOGIC;
-    rd_clk : in STD_LOGIC;
-    rd_en : in STD_LOGIC;
-    \gen_fwft.empty_fwft_i_reg\ : in STD_LOGIC;
-    dest_rst : in STD_LOGIC;
-    \gen_fwft.curr_fwft_state_reg[1]\ : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_7 : entity is "xpm_fifo_reg_bit";
-end system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_7;
-
-architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_7 is
-  signal \^syncstages_ff_reg[0]\ : STD_LOGIC;
-begin
-  \syncstages_ff_reg[0]\ <= \^syncstages_ff_reg[0]\;
-d_out_reg: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => rd_clk,
-      CE => '1',
-      D => \syncstages_ff_reg[3]\,
-      Q => \^syncstages_ff_reg[0]\,
-      R => '0'
-    );
-\gen_sdpram.xpm_memory_base_inst_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"E"
-    )
-        port map (
-      I0 => dest_rst,
-      I1 => \^syncstages_ff_reg[0]\,
-      O => \count_value_i_reg[0]\(0)
-    );
-\grdc.rd_data_count_i[12]_i_1\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"EEEF"
-    )
-        port map (
-      I0 => \^syncstages_ff_reg[0]\,
-      I1 => dest_rst,
-      I2 => \gen_fwft.curr_fwft_state_reg[1]\(0),
-      I3 => \gen_fwft.curr_fwft_state_reg[1]\(1),
-      O => \grdc.rd_data_count_i_reg[0]\(0)
-    );
-\guf.underflow_i_i_1\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"AAA8"
-    )
-        port map (
-      I0 => rd_en,
-      I1 => \gen_fwft.empty_fwft_i_reg\,
-      I2 => dest_rst,
-      I3 => \^syncstages_ff_reg[0]\,
-      O => underflow_i0
+      I0 => \^rst_d1\,
+      I1 => wrst_busy,
+      I2 => \gof.overflow_i_reg\,
+      I3 => wr_en,
+      O => overflow_i0
     );
 end STRUCTURE;
 library IEEE;
@@ -10861,16 +11098,14 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec is
   port (
-    CO : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\ : out STD_LOGIC_VECTOR ( 0 to 0 );
     Q : out STD_LOGIC_VECTOR ( 11 downto 0 );
-    \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_0\ : out STD_LOGIC;
-    \count_value_i_reg[11]\ : in STD_LOGIC_VECTOR ( 11 downto 0 );
-    \count_value_i_reg[11]_0\ : in STD_LOGIC_VECTOR ( 11 downto 0 );
-    ena : in STD_LOGIC;
+    d_out_reg : out STD_LOGIC;
+    \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\ : in STD_LOGIC_VECTOR ( 11 downto 0 );
+    \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_0\ : in STD_LOGIC_VECTOR ( 11 downto 0 );
+    E : in STD_LOGIC_VECTOR ( 0 to 0 );
     rst_d1 : in STD_LOGIC;
     rst : in STD_LOGIC;
-    SR : in STD_LOGIC_VECTOR ( 0 to 0 );
+    wrst_busy : in STD_LOGIC;
     D : in STD_LOGIC_VECTOR ( 11 downto 0 );
     wr_clk : in STD_LOGIC
   );
@@ -10879,7 +11114,6 @@ entity system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec is
 end system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec;
 
 architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec is
-  signal \^co\ : STD_LOGIC_VECTOR ( 0 to 0 );
   signal \^q\ : STD_LOGIC_VECTOR ( 11 downto 0 );
   signal \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_10_n_0\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_11_n_0\ : STD_LOGIC;
@@ -10889,30 +11123,29 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec is
   signal \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_7_n_0\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_8_n_0\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_9_n_0\ : STD_LOGIC;
-  signal \^gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\ : STD_LOGIC_VECTOR ( 0 to 0 );
   signal \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_n_1\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_n_2\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_n_3\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_n_1\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_n_2\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_n_3\ : STD_LOGIC;
+  signal going_full0 : STD_LOGIC;
+  signal leaving_full : STD_LOGIC;
   signal \NLW_gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal \NLW_gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 0 );
 begin
-  CO(0) <= \^co\(0);
   Q(11 downto 0) <= \^q\(11 downto 0);
-  \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\(0) <= \^gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\(0);
 \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"F8F800F8"
+      INIT => X"EAEA00EA"
     )
         port map (
-      I0 => \^co\(0),
-      I1 => ena,
-      I2 => \^gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\(0),
+      I0 => leaving_full,
+      I1 => going_full0,
+      I2 => E(0),
       I3 => rst_d1,
       I4 => rst,
-      O => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_0\
+      O => d_out_reg
     );
 \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_10\: unisim.vcomponents.LUT6
     generic map(
@@ -10920,10 +11153,10 @@ begin
     )
         port map (
       I0 => \^q\(3),
-      I1 => \count_value_i_reg[11]_0\(3),
-      I2 => \count_value_i_reg[11]_0\(5),
+      I1 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(3),
+      I2 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(5),
       I3 => \^q\(5),
-      I4 => \count_value_i_reg[11]_0\(4),
+      I4 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(4),
       I5 => \^q\(4),
       O => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_10_n_0\
     );
@@ -10933,10 +11166,10 @@ begin
     )
         port map (
       I0 => \^q\(0),
-      I1 => \count_value_i_reg[11]_0\(0),
-      I2 => \count_value_i_reg[11]_0\(2),
+      I1 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(0),
+      I2 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(2),
       I3 => \^q\(2),
-      I4 => \count_value_i_reg[11]_0\(1),
+      I4 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(1),
       I5 => \^q\(1),
       O => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_11_n_0\
     );
@@ -10946,10 +11179,10 @@ begin
     )
         port map (
       I0 => \^q\(9),
-      I1 => \count_value_i_reg[11]\(9),
-      I2 => \count_value_i_reg[11]\(11),
+      I1 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_0\(9),
+      I2 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_0\(11),
       I3 => \^q\(11),
-      I4 => \count_value_i_reg[11]\(10),
+      I4 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_0\(10),
       I5 => \^q\(10),
       O => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_4_n_0\
     );
@@ -10959,10 +11192,10 @@ begin
     )
         port map (
       I0 => \^q\(6),
-      I1 => \count_value_i_reg[11]\(6),
-      I2 => \count_value_i_reg[11]\(8),
+      I1 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_0\(6),
+      I2 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_0\(8),
       I3 => \^q\(8),
-      I4 => \count_value_i_reg[11]\(7),
+      I4 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_0\(7),
       I5 => \^q\(7),
       O => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_5_n_0\
     );
@@ -10972,10 +11205,10 @@ begin
     )
         port map (
       I0 => \^q\(3),
-      I1 => \count_value_i_reg[11]\(3),
-      I2 => \count_value_i_reg[11]\(5),
+      I1 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_0\(3),
+      I2 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_0\(5),
       I3 => \^q\(5),
-      I4 => \count_value_i_reg[11]\(4),
+      I4 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_0\(4),
       I5 => \^q\(4),
       O => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_6_n_0\
     );
@@ -10985,10 +11218,10 @@ begin
     )
         port map (
       I0 => \^q\(0),
-      I1 => \count_value_i_reg[11]\(0),
-      I2 => \count_value_i_reg[11]\(2),
+      I1 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_0\(0),
+      I2 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_0\(2),
       I3 => \^q\(2),
-      I4 => \count_value_i_reg[11]\(1),
+      I4 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_0\(1),
       I5 => \^q\(1),
       O => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_7_n_0\
     );
@@ -10998,10 +11231,10 @@ begin
     )
         port map (
       I0 => \^q\(9),
-      I1 => \count_value_i_reg[11]_0\(9),
-      I2 => \count_value_i_reg[11]_0\(11),
+      I1 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(9),
+      I2 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(11),
       I3 => \^q\(11),
-      I4 => \count_value_i_reg[11]_0\(10),
+      I4 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(10),
       I5 => \^q\(10),
       O => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_8_n_0\
     );
@@ -11011,17 +11244,17 @@ begin
     )
         port map (
       I0 => \^q\(6),
-      I1 => \count_value_i_reg[11]_0\(6),
-      I2 => \count_value_i_reg[11]_0\(8),
+      I1 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(6),
+      I2 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(8),
       I3 => \^q\(8),
-      I4 => \count_value_i_reg[11]_0\(7),
+      I4 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(7),
       I5 => \^q\(7),
       O => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_i_9_n_0\
     );
 \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2\: unisim.vcomponents.CARRY4
      port map (
       CI => '0',
-      CO(3) => \^co\(0),
+      CO(3) => leaving_full,
       CO(2) => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_n_1\,
       CO(1) => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_n_2\,
       CO(0) => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_n_3\,
@@ -11036,7 +11269,7 @@ begin
 \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3\: unisim.vcomponents.CARRY4
      port map (
       CI => '0',
-      CO(3) => \^gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\(0),
+      CO(3) => going_full0,
       CO(2) => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_n_1\,
       CO(1) => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_n_2\,
       CO(0) => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_n_3\,
@@ -11057,7 +11290,7 @@ begin
       CE => '1',
       D => D(0),
       Q => \^q\(0),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[10]\: unisim.vcomponents.FDRE
     generic map(
@@ -11068,7 +11301,7 @@ begin
       CE => '1',
       D => D(10),
       Q => \^q\(10),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[11]\: unisim.vcomponents.FDRE
     generic map(
@@ -11079,7 +11312,7 @@ begin
       CE => '1',
       D => D(11),
       Q => \^q\(11),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[1]\: unisim.vcomponents.FDRE
     generic map(
@@ -11090,7 +11323,7 @@ begin
       CE => '1',
       D => D(1),
       Q => \^q\(1),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[2]\: unisim.vcomponents.FDRE
     generic map(
@@ -11101,7 +11334,7 @@ begin
       CE => '1',
       D => D(2),
       Q => \^q\(2),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[3]\: unisim.vcomponents.FDRE
     generic map(
@@ -11112,7 +11345,7 @@ begin
       CE => '1',
       D => D(3),
       Q => \^q\(3),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[4]\: unisim.vcomponents.FDRE
     generic map(
@@ -11123,7 +11356,7 @@ begin
       CE => '1',
       D => D(4),
       Q => \^q\(4),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[5]\: unisim.vcomponents.FDRE
     generic map(
@@ -11134,7 +11367,7 @@ begin
       CE => '1',
       D => D(5),
       Q => \^q\(5),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[6]\: unisim.vcomponents.FDRE
     generic map(
@@ -11145,7 +11378,7 @@ begin
       CE => '1',
       D => D(6),
       Q => \^q\(6),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[7]\: unisim.vcomponents.FDRE
     generic map(
@@ -11156,7 +11389,7 @@ begin
       CE => '1',
       D => D(7),
       Q => \^q\(7),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[8]\: unisim.vcomponents.FDRE
     generic map(
@@ -11167,7 +11400,7 @@ begin
       CE => '1',
       D => D(8),
       Q => \^q\(8),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[9]\: unisim.vcomponents.FDRE
     generic map(
@@ -11178,7 +11411,7 @@ begin
       CE => '1',
       D => D(9),
       Q => \^q\(9),
-      R => SR(0)
+      R => wrst_busy
     );
 end STRUCTURE;
 library IEEE;
@@ -11189,18 +11422,18 @@ entity system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec_0 is
   port (
     ram_empty_i0 : out STD_LOGIC;
     D : out STD_LOGIC_VECTOR ( 11 downto 0 );
-    \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\ : out STD_LOGIC_VECTOR ( 10 downto 0 );
+    \reg_out_i_reg[11]_0\ : out STD_LOGIC_VECTOR ( 10 downto 0 );
     Q : in STD_LOGIC_VECTOR ( 1 downto 0 );
     rd_en : in STD_LOGIC;
     ram_empty_i : in STD_LOGIC;
     DI : in STD_LOGIC_VECTOR ( 0 to 0 );
     S : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    \count_value_i_reg[7]\ : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    \count_value_i_reg[11]\ : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    \count_value_i_reg[11]_0\ : in STD_LOGIC_VECTOR ( 11 downto 0 );
-    \count_value_i_reg[11]_1\ : in STD_LOGIC_VECTOR ( 11 downto 0 );
-    SR : in STD_LOGIC_VECTOR ( 0 to 0 );
-    \dest_graysync_ff_reg[3][11]\ : in STD_LOGIC_VECTOR ( 11 downto 0 );
+    \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\ : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\ : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\ : in STD_LOGIC_VECTOR ( 11 downto 0 );
+    \gen_pf_ic_rc.ram_empty_i_reg_i_3_0\ : in STD_LOGIC_VECTOR ( 11 downto 0 );
+    \reg_out_i_reg[0]_0\ : in STD_LOGIC;
+    \reg_out_i_reg[11]_1\ : in STD_LOGIC_VECTOR ( 11 downto 0 );
     rd_clk : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
@@ -11208,7 +11441,6 @@ entity system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec_0 is
 end system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec_0;
 
 architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec_0 is
-  signal \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\ : STD_LOGIC_VECTOR ( 10 downto 0 );
   signal \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]_i_1_n_1\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]_i_1_n_2\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]_i_1_n_3\ : STD_LOGIC;
@@ -11236,16 +11468,21 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec_0 is
   signal \gen_pf_ic_rc.ram_empty_i_reg_i_3_n_3\ : STD_LOGIC;
   signal going_empty0 : STD_LOGIC;
   signal leaving_empty : STD_LOGIC;
+  signal \^reg_out_i_reg[11]_0\ : STD_LOGIC_VECTOR ( 10 downto 0 );
   signal \reg_out_i_reg_n_0_[0]\ : STD_LOGIC;
   signal \NLW_gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]_i_1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
   signal \NLW_gen_pf_ic_rc.ram_empty_i_reg_i_2_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal \NLW_gen_pf_ic_rc.ram_empty_i_reg_i_3_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 0 );
+  attribute ADDER_THRESHOLD : integer;
+  attribute ADDER_THRESHOLD of \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]_i_1\ : label is 35;
   attribute METHODOLOGY_DRC_VIOS : string;
   attribute METHODOLOGY_DRC_VIOS of \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]_i_1\ : label is "{SYNTH-8 {cell *THIS*}}";
+  attribute ADDER_THRESHOLD of \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]_i_1\ : label is 35;
   attribute METHODOLOGY_DRC_VIOS of \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]_i_1\ : label is "{SYNTH-8 {cell *THIS*}}";
+  attribute ADDER_THRESHOLD of \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]_i_1\ : label is 35;
   attribute METHODOLOGY_DRC_VIOS of \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]_i_1\ : label is "{SYNTH-8 {cell *THIS*}}";
 begin
-  \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(10 downto 0) <= \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(10 downto 0);
+  \reg_out_i_reg[11]_0\(10 downto 0) <= \^reg_out_i_reg[11]_0\(10 downto 0);
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]_i_1\: unisim.vcomponents.CARRY4
      port map (
       CI => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]_i_1_n_0\,
@@ -11255,9 +11492,9 @@ begin
       CO(0) => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]_i_1_n_3\,
       CYINIT => '0',
       DI(3) => '0',
-      DI(2 downto 0) => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(9 downto 7),
+      DI(2 downto 0) => \^reg_out_i_reg[11]_0\(9 downto 7),
       O(3 downto 0) => D(11 downto 8),
-      S(3 downto 0) => \count_value_i_reg[11]\(3 downto 0)
+      S(3 downto 0) => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(3 downto 0)
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]_i_1\: unisim.vcomponents.CARRY4
      port map (
@@ -11267,7 +11504,7 @@ begin
       CO(1) => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]_i_1_n_2\,
       CO(0) => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]_i_1_n_3\,
       CYINIT => \reg_out_i_reg_n_0_[0]\,
-      DI(3 downto 1) => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(2 downto 0),
+      DI(3 downto 1) => \^reg_out_i_reg[11]_0\(2 downto 0),
       DI(0) => DI(0),
       O(3 downto 0) => D(3 downto 0),
       S(3 downto 0) => S(3 downto 0)
@@ -11280,21 +11517,21 @@ begin
       CO(1) => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]_i_1_n_2\,
       CO(0) => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]_i_1_n_3\,
       CYINIT => '0',
-      DI(3 downto 0) => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(6 downto 3),
+      DI(3 downto 0) => \^reg_out_i_reg[11]_0\(6 downto 3),
       O(3 downto 0) => D(7 downto 4),
-      S(3 downto 0) => \count_value_i_reg[7]\(3 downto 0)
+      S(3 downto 0) => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\(3 downto 0)
     );
 \gen_pf_ic_rc.ram_empty_i_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"AAAAFFBFAAAAAAAA"
+      INIT => X"FFFFFFFF00FD0000"
     )
         port map (
-      I0 => leaving_empty,
+      I0 => Q(1),
       I1 => Q(0),
-      I2 => Q(1),
-      I3 => rd_en,
-      I4 => ram_empty_i,
-      I5 => going_empty0,
+      I2 => rd_en,
+      I3 => ram_empty_i,
+      I4 => going_empty0,
+      I5 => leaving_empty,
       O => ram_empty_i0
     );
 \gen_pf_ic_rc.ram_empty_i_i_10\: unisim.vcomponents.LUT6
@@ -11302,12 +11539,12 @@ begin
       INIT => X"9009000000009009"
     )
         port map (
-      I0 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(2),
-      I1 => \count_value_i_reg[11]_0\(3),
-      I2 => \count_value_i_reg[11]_0\(5),
-      I3 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(4),
-      I4 => \count_value_i_reg[11]_0\(4),
-      I5 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(3),
+      I0 => \^reg_out_i_reg[11]_0\(2),
+      I1 => \gen_pf_ic_rc.ram_empty_i_reg_i_3_0\(3),
+      I2 => \gen_pf_ic_rc.ram_empty_i_reg_i_3_0\(5),
+      I3 => \^reg_out_i_reg[11]_0\(4),
+      I4 => \gen_pf_ic_rc.ram_empty_i_reg_i_3_0\(4),
+      I5 => \^reg_out_i_reg[11]_0\(3),
       O => \gen_pf_ic_rc.ram_empty_i_i_10_n_0\
     );
 \gen_pf_ic_rc.ram_empty_i_i_11\: unisim.vcomponents.LUT6
@@ -11316,11 +11553,11 @@ begin
     )
         port map (
       I0 => \reg_out_i_reg_n_0_[0]\,
-      I1 => \count_value_i_reg[11]_0\(0),
-      I2 => \count_value_i_reg[11]_0\(2),
-      I3 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(1),
-      I4 => \count_value_i_reg[11]_0\(1),
-      I5 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(0),
+      I1 => \gen_pf_ic_rc.ram_empty_i_reg_i_3_0\(0),
+      I2 => \gen_pf_ic_rc.ram_empty_i_reg_i_3_0\(2),
+      I3 => \^reg_out_i_reg[11]_0\(1),
+      I4 => \gen_pf_ic_rc.ram_empty_i_reg_i_3_0\(1),
+      I5 => \^reg_out_i_reg[11]_0\(0),
       O => \gen_pf_ic_rc.ram_empty_i_i_11_n_0\
     );
 \gen_pf_ic_rc.ram_empty_i_i_4\: unisim.vcomponents.LUT6
@@ -11328,12 +11565,12 @@ begin
       INIT => X"9009000000009009"
     )
         port map (
-      I0 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(8),
-      I1 => \count_value_i_reg[11]_1\(9),
-      I2 => \count_value_i_reg[11]_1\(11),
-      I3 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(10),
-      I4 => \count_value_i_reg[11]_1\(10),
-      I5 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(9),
+      I0 => \^reg_out_i_reg[11]_0\(8),
+      I1 => \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(9),
+      I2 => \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(11),
+      I3 => \^reg_out_i_reg[11]_0\(10),
+      I4 => \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(10),
+      I5 => \^reg_out_i_reg[11]_0\(9),
       O => \gen_pf_ic_rc.ram_empty_i_i_4_n_0\
     );
 \gen_pf_ic_rc.ram_empty_i_i_5\: unisim.vcomponents.LUT6
@@ -11341,12 +11578,12 @@ begin
       INIT => X"9009000000009009"
     )
         port map (
-      I0 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(5),
-      I1 => \count_value_i_reg[11]_1\(6),
-      I2 => \count_value_i_reg[11]_1\(8),
-      I3 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(7),
-      I4 => \count_value_i_reg[11]_1\(7),
-      I5 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(6),
+      I0 => \^reg_out_i_reg[11]_0\(5),
+      I1 => \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(6),
+      I2 => \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(8),
+      I3 => \^reg_out_i_reg[11]_0\(7),
+      I4 => \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(7),
+      I5 => \^reg_out_i_reg[11]_0\(6),
       O => \gen_pf_ic_rc.ram_empty_i_i_5_n_0\
     );
 \gen_pf_ic_rc.ram_empty_i_i_6\: unisim.vcomponents.LUT6
@@ -11354,12 +11591,12 @@ begin
       INIT => X"9009000000009009"
     )
         port map (
-      I0 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(2),
-      I1 => \count_value_i_reg[11]_1\(3),
-      I2 => \count_value_i_reg[11]_1\(5),
-      I3 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(4),
-      I4 => \count_value_i_reg[11]_1\(4),
-      I5 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(3),
+      I0 => \^reg_out_i_reg[11]_0\(2),
+      I1 => \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(3),
+      I2 => \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(5),
+      I3 => \^reg_out_i_reg[11]_0\(4),
+      I4 => \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(4),
+      I5 => \^reg_out_i_reg[11]_0\(3),
       O => \gen_pf_ic_rc.ram_empty_i_i_6_n_0\
     );
 \gen_pf_ic_rc.ram_empty_i_i_7\: unisim.vcomponents.LUT6
@@ -11368,11 +11605,11 @@ begin
     )
         port map (
       I0 => \reg_out_i_reg_n_0_[0]\,
-      I1 => \count_value_i_reg[11]_1\(0),
-      I2 => \count_value_i_reg[11]_1\(2),
-      I3 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(1),
-      I4 => \count_value_i_reg[11]_1\(1),
-      I5 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(0),
+      I1 => \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(0),
+      I2 => \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(2),
+      I3 => \^reg_out_i_reg[11]_0\(1),
+      I4 => \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(1),
+      I5 => \^reg_out_i_reg[11]_0\(0),
       O => \gen_pf_ic_rc.ram_empty_i_i_7_n_0\
     );
 \gen_pf_ic_rc.ram_empty_i_i_8\: unisim.vcomponents.LUT6
@@ -11380,12 +11617,12 @@ begin
       INIT => X"9009000000009009"
     )
         port map (
-      I0 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(8),
-      I1 => \count_value_i_reg[11]_0\(9),
-      I2 => \count_value_i_reg[11]_0\(11),
-      I3 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(10),
-      I4 => \count_value_i_reg[11]_0\(10),
-      I5 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(9),
+      I0 => \^reg_out_i_reg[11]_0\(8),
+      I1 => \gen_pf_ic_rc.ram_empty_i_reg_i_3_0\(9),
+      I2 => \gen_pf_ic_rc.ram_empty_i_reg_i_3_0\(11),
+      I3 => \^reg_out_i_reg[11]_0\(10),
+      I4 => \gen_pf_ic_rc.ram_empty_i_reg_i_3_0\(10),
+      I5 => \^reg_out_i_reg[11]_0\(9),
       O => \gen_pf_ic_rc.ram_empty_i_i_8_n_0\
     );
 \gen_pf_ic_rc.ram_empty_i_i_9\: unisim.vcomponents.LUT6
@@ -11393,18 +11630,18 @@ begin
       INIT => X"9009000000009009"
     )
         port map (
-      I0 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(5),
-      I1 => \count_value_i_reg[11]_0\(6),
-      I2 => \count_value_i_reg[11]_0\(8),
-      I3 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(7),
-      I4 => \count_value_i_reg[11]_0\(7),
-      I5 => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(6),
+      I0 => \^reg_out_i_reg[11]_0\(5),
+      I1 => \gen_pf_ic_rc.ram_empty_i_reg_i_3_0\(6),
+      I2 => \gen_pf_ic_rc.ram_empty_i_reg_i_3_0\(8),
+      I3 => \^reg_out_i_reg[11]_0\(7),
+      I4 => \gen_pf_ic_rc.ram_empty_i_reg_i_3_0\(7),
+      I5 => \^reg_out_i_reg[11]_0\(6),
       O => \gen_pf_ic_rc.ram_empty_i_i_9_n_0\
     );
 \gen_pf_ic_rc.ram_empty_i_reg_i_2\: unisim.vcomponents.CARRY4
      port map (
       CI => '0',
-      CO(3) => leaving_empty,
+      CO(3) => going_empty0,
       CO(2) => \gen_pf_ic_rc.ram_empty_i_reg_i_2_n_1\,
       CO(1) => \gen_pf_ic_rc.ram_empty_i_reg_i_2_n_2\,
       CO(0) => \gen_pf_ic_rc.ram_empty_i_reg_i_2_n_3\,
@@ -11419,7 +11656,7 @@ begin
 \gen_pf_ic_rc.ram_empty_i_reg_i_3\: unisim.vcomponents.CARRY4
      port map (
       CI => '0',
-      CO(3) => going_empty0,
+      CO(3) => leaving_empty,
       CO(2) => \gen_pf_ic_rc.ram_empty_i_reg_i_3_n_1\,
       CO(1) => \gen_pf_ic_rc.ram_empty_i_reg_i_3_n_2\,
       CO(0) => \gen_pf_ic_rc.ram_empty_i_reg_i_3_n_3\,
@@ -11438,9 +11675,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[3][11]\(0),
+      D => \reg_out_i_reg[11]_1\(0),
       Q => \reg_out_i_reg_n_0_[0]\,
-      R => SR(0)
+      R => \reg_out_i_reg[0]_0\
     );
 \reg_out_i_reg[10]\: unisim.vcomponents.FDRE
     generic map(
@@ -11449,9 +11686,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[3][11]\(10),
-      Q => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(9),
-      R => SR(0)
+      D => \reg_out_i_reg[11]_1\(10),
+      Q => \^reg_out_i_reg[11]_0\(9),
+      R => \reg_out_i_reg[0]_0\
     );
 \reg_out_i_reg[11]\: unisim.vcomponents.FDRE
     generic map(
@@ -11460,9 +11697,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[3][11]\(11),
-      Q => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(10),
-      R => SR(0)
+      D => \reg_out_i_reg[11]_1\(11),
+      Q => \^reg_out_i_reg[11]_0\(10),
+      R => \reg_out_i_reg[0]_0\
     );
 \reg_out_i_reg[1]\: unisim.vcomponents.FDRE
     generic map(
@@ -11471,9 +11708,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[3][11]\(1),
-      Q => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(0),
-      R => SR(0)
+      D => \reg_out_i_reg[11]_1\(1),
+      Q => \^reg_out_i_reg[11]_0\(0),
+      R => \reg_out_i_reg[0]_0\
     );
 \reg_out_i_reg[2]\: unisim.vcomponents.FDRE
     generic map(
@@ -11482,9 +11719,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[3][11]\(2),
-      Q => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(1),
-      R => SR(0)
+      D => \reg_out_i_reg[11]_1\(2),
+      Q => \^reg_out_i_reg[11]_0\(1),
+      R => \reg_out_i_reg[0]_0\
     );
 \reg_out_i_reg[3]\: unisim.vcomponents.FDRE
     generic map(
@@ -11493,9 +11730,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[3][11]\(3),
-      Q => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(2),
-      R => SR(0)
+      D => \reg_out_i_reg[11]_1\(3),
+      Q => \^reg_out_i_reg[11]_0\(2),
+      R => \reg_out_i_reg[0]_0\
     );
 \reg_out_i_reg[4]\: unisim.vcomponents.FDRE
     generic map(
@@ -11504,9 +11741,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[3][11]\(4),
-      Q => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(3),
-      R => SR(0)
+      D => \reg_out_i_reg[11]_1\(4),
+      Q => \^reg_out_i_reg[11]_0\(3),
+      R => \reg_out_i_reg[0]_0\
     );
 \reg_out_i_reg[5]\: unisim.vcomponents.FDRE
     generic map(
@@ -11515,9 +11752,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[3][11]\(5),
-      Q => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(4),
-      R => SR(0)
+      D => \reg_out_i_reg[11]_1\(5),
+      Q => \^reg_out_i_reg[11]_0\(4),
+      R => \reg_out_i_reg[0]_0\
     );
 \reg_out_i_reg[6]\: unisim.vcomponents.FDRE
     generic map(
@@ -11526,9 +11763,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[3][11]\(6),
-      Q => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(5),
-      R => SR(0)
+      D => \reg_out_i_reg[11]_1\(6),
+      Q => \^reg_out_i_reg[11]_0\(5),
+      R => \reg_out_i_reg[0]_0\
     );
 \reg_out_i_reg[7]\: unisim.vcomponents.FDRE
     generic map(
@@ -11537,9 +11774,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[3][11]\(7),
-      Q => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(6),
-      R => SR(0)
+      D => \reg_out_i_reg[11]_1\(7),
+      Q => \^reg_out_i_reg[11]_0\(6),
+      R => \reg_out_i_reg[0]_0\
     );
 \reg_out_i_reg[8]\: unisim.vcomponents.FDRE
     generic map(
@@ -11548,9 +11785,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[3][11]\(8),
-      Q => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(7),
-      R => SR(0)
+      D => \reg_out_i_reg[11]_1\(8),
+      Q => \^reg_out_i_reg[11]_0\(7),
+      R => \reg_out_i_reg[0]_0\
     );
 \reg_out_i_reg[9]\: unisim.vcomponents.FDRE
     generic map(
@@ -11559,9 +11796,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[3][11]\(9),
-      Q => \^gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(8),
-      R => SR(0)
+      D => \reg_out_i_reg[11]_1\(9),
+      Q => \^reg_out_i_reg[11]_0\(8),
+      R => \reg_out_i_reg[0]_0\
     );
 end STRUCTURE;
 library IEEE;
@@ -11571,7 +11808,7 @@ use UNISIM.VCOMPONENTS.ALL;
 entity \system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec__parameterized0\ is
   port (
     Q : out STD_LOGIC_VECTOR ( 12 downto 0 );
-    SR : in STD_LOGIC_VECTOR ( 0 to 0 );
+    wrst_busy : in STD_LOGIC;
     D : in STD_LOGIC_VECTOR ( 12 downto 0 );
     wr_clk : in STD_LOGIC
   );
@@ -11590,7 +11827,7 @@ begin
       CE => '1',
       D => D(0),
       Q => Q(0),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[10]\: unisim.vcomponents.FDRE
     generic map(
@@ -11601,7 +11838,7 @@ begin
       CE => '1',
       D => D(10),
       Q => Q(10),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[11]\: unisim.vcomponents.FDRE
     generic map(
@@ -11612,7 +11849,7 @@ begin
       CE => '1',
       D => D(11),
       Q => Q(11),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[12]\: unisim.vcomponents.FDRE
     generic map(
@@ -11623,7 +11860,7 @@ begin
       CE => '1',
       D => D(12),
       Q => Q(12),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[1]\: unisim.vcomponents.FDRE
     generic map(
@@ -11634,7 +11871,7 @@ begin
       CE => '1',
       D => D(1),
       Q => Q(1),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[2]\: unisim.vcomponents.FDRE
     generic map(
@@ -11645,7 +11882,7 @@ begin
       CE => '1',
       D => D(2),
       Q => Q(2),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[3]\: unisim.vcomponents.FDRE
     generic map(
@@ -11656,7 +11893,7 @@ begin
       CE => '1',
       D => D(3),
       Q => Q(3),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[4]\: unisim.vcomponents.FDRE
     generic map(
@@ -11667,7 +11904,7 @@ begin
       CE => '1',
       D => D(4),
       Q => Q(4),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[5]\: unisim.vcomponents.FDRE
     generic map(
@@ -11678,7 +11915,7 @@ begin
       CE => '1',
       D => D(5),
       Q => Q(5),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[6]\: unisim.vcomponents.FDRE
     generic map(
@@ -11689,7 +11926,7 @@ begin
       CE => '1',
       D => D(6),
       Q => Q(6),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[7]\: unisim.vcomponents.FDRE
     generic map(
@@ -11700,7 +11937,7 @@ begin
       CE => '1',
       D => D(7),
       Q => Q(7),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[8]\: unisim.vcomponents.FDRE
     generic map(
@@ -11711,7 +11948,7 @@ begin
       CE => '1',
       D => D(8),
       Q => Q(8),
-      R => SR(0)
+      R => wrst_busy
     );
 \reg_out_i_reg[9]\: unisim.vcomponents.FDRE
     generic map(
@@ -11722,7 +11959,7 @@ begin
       CE => '1',
       D => D(9),
       Q => Q(9),
-      R => SR(0)
+      R => wrst_busy
     );
 end STRUCTURE;
 library IEEE;
@@ -11735,13 +11972,13 @@ entity \system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec__parameterized0_1\ is
     Q : out STD_LOGIC_VECTOR ( 12 downto 0 );
     DI : in STD_LOGIC_VECTOR ( 1 downto 0 );
     S : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    \count_value_i_reg[6]\ : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    \count_value_i_reg[10]\ : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    \count_value_i_reg[11]\ : in STD_LOGIC_VECTOR ( 0 to 0 );
+    \grdc.rd_data_count_i_reg[7]\ : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    \grdc.rd_data_count_i_reg[11]\ : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    \grdc.rd_data_count_i_reg[12]\ : in STD_LOGIC_VECTOR ( 0 to 0 );
     count_value_i : in STD_LOGIC_VECTOR ( 0 to 0 );
-    \count_value_i_reg[10]_0\ : in STD_LOGIC_VECTOR ( 9 downto 0 );
-    SR : in STD_LOGIC_VECTOR ( 0 to 0 );
-    \dest_graysync_ff_reg[5][12]\ : in STD_LOGIC_VECTOR ( 12 downto 0 );
+    \grdc.rd_data_count_i_reg[11]_0\ : in STD_LOGIC_VECTOR ( 9 downto 0 );
+    \reg_out_i_reg[12]_0\ : in STD_LOGIC;
+    \reg_out_i_reg[12]_1\ : in STD_LOGIC_VECTOR ( 12 downto 0 );
     rd_clk : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
@@ -11774,10 +12011,15 @@ architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec__paramete
   signal \grdc.rd_data_count_i_reg[7]_i_1_n_3\ : STD_LOGIC;
   signal \NLW_grdc.rd_data_count_i_reg[12]_i_2_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal \NLW_grdc.rd_data_count_i_reg[12]_i_2_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 1 );
+  attribute ADDER_THRESHOLD : integer;
+  attribute ADDER_THRESHOLD of \grdc.rd_data_count_i_reg[11]_i_1\ : label is 35;
   attribute METHODOLOGY_DRC_VIOS : string;
   attribute METHODOLOGY_DRC_VIOS of \grdc.rd_data_count_i_reg[11]_i_1\ : label is "{SYNTH-8 {cell *THIS*}}";
+  attribute ADDER_THRESHOLD of \grdc.rd_data_count_i_reg[12]_i_2\ : label is 35;
   attribute METHODOLOGY_DRC_VIOS of \grdc.rd_data_count_i_reg[12]_i_2\ : label is "{SYNTH-8 {cell *THIS*}}";
+  attribute ADDER_THRESHOLD of \grdc.rd_data_count_i_reg[3]_i_1\ : label is 35;
   attribute METHODOLOGY_DRC_VIOS of \grdc.rd_data_count_i_reg[3]_i_1\ : label is "{SYNTH-8 {cell *THIS*}}";
+  attribute ADDER_THRESHOLD of \grdc.rd_data_count_i_reg[7]_i_1\ : label is 35;
   attribute METHODOLOGY_DRC_VIOS of \grdc.rd_data_count_i_reg[7]_i_1\ : label is "{SYNTH-8 {cell *THIS*}}";
 begin
   Q(12 downto 0) <= \^q\(12 downto 0);
@@ -11787,7 +12029,7 @@ begin
     )
         port map (
       I0 => \^q\(10),
-      I1 => \count_value_i_reg[10]_0\(9),
+      I1 => \grdc.rd_data_count_i_reg[11]_0\(9),
       O => \grdc.rd_data_count_i[11]_i_2_n_0\
     );
 \grdc.rd_data_count_i[11]_i_3\: unisim.vcomponents.LUT2
@@ -11796,7 +12038,7 @@ begin
     )
         port map (
       I0 => \^q\(9),
-      I1 => \count_value_i_reg[10]_0\(8),
+      I1 => \grdc.rd_data_count_i_reg[11]_0\(8),
       O => \grdc.rd_data_count_i[11]_i_3_n_0\
     );
 \grdc.rd_data_count_i[11]_i_4\: unisim.vcomponents.LUT2
@@ -11805,7 +12047,7 @@ begin
     )
         port map (
       I0 => \^q\(8),
-      I1 => \count_value_i_reg[10]_0\(7),
+      I1 => \grdc.rd_data_count_i_reg[11]_0\(7),
       O => \grdc.rd_data_count_i[11]_i_4_n_0\
     );
 \grdc.rd_data_count_i[11]_i_5\: unisim.vcomponents.LUT2
@@ -11814,7 +12056,7 @@ begin
     )
         port map (
       I0 => \^q\(7),
-      I1 => \count_value_i_reg[10]_0\(6),
+      I1 => \grdc.rd_data_count_i_reg[11]_0\(6),
       O => \grdc.rd_data_count_i[11]_i_5_n_0\
     );
 \grdc.rd_data_count_i[3]_i_2\: unisim.vcomponents.LUT2
@@ -11823,7 +12065,7 @@ begin
     )
         port map (
       I0 => \^q\(2),
-      I1 => \count_value_i_reg[10]_0\(1),
+      I1 => \grdc.rd_data_count_i_reg[11]_0\(1),
       O => \grdc.rd_data_count_i[3]_i_2_n_0\
     );
 \grdc.rd_data_count_i[3]_i_6\: unisim.vcomponents.LUT5
@@ -11833,8 +12075,8 @@ begin
         port map (
       I0 => \^q\(1),
       I1 => count_value_i(0),
-      I2 => \count_value_i_reg[10]_0\(0),
-      I3 => \count_value_i_reg[10]_0\(1),
+      I2 => \grdc.rd_data_count_i_reg[11]_0\(0),
+      I3 => \grdc.rd_data_count_i_reg[11]_0\(1),
       I4 => \^q\(2),
       O => \grdc.rd_data_count_i[3]_i_6_n_0\
     );
@@ -11844,7 +12086,7 @@ begin
     )
         port map (
       I0 => \^q\(6),
-      I1 => \count_value_i_reg[10]_0\(5),
+      I1 => \grdc.rd_data_count_i_reg[11]_0\(5),
       O => \grdc.rd_data_count_i[7]_i_2_n_0\
     );
 \grdc.rd_data_count_i[7]_i_3\: unisim.vcomponents.LUT2
@@ -11853,7 +12095,7 @@ begin
     )
         port map (
       I0 => \^q\(5),
-      I1 => \count_value_i_reg[10]_0\(4),
+      I1 => \grdc.rd_data_count_i_reg[11]_0\(4),
       O => \grdc.rd_data_count_i[7]_i_3_n_0\
     );
 \grdc.rd_data_count_i[7]_i_4\: unisim.vcomponents.LUT2
@@ -11862,7 +12104,7 @@ begin
     )
         port map (
       I0 => \^q\(4),
-      I1 => \count_value_i_reg[10]_0\(3),
+      I1 => \grdc.rd_data_count_i_reg[11]_0\(3),
       O => \grdc.rd_data_count_i[7]_i_4_n_0\
     );
 \grdc.rd_data_count_i[7]_i_5\: unisim.vcomponents.LUT2
@@ -11871,7 +12113,7 @@ begin
     )
         port map (
       I0 => \^q\(3),
-      I1 => \count_value_i_reg[10]_0\(2),
+      I1 => \grdc.rd_data_count_i_reg[11]_0\(2),
       O => \grdc.rd_data_count_i[7]_i_5_n_0\
     );
 \grdc.rd_data_count_i_reg[11]_i_1\: unisim.vcomponents.CARRY4
@@ -11887,7 +12129,7 @@ begin
       DI(1) => \grdc.rd_data_count_i[11]_i_4_n_0\,
       DI(0) => \grdc.rd_data_count_i[11]_i_5_n_0\,
       O(3 downto 0) => D(11 downto 8),
-      S(3 downto 0) => \count_value_i_reg[10]\(3 downto 0)
+      S(3 downto 0) => \grdc.rd_data_count_i_reg[11]\(3 downto 0)
     );
 \grdc.rd_data_count_i_reg[12]_i_2\: unisim.vcomponents.CARRY4
      port map (
@@ -11898,7 +12140,7 @@ begin
       O(3 downto 1) => \NLW_grdc.rd_data_count_i_reg[12]_i_2_O_UNCONNECTED\(3 downto 1),
       O(0) => D(12),
       S(3 downto 1) => B"000",
-      S(0) => \count_value_i_reg[11]\(0)
+      S(0) => \grdc.rd_data_count_i_reg[12]\(0)
     );
 \grdc.rd_data_count_i_reg[3]_i_1\: unisim.vcomponents.CARRY4
      port map (
@@ -11929,7 +12171,7 @@ begin
       DI(1) => \grdc.rd_data_count_i[7]_i_4_n_0\,
       DI(0) => \grdc.rd_data_count_i[7]_i_5_n_0\,
       O(3 downto 0) => D(7 downto 4),
-      S(3 downto 0) => \count_value_i_reg[6]\(3 downto 0)
+      S(3 downto 0) => \grdc.rd_data_count_i_reg[7]\(3 downto 0)
     );
 \reg_out_i_reg[0]\: unisim.vcomponents.FDRE
     generic map(
@@ -11938,9 +12180,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[5][12]\(0),
+      D => \reg_out_i_reg[12]_1\(0),
       Q => \^q\(0),
-      R => SR(0)
+      R => \reg_out_i_reg[12]_0\
     );
 \reg_out_i_reg[10]\: unisim.vcomponents.FDRE
     generic map(
@@ -11949,9 +12191,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[5][12]\(10),
+      D => \reg_out_i_reg[12]_1\(10),
       Q => \^q\(10),
-      R => SR(0)
+      R => \reg_out_i_reg[12]_0\
     );
 \reg_out_i_reg[11]\: unisim.vcomponents.FDRE
     generic map(
@@ -11960,9 +12202,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[5][12]\(11),
+      D => \reg_out_i_reg[12]_1\(11),
       Q => \^q\(11),
-      R => SR(0)
+      R => \reg_out_i_reg[12]_0\
     );
 \reg_out_i_reg[12]\: unisim.vcomponents.FDRE
     generic map(
@@ -11971,9 +12213,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[5][12]\(12),
+      D => \reg_out_i_reg[12]_1\(12),
       Q => \^q\(12),
-      R => SR(0)
+      R => \reg_out_i_reg[12]_0\
     );
 \reg_out_i_reg[1]\: unisim.vcomponents.FDRE
     generic map(
@@ -11982,9 +12224,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[5][12]\(1),
+      D => \reg_out_i_reg[12]_1\(1),
       Q => \^q\(1),
-      R => SR(0)
+      R => \reg_out_i_reg[12]_0\
     );
 \reg_out_i_reg[2]\: unisim.vcomponents.FDRE
     generic map(
@@ -11993,9 +12235,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[5][12]\(2),
+      D => \reg_out_i_reg[12]_1\(2),
       Q => \^q\(2),
-      R => SR(0)
+      R => \reg_out_i_reg[12]_0\
     );
 \reg_out_i_reg[3]\: unisim.vcomponents.FDRE
     generic map(
@@ -12004,9 +12246,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[5][12]\(3),
+      D => \reg_out_i_reg[12]_1\(3),
       Q => \^q\(3),
-      R => SR(0)
+      R => \reg_out_i_reg[12]_0\
     );
 \reg_out_i_reg[4]\: unisim.vcomponents.FDRE
     generic map(
@@ -12015,9 +12257,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[5][12]\(4),
+      D => \reg_out_i_reg[12]_1\(4),
       Q => \^q\(4),
-      R => SR(0)
+      R => \reg_out_i_reg[12]_0\
     );
 \reg_out_i_reg[5]\: unisim.vcomponents.FDRE
     generic map(
@@ -12026,9 +12268,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[5][12]\(5),
+      D => \reg_out_i_reg[12]_1\(5),
       Q => \^q\(5),
-      R => SR(0)
+      R => \reg_out_i_reg[12]_0\
     );
 \reg_out_i_reg[6]\: unisim.vcomponents.FDRE
     generic map(
@@ -12037,9 +12279,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[5][12]\(6),
+      D => \reg_out_i_reg[12]_1\(6),
       Q => \^q\(6),
-      R => SR(0)
+      R => \reg_out_i_reg[12]_0\
     );
 \reg_out_i_reg[7]\: unisim.vcomponents.FDRE
     generic map(
@@ -12048,9 +12290,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[5][12]\(7),
+      D => \reg_out_i_reg[12]_1\(7),
       Q => \^q\(7),
-      R => SR(0)
+      R => \reg_out_i_reg[12]_0\
     );
 \reg_out_i_reg[8]\: unisim.vcomponents.FDRE
     generic map(
@@ -12059,9 +12301,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[5][12]\(8),
+      D => \reg_out_i_reg[12]_1\(8),
       Q => \^q\(8),
-      R => SR(0)
+      R => \reg_out_i_reg[12]_0\
     );
 \reg_out_i_reg[9]\: unisim.vcomponents.FDRE
     generic map(
@@ -12070,9 +12312,9 @@ begin
         port map (
       C => rd_clk,
       CE => '1',
-      D => \dest_graysync_ff_reg[5][12]\(9),
+      D => \reg_out_i_reg[12]_1\(9),
       Q => \^q\(9),
-      R => SR(0)
+      R => \reg_out_i_reg[12]_0\
     );
 end STRUCTURE;
 library IEEE;
@@ -12117,10 +12359,18 @@ entity system_v_axi4s_vid_out_0_0_xpm_memory_base is
   attribute BYTE_WRITE_WIDTH_A of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 27;
   attribute BYTE_WRITE_WIDTH_B : integer;
   attribute BYTE_WRITE_WIDTH_B of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 27;
+  attribute CASCADE_HEIGHT : integer;
+  attribute CASCADE_HEIGHT of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 1;
   attribute CLOCKING_MODE : integer;
   attribute CLOCKING_MODE of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 1;
+  attribute ECC_BIT_RANGE : string;
+  attribute ECC_BIT_RANGE of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is "[7:0]";
   attribute ECC_MODE : integer;
   attribute ECC_MODE of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 0;
+  attribute ECC_TYPE : string;
+  attribute ECC_TYPE of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is "NONE";
+  attribute IGNORE_INIT_SYNTH : integer;
+  attribute IGNORE_INIT_SYNTH of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 0;
   attribute MAX_NUM_CHAR : integer;
   attribute MAX_NUM_CHAR of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 0;
   attribute MEMORY_INIT_FILE : string;
@@ -12211,10 +12461,18 @@ entity system_v_axi4s_vid_out_0_0_xpm_memory_base is
   attribute READ_RESET_VALUE_A of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is "0";
   attribute READ_RESET_VALUE_B : string;
   attribute READ_RESET_VALUE_B of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is "0";
+  attribute RST_MODE_A : string;
+  attribute RST_MODE_A of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is "SYNC";
+  attribute RST_MODE_B : string;
+  attribute RST_MODE_B of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is "SYNC";
+  attribute SIM_ASSERT_CHK : integer;
+  attribute SIM_ASSERT_CHK of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 0;
   attribute USE_EMBEDDED_CONSTRAINT : integer;
   attribute USE_EMBEDDED_CONSTRAINT of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 0;
   attribute USE_MEM_INIT : integer;
-  attribute USE_MEM_INIT of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 1;
+  attribute USE_MEM_INIT of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 0;
+  attribute USE_MEM_INIT_MMI : integer;
+  attribute USE_MEM_INIT_MMI of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 0;
   attribute VERSION : integer;
   attribute VERSION of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 0;
   attribute WAKEUP_TIME : integer;
@@ -12227,8 +12485,16 @@ entity system_v_axi4s_vid_out_0_0_xpm_memory_base is
   attribute WRITE_MODE_A of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 2;
   attribute WRITE_MODE_B : integer;
   attribute WRITE_MODE_B of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 2;
+  attribute WRITE_PROTECT : integer;
+  attribute WRITE_PROTECT of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 1;
   attribute XPM_MODULE : string;
   attribute XPM_MODULE of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is "TRUE";
+  attribute keep_hierarchy : string;
+  attribute keep_hierarchy of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is "soft";
+  attribute rsta_loop_iter : integer;
+  attribute rsta_loop_iter of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 28;
+  attribute rstb_loop_iter : integer;
+  attribute rstb_loop_iter of system_v_axi4s_vid_out_0_0_xpm_memory_base : entity is 28;
 end system_v_axi4s_vid_out_0_0_xpm_memory_base;
 
 architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_memory_base is
@@ -12294,15 +12560,19 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_memory_base is
   attribute RTL_RAM_BITS : integer;
   attribute RTL_RAM_BITS of \gen_wr_a.gen_word_narrow.mem_reg_0\ : label is 110592;
   attribute RTL_RAM_NAME : string;
-  attribute RTL_RAM_NAME of \gen_wr_a.gen_word_narrow.mem_reg_0\ : label is "gen_wr_a.gen_word_narrow.mem";
-  attribute bram_addr_begin : integer;
-  attribute bram_addr_begin of \gen_wr_a.gen_word_narrow.mem_reg_0\ : label is 0;
-  attribute bram_addr_end : integer;
-  attribute bram_addr_end of \gen_wr_a.gen_word_narrow.mem_reg_0\ : label is 4095;
-  attribute bram_slice_begin : integer;
-  attribute bram_slice_begin of \gen_wr_a.gen_word_narrow.mem_reg_0\ : label is 0;
-  attribute bram_slice_end : integer;
-  attribute bram_slice_end of \gen_wr_a.gen_word_narrow.mem_reg_0\ : label is 8;
+  attribute RTL_RAM_NAME of \gen_wr_a.gen_word_narrow.mem_reg_0\ : label is "inst/COUPLER_INST/generate_async_fifo.FIFO_INST/XPM_FIFO_ASYNC_INST/gnuram_async_fifo.xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0";
+  attribute RTL_RAM_TYPE : string;
+  attribute RTL_RAM_TYPE of \gen_wr_a.gen_word_narrow.mem_reg_0\ : label is "RAM_SDP";
+  attribute ram_addr_begin : integer;
+  attribute ram_addr_begin of \gen_wr_a.gen_word_narrow.mem_reg_0\ : label is 0;
+  attribute ram_addr_end : integer;
+  attribute ram_addr_end of \gen_wr_a.gen_word_narrow.mem_reg_0\ : label is 4095;
+  attribute ram_offset : integer;
+  attribute ram_offset of \gen_wr_a.gen_word_narrow.mem_reg_0\ : label is 0;
+  attribute ram_slice_begin : integer;
+  attribute ram_slice_begin of \gen_wr_a.gen_word_narrow.mem_reg_0\ : label is 0;
+  attribute ram_slice_end : integer;
+  attribute ram_slice_end of \gen_wr_a.gen_word_narrow.mem_reg_0\ : label is 8;
   attribute \MEM.PORTA.ADDRESS_BEGIN\ of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is 0;
   attribute \MEM.PORTA.ADDRESS_END\ of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is 4095;
   attribute \MEM.PORTA.DATA_BIT_LAYOUT\ of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is "p1_d8";
@@ -12315,11 +12585,13 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_memory_base is
   attribute \MEM.PORTB.DATA_MSB\ of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is 17;
   attribute METHODOLOGY_DRC_VIOS of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is "";
   attribute RTL_RAM_BITS of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is 110592;
-  attribute RTL_RAM_NAME of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is "gen_wr_a.gen_word_narrow.mem";
-  attribute bram_addr_begin of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is 0;
-  attribute bram_addr_end of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is 4095;
-  attribute bram_slice_begin of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is 9;
-  attribute bram_slice_end of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is 17;
+  attribute RTL_RAM_NAME of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is "inst/COUPLER_INST/generate_async_fifo.FIFO_INST/XPM_FIFO_ASYNC_INST/gnuram_async_fifo.xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_1";
+  attribute RTL_RAM_TYPE of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is "RAM_SDP";
+  attribute ram_addr_begin of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is 0;
+  attribute ram_addr_end of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is 4095;
+  attribute ram_offset of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is 0;
+  attribute ram_slice_begin of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is 9;
+  attribute ram_slice_end of \gen_wr_a.gen_word_narrow.mem_reg_1\ : label is 17;
   attribute \MEM.PORTA.ADDRESS_BEGIN\ of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is 0;
   attribute \MEM.PORTA.ADDRESS_END\ of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is 4095;
   attribute \MEM.PORTA.DATA_BIT_LAYOUT\ of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is "p1_d8";
@@ -12332,11 +12604,13 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_memory_base is
   attribute \MEM.PORTB.DATA_MSB\ of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is 26;
   attribute METHODOLOGY_DRC_VIOS of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is "";
   attribute RTL_RAM_BITS of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is 110592;
-  attribute RTL_RAM_NAME of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is "gen_wr_a.gen_word_narrow.mem";
-  attribute bram_addr_begin of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is 0;
-  attribute bram_addr_end of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is 4095;
-  attribute bram_slice_begin of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is 18;
-  attribute bram_slice_end of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is 26;
+  attribute RTL_RAM_NAME of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is "inst/COUPLER_INST/generate_async_fifo.FIFO_INST/XPM_FIFO_ASYNC_INST/gnuram_async_fifo.xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_2";
+  attribute RTL_RAM_TYPE of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is "RAM_SDP";
+  attribute ram_addr_begin of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is 0;
+  attribute ram_addr_end of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is 4095;
+  attribute ram_offset of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is 0;
+  attribute ram_slice_begin of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is 18;
+  attribute ram_slice_end of \gen_wr_a.gen_word_narrow.mem_reg_2\ : label is 26;
 begin
   dbiterra <= \<const0>\;
   dbiterrb <= \<const0>\;
@@ -12569,7 +12843,7 @@ GND: unisim.vcomponents.GND
       DOPBDOP(3 downto 1) => \NLW_gen_wr_a.gen_word_narrow.mem_reg_0_DOPBDOP_UNCONNECTED\(3 downto 1),
       DOPBDOP(0) => doutb(8),
       ECCPARITY(7 downto 0) => \NLW_gen_wr_a.gen_word_narrow.mem_reg_0_ECCPARITY_UNCONNECTED\(7 downto 0),
-      ENARDEN => ena,
+      ENARDEN => wea(0),
       ENBWREN => enb,
       INJECTDBITERR => \NLW_gen_wr_a.gen_word_narrow.mem_reg_0_INJECTDBITERR_UNCONNECTED\,
       INJECTSBITERR => \NLW_gen_wr_a.gen_word_narrow.mem_reg_0_INJECTSBITERR_UNCONNECTED\,
@@ -12581,10 +12855,10 @@ GND: unisim.vcomponents.GND
       RSTREGARSTREG => '0',
       RSTREGB => rstb,
       SBITERR => \NLW_gen_wr_a.gen_word_narrow.mem_reg_0_SBITERR_UNCONNECTED\,
-      WEA(3) => ena,
-      WEA(2) => ena,
-      WEA(1) => ena,
-      WEA(0) => ena,
+      WEA(3) => wea(0),
+      WEA(2) => wea(0),
+      WEA(1) => wea(0),
+      WEA(0) => '1',
       WEBWE(7 downto 0) => B"00000000"
     );
 \gen_wr_a.gen_word_narrow.mem_reg_1\: unisim.vcomponents.RAMB36E1
@@ -12783,7 +13057,7 @@ GND: unisim.vcomponents.GND
       DOPBDOP(3 downto 1) => \NLW_gen_wr_a.gen_word_narrow.mem_reg_1_DOPBDOP_UNCONNECTED\(3 downto 1),
       DOPBDOP(0) => doutb(17),
       ECCPARITY(7 downto 0) => \NLW_gen_wr_a.gen_word_narrow.mem_reg_1_ECCPARITY_UNCONNECTED\(7 downto 0),
-      ENARDEN => ena,
+      ENARDEN => wea(0),
       ENBWREN => enb,
       INJECTDBITERR => \NLW_gen_wr_a.gen_word_narrow.mem_reg_1_INJECTDBITERR_UNCONNECTED\,
       INJECTSBITERR => \NLW_gen_wr_a.gen_word_narrow.mem_reg_1_INJECTSBITERR_UNCONNECTED\,
@@ -12795,10 +13069,10 @@ GND: unisim.vcomponents.GND
       RSTREGARSTREG => '0',
       RSTREGB => rstb,
       SBITERR => \NLW_gen_wr_a.gen_word_narrow.mem_reg_1_SBITERR_UNCONNECTED\,
-      WEA(3) => ena,
-      WEA(2) => ena,
-      WEA(1) => ena,
-      WEA(0) => ena,
+      WEA(3) => wea(0),
+      WEA(2) => wea(0),
+      WEA(1) => wea(0),
+      WEA(0) => '1',
       WEBWE(7 downto 0) => B"00000000"
     );
 \gen_wr_a.gen_word_narrow.mem_reg_2\: unisim.vcomponents.RAMB36E1
@@ -12997,7 +13271,7 @@ GND: unisim.vcomponents.GND
       DOPBDOP(3 downto 1) => \NLW_gen_wr_a.gen_word_narrow.mem_reg_2_DOPBDOP_UNCONNECTED\(3 downto 1),
       DOPBDOP(0) => doutb(26),
       ECCPARITY(7 downto 0) => \NLW_gen_wr_a.gen_word_narrow.mem_reg_2_ECCPARITY_UNCONNECTED\(7 downto 0),
-      ENARDEN => ena,
+      ENARDEN => wea(0),
       ENBWREN => enb,
       INJECTDBITERR => \NLW_gen_wr_a.gen_word_narrow.mem_reg_2_INJECTDBITERR_UNCONNECTED\,
       INJECTSBITERR => \NLW_gen_wr_a.gen_word_narrow.mem_reg_2_INJECTSBITERR_UNCONNECTED\,
@@ -13009,10 +13283,10 @@ GND: unisim.vcomponents.GND
       RSTREGARSTREG => '0',
       RSTREGB => rstb,
       SBITERR => \NLW_gen_wr_a.gen_word_narrow.mem_reg_2_SBITERR_UNCONNECTED\,
-      WEA(3) => ena,
-      WEA(2) => ena,
-      WEA(1) => ena,
-      WEA(0) => ena,
+      WEA(3) => wea(0),
+      WEA(2) => wea(0),
+      WEA(1) => wea(0),
+      WEA(0) => '1',
       WEBWE(7 downto 0) => B"00000000"
     );
 end STRUCTURE;
@@ -13020,16 +13294,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_cdc_single is
+entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_cdc_single is
   port (
-    vid_io_out_clk : in STD_LOGIC
+    dest_out : out STD_LOGIC;
+    src_in : in STD_LOGIC;
+    aclk : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_cdc_single : entity is "v_axi4s_vid_out_v4_0_8_cdc_single";
-end system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_cdc_single;
+  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_cdc_single : entity is "v_axi4s_vid_out_v4_0_14_cdc_single";
+end system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_cdc_single;
 
-architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_cdc_single is
-  signal xpm_cdc_single_inst_n_0 : STD_LOGIC;
+architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_cdc_single is
   attribute DEST_SYNC_FF : integer;
   attribute DEST_SYNC_FF of xpm_cdc_single_inst : label is 4;
   attribute INIT_SYNC_FF : integer;
@@ -13047,8 +13322,45 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_cdc_
 begin
 xpm_cdc_single_inst: entity work.system_v_axi4s_vid_out_0_0_xpm_cdc_single
      port map (
+      dest_clk => aclk,
+      dest_out => dest_out,
+      src_clk => '0',
+      src_in => src_in
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity \system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_cdc_single__xdcDup__1\ is
+  port (
+    vid_io_out_clk : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of \system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_cdc_single__xdcDup__1\ : entity is "v_axi4s_vid_out_v4_0_14_cdc_single";
+end \system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_cdc_single__xdcDup__1\;
+
+architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_cdc_single__xdcDup__1\ is
+  signal NLW_xpm_cdc_single_inst_dest_out_UNCONNECTED : STD_LOGIC;
+  attribute DEST_SYNC_FF : integer;
+  attribute DEST_SYNC_FF of xpm_cdc_single_inst : label is 4;
+  attribute INIT_SYNC_FF : integer;
+  attribute INIT_SYNC_FF of xpm_cdc_single_inst : label is 0;
+  attribute SIM_ASSERT_CHK : integer;
+  attribute SIM_ASSERT_CHK of xpm_cdc_single_inst : label is 0;
+  attribute SRC_INPUT_REG : integer;
+  attribute SRC_INPUT_REG of xpm_cdc_single_inst : label is 0;
+  attribute VERSION : integer;
+  attribute VERSION of xpm_cdc_single_inst : label is 0;
+  attribute XPM_CDC : string;
+  attribute XPM_CDC of xpm_cdc_single_inst : label is "SINGLE";
+  attribute XPM_MODULE : string;
+  attribute XPM_MODULE of xpm_cdc_single_inst : label is "TRUE";
+begin
+xpm_cdc_single_inst: entity work.\system_v_axi4s_vid_out_0_0_xpm_cdc_single__2\
+     port map (
       dest_clk => vid_io_out_clk,
-      dest_out => xpm_cdc_single_inst_n_0,
+      dest_out => NLW_xpm_cdc_single_inst_dest_out_UNCONNECTED,
       src_clk => '0',
       src_in => '0'
     );
@@ -13057,140 +13369,85 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_v_axi4s_vid_out_0_0_xpm_reg_pipe_bit is
-  port (
-    \gen_rst_ic.fifo_wr_rst_d2\ : out STD_LOGIC;
-    \gen_rst_ic.fifo_wr_rst_done_reg\ : out STD_LOGIC;
-    \gen_rst_ic.fifo_wr_rst_i_reg\ : in STD_LOGIC;
-    wr_clk : in STD_LOGIC;
-    rst : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 0 to 0 );
-    \gen_rst_ic.fifo_wr_rst_done\ : in STD_LOGIC;
-    \gen_rst_ic.fifo_rd_rst_done\ : in STD_LOGIC;
-    \gen_rst_ic.fifo_wr_rst_d3\ : in STD_LOGIC
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_xpm_reg_pipe_bit : entity is "xpm_reg_pipe_bit";
-end system_v_axi4s_vid_out_0_0_xpm_reg_pipe_bit;
-
-architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_reg_pipe_bit is
-  signal d_out : STD_LOGIC;
-begin
-\gen_pipe_bit[0].pipe_bit_inst\: entity work.system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_4
-     port map (
-      d_out => d_out,
-      \gen_rst_ic.fifo_wr_rst_i_reg\ => \gen_rst_ic.fifo_wr_rst_i_reg\,
-      wr_clk => wr_clk
-    );
-\gen_pipe_bit[1].pipe_bit_inst\: entity work.system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_5
-     port map (
-      Q(0) => Q(0),
-      d_out => d_out,
-      \gen_rst_ic.fifo_rd_rst_done\ => \gen_rst_ic.fifo_rd_rst_done\,
-      \gen_rst_ic.fifo_wr_rst_d2\ => \gen_rst_ic.fifo_wr_rst_d2\,
-      \gen_rst_ic.fifo_wr_rst_d3\ => \gen_rst_ic.fifo_wr_rst_d3\,
-      \gen_rst_ic.fifo_wr_rst_done\ => \gen_rst_ic.fifo_wr_rst_done\,
-      \gen_rst_ic.fifo_wr_rst_done_reg\ => \gen_rst_ic.fifo_wr_rst_done_reg\,
-      rst => rst,
-      wr_clk => wr_clk
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity \system_v_axi4s_vid_out_0_0_xpm_reg_pipe_bit__parameterized0\ is
-  port (
-    \gen_rst_ic.fifo_rd_rst_d3\ : out STD_LOGIC;
-    underflow_i0 : out STD_LOGIC;
-    \grdc.rd_data_count_i_reg[0]\ : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \count_value_i_reg[0]\ : out STD_LOGIC_VECTOR ( 0 to 0 );
-    dest_rst : in STD_LOGIC;
-    rd_clk : in STD_LOGIC;
-    rd_en : in STD_LOGIC;
-    \gen_fwft.empty_fwft_i_reg\ : in STD_LOGIC;
-    \gen_fwft.curr_fwft_state_reg[1]\ : in STD_LOGIC_VECTOR ( 1 downto 0 )
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of \system_v_axi4s_vid_out_0_0_xpm_reg_pipe_bit__parameterized0\ : entity is "xpm_reg_pipe_bit";
-end \system_v_axi4s_vid_out_0_0_xpm_reg_pipe_bit__parameterized0\;
-
-architecture STRUCTURE of \system_v_axi4s_vid_out_0_0_xpm_reg_pipe_bit__parameterized0\ is
-  signal \gen_pipe_bit[1].pipe_bit_inst_n_0\ : STD_LOGIC;
-begin
-\gen_pipe_bit[1].pipe_bit_inst\: entity work.system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_6
-     port map (
-      d_out_reg => \gen_pipe_bit[1].pipe_bit_inst_n_0\,
-      dest_rst => dest_rst,
-      rd_clk => rd_clk
-    );
-\gen_pipe_bit[2].pipe_bit_inst\: entity work.system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit_7
-     port map (
-      \count_value_i_reg[0]\(0) => \count_value_i_reg[0]\(0),
-      dest_rst => dest_rst,
-      \gen_fwft.curr_fwft_state_reg[1]\(1 downto 0) => \gen_fwft.curr_fwft_state_reg[1]\(1 downto 0),
-      \gen_fwft.empty_fwft_i_reg\ => \gen_fwft.empty_fwft_i_reg\,
-      \grdc.rd_data_count_i_reg[0]\(0) => \grdc.rd_data_count_i_reg[0]\(0),
-      rd_clk => rd_clk,
-      rd_en => rd_en,
-      \syncstages_ff_reg[0]\ => \gen_rst_ic.fifo_rd_rst_d3\,
-      \syncstages_ff_reg[3]\ => \gen_pipe_bit[1].pipe_bit_inst_n_0\,
-      underflow_i0 => underflow_i0
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
 entity system_v_axi4s_vid_out_0_0_xpm_fifo_rst is
   port (
-    dest_rst : out STD_LOGIC;
-    overflow_i0 : out STD_LOGIC;
-    S : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \count_value_i_reg[3]\ : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \count_value_i_reg[3]_0\ : out STD_LOGIC_VECTOR ( 0 to 0 );
-    SR : out STD_LOGIC_VECTOR ( 0 to 0 );
+    \gen_rst_ic.fifo_rd_rst_ic_reg_0\ : out STD_LOGIC;
+    wrst_busy : out STD_LOGIC;
+    E : out STD_LOGIC_VECTOR ( 0 to 0 );
+    wr_rst_busy : out STD_LOGIC;
     underflow_i0 : out STD_LOGIC;
-    \grdc.rd_data_count_i_reg[0]\ : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \count_value_i_reg[0]\ : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \gen_pf_ic_rc.gen_full_rst_val.ram_full_n_reg\ : out STD_LOGIC;
-    ena : out STD_LOGIC;
+    SR : out STD_LOGIC_VECTOR ( 0 to 0 );
     rd_clk : in STD_LOGIC;
     wr_clk : in STD_LOGIC;
-    wr_en : in STD_LOGIC;
-    \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\ : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 0 to 0 );
-    \count_value_i_reg[0]_0\ : in STD_LOGIC_VECTOR ( 0 to 0 );
-    \count_value_i_reg[0]_1\ : in STD_LOGIC_VECTOR ( 0 to 0 );
     rst : in STD_LOGIC;
-    rd_en : in STD_LOGIC;
-    \gen_fwft.empty_fwft_i_reg\ : in STD_LOGIC;
-    \gen_fwft.curr_fwft_state_reg[1]\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    wr_en : in STD_LOGIC;
+    full : in STD_LOGIC;
     rst_d1 : in STD_LOGIC;
-    CO : in STD_LOGIC_VECTOR ( 0 to 0 );
-    \reg_out_i_reg[9]\ : in STD_LOGIC_VECTOR ( 0 to 0 )
+    \guf.underflow_i_reg\ : in STD_LOGIC;
+    rd_en : in STD_LOGIC;
+    Q : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_xpm_fifo_rst : entity is "xpm_fifo_rst";
 end system_v_axi4s_vid_out_0_0_xpm_fifo_rst;
 
 architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_rst is
-  signal \^sr\ : STD_LOGIC_VECTOR ( 0 to 0 );
-  signal \^dest_rst\ : STD_LOGIC;
-  signal \^ena\ : STD_LOGIC;
-  signal \gen_rst_ic.fifo_rd_rst_d3\ : STD_LOGIC;
-  signal \gen_rst_ic.fifo_rd_rst_d3_wr_d2\ : STD_LOGIC;
-  signal \gen_rst_ic.fifo_rd_rst_done\ : STD_LOGIC;
-  signal \gen_rst_ic.fifo_rd_rst_done_i_1_n_0\ : STD_LOGIC;
+  signal \/i__n_0\ : STD_LOGIC;
+  signal \FSM_onehot_gen_rst_ic.curr_wrst_state[0]_i_1_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_gen_rst_ic.curr_wrst_state[1]_i_1_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_gen_rst_ic.curr_wrst_state[1]_i_2_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_gen_rst_ic.curr_wrst_state[2]_i_1_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_gen_rst_ic.curr_wrst_state[3]_i_1_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_gen_rst_ic.curr_wrst_state[4]_i_1_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_gen_rst_ic.curr_wrst_state[4]_i_2_n_0\ : STD_LOGIC;
+  signal \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[0]\ : STD_LOGIC;
+  attribute RTL_KEEP : string;
+  attribute RTL_KEEP of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[0]\ : signal is "yes";
+  signal \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[1]\ : STD_LOGIC;
+  attribute RTL_KEEP of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[1]\ : signal is "yes";
+  signal \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[2]\ : STD_LOGIC;
+  attribute RTL_KEEP of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[2]\ : signal is "yes";
+  signal \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[3]\ : STD_LOGIC;
+  attribute RTL_KEEP of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[3]\ : signal is "yes";
+  signal \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[4]\ : STD_LOGIC;
+  attribute RTL_KEEP of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[4]\ : signal is "yes";
+  signal \gen_rst_ic.curr_rrst_state\ : STD_LOGIC_VECTOR ( 1 downto 0 );
+  attribute RTL_KEEP of \gen_rst_ic.curr_rrst_state\ : signal is "yes";
+  signal \gen_rst_ic.fifo_rd_rst_i\ : STD_LOGIC;
+  signal \^gen_rst_ic.fifo_rd_rst_ic_reg_0\ : STD_LOGIC;
   signal \gen_rst_ic.fifo_rd_rst_wr_i\ : STD_LOGIC;
-  signal \gen_rst_ic.fifo_wr_rst_d2\ : STD_LOGIC;
-  signal \gen_rst_ic.fifo_wr_rst_d3\ : STD_LOGIC;
-  signal \gen_rst_ic.fifo_wr_rst_done\ : STD_LOGIC;
-  signal \gen_rst_ic.fifo_wr_rst_i_i_1_n_0\ : STD_LOGIC;
-  signal \gen_rst_ic.fifo_wr_rst_i_reg_n_0\ : STD_LOGIC;
-  signal \gen_rst_ic.wrst_wr_inst_n_1\ : STD_LOGIC;
-  signal power_on_rst : STD_LOGIC_VECTOR ( 1 to 1 );
+  signal \gen_rst_ic.fifo_wr_rst_ic\ : STD_LOGIC;
+  signal \gen_rst_ic.fifo_wr_rst_ic_i_1_n_0\ : STD_LOGIC;
+  signal \gen_rst_ic.fifo_wr_rst_ic_i_3_n_0\ : STD_LOGIC;
+  signal \gen_rst_ic.fifo_wr_rst_rd\ : STD_LOGIC;
+  signal \gen_rst_ic.next_rrst_state\ : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal \gen_rst_ic.rst_seq_reentered_i_1_n_0\ : STD_LOGIC;
+  signal \gen_rst_ic.rst_seq_reentered_i_2_n_0\ : STD_LOGIC;
+  signal \gen_rst_ic.rst_seq_reentered_reg_n_0\ : STD_LOGIC;
+  signal \gen_rst_ic.wr_rst_busy_ic_i_1_n_0\ : STD_LOGIC;
+  signal \gen_rst_ic.wr_rst_busy_ic_i_2_n_0\ : STD_LOGIC;
+  signal p_0_in : STD_LOGIC;
   signal \power_on_rst_reg_n_0_[0]\ : STD_LOGIC;
+  signal \rst_i__0\ : STD_LOGIC;
+  signal \^wrst_busy\ : STD_LOGIC;
+  attribute FSM_ENCODED_STATES : string;
+  attribute FSM_ENCODED_STATES of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg[0]\ : label is "WRST_OUT:00100,WRST_IN:00010,WRST_GO2IDLE:10000,WRST_EXIT:01000,WRST_IDLE:00001";
+  attribute KEEP : string;
+  attribute KEEP of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg[0]\ : label is "yes";
+  attribute FSM_ENCODED_STATES of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg[1]\ : label is "WRST_OUT:00100,WRST_IN:00010,WRST_GO2IDLE:10000,WRST_EXIT:01000,WRST_IDLE:00001";
+  attribute KEEP of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg[1]\ : label is "yes";
+  attribute FSM_ENCODED_STATES of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg[2]\ : label is "WRST_OUT:00100,WRST_IN:00010,WRST_GO2IDLE:10000,WRST_EXIT:01000,WRST_IDLE:00001";
+  attribute KEEP of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg[2]\ : label is "yes";
+  attribute FSM_ENCODED_STATES of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg[3]\ : label is "WRST_OUT:00100,WRST_IN:00010,WRST_GO2IDLE:10000,WRST_EXIT:01000,WRST_IDLE:00001";
+  attribute KEEP of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg[3]\ : label is "yes";
+  attribute FSM_ENCODED_STATES of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg[4]\ : label is "WRST_OUT:00100,WRST_IN:00010,WRST_GO2IDLE:10000,WRST_EXIT:01000,WRST_IDLE:00001";
+  attribute KEEP of \FSM_onehot_gen_rst_ic.curr_wrst_state_reg[4]\ : label is "yes";
+  attribute FSM_ENCODED_STATES of \FSM_sequential_gen_rst_ic.curr_rrst_state_reg[0]\ : label is "RRST_IDLE:00,RRST_IN:01,RRST_OUT:10,RRST_EXIT:11";
+  attribute KEEP of \FSM_sequential_gen_rst_ic.curr_rrst_state_reg[0]\ : label is "yes";
+  attribute FSM_ENCODED_STATES of \FSM_sequential_gen_rst_ic.curr_rrst_state_reg[1]\ : label is "RRST_IDLE:00,RRST_IN:01,RRST_OUT:10,RRST_EXIT:11";
+  attribute KEEP of \FSM_sequential_gen_rst_ic.curr_rrst_state_reg[1]\ : label is "yes";
+  attribute SOFT_HLUTNM : string;
+  attribute SOFT_HLUTNM of \gen_rst_ic.fifo_wr_rst_ic_i_2\ : label is "soft_lutpair22";
   attribute DEF_VAL : string;
   attribute DEF_VAL of \gen_rst_ic.rrst_wr_inst\ : label is "1'b0";
   attribute DEST_SYNC_FF : integer;
@@ -13198,216 +13455,396 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_rst is
   attribute INIT : string;
   attribute INIT of \gen_rst_ic.rrst_wr_inst\ : label is "0";
   attribute INIT_SYNC_FF : integer;
-  attribute INIT_SYNC_FF of \gen_rst_ic.rrst_wr_inst\ : label is 0;
+  attribute INIT_SYNC_FF of \gen_rst_ic.rrst_wr_inst\ : label is 1;
   attribute SIM_ASSERT_CHK : integer;
-  attribute SIM_ASSERT_CHK of \gen_rst_ic.rrst_wr_inst\ : label is 1;
+  attribute SIM_ASSERT_CHK of \gen_rst_ic.rrst_wr_inst\ : label is 0;
   attribute VERSION : integer;
   attribute VERSION of \gen_rst_ic.rrst_wr_inst\ : label is 0;
   attribute XPM_CDC : string;
   attribute XPM_CDC of \gen_rst_ic.rrst_wr_inst\ : label is "SYNC_RST";
   attribute XPM_MODULE : string;
   attribute XPM_MODULE of \gen_rst_ic.rrst_wr_inst\ : label is "TRUE";
+  attribute SOFT_HLUTNM of \gen_rst_ic.rst_seq_reentered_i_1\ : label is "soft_lutpair22";
   attribute DEF_VAL of \gen_rst_ic.wrst_rd_inst\ : label is "1'b0";
   attribute DEST_SYNC_FF of \gen_rst_ic.wrst_rd_inst\ : label is 4;
   attribute INIT of \gen_rst_ic.wrst_rd_inst\ : label is "0";
-  attribute INIT_SYNC_FF of \gen_rst_ic.wrst_rd_inst\ : label is 0;
-  attribute SIM_ASSERT_CHK of \gen_rst_ic.wrst_rd_inst\ : label is 1;
+  attribute INIT_SYNC_FF of \gen_rst_ic.wrst_rd_inst\ : label is 1;
+  attribute SIM_ASSERT_CHK of \gen_rst_ic.wrst_rd_inst\ : label is 0;
   attribute VERSION of \gen_rst_ic.wrst_rd_inst\ : label is 0;
   attribute XPM_CDC of \gen_rst_ic.wrst_rd_inst\ : label is "SYNC_RST";
   attribute XPM_MODULE of \gen_rst_ic.wrst_rd_inst\ : label is "TRUE";
-  attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \gof.overflow_i_i_1\ : label is "soft_lutpair21";
-  attribute SOFT_HLUTNM of wr_rst_busy_INST_0 : label is "soft_lutpair21";
+  attribute SOFT_HLUTNM of \grdc.rd_data_count_i[12]_i_1\ : label is "soft_lutpair23";
+  attribute SOFT_HLUTNM of \guf.underflow_i_i_1\ : label is "soft_lutpair23";
 begin
-  SR(0) <= \^sr\(0);
-  dest_rst <= \^dest_rst\;
-  ena <= \^ena\;
-\count_value_i[3]_i_2\: unisim.vcomponents.LUT5
+  \gen_rst_ic.fifo_rd_rst_ic_reg_0\ <= \^gen_rst_ic.fifo_rd_rst_ic_reg_0\;
+  wrst_busy <= \^wrst_busy\;
+\/i_\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"FFEF0010"
+      INIT => X"00010116"
     )
         port map (
-      I0 => \gen_rst_ic.fifo_wr_rst_i_reg_n_0\,
-      I1 => \gen_rst_ic.fifo_rd_rst_wr_i\,
-      I2 => wr_en,
-      I3 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\,
-      I4 => Q(0),
-      O => S(0)
+      I0 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[0]\,
+      I1 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[1]\,
+      I2 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[2]\,
+      I3 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[3]\,
+      I4 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[4]\,
+      O => \/i__n_0\
     );
-\count_value_i[3]_i_2__0\: unisim.vcomponents.LUT5
+\FSM_onehot_gen_rst_ic.curr_wrst_state[0]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFEF0010"
+      INIT => X"03030200FFFFFFFF"
     )
         port map (
-      I0 => \gen_rst_ic.fifo_wr_rst_i_reg_n_0\,
-      I1 => \gen_rst_ic.fifo_rd_rst_wr_i\,
-      I2 => wr_en,
-      I3 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\,
-      I4 => \count_value_i_reg[0]_0\(0),
-      O => \count_value_i_reg[3]\(0)
+      I0 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[3]\,
+      I1 => p_0_in,
+      I2 => rst,
+      I3 => \gen_rst_ic.rst_seq_reentered_reg_n_0\,
+      I4 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[0]\,
+      I5 => \/i__n_0\,
+      O => \FSM_onehot_gen_rst_ic.curr_wrst_state[0]_i_1_n_0\
     );
-\count_value_i[3]_i_2__1\: unisim.vcomponents.LUT5
+\FSM_onehot_gen_rst_ic.curr_wrst_state[1]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"FFEF0010"
+      INIT => X"FEFEFEEE"
     )
         port map (
-      I0 => \gen_rst_ic.fifo_wr_rst_i_reg_n_0\,
-      I1 => \gen_rst_ic.fifo_rd_rst_wr_i\,
-      I2 => wr_en,
-      I3 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\,
-      I4 => \count_value_i_reg[0]_1\(0),
-      O => \count_value_i_reg[3]_0\(0)
-    );
-\gen_pf_ic_rc.gen_full_rst_val.ram_full_n_i_1\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"00000000000B0B0B"
-    )
-        port map (
-      I0 => rst,
-      I1 => rst_d1,
-      I2 => \^sr\(0),
-      I3 => CO(0),
-      I4 => \^ena\,
-      I5 => \reg_out_i_reg[9]\(0),
-      O => \gen_pf_ic_rc.gen_full_rst_val.ram_full_n_reg\
-    );
-\gen_rst_ic.fifo_rd_rst_d3_wr_d2_reg\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => wr_clk,
-      CE => '1',
-      D => \gen_rst_ic.fifo_rd_rst_wr_i\,
-      Q => \gen_rst_ic.fifo_rd_rst_d3_wr_d2\,
-      R => '0'
-    );
-\gen_rst_ic.fifo_rd_rst_done_i_1\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"EF00FFFFEF00EF00"
-    )
-        port map (
-      I0 => rst,
-      I1 => power_on_rst(1),
-      I2 => \gen_rst_ic.fifo_wr_rst_done\,
-      I3 => \gen_rst_ic.fifo_rd_rst_done\,
-      I4 => \gen_rst_ic.fifo_rd_rst_d3_wr_d2\,
-      I5 => \gen_rst_ic.fifo_rd_rst_wr_i\,
-      O => \gen_rst_ic.fifo_rd_rst_done_i_1_n_0\
-    );
-\gen_rst_ic.fifo_rd_rst_done_reg\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => wr_clk,
-      CE => '1',
-      D => \gen_rst_ic.fifo_rd_rst_done_i_1_n_0\,
-      Q => \gen_rst_ic.fifo_rd_rst_done\,
-      R => '0'
-    );
-\gen_rst_ic.fifo_wr_rst_d3_reg\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => wr_clk,
-      CE => '1',
-      D => \gen_rst_ic.fifo_wr_rst_d2\,
-      Q => \gen_rst_ic.fifo_wr_rst_d3\,
-      R => '0'
-    );
-\gen_rst_ic.fifo_wr_rst_done_reg\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => wr_clk,
-      CE => '1',
-      D => \gen_rst_ic.wrst_wr_inst_n_1\,
-      Q => \gen_rst_ic.fifo_wr_rst_done\,
-      R => '0'
-    );
-\gen_rst_ic.fifo_wr_rst_i_i_1\: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"FFFFFF2A"
-    )
-        port map (
-      I0 => \gen_rst_ic.fifo_wr_rst_i_reg_n_0\,
-      I1 => \gen_rst_ic.fifo_rd_rst_done\,
-      I2 => \gen_rst_ic.fifo_wr_rst_done\,
+      I0 => \FSM_onehot_gen_rst_ic.curr_wrst_state[1]_i_2_n_0\,
+      I1 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[4]\,
+      I2 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[3]\,
       I3 => rst,
-      I4 => power_on_rst(1),
-      O => \gen_rst_ic.fifo_wr_rst_i_i_1_n_0\
+      I4 => p_0_in,
+      O => \FSM_onehot_gen_rst_ic.curr_wrst_state[1]_i_1_n_0\
     );
-\gen_rst_ic.fifo_wr_rst_i_reg\: unisim.vcomponents.FDRE
+\FSM_onehot_gen_rst_ic.curr_wrst_state[1]_i_2\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"FFF0EEE0FFFFEEE0"
+    )
+        port map (
+      I0 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[0]\,
+      I1 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[2]\,
+      I2 => rst,
+      I3 => p_0_in,
+      I4 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[1]\,
+      I5 => \gen_rst_ic.fifo_rd_rst_wr_i\,
+      O => \FSM_onehot_gen_rst_ic.curr_wrst_state[1]_i_2_n_0\
+    );
+\FSM_onehot_gen_rst_ic.curr_wrst_state[2]_i_1\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"000C0008"
+    )
+        port map (
+      I0 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[1]\,
+      I1 => \gen_rst_ic.fifo_rd_rst_wr_i\,
+      I2 => rst,
+      I3 => p_0_in,
+      I4 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[2]\,
+      O => \FSM_onehot_gen_rst_ic.curr_wrst_state[2]_i_1_n_0\
+    );
+\FSM_onehot_gen_rst_ic.curr_wrst_state[3]_i_1\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"0000004400000044"
+    )
+        port map (
+      I0 => \gen_rst_ic.fifo_rd_rst_wr_i\,
+      I1 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[2]\,
+      I2 => \gen_rst_ic.rst_seq_reentered_reg_n_0\,
+      I3 => rst,
+      I4 => p_0_in,
+      I5 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[3]\,
+      O => \FSM_onehot_gen_rst_ic.curr_wrst_state[3]_i_1_n_0\
+    );
+\FSM_onehot_gen_rst_ic.curr_wrst_state[4]_i_1\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => \/i__n_0\,
+      O => \FSM_onehot_gen_rst_ic.curr_wrst_state[4]_i_1_n_0\
+    );
+\FSM_onehot_gen_rst_ic.curr_wrst_state[4]_i_2\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"0002"
+    )
+        port map (
+      I0 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[3]\,
+      I1 => p_0_in,
+      I2 => rst,
+      I3 => \gen_rst_ic.rst_seq_reentered_reg_n_0\,
+      O => \FSM_onehot_gen_rst_ic.curr_wrst_state[4]_i_2_n_0\
+    );
+\FSM_onehot_gen_rst_ic.curr_wrst_state_reg[0]\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '1'
+    )
+        port map (
+      C => wr_clk,
+      CE => '1',
+      D => \FSM_onehot_gen_rst_ic.curr_wrst_state[0]_i_1_n_0\,
+      Q => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[0]\,
+      R => '0'
+    );
+\FSM_onehot_gen_rst_ic.curr_wrst_state_reg[1]\: unisim.vcomponents.FDRE
     generic map(
       INIT => '0'
     )
         port map (
       C => wr_clk,
       CE => '1',
-      D => \gen_rst_ic.fifo_wr_rst_i_i_1_n_0\,
-      Q => \gen_rst_ic.fifo_wr_rst_i_reg_n_0\,
+      D => \FSM_onehot_gen_rst_ic.curr_wrst_state[1]_i_1_n_0\,
+      Q => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[1]\,
+      R => \FSM_onehot_gen_rst_ic.curr_wrst_state[4]_i_1_n_0\
+    );
+\FSM_onehot_gen_rst_ic.curr_wrst_state_reg[2]\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => wr_clk,
+      CE => '1',
+      D => \FSM_onehot_gen_rst_ic.curr_wrst_state[2]_i_1_n_0\,
+      Q => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[2]\,
+      R => \FSM_onehot_gen_rst_ic.curr_wrst_state[4]_i_1_n_0\
+    );
+\FSM_onehot_gen_rst_ic.curr_wrst_state_reg[3]\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => wr_clk,
+      CE => '1',
+      D => \FSM_onehot_gen_rst_ic.curr_wrst_state[3]_i_1_n_0\,
+      Q => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[3]\,
+      R => \FSM_onehot_gen_rst_ic.curr_wrst_state[4]_i_1_n_0\
+    );
+\FSM_onehot_gen_rst_ic.curr_wrst_state_reg[4]\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => wr_clk,
+      CE => '1',
+      D => \FSM_onehot_gen_rst_ic.curr_wrst_state[4]_i_2_n_0\,
+      Q => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[4]\,
+      R => \FSM_onehot_gen_rst_ic.curr_wrst_state[4]_i_1_n_0\
+    );
+\FSM_sequential_gen_rst_ic.curr_rrst_state[1]_i_1\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"6"
+    )
+        port map (
+      I0 => \gen_rst_ic.curr_rrst_state\(0),
+      I1 => \gen_rst_ic.curr_rrst_state\(1),
+      O => \gen_rst_ic.next_rrst_state\(1)
+    );
+\FSM_sequential_gen_rst_ic.curr_rrst_state_reg[0]\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => rd_clk,
+      CE => '1',
+      D => \gen_rst_ic.next_rrst_state\(0),
+      Q => \gen_rst_ic.curr_rrst_state\(0),
       R => '0'
     );
-\gen_rst_ic.rrst_rd_inst\: entity work.\system_v_axi4s_vid_out_0_0_xpm_reg_pipe_bit__parameterized0\
-     port map (
-      \count_value_i_reg[0]\(0) => \count_value_i_reg[0]\(0),
-      dest_rst => \^dest_rst\,
-      \gen_fwft.curr_fwft_state_reg[1]\(1 downto 0) => \gen_fwft.curr_fwft_state_reg[1]\(1 downto 0),
-      \gen_fwft.empty_fwft_i_reg\ => \gen_fwft.empty_fwft_i_reg\,
-      \gen_rst_ic.fifo_rd_rst_d3\ => \gen_rst_ic.fifo_rd_rst_d3\,
-      \grdc.rd_data_count_i_reg[0]\(0) => \grdc.rd_data_count_i_reg[0]\(0),
-      rd_clk => rd_clk,
-      rd_en => rd_en,
-      underflow_i0 => underflow_i0
+\FSM_sequential_gen_rst_ic.curr_rrst_state_reg[1]\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => rd_clk,
+      CE => '1',
+      D => \gen_rst_ic.next_rrst_state\(1),
+      Q => \gen_rst_ic.curr_rrst_state\(1),
+      R => '0'
+    );
+\__0/i_\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"06"
+    )
+        port map (
+      I0 => \gen_rst_ic.fifo_wr_rst_rd\,
+      I1 => \gen_rst_ic.curr_rrst_state\(1),
+      I2 => \gen_rst_ic.curr_rrst_state\(0),
+      O => \gen_rst_ic.next_rrst_state\(0)
+    );
+\gen_rst_ic.fifo_rd_rst_ic_i_1\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"3E"
+    )
+        port map (
+      I0 => \gen_rst_ic.fifo_wr_rst_rd\,
+      I1 => \gen_rst_ic.curr_rrst_state\(1),
+      I2 => \gen_rst_ic.curr_rrst_state\(0),
+      O => \gen_rst_ic.fifo_rd_rst_i\
+    );
+\gen_rst_ic.fifo_rd_rst_ic_reg\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => rd_clk,
+      CE => '1',
+      D => \gen_rst_ic.fifo_rd_rst_i\,
+      Q => \^gen_rst_ic.fifo_rd_rst_ic_reg_0\,
+      R => '0'
+    );
+\gen_rst_ic.fifo_wr_rst_ic_i_1\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"FFEAFFFFFFEA0000"
+    )
+        port map (
+      I0 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[4]\,
+      I1 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[0]\,
+      I2 => \rst_i__0\,
+      I3 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[1]\,
+      I4 => \gen_rst_ic.fifo_wr_rst_ic_i_3_n_0\,
+      I5 => \gen_rst_ic.fifo_wr_rst_ic\,
+      O => \gen_rst_ic.fifo_wr_rst_ic_i_1_n_0\
+    );
+\gen_rst_ic.fifo_wr_rst_ic_i_2\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"E"
+    )
+        port map (
+      I0 => p_0_in,
+      I1 => rst,
+      O => \rst_i__0\
+    );
+\gen_rst_ic.fifo_wr_rst_ic_i_3\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"00010116"
+    )
+        port map (
+      I0 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[0]\,
+      I1 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[1]\,
+      I2 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[2]\,
+      I3 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[3]\,
+      I4 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[4]\,
+      O => \gen_rst_ic.fifo_wr_rst_ic_i_3_n_0\
+    );
+\gen_rst_ic.fifo_wr_rst_ic_reg\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => wr_clk,
+      CE => '1',
+      D => \gen_rst_ic.fifo_wr_rst_ic_i_1_n_0\,
+      Q => \gen_rst_ic.fifo_wr_rst_ic\,
+      R => '0'
     );
 \gen_rst_ic.rrst_wr_inst\: entity work.system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst
      port map (
       dest_clk => wr_clk,
       dest_rst => \gen_rst_ic.fifo_rd_rst_wr_i\,
-      src_rst => \gen_rst_ic.fifo_rd_rst_d3\
+      src_rst => \^gen_rst_ic.fifo_rd_rst_ic_reg_0\
     );
-\gen_rst_ic.wrst_rd_inst\: entity work.\system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__1\
+\gen_rst_ic.rst_seq_reentered_i_1\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"02"
+    )
+        port map (
+      I0 => \gen_rst_ic.rst_seq_reentered_i_2_n_0\,
+      I1 => rst,
+      I2 => p_0_in,
+      O => \gen_rst_ic.rst_seq_reentered_i_1_n_0\
+    );
+\gen_rst_ic.rst_seq_reentered_i_2\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"FFFFFFFF00010000"
+    )
+        port map (
+      I0 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[0]\,
+      I1 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[3]\,
+      I2 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[1]\,
+      I3 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[2]\,
+      I4 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[4]\,
+      I5 => \gen_rst_ic.rst_seq_reentered_reg_n_0\,
+      O => \gen_rst_ic.rst_seq_reentered_i_2_n_0\
+    );
+\gen_rst_ic.rst_seq_reentered_reg\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => wr_clk,
+      CE => '1',
+      D => \gen_rst_ic.rst_seq_reentered_i_1_n_0\,
+      Q => \gen_rst_ic.rst_seq_reentered_reg_n_0\,
+      R => '0'
+    );
+\gen_rst_ic.wr_rst_busy_ic_i_1\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"EFFFEF00"
+    )
+        port map (
+      I0 => rst,
+      I1 => p_0_in,
+      I2 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[0]\,
+      I3 => \gen_rst_ic.wr_rst_busy_ic_i_2_n_0\,
+      I4 => \^wrst_busy\,
+      O => \gen_rst_ic.wr_rst_busy_ic_i_1_n_0\
+    );
+\gen_rst_ic.wr_rst_busy_ic_i_2\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"00000116"
+    )
+        port map (
+      I0 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[3]\,
+      I1 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[2]\,
+      I2 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[1]\,
+      I3 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[0]\,
+      I4 => \FSM_onehot_gen_rst_ic.curr_wrst_state_reg_n_0_[4]\,
+      O => \gen_rst_ic.wr_rst_busy_ic_i_2_n_0\
+    );
+\gen_rst_ic.wr_rst_busy_ic_reg\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => wr_clk,
+      CE => '1',
+      D => \gen_rst_ic.wr_rst_busy_ic_i_1_n_0\,
+      Q => \^wrst_busy\,
+      R => '0'
+    );
+\gen_rst_ic.wrst_rd_inst\: entity work.\system_v_axi4s_vid_out_0_0_xpm_cdc_sync_rst__2\
      port map (
       dest_clk => rd_clk,
-      dest_rst => \^dest_rst\,
-      src_rst => \gen_rst_ic.fifo_wr_rst_i_reg_n_0\
-    );
-\gen_rst_ic.wrst_wr_inst\: entity work.system_v_axi4s_vid_out_0_0_xpm_reg_pipe_bit
-     port map (
-      Q(0) => power_on_rst(1),
-      \gen_rst_ic.fifo_rd_rst_done\ => \gen_rst_ic.fifo_rd_rst_done\,
-      \gen_rst_ic.fifo_wr_rst_d2\ => \gen_rst_ic.fifo_wr_rst_d2\,
-      \gen_rst_ic.fifo_wr_rst_d3\ => \gen_rst_ic.fifo_wr_rst_d3\,
-      \gen_rst_ic.fifo_wr_rst_done\ => \gen_rst_ic.fifo_wr_rst_done\,
-      \gen_rst_ic.fifo_wr_rst_done_reg\ => \gen_rst_ic.wrst_wr_inst_n_1\,
-      \gen_rst_ic.fifo_wr_rst_i_reg\ => \gen_rst_ic.fifo_wr_rst_i_reg_n_0\,
-      rst => rst,
-      wr_clk => wr_clk
+      dest_rst => \gen_rst_ic.fifo_wr_rst_rd\,
+      src_rst => \gen_rst_ic.fifo_wr_rst_ic\
     );
 \gen_sdpram.xpm_memory_base_inst_i_1\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"0004"
-    )
-        port map (
-      I0 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\,
-      I1 => wr_en,
-      I2 => \gen_rst_ic.fifo_rd_rst_wr_i\,
-      I3 => \gen_rst_ic.fifo_wr_rst_i_reg_n_0\,
-      O => \^ena\
-    );
-\gof.overflow_i_i_1\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"AAA8"
+      INIT => X"0002"
     )
         port map (
       I0 => wr_en,
-      I1 => \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\,
-      I2 => \gen_rst_ic.fifo_wr_rst_i_reg_n_0\,
-      I3 => \gen_rst_ic.fifo_rd_rst_wr_i\,
-      O => overflow_i0
+      I1 => full,
+      I2 => \^wrst_busy\,
+      I3 => rst_d1,
+      O => E(0)
+    );
+\grdc.rd_data_count_i[12]_i_1\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"AB"
+    )
+        port map (
+      I0 => \^gen_rst_ic.fifo_rd_rst_ic_reg_0\,
+      I1 => Q(0),
+      I2 => Q(1),
+      O => SR(0)
+    );
+\guf.underflow_i_i_1\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"E0"
+    )
+        port map (
+      I0 => \guf.underflow_i_reg\,
+      I1 => \^gen_rst_ic.fifo_rd_rst_ic_reg_0\,
+      I2 => rd_en,
+      O => underflow_i0
     );
 \power_on_rst_reg[0]\: unisim.vcomponents.FDRE
     generic map(
@@ -13428,7 +13865,7 @@ begin
       C => wr_clk,
       CE => '1',
       D => \power_on_rst_reg_n_0_[0]\,
-      Q => power_on_rst(1),
+      Q => p_0_in,
       R => '0'
     );
 wr_rst_busy_INST_0: unisim.vcomponents.LUT2
@@ -13436,9 +13873,9 @@ wr_rst_busy_INST_0: unisim.vcomponents.LUT2
       INIT => X"E"
     )
         port map (
-      I0 => \gen_rst_ic.fifo_wr_rst_i_reg_n_0\,
-      I1 => \gen_rst_ic.fifo_rd_rst_wr_i\,
-      O => \^sr\(0)
+      I0 => \^wrst_busy\,
+      I1 => rst_d1,
+      O => wr_rst_busy
     );
 end STRUCTURE;
 library IEEE;
@@ -13475,6 +13912,8 @@ entity system_v_axi4s_vid_out_0_0_xpm_fifo_base is
     sbiterr : out STD_LOGIC;
     dbiterr : out STD_LOGIC
   );
+  attribute CASCADE_HEIGHT : integer;
+  attribute CASCADE_HEIGHT of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 1;
   attribute CDC_DEST_SYNC_FF : integer;
   attribute CDC_DEST_SYNC_FF of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 4;
   attribute COMMON_CLOCK : integer;
@@ -13557,6 +13996,8 @@ entity system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   attribute READ_DATA_WIDTH of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 27;
   attribute READ_MODE : integer;
   attribute READ_MODE of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 1;
+  attribute READ_MODE_LL : integer;
+  attribute READ_MODE_LL of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 1;
   attribute RELATED_CLOCKS : integer;
   attribute RELATED_CLOCKS of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 0;
   attribute REMOVE_WR_RD_PROT_LOGIC : integer;
@@ -13569,27 +14010,45 @@ entity system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   attribute VERSION of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 0;
   attribute WAKEUP_TIME : integer;
   attribute WAKEUP_TIME of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 0;
+  attribute WIDTH_RATIO : integer;
+  attribute WIDTH_RATIO of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 1;
   attribute WRITE_DATA_WIDTH : integer;
   attribute WRITE_DATA_WIDTH of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 27;
   attribute WR_DATA_COUNT_WIDTH : integer;
   attribute WR_DATA_COUNT_WIDTH of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 13;
   attribute WR_DC_WIDTH_EXT : integer;
   attribute WR_DC_WIDTH_EXT of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 13;
+  attribute WR_DEPTH_LOG : integer;
+  attribute WR_DEPTH_LOG of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 12;
   attribute WR_PNTR_WIDTH : integer;
   attribute WR_PNTR_WIDTH of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 12;
   attribute WR_RD_RATIO : integer;
   attribute WR_RD_RATIO of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 0;
+  attribute WR_WIDTH_LOG : integer;
+  attribute WR_WIDTH_LOG of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 5;
   attribute XPM_MODULE : string;
   attribute XPM_MODULE of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is "TRUE";
+  attribute both_stages_valid : integer;
+  attribute both_stages_valid of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 3;
+  attribute invalid : integer;
+  attribute invalid of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 0;
+  attribute keep_hierarchy : string;
+  attribute keep_hierarchy of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is "soft";
+  attribute stage1_valid : integer;
+  attribute stage1_valid of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 2;
+  attribute stage2_valid : integer;
+  attribute stage2_valid of system_v_axi4s_vid_out_0_0_xpm_fifo_base : entity is 1;
 end system_v_axi4s_vid_out_0_0_xpm_fifo_base;
 
 architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   signal \<const0>\ : STD_LOGIC;
   signal count_value_i : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal curr_fwft_state : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal diff_pntr_pe : STD_LOGIC_VECTOR ( 11 downto 0 );
   signal diff_pntr_pf_q : STD_LOGIC_VECTOR ( 12 downto 4 );
   signal diff_pntr_pf_q0 : STD_LOGIC_VECTOR ( 12 downto 4 );
   signal \^empty\ : STD_LOGIC;
+  signal empty_fwft_i0 : STD_LOGIC;
   signal \^full\ : STD_LOGIC;
   signal \gen_cdc_pntr.rpw_gray_reg_dc_n_0\ : STD_LOGIC;
   signal \gen_cdc_pntr.rpw_gray_reg_dc_n_1\ : STD_LOGIC;
@@ -13604,7 +14063,7 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   signal \gen_cdc_pntr.rpw_gray_reg_dc_n_7\ : STD_LOGIC;
   signal \gen_cdc_pntr.rpw_gray_reg_dc_n_8\ : STD_LOGIC;
   signal \gen_cdc_pntr.rpw_gray_reg_dc_n_9\ : STD_LOGIC;
-  signal \gen_cdc_pntr.rpw_gray_reg_n_14\ : STD_LOGIC;
+  signal \gen_cdc_pntr.rpw_gray_reg_n_12\ : STD_LOGIC;
   signal \gen_cdc_pntr.wpr_gray_reg_dc_n_13\ : STD_LOGIC;
   signal \gen_cdc_pntr.wpr_gray_reg_dc_n_14\ : STD_LOGIC;
   signal \gen_cdc_pntr.wpr_gray_reg_dc_n_15\ : STD_LOGIC;
@@ -13629,14 +14088,10 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   signal \gen_cdc_pntr.wpr_gray_reg_n_21\ : STD_LOGIC;
   signal \gen_cdc_pntr.wpr_gray_reg_n_22\ : STD_LOGIC;
   signal \gen_cdc_pntr.wpr_gray_reg_n_23\ : STD_LOGIC;
-  signal \gen_fwft.curr_fwft_state\ : STD_LOGIC_VECTOR ( 1 downto 0 );
-  signal \gen_fwft.empty_fwft_i_reg0\ : STD_LOGIC;
-  signal \gen_fwft.next_fwft_state\ : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal \gen_fwft.ram_regout_en\ : STD_LOGIC;
   signal \gen_fwft.rdpp1_inst_n_0\ : STD_LOGIC;
   signal \gen_fwft.rdpp1_inst_n_1\ : STD_LOGIC;
   signal \gen_fwft.rdpp1_inst_n_2\ : STD_LOGIC;
-  signal \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[3]_i_2_n_0\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[0]\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[10]\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[11]\ : STD_LOGIC;
@@ -13655,12 +14110,12 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   signal \gen_pf_ic_rc.gpe_ic.prog_empty_i_i_4_n_0\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gpf_ic.prog_full_i_i_2_n_0\ : STD_LOGIC;
   signal \gen_pf_ic_rc.gpf_ic.prog_full_i_i_3_n_0\ : STD_LOGIC;
-  signal going_full0 : STD_LOGIC;
   signal \grdc.diff_wr_rd_pntr_rdc\ : STD_LOGIC_VECTOR ( 12 downto 0 );
   signal \grdc.rd_data_count_i0\ : STD_LOGIC;
   signal \gwdc.diff_wr_rd_pntr1_out\ : STD_LOGIC_VECTOR ( 12 downto 0 );
-  signal leaving_full : STD_LOGIC;
+  signal \next_fwft_state__0\ : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal overflow_i0 : STD_LOGIC;
+  signal p_1_in : STD_LOGIC;
   signal \^prog_empty\ : STD_LOGIC;
   signal \^prog_full\ : STD_LOGIC;
   signal ram_empty_i : STD_LOGIC;
@@ -13669,7 +14124,7 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   signal rd_pntr_wr : STD_LOGIC_VECTOR ( 11 downto 0 );
   signal rd_pntr_wr_cdc : STD_LOGIC_VECTOR ( 11 downto 0 );
   signal rd_pntr_wr_cdc_dc : STD_LOGIC_VECTOR ( 12 downto 0 );
-  signal rd_rst_i : STD_LOGIC;
+  signal \^rd_rst_busy\ : STD_LOGIC;
   signal rdp_inst_n_25 : STD_LOGIC;
   signal rdp_inst_n_26 : STD_LOGIC;
   signal rdp_inst_n_27 : STD_LOGIC;
@@ -13708,13 +14163,16 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   signal rdpp1_inst_n_9 : STD_LOGIC;
   signal rst_d1 : STD_LOGIC;
   signal rst_d1_inst_n_1 : STD_LOGIC;
+  signal rst_d1_inst_n_3 : STD_LOGIC;
+  signal rst_d1_inst_n_4 : STD_LOGIC;
+  signal rst_d1_inst_n_5 : STD_LOGIC;
   signal src_in_bin00_out : STD_LOGIC_VECTOR ( 12 downto 0 );
   signal underflow_i0 : STD_LOGIC;
   signal wr_pntr_ext : STD_LOGIC_VECTOR ( 12 downto 0 );
   signal wr_pntr_plus1_pf : STD_LOGIC_VECTOR ( 12 downto 1 );
+  signal wr_pntr_plus1_pf_carry : STD_LOGIC;
   signal wr_pntr_rd_cdc : STD_LOGIC_VECTOR ( 11 downto 0 );
   signal wr_pntr_rd_cdc_dc : STD_LOGIC_VECTOR ( 12 downto 0 );
-  signal \^wr_rst_busy\ : STD_LOGIC;
   signal wrpp2_inst_n_0 : STD_LOGIC;
   signal wrpp2_inst_n_1 : STD_LOGIC;
   signal wrpp2_inst_n_10 : STD_LOGIC;
@@ -13727,20 +14185,22 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   signal wrpp2_inst_n_7 : STD_LOGIC;
   signal wrpp2_inst_n_8 : STD_LOGIC;
   signal wrpp2_inst_n_9 : STD_LOGIC;
-  signal xpm_fifo_rst_inst_n_10 : STD_LOGIC;
-  signal xpm_fifo_rst_inst_n_2 : STD_LOGIC;
-  signal xpm_fifo_rst_inst_n_3 : STD_LOGIC;
-  signal xpm_fifo_rst_inst_n_4 : STD_LOGIC;
-  signal xpm_fifo_rst_inst_n_9 : STD_LOGIC;
+  signal wrst_busy : STD_LOGIC;
   signal \NLW_gen_sdpram.xpm_memory_base_inst_dbiterra_UNCONNECTED\ : STD_LOGIC;
   signal \NLW_gen_sdpram.xpm_memory_base_inst_dbiterrb_UNCONNECTED\ : STD_LOGIC;
   signal \NLW_gen_sdpram.xpm_memory_base_inst_sbiterra_UNCONNECTED\ : STD_LOGIC;
   signal \NLW_gen_sdpram.xpm_memory_base_inst_sbiterrb_UNCONNECTED\ : STD_LOGIC;
   signal \NLW_gen_sdpram.xpm_memory_base_inst_douta_UNCONNECTED\ : STD_LOGIC_VECTOR ( 26 downto 0 );
+  attribute SOFT_HLUTNM : string;
+  attribute SOFT_HLUTNM of \FSM_sequential_gen_fwft.curr_fwft_state[0]_i_1\ : label is "soft_lutpair24";
+  attribute SOFT_HLUTNM of \FSM_sequential_gen_fwft.curr_fwft_state[1]_i_1\ : label is "soft_lutpair24";
+  attribute FSM_ENCODED_STATES : string;
+  attribute FSM_ENCODED_STATES of \FSM_sequential_gen_fwft.curr_fwft_state_reg[0]\ : label is "invalid:00,stage1_valid:01,both_stages_valid:10,stage2_valid:11";
+  attribute FSM_ENCODED_STATES of \FSM_sequential_gen_fwft.curr_fwft_state_reg[1]\ : label is "invalid:00,stage1_valid:01,both_stages_valid:10,stage2_valid:11";
   attribute DEST_SYNC_FF : integer;
   attribute DEST_SYNC_FF of \gen_cdc_pntr.rd_pntr_cdc_dc_inst\ : label is 4;
   attribute INIT_SYNC_FF : integer;
-  attribute INIT_SYNC_FF of \gen_cdc_pntr.rd_pntr_cdc_dc_inst\ : label is 0;
+  attribute INIT_SYNC_FF of \gen_cdc_pntr.rd_pntr_cdc_dc_inst\ : label is 1;
   attribute REG_OUTPUT : integer;
   attribute REG_OUTPUT of \gen_cdc_pntr.rd_pntr_cdc_dc_inst\ : label is 0;
   attribute SIM_ASSERT_CHK of \gen_cdc_pntr.rd_pntr_cdc_dc_inst\ : label is 0;
@@ -13753,7 +14213,7 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   attribute XPM_CDC of \gen_cdc_pntr.rd_pntr_cdc_dc_inst\ : label is "GRAY";
   attribute XPM_MODULE of \gen_cdc_pntr.rd_pntr_cdc_dc_inst\ : label is "TRUE";
   attribute DEST_SYNC_FF of \gen_cdc_pntr.rd_pntr_cdc_inst\ : label is 4;
-  attribute INIT_SYNC_FF of \gen_cdc_pntr.rd_pntr_cdc_inst\ : label is 0;
+  attribute INIT_SYNC_FF of \gen_cdc_pntr.rd_pntr_cdc_inst\ : label is 1;
   attribute REG_OUTPUT of \gen_cdc_pntr.rd_pntr_cdc_inst\ : label is 0;
   attribute SIM_ASSERT_CHK of \gen_cdc_pntr.rd_pntr_cdc_inst\ : label is 0;
   attribute SIM_LOSSLESS_GRAY_CHK of \gen_cdc_pntr.rd_pntr_cdc_inst\ : label is 0;
@@ -13762,7 +14222,7 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   attribute XPM_CDC of \gen_cdc_pntr.rd_pntr_cdc_inst\ : label is "GRAY";
   attribute XPM_MODULE of \gen_cdc_pntr.rd_pntr_cdc_inst\ : label is "TRUE";
   attribute DEST_SYNC_FF of \gen_cdc_pntr.wr_pntr_cdc_dc_inst\ : label is 6;
-  attribute INIT_SYNC_FF of \gen_cdc_pntr.wr_pntr_cdc_dc_inst\ : label is 0;
+  attribute INIT_SYNC_FF of \gen_cdc_pntr.wr_pntr_cdc_dc_inst\ : label is 1;
   attribute REG_OUTPUT of \gen_cdc_pntr.wr_pntr_cdc_dc_inst\ : label is 0;
   attribute SIM_ASSERT_CHK of \gen_cdc_pntr.wr_pntr_cdc_dc_inst\ : label is 0;
   attribute SIM_LOSSLESS_GRAY_CHK of \gen_cdc_pntr.wr_pntr_cdc_dc_inst\ : label is 0;
@@ -13771,7 +14231,7 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   attribute XPM_CDC of \gen_cdc_pntr.wr_pntr_cdc_dc_inst\ : label is "GRAY";
   attribute XPM_MODULE of \gen_cdc_pntr.wr_pntr_cdc_dc_inst\ : label is "TRUE";
   attribute DEST_SYNC_FF of \gen_cdc_pntr.wr_pntr_cdc_inst\ : label is 4;
-  attribute INIT_SYNC_FF of \gen_cdc_pntr.wr_pntr_cdc_inst\ : label is 0;
+  attribute INIT_SYNC_FF of \gen_cdc_pntr.wr_pntr_cdc_inst\ : label is 1;
   attribute REG_OUTPUT of \gen_cdc_pntr.wr_pntr_cdc_inst\ : label is 0;
   attribute SIM_ASSERT_CHK of \gen_cdc_pntr.wr_pntr_cdc_inst\ : label is 0;
   attribute SIM_LOSSLESS_GRAY_CHK of \gen_cdc_pntr.wr_pntr_cdc_inst\ : label is 0;
@@ -13779,9 +14239,6 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   attribute WIDTH of \gen_cdc_pntr.wr_pntr_cdc_inst\ : label is 12;
   attribute XPM_CDC of \gen_cdc_pntr.wr_pntr_cdc_inst\ : label is "GRAY";
   attribute XPM_MODULE of \gen_cdc_pntr.wr_pntr_cdc_inst\ : label is "TRUE";
-  attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \gen_fwft.curr_fwft_state[0]_i_1\ : label is "soft_lutpair22";
-  attribute SOFT_HLUTNM of \gen_fwft.curr_fwft_state[1]_i_1\ : label is "soft_lutpair22";
   attribute ADDR_WIDTH_A : integer;
   attribute ADDR_WIDTH_A of \gen_sdpram.xpm_memory_base_inst\ : label is 12;
   attribute ADDR_WIDTH_B : integer;
@@ -13792,9 +14249,17 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   attribute BYTE_WRITE_WIDTH_A of \gen_sdpram.xpm_memory_base_inst\ : label is 27;
   attribute BYTE_WRITE_WIDTH_B : integer;
   attribute BYTE_WRITE_WIDTH_B of \gen_sdpram.xpm_memory_base_inst\ : label is 27;
+  attribute CASCADE_HEIGHT of \gen_sdpram.xpm_memory_base_inst\ : label is 1;
   attribute CLOCKING_MODE : integer;
   attribute CLOCKING_MODE of \gen_sdpram.xpm_memory_base_inst\ : label is 1;
+  attribute ECC_BIT_RANGE : string;
+  attribute ECC_BIT_RANGE of \gen_sdpram.xpm_memory_base_inst\ : label is "[7:0]";
   attribute ECC_MODE of \gen_sdpram.xpm_memory_base_inst\ : label is 0;
+  attribute ECC_TYPE : string;
+  attribute ECC_TYPE of \gen_sdpram.xpm_memory_base_inst\ : label is "NONE";
+  attribute IGNORE_INIT_SYNTH : integer;
+  attribute IGNORE_INIT_SYNTH of \gen_sdpram.xpm_memory_base_inst\ : label is 0;
+  attribute KEEP_HIERARCHY of \gen_sdpram.xpm_memory_base_inst\ : label is "soft";
   attribute MAX_NUM_CHAR : integer;
   attribute MAX_NUM_CHAR of \gen_sdpram.xpm_memory_base_inst\ : label is 0;
   attribute \MEM.ADDRESS_SPACE\ : boolean;
@@ -13895,10 +14360,17 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   attribute READ_RESET_VALUE_A of \gen_sdpram.xpm_memory_base_inst\ : label is "0";
   attribute READ_RESET_VALUE_B : string;
   attribute READ_RESET_VALUE_B of \gen_sdpram.xpm_memory_base_inst\ : label is "0";
+  attribute RST_MODE_A : string;
+  attribute RST_MODE_A of \gen_sdpram.xpm_memory_base_inst\ : label is "SYNC";
+  attribute RST_MODE_B : string;
+  attribute RST_MODE_B of \gen_sdpram.xpm_memory_base_inst\ : label is "SYNC";
+  attribute SIM_ASSERT_CHK of \gen_sdpram.xpm_memory_base_inst\ : label is 0;
   attribute USE_EMBEDDED_CONSTRAINT : integer;
   attribute USE_EMBEDDED_CONSTRAINT of \gen_sdpram.xpm_memory_base_inst\ : label is 0;
   attribute USE_MEM_INIT : integer;
-  attribute USE_MEM_INIT of \gen_sdpram.xpm_memory_base_inst\ : label is 1;
+  attribute USE_MEM_INIT of \gen_sdpram.xpm_memory_base_inst\ : label is 0;
+  attribute USE_MEM_INIT_MMI : integer;
+  attribute USE_MEM_INIT_MMI of \gen_sdpram.xpm_memory_base_inst\ : label is 0;
   attribute VERSION of \gen_sdpram.xpm_memory_base_inst\ : label is 0;
   attribute WAKEUP_TIME of \gen_sdpram.xpm_memory_base_inst\ : label is 0;
   attribute WRITE_DATA_WIDTH_A : integer;
@@ -13909,7 +14381,13 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_base is
   attribute WRITE_MODE_A of \gen_sdpram.xpm_memory_base_inst\ : label is 2;
   attribute WRITE_MODE_B : integer;
   attribute WRITE_MODE_B of \gen_sdpram.xpm_memory_base_inst\ : label is 2;
+  attribute WRITE_PROTECT : integer;
+  attribute WRITE_PROTECT of \gen_sdpram.xpm_memory_base_inst\ : label is 1;
   attribute XPM_MODULE of \gen_sdpram.xpm_memory_base_inst\ : label is "TRUE";
+  attribute rsta_loop_iter : integer;
+  attribute rsta_loop_iter of \gen_sdpram.xpm_memory_base_inst\ : label is 28;
+  attribute rstb_loop_iter : integer;
+  attribute rstb_loop_iter of \gen_sdpram.xpm_memory_base_inst\ : label is 28;
 begin
   almost_empty <= \<const0>\;
   almost_full <= \<const0>\;
@@ -13917,11 +14395,56 @@ begin
   dbiterr <= \<const0>\;
   empty <= \^empty\;
   full <= \^full\;
+  full_n <= \<const0>\;
   prog_empty <= \^prog_empty\;
   prog_full <= \^prog_full\;
+  rd_rst_busy <= \^rd_rst_busy\;
   sbiterr <= \<const0>\;
   wr_ack <= \<const0>\;
-  wr_rst_busy <= \^wr_rst_busy\;
+\FSM_sequential_gen_fwft.curr_fwft_state[0]_i_1\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"6A85"
+    )
+        port map (
+      I0 => curr_fwft_state(0),
+      I1 => rd_en,
+      I2 => curr_fwft_state(1),
+      I3 => ram_empty_i,
+      O => \next_fwft_state__0\(0)
+    );
+\FSM_sequential_gen_fwft.curr_fwft_state[1]_i_1\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"3FF0"
+    )
+        port map (
+      I0 => ram_empty_i,
+      I1 => rd_en,
+      I2 => curr_fwft_state(1),
+      I3 => curr_fwft_state(0),
+      O => \next_fwft_state__0\(1)
+    );
+\FSM_sequential_gen_fwft.curr_fwft_state_reg[0]\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => rd_clk,
+      CE => '1',
+      D => \next_fwft_state__0\(0),
+      Q => curr_fwft_state(0),
+      R => \^rd_rst_busy\
+    );
+\FSM_sequential_gen_fwft.curr_fwft_state_reg[1]\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => rd_clk,
+      CE => '1',
+      D => \next_fwft_state__0\(1),
+      Q => curr_fwft_state(1),
+      R => \^rd_rst_busy\
+    );
 GND: unisim.vcomponents.GND
      port map (
       G => \<const0>\
@@ -13942,29 +14465,27 @@ GND: unisim.vcomponents.GND
     );
 \gen_cdc_pntr.rpw_gray_reg\: entity work.system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec
      port map (
-      CO(0) => going_full0,
       D(11 downto 0) => rd_pntr_wr_cdc(11 downto 0),
+      E(0) => wr_pntr_plus1_pf_carry,
       Q(11 downto 0) => rd_pntr_wr(11 downto 0),
-      SR(0) => \^wr_rst_busy\,
-      \count_value_i_reg[11]\(11) => wrpp2_inst_n_0,
-      \count_value_i_reg[11]\(10) => wrpp2_inst_n_1,
-      \count_value_i_reg[11]\(9) => wrpp2_inst_n_2,
-      \count_value_i_reg[11]\(8) => wrpp2_inst_n_3,
-      \count_value_i_reg[11]\(7) => wrpp2_inst_n_4,
-      \count_value_i_reg[11]\(6) => wrpp2_inst_n_5,
-      \count_value_i_reg[11]\(5) => wrpp2_inst_n_6,
-      \count_value_i_reg[11]\(4) => wrpp2_inst_n_7,
-      \count_value_i_reg[11]\(3) => wrpp2_inst_n_8,
-      \count_value_i_reg[11]\(2) => wrpp2_inst_n_9,
-      \count_value_i_reg[11]\(1) => wrpp2_inst_n_10,
-      \count_value_i_reg[11]\(0) => wrpp2_inst_n_11,
-      \count_value_i_reg[11]_0\(11 downto 0) => wr_pntr_plus1_pf(12 downto 1),
-      ena => xpm_fifo_rst_inst_n_10,
-      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\(0) => leaving_full,
-      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_0\ => \gen_cdc_pntr.rpw_gray_reg_n_14\,
+      d_out_reg => \gen_cdc_pntr.rpw_gray_reg_n_12\,
+      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_2_0\(11 downto 0) => wr_pntr_plus1_pf(12 downto 1),
+      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(11) => wrpp2_inst_n_0,
+      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(10) => wrpp2_inst_n_1,
+      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(9) => wrpp2_inst_n_2,
+      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(8) => wrpp2_inst_n_3,
+      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(7) => wrpp2_inst_n_4,
+      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(6) => wrpp2_inst_n_5,
+      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(5) => wrpp2_inst_n_6,
+      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(4) => wrpp2_inst_n_7,
+      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(3) => wrpp2_inst_n_8,
+      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(2) => wrpp2_inst_n_9,
+      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(1) => wrpp2_inst_n_10,
+      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg_i_3_0\(0) => wrpp2_inst_n_11,
       rst => rst,
       rst_d1 => rst_d1,
-      wr_clk => wr_clk
+      wr_clk => wr_clk,
+      wrst_busy => wrst_busy
     );
 \gen_cdc_pntr.rpw_gray_reg_dc\: entity work.\system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec__parameterized0\
      port map (
@@ -13982,56 +14503,56 @@ GND: unisim.vcomponents.GND
       Q(2) => \gen_cdc_pntr.rpw_gray_reg_dc_n_10\,
       Q(1) => \gen_cdc_pntr.rpw_gray_reg_dc_n_11\,
       Q(0) => \gen_cdc_pntr.rpw_gray_reg_dc_n_12\,
-      SR(0) => \^wr_rst_busy\,
-      wr_clk => wr_clk
+      wr_clk => wr_clk,
+      wrst_busy => wrst_busy
     );
 \gen_cdc_pntr.wpr_gray_reg\: entity work.system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec_0
      port map (
       D(11 downto 0) => diff_pntr_pe(11 downto 0),
-      DI(0) => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[3]_i_2_n_0\,
-      Q(1 downto 0) => \gen_fwft.curr_fwft_state\(1 downto 0),
+      DI(0) => p_1_in,
+      Q(1 downto 0) => curr_fwft_state(1 downto 0),
       S(3) => rdp_inst_n_36,
       S(2) => rdp_inst_n_37,
       S(1) => rdp_inst_n_38,
       S(0) => rdp_inst_n_39,
-      SR(0) => rd_rst_i,
-      \count_value_i_reg[11]\(3) => rdp_inst_n_41,
-      \count_value_i_reg[11]\(2) => rdp_inst_n_42,
-      \count_value_i_reg[11]\(1) => rdp_inst_n_43,
-      \count_value_i_reg[11]\(0) => rdp_inst_n_44,
-      \count_value_i_reg[11]_0\(11) => rdpp1_inst_n_0,
-      \count_value_i_reg[11]_0\(10) => rdpp1_inst_n_1,
-      \count_value_i_reg[11]_0\(9) => rdpp1_inst_n_2,
-      \count_value_i_reg[11]_0\(8) => rdpp1_inst_n_3,
-      \count_value_i_reg[11]_0\(7) => rdpp1_inst_n_4,
-      \count_value_i_reg[11]_0\(6) => rdpp1_inst_n_5,
-      \count_value_i_reg[11]_0\(5) => rdpp1_inst_n_6,
-      \count_value_i_reg[11]_0\(4) => rdpp1_inst_n_7,
-      \count_value_i_reg[11]_0\(3) => rdpp1_inst_n_8,
-      \count_value_i_reg[11]_0\(2) => rdpp1_inst_n_9,
-      \count_value_i_reg[11]_0\(1) => rdpp1_inst_n_10,
-      \count_value_i_reg[11]_0\(0) => rdpp1_inst_n_11,
-      \count_value_i_reg[11]_1\(11 downto 0) => rd_pntr_ext(11 downto 0),
-      \count_value_i_reg[7]\(3) => rdp_inst_n_45,
-      \count_value_i_reg[7]\(2) => rdp_inst_n_46,
-      \count_value_i_reg[7]\(1) => rdp_inst_n_47,
-      \count_value_i_reg[7]\(0) => rdp_inst_n_48,
-      \dest_graysync_ff_reg[3][11]\(11 downto 0) => wr_pntr_rd_cdc(11 downto 0),
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(10) => \gen_cdc_pntr.wpr_gray_reg_n_13\,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(9) => \gen_cdc_pntr.wpr_gray_reg_n_14\,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(8) => \gen_cdc_pntr.wpr_gray_reg_n_15\,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(7) => \gen_cdc_pntr.wpr_gray_reg_n_16\,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(6) => \gen_cdc_pntr.wpr_gray_reg_n_17\,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(5) => \gen_cdc_pntr.wpr_gray_reg_n_18\,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(4) => \gen_cdc_pntr.wpr_gray_reg_n_19\,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(3) => \gen_cdc_pntr.wpr_gray_reg_n_20\,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(2) => \gen_cdc_pntr.wpr_gray_reg_n_21\,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(1) => \gen_cdc_pntr.wpr_gray_reg_n_22\,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(0) => \gen_cdc_pntr.wpr_gray_reg_n_23\,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(3) => rdp_inst_n_41,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(2) => rdp_inst_n_42,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(1) => rdp_inst_n_43,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(0) => rdp_inst_n_44,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\(3) => rdp_inst_n_45,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\(2) => rdp_inst_n_46,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\(1) => rdp_inst_n_47,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\(0) => rdp_inst_n_48,
+      \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(11) => rdpp1_inst_n_0,
+      \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(10) => rdpp1_inst_n_1,
+      \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(9) => rdpp1_inst_n_2,
+      \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(8) => rdpp1_inst_n_3,
+      \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(7) => rdpp1_inst_n_4,
+      \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(6) => rdpp1_inst_n_5,
+      \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(5) => rdpp1_inst_n_6,
+      \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(4) => rdpp1_inst_n_7,
+      \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(3) => rdpp1_inst_n_8,
+      \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(2) => rdpp1_inst_n_9,
+      \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(1) => rdpp1_inst_n_10,
+      \gen_pf_ic_rc.ram_empty_i_reg_i_2_0\(0) => rdpp1_inst_n_11,
+      \gen_pf_ic_rc.ram_empty_i_reg_i_3_0\(11 downto 0) => rd_pntr_ext(11 downto 0),
       ram_empty_i => ram_empty_i,
       ram_empty_i0 => ram_empty_i0,
       rd_clk => rd_clk,
-      rd_en => rd_en
+      rd_en => rd_en,
+      \reg_out_i_reg[0]_0\ => \^rd_rst_busy\,
+      \reg_out_i_reg[11]_0\(10) => \gen_cdc_pntr.wpr_gray_reg_n_13\,
+      \reg_out_i_reg[11]_0\(9) => \gen_cdc_pntr.wpr_gray_reg_n_14\,
+      \reg_out_i_reg[11]_0\(8) => \gen_cdc_pntr.wpr_gray_reg_n_15\,
+      \reg_out_i_reg[11]_0\(7) => \gen_cdc_pntr.wpr_gray_reg_n_16\,
+      \reg_out_i_reg[11]_0\(6) => \gen_cdc_pntr.wpr_gray_reg_n_17\,
+      \reg_out_i_reg[11]_0\(5) => \gen_cdc_pntr.wpr_gray_reg_n_18\,
+      \reg_out_i_reg[11]_0\(4) => \gen_cdc_pntr.wpr_gray_reg_n_19\,
+      \reg_out_i_reg[11]_0\(3) => \gen_cdc_pntr.wpr_gray_reg_n_20\,
+      \reg_out_i_reg[11]_0\(2) => \gen_cdc_pntr.wpr_gray_reg_n_21\,
+      \reg_out_i_reg[11]_0\(1) => \gen_cdc_pntr.wpr_gray_reg_n_22\,
+      \reg_out_i_reg[11]_0\(0) => \gen_cdc_pntr.wpr_gray_reg_n_23\,
+      \reg_out_i_reg[11]_1\(11 downto 0) => wr_pntr_rd_cdc(11 downto 0)
     );
 \gen_cdc_pntr.wpr_gray_reg_dc\: entity work.\system_v_axi4s_vid_out_0_0_xpm_fifo_reg_vec__parameterized0_1\
      port map (
@@ -14054,20 +14575,20 @@ GND: unisim.vcomponents.GND
       S(2) => rdp_inst_n_25,
       S(1) => \gen_fwft.rdpp1_inst_n_0\,
       S(0) => \gen_fwft.rdpp1_inst_n_1\,
-      SR(0) => rd_rst_i,
       count_value_i(0) => count_value_i(1),
-      \count_value_i_reg[10]\(3) => rdp_inst_n_30,
-      \count_value_i_reg[10]\(2) => rdp_inst_n_31,
-      \count_value_i_reg[10]\(1) => rdp_inst_n_32,
-      \count_value_i_reg[10]\(0) => rdp_inst_n_33,
-      \count_value_i_reg[10]_0\(9 downto 0) => rd_pntr_ext(10 downto 1),
-      \count_value_i_reg[11]\(0) => rdp_inst_n_35,
-      \count_value_i_reg[6]\(3) => rdp_inst_n_26,
-      \count_value_i_reg[6]\(2) => rdp_inst_n_27,
-      \count_value_i_reg[6]\(1) => rdp_inst_n_28,
-      \count_value_i_reg[6]\(0) => rdp_inst_n_29,
-      \dest_graysync_ff_reg[5][12]\(12 downto 0) => wr_pntr_rd_cdc_dc(12 downto 0),
-      rd_clk => rd_clk
+      \grdc.rd_data_count_i_reg[11]\(3) => rdp_inst_n_30,
+      \grdc.rd_data_count_i_reg[11]\(2) => rdp_inst_n_31,
+      \grdc.rd_data_count_i_reg[11]\(1) => rdp_inst_n_32,
+      \grdc.rd_data_count_i_reg[11]\(0) => rdp_inst_n_33,
+      \grdc.rd_data_count_i_reg[11]_0\(9 downto 0) => rd_pntr_ext(10 downto 1),
+      \grdc.rd_data_count_i_reg[12]\(0) => rdp_inst_n_35,
+      \grdc.rd_data_count_i_reg[7]\(3) => rdp_inst_n_26,
+      \grdc.rd_data_count_i_reg[7]\(2) => rdp_inst_n_27,
+      \grdc.rd_data_count_i_reg[7]\(1) => rdp_inst_n_28,
+      \grdc.rd_data_count_i_reg[7]\(0) => rdp_inst_n_29,
+      rd_clk => rd_clk,
+      \reg_out_i_reg[12]_0\ => \^rd_rst_busy\,
+      \reg_out_i_reg[12]_1\(12 downto 0) => wr_pntr_rd_cdc_dc(12 downto 0)
     );
 \gen_cdc_pntr.wr_pntr_cdc_dc_inst\: entity work.\system_v_axi4s_vid_out_0_0_xpm_cdc_gray__parameterized0\
      port map (
@@ -14076,66 +14597,23 @@ GND: unisim.vcomponents.GND
       src_clk => wr_clk,
       src_in_bin(12 downto 0) => wr_pntr_ext(12 downto 0)
     );
-\gen_cdc_pntr.wr_pntr_cdc_inst\: entity work.\system_v_axi4s_vid_out_0_0_xpm_cdc_gray__1\
+\gen_cdc_pntr.wr_pntr_cdc_inst\: entity work.\system_v_axi4s_vid_out_0_0_xpm_cdc_gray__2\
      port map (
       dest_clk => rd_clk,
       dest_out_bin(11 downto 0) => wr_pntr_rd_cdc(11 downto 0),
       src_clk => wr_clk,
       src_in_bin(11 downto 0) => wr_pntr_ext(11 downto 0)
     );
-\gen_fwft.curr_fwft_state[0]_i_1\: unisim.vcomponents.LUT3
-    generic map(
-      INIT => X"BA"
-    )
-        port map (
-      I0 => \gen_fwft.curr_fwft_state\(1),
-      I1 => rd_en,
-      I2 => \gen_fwft.curr_fwft_state\(0),
-      O => \gen_fwft.next_fwft_state\(0)
-    );
-\gen_fwft.curr_fwft_state[1]_i_1\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"20FF"
-    )
-        port map (
-      I0 => \gen_fwft.curr_fwft_state\(1),
-      I1 => rd_en,
-      I2 => \gen_fwft.curr_fwft_state\(0),
-      I3 => ram_empty_i,
-      O => \gen_fwft.next_fwft_state\(1)
-    );
-\gen_fwft.curr_fwft_state_reg[0]\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => rd_clk,
-      CE => '1',
-      D => \gen_fwft.next_fwft_state\(0),
-      Q => \gen_fwft.curr_fwft_state\(0),
-      R => rd_rst_i
-    );
-\gen_fwft.curr_fwft_state_reg[1]\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => rd_clk,
-      CE => '1',
-      D => \gen_fwft.next_fwft_state\(1),
-      Q => \gen_fwft.curr_fwft_state\(1),
-      R => rd_rst_i
-    );
 \gen_fwft.empty_fwft_i_i_1\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"F320"
+      INIT => X"F380"
     )
         port map (
       I0 => rd_en,
-      I1 => \gen_fwft.curr_fwft_state\(1),
-      I2 => \gen_fwft.curr_fwft_state\(0),
+      I1 => curr_fwft_state(0),
+      I2 => curr_fwft_state(1),
       I3 => \^empty\,
-      O => \gen_fwft.empty_fwft_i_reg0\
+      O => empty_fwft_i0
     );
 \gen_fwft.empty_fwft_i_reg\: unisim.vcomponents.FDSE
     generic map(
@@ -14144,9 +14622,9 @@ GND: unisim.vcomponents.GND
         port map (
       C => rd_clk,
       CE => '1',
-      D => \gen_fwft.empty_fwft_i_reg0\,
+      D => empty_fwft_i0,
       Q => \^empty\,
-      S => rd_rst_i
+      S => \^rd_rst_busy\
     );
 \gen_fwft.rdpp1_inst\: entity work.system_v_axi4s_vid_out_0_0_xpm_counter_updn
      port map (
@@ -14154,14 +14632,14 @@ GND: unisim.vcomponents.GND
       Q(1 downto 0) => rd_pntr_ext(1 downto 0),
       S(1) => \gen_fwft.rdpp1_inst_n_0\,
       S(0) => \gen_fwft.rdpp1_inst_n_1\,
-      SR(0) => rd_rst_i,
       count_value_i(1 downto 0) => count_value_i(1 downto 0),
-      \gen_fwft.curr_fwft_state_reg[1]\(1 downto 0) => \gen_fwft.curr_fwft_state\(1 downto 0),
+      \count_value_i_reg[1]_0\(1 downto 0) => curr_fwft_state(1 downto 0),
+      \count_value_i_reg[1]_1\ => \^rd_rst_busy\,
+      \grdc.rd_data_count_i_reg[3]\(1) => \gen_cdc_pntr.wpr_gray_reg_dc_n_24\,
+      \grdc.rd_data_count_i_reg[3]\(0) => \gen_cdc_pntr.wpr_gray_reg_dc_n_25\,
       ram_empty_i => ram_empty_i,
       rd_clk => rd_clk,
-      rd_en => rd_en,
-      \reg_out_i_reg[1]\(1) => \gen_cdc_pntr.wpr_gray_reg_dc_n_24\,
-      \reg_out_i_reg[1]\(0) => \gen_cdc_pntr.wpr_gray_reg_dc_n_25\
+      rd_en => rd_en
     );
 \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\: unisim.vcomponents.FDSE
     generic map(
@@ -14170,31 +14648,20 @@ GND: unisim.vcomponents.GND
         port map (
       C => wr_clk,
       CE => '1',
-      D => \gen_cdc_pntr.rpw_gray_reg_n_14\,
+      D => \gen_cdc_pntr.rpw_gray_reg_n_12\,
       Q => \^full\,
-      S => \^wr_rst_busy\
-    );
-\gen_pf_ic_rc.gen_full_rst_val.ram_full_n_reg\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => wr_clk,
-      CE => '1',
-      D => xpm_fifo_rst_inst_n_9,
-      Q => full_n,
-      R => '0'
+      S => wrst_busy
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[3]_i_2\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"BAAA"
+      INIT => X"ABAA"
     )
         port map (
       I0 => ram_empty_i,
       I1 => rd_en,
-      I2 => \gen_fwft.curr_fwft_state\(1),
-      I3 => \gen_fwft.curr_fwft_state\(0),
-      O => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe[3]_i_2_n_0\
+      I2 => curr_fwft_state(0),
+      I3 => curr_fwft_state(1),
+      O => p_1_in
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[0]\: unisim.vcomponents.FDRE
     generic map(
@@ -14205,7 +14672,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pe(0),
       Q => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[0]\,
-      R => rd_rst_i
+      R => \^rd_rst_busy\
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[10]\: unisim.vcomponents.FDRE
     generic map(
@@ -14216,7 +14683,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pe(10),
       Q => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[10]\,
-      R => rd_rst_i
+      R => \^rd_rst_busy\
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\: unisim.vcomponents.FDRE
     generic map(
@@ -14227,7 +14694,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pe(11),
       Q => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[11]\,
-      R => rd_rst_i
+      R => \^rd_rst_busy\
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[1]\: unisim.vcomponents.FDRE
     generic map(
@@ -14238,7 +14705,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pe(1),
       Q => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[1]\,
-      R => rd_rst_i
+      R => \^rd_rst_busy\
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[2]\: unisim.vcomponents.FDRE
     generic map(
@@ -14249,7 +14716,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pe(2),
       Q => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[2]\,
-      R => rd_rst_i
+      R => \^rd_rst_busy\
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]\: unisim.vcomponents.FDRE
     generic map(
@@ -14260,7 +14727,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pe(3),
       Q => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[3]\,
-      R => rd_rst_i
+      R => \^rd_rst_busy\
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[4]\: unisim.vcomponents.FDRE
     generic map(
@@ -14271,7 +14738,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pe(4),
       Q => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[4]\,
-      R => rd_rst_i
+      R => \^rd_rst_busy\
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[5]\: unisim.vcomponents.FDRE
     generic map(
@@ -14282,7 +14749,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pe(5),
       Q => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[5]\,
-      R => rd_rst_i
+      R => \^rd_rst_busy\
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[6]\: unisim.vcomponents.FDRE
     generic map(
@@ -14293,7 +14760,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pe(6),
       Q => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[6]\,
-      R => rd_rst_i
+      R => \^rd_rst_busy\
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\: unisim.vcomponents.FDRE
     generic map(
@@ -14304,7 +14771,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pe(7),
       Q => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[7]\,
-      R => rd_rst_i
+      R => \^rd_rst_busy\
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[8]\: unisim.vcomponents.FDRE
     generic map(
@@ -14315,7 +14782,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pe(8),
       Q => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[8]\,
-      R => rd_rst_i
+      R => \^rd_rst_busy\
     );
 \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[9]\: unisim.vcomponents.FDRE
     generic map(
@@ -14326,11 +14793,11 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pe(9),
       Q => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[9]\,
-      R => rd_rst_i
+      R => \^rd_rst_busy\
     );
 \gen_pf_ic_rc.gpe_ic.prog_empty_i_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"B8888888"
+      INIT => X"888888B8"
     )
         port map (
       I0 => \^prog_empty\,
@@ -14342,35 +14809,35 @@ GND: unisim.vcomponents.GND
     );
 \gen_pf_ic_rc.gpe_ic.prog_empty_i_i_2\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"5557"
+      INIT => X"01FF"
     )
         port map (
-      I0 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[3]\,
-      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[0]\,
+      I0 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[0]\,
+      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[1]\,
       I2 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[2]\,
-      I3 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[1]\,
+      I3 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[3]\,
       O => \gen_pf_ic_rc.gpe_ic.prog_empty_i_i_2_n_0\
     );
 \gen_pf_ic_rc.gpe_ic.prog_empty_i_i_3\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"0001"
+      INIT => X"FFFE"
     )
         port map (
-      I0 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[10]\,
-      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[11]\,
-      I2 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[9]\,
-      I3 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[8]\,
+      I0 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[9]\,
+      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[8]\,
+      I2 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[11]\,
+      I3 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[10]\,
       O => \gen_pf_ic_rc.gpe_ic.prog_empty_i_i_3_n_0\
     );
 \gen_pf_ic_rc.gpe_ic.prog_empty_i_i_4\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"0001"
+      INIT => X"FFFE"
     )
         port map (
-      I0 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[7]\,
-      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[6]\,
-      I2 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[5]\,
-      I3 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[4]\,
+      I0 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[5]\,
+      I1 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[4]\,
+      I2 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[7]\,
+      I3 => \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg_n_0_[6]\,
       O => \gen_pf_ic_rc.gpe_ic.prog_empty_i_i_4_n_0\
     );
 \gen_pf_ic_rc.gpe_ic.prog_empty_i_reg\: unisim.vcomponents.FDSE
@@ -14382,7 +14849,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => \gen_pf_ic_rc.gpe_ic.prog_empty_i_i_1_n_0\,
       Q => \^prog_empty\,
-      S => rd_rst_i
+      S => \^rd_rst_busy\
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[10]\: unisim.vcomponents.FDRE
     generic map(
@@ -14393,7 +14860,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pf_q0(10),
       Q => diff_pntr_pf_q(10),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[11]\: unisim.vcomponents.FDRE
     generic map(
@@ -14404,7 +14871,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pf_q0(11),
       Q => diff_pntr_pf_q(11),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\: unisim.vcomponents.FDRE
     generic map(
@@ -14415,7 +14882,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pf_q0(12),
       Q => diff_pntr_pf_q(12),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[4]\: unisim.vcomponents.FDRE
     generic map(
@@ -14426,7 +14893,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pf_q0(4),
       Q => diff_pntr_pf_q(4),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[5]\: unisim.vcomponents.FDRE
     generic map(
@@ -14437,7 +14904,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pf_q0(5),
       Q => diff_pntr_pf_q(5),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[6]\: unisim.vcomponents.FDRE
     generic map(
@@ -14448,7 +14915,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pf_q0(6),
       Q => diff_pntr_pf_q(6),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[7]\: unisim.vcomponents.FDRE
     generic map(
@@ -14459,7 +14926,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pf_q0(7),
       Q => diff_pntr_pf_q(7),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[8]\: unisim.vcomponents.FDRE
     generic map(
@@ -14470,7 +14937,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pf_q0(8),
       Q => diff_pntr_pf_q(8),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[9]\: unisim.vcomponents.FDRE
     generic map(
@@ -14481,30 +14948,30 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => diff_pntr_pf_q0(9),
       Q => diff_pntr_pf_q(9),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
-\gen_pf_ic_rc.gpf_ic.prog_full_i_i_2\: unisim.vcomponents.LUT5
+\gen_pf_ic_rc.gpf_ic.prog_full_i_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFFFFFFD"
+      INIT => X"FFFFFFFFFFFFFFFE"
     )
         port map (
-      I0 => \gen_pf_ic_rc.gpf_ic.prog_full_i_i_3_n_0\,
-      I1 => diff_pntr_pf_q(9),
-      I2 => diff_pntr_pf_q(10),
-      I3 => diff_pntr_pf_q(12),
-      I4 => diff_pntr_pf_q(11),
+      I0 => diff_pntr_pf_q(5),
+      I1 => \gen_pf_ic_rc.gpf_ic.prog_full_i_i_3_n_0\,
+      I2 => diff_pntr_pf_q(7),
+      I3 => diff_pntr_pf_q(6),
+      I4 => diff_pntr_pf_q(9),
+      I5 => diff_pntr_pf_q(8),
       O => \gen_pf_ic_rc.gpf_ic.prog_full_i_i_2_n_0\
     );
-\gen_pf_ic_rc.gpf_ic.prog_full_i_i_3\: unisim.vcomponents.LUT5
+\gen_pf_ic_rc.gpf_ic.prog_full_i_i_3\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"00000001"
+      INIT => X"FFFE"
     )
         port map (
-      I0 => diff_pntr_pf_q(8),
-      I1 => diff_pntr_pf_q(7),
+      I0 => diff_pntr_pf_q(11),
+      I1 => diff_pntr_pf_q(10),
       I2 => diff_pntr_pf_q(4),
-      I3 => diff_pntr_pf_q(5),
-      I4 => diff_pntr_pf_q(6),
+      I3 => diff_pntr_pf_q(12),
       O => \gen_pf_ic_rc.gpf_ic.prog_full_i_i_3_n_0\
     );
 \gen_pf_ic_rc.gpf_ic.prog_full_i_reg\: unisim.vcomponents.FDSE
@@ -14516,7 +14983,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => rst_d1_inst_n_1,
       Q => \^prog_full\,
-      S => \^wr_rst_busy\
+      S => wrst_busy
     );
 \gen_pf_ic_rc.ram_empty_i_reg\: unisim.vcomponents.FDSE
     generic map(
@@ -14527,7 +14994,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => ram_empty_i0,
       Q => ram_empty_i,
-      S => rd_rst_i
+      S => \^rd_rst_busy\
     );
 \gen_sdpram.xpm_memory_base_inst\: entity work.system_v_axi4s_vid_out_0_0_xpm_memory_base
      port map (
@@ -14541,7 +15008,7 @@ GND: unisim.vcomponents.GND
       dinb(26 downto 0) => B"000000000000000000000000000",
       douta(26 downto 0) => \NLW_gen_sdpram.xpm_memory_base_inst_douta_UNCONNECTED\(26 downto 0),
       doutb(26 downto 0) => dout(26 downto 0),
-      ena => xpm_fifo_rst_inst_n_10,
+      ena => '0',
       enb => rdp_inst_n_40,
       injectdbiterra => '0',
       injectdbiterrb => '0',
@@ -14550,20 +15017,20 @@ GND: unisim.vcomponents.GND
       regcea => '0',
       regceb => \gen_fwft.ram_regout_en\,
       rsta => '0',
-      rstb => rd_rst_i,
+      rstb => \^rd_rst_busy\,
       sbiterra => \NLW_gen_sdpram.xpm_memory_base_inst_sbiterra_UNCONNECTED\,
       sbiterrb => \NLW_gen_sdpram.xpm_memory_base_inst_sbiterrb_UNCONNECTED\,
       sleep => sleep,
-      wea(0) => '0',
+      wea(0) => wr_pntr_plus1_pf_carry,
       web(0) => '0'
     );
-\gen_sdpram.xpm_memory_base_inst_i_4\: unisim.vcomponents.LUT3
+\gen_sdpram.xpm_memory_base_inst_i_3\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"A2"
+      INIT => X"62"
     )
         port map (
-      I0 => \gen_fwft.curr_fwft_state\(1),
-      I1 => \gen_fwft.curr_fwft_state\(0),
+      I0 => curr_fwft_state(0),
+      I1 => curr_fwft_state(1),
       I2 => rd_en,
       O => \gen_fwft.ram_regout_en\
     );
@@ -14699,7 +15166,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => \gwdc.diff_wr_rd_pntr1_out\(0),
       Q => wr_data_count(0),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gwdc.wr_data_count_i_reg[10]\: unisim.vcomponents.FDRE
      port map (
@@ -14707,7 +15174,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => \gwdc.diff_wr_rd_pntr1_out\(10),
       Q => wr_data_count(10),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gwdc.wr_data_count_i_reg[11]\: unisim.vcomponents.FDRE
      port map (
@@ -14715,7 +15182,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => \gwdc.diff_wr_rd_pntr1_out\(11),
       Q => wr_data_count(11),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gwdc.wr_data_count_i_reg[12]\: unisim.vcomponents.FDRE
      port map (
@@ -14723,7 +15190,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => \gwdc.diff_wr_rd_pntr1_out\(12),
       Q => wr_data_count(12),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gwdc.wr_data_count_i_reg[1]\: unisim.vcomponents.FDRE
      port map (
@@ -14731,7 +15198,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => \gwdc.diff_wr_rd_pntr1_out\(1),
       Q => wr_data_count(1),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gwdc.wr_data_count_i_reg[2]\: unisim.vcomponents.FDRE
      port map (
@@ -14739,7 +15206,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => \gwdc.diff_wr_rd_pntr1_out\(2),
       Q => wr_data_count(2),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gwdc.wr_data_count_i_reg[3]\: unisim.vcomponents.FDRE
      port map (
@@ -14747,7 +15214,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => \gwdc.diff_wr_rd_pntr1_out\(3),
       Q => wr_data_count(3),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gwdc.wr_data_count_i_reg[4]\: unisim.vcomponents.FDRE
      port map (
@@ -14755,7 +15222,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => \gwdc.diff_wr_rd_pntr1_out\(4),
       Q => wr_data_count(4),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gwdc.wr_data_count_i_reg[5]\: unisim.vcomponents.FDRE
      port map (
@@ -14763,7 +15230,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => \gwdc.diff_wr_rd_pntr1_out\(5),
       Q => wr_data_count(5),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gwdc.wr_data_count_i_reg[6]\: unisim.vcomponents.FDRE
      port map (
@@ -14771,7 +15238,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => \gwdc.diff_wr_rd_pntr1_out\(6),
       Q => wr_data_count(6),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gwdc.wr_data_count_i_reg[7]\: unisim.vcomponents.FDRE
      port map (
@@ -14779,7 +15246,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => \gwdc.diff_wr_rd_pntr1_out\(7),
       Q => wr_data_count(7),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gwdc.wr_data_count_i_reg[8]\: unisim.vcomponents.FDRE
      port map (
@@ -14787,7 +15254,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => \gwdc.diff_wr_rd_pntr1_out\(8),
       Q => wr_data_count(8),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 \gwdc.wr_data_count_i_reg[9]\: unisim.vcomponents.FDRE
      port map (
@@ -14795,7 +15262,7 @@ GND: unisim.vcomponents.GND
       CE => '1',
       D => \gwdc.diff_wr_rd_pntr1_out\(9),
       Q => wr_data_count(9),
-      R => \^wr_rst_busy\
+      R => wrst_busy
     );
 rdp_inst: entity work.\system_v_axi4s_vid_out_0_0_xpm_counter_updn__parameterized0\
      port map (
@@ -14803,56 +15270,56 @@ rdp_inst: entity work.\system_v_axi4s_vid_out_0_0_xpm_counter_updn__parameterize
       E(0) => rdp_inst_n_40,
       Q(11 downto 0) => rd_pntr_ext(11 downto 0),
       S(0) => rdp_inst_n_25,
-      SR(0) => rd_rst_i,
       count_value_i(1 downto 0) => count_value_i(1 downto 0),
-      \gen_fwft.curr_fwft_state_reg[1]\(1 downto 0) => \gen_fwft.curr_fwft_state\(1 downto 0),
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(3) => rdp_inst_n_41,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(2) => rdp_inst_n_42,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(1) => rdp_inst_n_43,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(0) => rdp_inst_n_44,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]\(3) => rdp_inst_n_36,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]\(2) => rdp_inst_n_37,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]\(1) => rdp_inst_n_38,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[3]\(0) => rdp_inst_n_39,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\(3) => rdp_inst_n_45,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\(2) => rdp_inst_n_46,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\(1) => rdp_inst_n_47,
-      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[7]\(0) => rdp_inst_n_48,
-      \grdc.rd_data_count_i_reg[11]\(3) => rdp_inst_n_30,
-      \grdc.rd_data_count_i_reg[11]\(2) => rdp_inst_n_31,
-      \grdc.rd_data_count_i_reg[11]\(1) => rdp_inst_n_32,
-      \grdc.rd_data_count_i_reg[11]\(0) => rdp_inst_n_33,
-      \grdc.rd_data_count_i_reg[12]\(0) => rdp_inst_n_35,
-      \grdc.rd_data_count_i_reg[7]\(3) => rdp_inst_n_26,
-      \grdc.rd_data_count_i_reg[7]\(2) => rdp_inst_n_27,
-      \grdc.rd_data_count_i_reg[7]\(1) => rdp_inst_n_28,
-      \grdc.rd_data_count_i_reg[7]\(0) => rdp_inst_n_29,
+      \count_value_i_reg[0]_0\(1 downto 0) => curr_fwft_state(1 downto 0),
+      \count_value_i_reg[10]_0\(3) => rdp_inst_n_30,
+      \count_value_i_reg[10]_0\(2) => rdp_inst_n_31,
+      \count_value_i_reg[10]_0\(1) => rdp_inst_n_32,
+      \count_value_i_reg[10]_0\(0) => rdp_inst_n_33,
+      \count_value_i_reg[11]_0\(0) => rdp_inst_n_35,
+      \count_value_i_reg[11]_1\(3) => rdp_inst_n_41,
+      \count_value_i_reg[11]_1\(2) => rdp_inst_n_42,
+      \count_value_i_reg[11]_1\(1) => rdp_inst_n_43,
+      \count_value_i_reg[11]_1\(0) => rdp_inst_n_44,
+      \count_value_i_reg[12]_0\ => \^rd_rst_busy\,
+      \count_value_i_reg[3]_0\(3) => rdp_inst_n_36,
+      \count_value_i_reg[3]_0\(2) => rdp_inst_n_37,
+      \count_value_i_reg[3]_0\(1) => rdp_inst_n_38,
+      \count_value_i_reg[3]_0\(0) => rdp_inst_n_39,
+      \count_value_i_reg[6]_0\(3) => rdp_inst_n_26,
+      \count_value_i_reg[6]_0\(2) => rdp_inst_n_27,
+      \count_value_i_reg[6]_0\(1) => rdp_inst_n_28,
+      \count_value_i_reg[6]_0\(0) => rdp_inst_n_29,
+      \count_value_i_reg[7]_0\(3) => rdp_inst_n_45,
+      \count_value_i_reg[7]_0\(2) => rdp_inst_n_46,
+      \count_value_i_reg[7]_0\(1) => rdp_inst_n_47,
+      \count_value_i_reg[7]_0\(0) => rdp_inst_n_48,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(10) => \gen_cdc_pntr.wpr_gray_reg_n_13\,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(9) => \gen_cdc_pntr.wpr_gray_reg_n_14\,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(8) => \gen_cdc_pntr.wpr_gray_reg_n_15\,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(7) => \gen_cdc_pntr.wpr_gray_reg_n_16\,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(6) => \gen_cdc_pntr.wpr_gray_reg_n_17\,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(5) => \gen_cdc_pntr.wpr_gray_reg_n_18\,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(4) => \gen_cdc_pntr.wpr_gray_reg_n_19\,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(3) => \gen_cdc_pntr.wpr_gray_reg_n_20\,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(2) => \gen_cdc_pntr.wpr_gray_reg_n_21\,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(1) => \gen_cdc_pntr.wpr_gray_reg_n_22\,
+      \gen_pf_ic_rc.gpe_ic.diff_pntr_pe_reg[11]\(0) => \gen_cdc_pntr.wpr_gray_reg_n_23\,
+      \grdc.rd_data_count_i_reg[12]\(11) => \gen_cdc_pntr.wpr_gray_reg_dc_n_13\,
+      \grdc.rd_data_count_i_reg[12]\(10) => \gen_cdc_pntr.wpr_gray_reg_dc_n_14\,
+      \grdc.rd_data_count_i_reg[12]\(9) => \gen_cdc_pntr.wpr_gray_reg_dc_n_15\,
+      \grdc.rd_data_count_i_reg[12]\(8) => \gen_cdc_pntr.wpr_gray_reg_dc_n_16\,
+      \grdc.rd_data_count_i_reg[12]\(7) => \gen_cdc_pntr.wpr_gray_reg_dc_n_17\,
+      \grdc.rd_data_count_i_reg[12]\(6) => \gen_cdc_pntr.wpr_gray_reg_dc_n_18\,
+      \grdc.rd_data_count_i_reg[12]\(5) => \gen_cdc_pntr.wpr_gray_reg_dc_n_19\,
+      \grdc.rd_data_count_i_reg[12]\(4) => \gen_cdc_pntr.wpr_gray_reg_dc_n_20\,
+      \grdc.rd_data_count_i_reg[12]\(3) => \gen_cdc_pntr.wpr_gray_reg_dc_n_21\,
+      \grdc.rd_data_count_i_reg[12]\(2) => \gen_cdc_pntr.wpr_gray_reg_dc_n_22\,
+      \grdc.rd_data_count_i_reg[12]\(1) => \gen_cdc_pntr.wpr_gray_reg_dc_n_23\,
+      \grdc.rd_data_count_i_reg[12]\(0) => \gen_cdc_pntr.wpr_gray_reg_dc_n_24\,
       ram_empty_i => ram_empty_i,
       rd_clk => rd_clk,
       rd_en => rd_en,
-      \reg_out_i_reg[11]\(10) => \gen_cdc_pntr.wpr_gray_reg_n_13\,
-      \reg_out_i_reg[11]\(9) => \gen_cdc_pntr.wpr_gray_reg_n_14\,
-      \reg_out_i_reg[11]\(8) => \gen_cdc_pntr.wpr_gray_reg_n_15\,
-      \reg_out_i_reg[11]\(7) => \gen_cdc_pntr.wpr_gray_reg_n_16\,
-      \reg_out_i_reg[11]\(6) => \gen_cdc_pntr.wpr_gray_reg_n_17\,
-      \reg_out_i_reg[11]\(5) => \gen_cdc_pntr.wpr_gray_reg_n_18\,
-      \reg_out_i_reg[11]\(4) => \gen_cdc_pntr.wpr_gray_reg_n_19\,
-      \reg_out_i_reg[11]\(3) => \gen_cdc_pntr.wpr_gray_reg_n_20\,
-      \reg_out_i_reg[11]\(2) => \gen_cdc_pntr.wpr_gray_reg_n_21\,
-      \reg_out_i_reg[11]\(1) => \gen_cdc_pntr.wpr_gray_reg_n_22\,
-      \reg_out_i_reg[11]\(0) => \gen_cdc_pntr.wpr_gray_reg_n_23\,
-      \reg_out_i_reg[12]\(11) => \gen_cdc_pntr.wpr_gray_reg_dc_n_13\,
-      \reg_out_i_reg[12]\(10) => \gen_cdc_pntr.wpr_gray_reg_dc_n_14\,
-      \reg_out_i_reg[12]\(9) => \gen_cdc_pntr.wpr_gray_reg_dc_n_15\,
-      \reg_out_i_reg[12]\(8) => \gen_cdc_pntr.wpr_gray_reg_dc_n_16\,
-      \reg_out_i_reg[12]\(7) => \gen_cdc_pntr.wpr_gray_reg_dc_n_17\,
-      \reg_out_i_reg[12]\(6) => \gen_cdc_pntr.wpr_gray_reg_dc_n_18\,
-      \reg_out_i_reg[12]\(5) => \gen_cdc_pntr.wpr_gray_reg_dc_n_19\,
-      \reg_out_i_reg[12]\(4) => \gen_cdc_pntr.wpr_gray_reg_dc_n_20\,
-      \reg_out_i_reg[12]\(3) => \gen_cdc_pntr.wpr_gray_reg_dc_n_21\,
-      \reg_out_i_reg[12]\(2) => \gen_cdc_pntr.wpr_gray_reg_dc_n_22\,
-      \reg_out_i_reg[12]\(1) => \gen_cdc_pntr.wpr_gray_reg_dc_n_23\,
-      \reg_out_i_reg[12]\(0) => \gen_cdc_pntr.wpr_gray_reg_dc_n_24\,
       src_in_bin(12 downto 0) => src_in_bin00_out(12 downto 0)
     );
 rdpp1_inst: entity work.\system_v_axi4s_vid_out_0_0_xpm_counter_updn__parameterized1\
@@ -14870,57 +15337,66 @@ rdpp1_inst: entity work.\system_v_axi4s_vid_out_0_0_xpm_counter_updn__parameteri
       Q(2) => rdpp1_inst_n_9,
       Q(1) => rdpp1_inst_n_10,
       Q(0) => rdpp1_inst_n_11,
-      SR(0) => rd_rst_i,
-      \gen_fwft.curr_fwft_state_reg[1]\(1 downto 0) => \gen_fwft.curr_fwft_state\(1 downto 0),
+      \count_value_i_reg[0]_0\ => \^rd_rst_busy\,
+      \count_value_i_reg[3]_0\(1 downto 0) => curr_fwft_state(1 downto 0),
       ram_empty_i => ram_empty_i,
       rd_clk => rd_clk,
       rd_en => rd_en
     );
 rst_d1_inst: entity work.system_v_axi4s_vid_out_0_0_xpm_fifo_reg_bit
      port map (
-      SR(0) => \^wr_rst_busy\,
-      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\ => \^full\,
-      \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[9]\ => \gen_pf_ic_rc.gpf_ic.prog_full_i_i_2_n_0\,
-      \gen_pf_ic_rc.gpf_ic.prog_full_i_reg\ => rst_d1_inst_n_1,
+      Q(0) => wrpp2_inst_n_11,
+      S(0) => rst_d1_inst_n_3,
+      \count_value_i_reg[3]\(0) => wr_pntr_plus1_pf(1),
+      \count_value_i_reg[3]_0\(0) => wr_pntr_ext(0),
+      d_out_reg_0 => rst_d1_inst_n_1,
+      d_out_reg_1(0) => rst_d1_inst_n_4,
+      d_out_reg_2(0) => rst_d1_inst_n_5,
+      \gen_pf_ic_rc.gpf_ic.prog_full_i_reg\ => \gen_pf_ic_rc.gpf_ic.prog_full_i_i_2_n_0\,
+      \gof.overflow_i_reg\ => \^full\,
+      overflow_i0 => overflow_i0,
       prog_full => \^prog_full\,
       rst => rst,
       rst_d1 => rst_d1,
-      wr_clk => wr_clk
+      wr_clk => wr_clk,
+      wr_en => wr_en,
+      wrst_busy => wrst_busy
     );
 wrp_inst: entity work.\system_v_axi4s_vid_out_0_0_xpm_counter_updn__parameterized0_2\
      port map (
       D(12 downto 0) => \gwdc.diff_wr_rd_pntr1_out\(12 downto 0),
+      E(0) => wr_pntr_plus1_pf_carry,
       Q(12 downto 0) => wr_pntr_ext(12 downto 0),
-      S(0) => xpm_fifo_rst_inst_n_4,
-      SR(0) => \^wr_rst_busy\,
-      ena => xpm_fifo_rst_inst_n_10,
-      \reg_out_i_reg[12]\(12) => \gen_cdc_pntr.rpw_gray_reg_dc_n_0\,
-      \reg_out_i_reg[12]\(11) => \gen_cdc_pntr.rpw_gray_reg_dc_n_1\,
-      \reg_out_i_reg[12]\(10) => \gen_cdc_pntr.rpw_gray_reg_dc_n_2\,
-      \reg_out_i_reg[12]\(9) => \gen_cdc_pntr.rpw_gray_reg_dc_n_3\,
-      \reg_out_i_reg[12]\(8) => \gen_cdc_pntr.rpw_gray_reg_dc_n_4\,
-      \reg_out_i_reg[12]\(7) => \gen_cdc_pntr.rpw_gray_reg_dc_n_5\,
-      \reg_out_i_reg[12]\(6) => \gen_cdc_pntr.rpw_gray_reg_dc_n_6\,
-      \reg_out_i_reg[12]\(5) => \gen_cdc_pntr.rpw_gray_reg_dc_n_7\,
-      \reg_out_i_reg[12]\(4) => \gen_cdc_pntr.rpw_gray_reg_dc_n_8\,
-      \reg_out_i_reg[12]\(3) => \gen_cdc_pntr.rpw_gray_reg_dc_n_9\,
-      \reg_out_i_reg[12]\(2) => \gen_cdc_pntr.rpw_gray_reg_dc_n_10\,
-      \reg_out_i_reg[12]\(1) => \gen_cdc_pntr.rpw_gray_reg_dc_n_11\,
-      \reg_out_i_reg[12]\(0) => \gen_cdc_pntr.rpw_gray_reg_dc_n_12\,
-      wr_clk => wr_clk
+      \count_value_i_reg[3]_0\(0) => rst_d1_inst_n_5,
+      \gwdc.wr_data_count_i_reg[12]\(12) => \gen_cdc_pntr.rpw_gray_reg_dc_n_0\,
+      \gwdc.wr_data_count_i_reg[12]\(11) => \gen_cdc_pntr.rpw_gray_reg_dc_n_1\,
+      \gwdc.wr_data_count_i_reg[12]\(10) => \gen_cdc_pntr.rpw_gray_reg_dc_n_2\,
+      \gwdc.wr_data_count_i_reg[12]\(9) => \gen_cdc_pntr.rpw_gray_reg_dc_n_3\,
+      \gwdc.wr_data_count_i_reg[12]\(8) => \gen_cdc_pntr.rpw_gray_reg_dc_n_4\,
+      \gwdc.wr_data_count_i_reg[12]\(7) => \gen_cdc_pntr.rpw_gray_reg_dc_n_5\,
+      \gwdc.wr_data_count_i_reg[12]\(6) => \gen_cdc_pntr.rpw_gray_reg_dc_n_6\,
+      \gwdc.wr_data_count_i_reg[12]\(5) => \gen_cdc_pntr.rpw_gray_reg_dc_n_7\,
+      \gwdc.wr_data_count_i_reg[12]\(4) => \gen_cdc_pntr.rpw_gray_reg_dc_n_8\,
+      \gwdc.wr_data_count_i_reg[12]\(3) => \gen_cdc_pntr.rpw_gray_reg_dc_n_9\,
+      \gwdc.wr_data_count_i_reg[12]\(2) => \gen_cdc_pntr.rpw_gray_reg_dc_n_10\,
+      \gwdc.wr_data_count_i_reg[12]\(1) => \gen_cdc_pntr.rpw_gray_reg_dc_n_11\,
+      \gwdc.wr_data_count_i_reg[12]\(0) => \gen_cdc_pntr.rpw_gray_reg_dc_n_12\,
+      wr_clk => wr_clk,
+      wrst_busy => wrst_busy
     );
 wrpp1_inst: entity work.\system_v_axi4s_vid_out_0_0_xpm_counter_updn__parameterized1_3\
      port map (
       D(8 downto 0) => diff_pntr_pf_q0(12 downto 4),
+      E(0) => wr_pntr_plus1_pf_carry,
       Q(11 downto 0) => wr_pntr_plus1_pf(12 downto 1),
-      S(0) => xpm_fifo_rst_inst_n_3,
-      SR(0) => \^wr_rst_busy\,
-      ena => xpm_fifo_rst_inst_n_10,
-      \reg_out_i_reg[11]\(11 downto 0) => rd_pntr_wr(11 downto 0),
-      wr_clk => wr_clk
+      \count_value_i_reg[3]_0\(0) => rst_d1_inst_n_4,
+      \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[12]\(11 downto 0) => rd_pntr_wr(11 downto 0),
+      wr_clk => wr_clk,
+      wrst_busy => wrst_busy
     );
 wrpp2_inst: entity work.\system_v_axi4s_vid_out_0_0_xpm_counter_updn__parameterized2\
      port map (
+      E(0) => wr_pntr_plus1_pf_carry,
       Q(11) => wrpp2_inst_n_0,
       Q(10) => wrpp2_inst_n_1,
       Q(9) => wrpp2_inst_n_2,
@@ -14933,38 +15409,27 @@ wrpp2_inst: entity work.\system_v_axi4s_vid_out_0_0_xpm_counter_updn__parameteri
       Q(2) => wrpp2_inst_n_9,
       Q(1) => wrpp2_inst_n_10,
       Q(0) => wrpp2_inst_n_11,
-      S(0) => xpm_fifo_rst_inst_n_2,
-      SR(0) => \^wr_rst_busy\,
-      ena => xpm_fifo_rst_inst_n_10,
-      wr_clk => wr_clk
+      S(0) => rst_d1_inst_n_3,
+      wr_clk => wr_clk,
+      wrst_busy => wrst_busy
     );
 xpm_fifo_rst_inst: entity work.system_v_axi4s_vid_out_0_0_xpm_fifo_rst
      port map (
-      CO(0) => going_full0,
-      Q(0) => wrpp2_inst_n_11,
-      S(0) => xpm_fifo_rst_inst_n_2,
-      SR(0) => \^wr_rst_busy\,
-      \count_value_i_reg[0]\(0) => rd_rst_i,
-      \count_value_i_reg[0]_0\(0) => wr_pntr_plus1_pf(1),
-      \count_value_i_reg[0]_1\(0) => wr_pntr_ext(0),
-      \count_value_i_reg[3]\(0) => xpm_fifo_rst_inst_n_3,
-      \count_value_i_reg[3]_0\(0) => xpm_fifo_rst_inst_n_4,
-      dest_rst => rd_rst_busy,
-      ena => xpm_fifo_rst_inst_n_10,
-      \gen_fwft.curr_fwft_state_reg[1]\(1 downto 0) => \gen_fwft.curr_fwft_state\(1 downto 0),
-      \gen_fwft.empty_fwft_i_reg\ => \^empty\,
-      \gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg\ => \^full\,
-      \gen_pf_ic_rc.gen_full_rst_val.ram_full_n_reg\ => xpm_fifo_rst_inst_n_9,
-      \grdc.rd_data_count_i_reg[0]\(0) => \grdc.rd_data_count_i0\,
-      overflow_i0 => overflow_i0,
+      E(0) => wr_pntr_plus1_pf_carry,
+      Q(1 downto 0) => curr_fwft_state(1 downto 0),
+      SR(0) => \grdc.rd_data_count_i0\,
+      full => \^full\,
+      \gen_rst_ic.fifo_rd_rst_ic_reg_0\ => \^rd_rst_busy\,
+      \guf.underflow_i_reg\ => \^empty\,
       rd_clk => rd_clk,
       rd_en => rd_en,
-      \reg_out_i_reg[9]\(0) => leaving_full,
       rst => rst,
       rst_d1 => rst_d1,
       underflow_i0 => underflow_i0,
       wr_clk => wr_clk,
-      wr_en => wr_en
+      wr_en => wr_en,
+      wr_rst_busy => wr_rst_busy,
+      wrst_busy => wrst_busy
     );
 end STRUCTURE;
 library IEEE;
@@ -14973,67 +15438,108 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity system_v_axi4s_vid_out_0_0_xpm_fifo_async is
   port (
-    full : out STD_LOGIC;
-    overflow : out STD_LOGIC;
-    wr_rst_busy : out STD_LOGIC;
-    dout : out STD_LOGIC_VECTOR ( 26 downto 0 );
-    empty : out STD_LOGIC;
-    rd_data_count : out STD_LOGIC_VECTOR ( 10 downto 0 );
-    underflow : out STD_LOGIC;
-    \FSM_sequential_state_reg[0]\ : out STD_LOGIC;
-    E : out STD_LOGIC_VECTOR ( 0 to 0 );
-    fifo_eol_re_dly_reg : out STD_LOGIC;
-    aclk : in STD_LOGIC;
+    sleep : in STD_LOGIC;
+    rst : in STD_LOGIC;
+    wr_clk : in STD_LOGIC;
     wr_en : in STD_LOGIC;
     din : in STD_LOGIC_VECTOR ( 26 downto 0 );
-    vid_io_out_clk : in STD_LOGIC;
+    full : out STD_LOGIC;
+    prog_full : out STD_LOGIC;
+    wr_data_count : out STD_LOGIC_VECTOR ( 12 downto 0 );
+    overflow : out STD_LOGIC;
+    wr_rst_busy : out STD_LOGIC;
+    almost_full : out STD_LOGIC;
+    wr_ack : out STD_LOGIC;
+    rd_clk : in STD_LOGIC;
     rd_en : in STD_LOGIC;
-    \grdc.rd_data_count_i_reg[7]\ : in STD_LOGIC;
-    vid_io_out_ce : in STD_LOGIC;
-    fifo_sof_dly : in STD_LOGIC;
-    fifo_eol_dly : in STD_LOGIC;
-    aresetn : in STD_LOGIC
+    dout : out STD_LOGIC_VECTOR ( 26 downto 0 );
+    empty : out STD_LOGIC;
+    prog_empty : out STD_LOGIC;
+    rd_data_count : out STD_LOGIC_VECTOR ( 12 downto 0 );
+    underflow : out STD_LOGIC;
+    rd_rst_busy : out STD_LOGIC;
+    almost_empty : out STD_LOGIC;
+    data_valid : out STD_LOGIC;
+    injectsbiterr : in STD_LOGIC;
+    injectdbiterr : in STD_LOGIC;
+    sbiterr : out STD_LOGIC;
+    dbiterr : out STD_LOGIC
   );
+  attribute CASCADE_HEIGHT : integer;
+  attribute CASCADE_HEIGHT of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 1;
+  attribute CDC_SYNC_STAGES : integer;
+  attribute CDC_SYNC_STAGES of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 4;
+  attribute DOUT_RESET_VALUE : string;
+  attribute DOUT_RESET_VALUE of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is "0";
+  attribute ECC_MODE : string;
+  attribute ECC_MODE of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is "no_ecc";
+  attribute EN_ADV_FEATURE_ASYNC : string;
+  attribute EN_ADV_FEATURE_ASYNC of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is "16'b0000011100000111";
+  attribute FIFO_MEMORY_TYPE : string;
+  attribute FIFO_MEMORY_TYPE of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is "auto";
+  attribute FIFO_READ_LATENCY : integer;
+  attribute FIFO_READ_LATENCY of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 0;
+  attribute FIFO_WRITE_DEPTH : integer;
+  attribute FIFO_WRITE_DEPTH of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 4096;
+  attribute FULL_RESET_VALUE : integer;
+  attribute FULL_RESET_VALUE of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 1;
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is "xpm_fifo_async";
+  attribute PROG_EMPTY_THRESH : integer;
+  attribute PROG_EMPTY_THRESH of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 10;
+  attribute PROG_FULL_THRESH : integer;
+  attribute PROG_FULL_THRESH of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 10;
+  attribute P_COMMON_CLOCK : integer;
+  attribute P_COMMON_CLOCK of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 0;
+  attribute P_ECC_MODE : integer;
+  attribute P_ECC_MODE of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 0;
+  attribute P_FIFO_MEMORY_TYPE : integer;
+  attribute P_FIFO_MEMORY_TYPE of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 0;
+  attribute P_READ_MODE : integer;
+  attribute P_READ_MODE of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 1;
+  attribute P_WAKEUP_TIME : integer;
+  attribute P_WAKEUP_TIME of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 2;
+  attribute RD_DATA_COUNT_WIDTH : integer;
+  attribute RD_DATA_COUNT_WIDTH of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 13;
+  attribute READ_DATA_WIDTH : integer;
+  attribute READ_DATA_WIDTH of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 27;
+  attribute READ_MODE : string;
+  attribute READ_MODE of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is "fwft";
+  attribute RELATED_CLOCKS : integer;
+  attribute RELATED_CLOCKS of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 0;
+  attribute SIM_ASSERT_CHK : integer;
+  attribute SIM_ASSERT_CHK of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 0;
+  attribute USE_ADV_FEATURES : string;
+  attribute USE_ADV_FEATURES of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is "0707";
+  attribute WAKEUP_TIME : integer;
+  attribute WAKEUP_TIME of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 0;
+  attribute WRITE_DATA_WIDTH : integer;
+  attribute WRITE_DATA_WIDTH of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 27;
+  attribute WR_DATA_COUNT_WIDTH : integer;
+  attribute WR_DATA_COUNT_WIDTH of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is 13;
+  attribute XPM_MODULE : string;
+  attribute XPM_MODULE of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is "TRUE";
+  attribute dont_touch : string;
+  attribute dont_touch of system_v_axi4s_vid_out_0_0_xpm_fifo_async : entity is "true";
 end system_v_axi4s_vid_out_0_0_xpm_fifo_async;
 
 architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_async is
-  signal \^dout\ : STD_LOGIC_VECTOR ( 26 downto 0 );
-  signal fifo_level_rd : STD_LOGIC_VECTOR ( 1 downto 0 );
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_i_1_n_0\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_10\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_11\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_12\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_13\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_14\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_15\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_18\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_19\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_2\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_3\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_4\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_48\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_5\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_6\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_63\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_64\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_65\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_66\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_67\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_7\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_8\ : STD_LOGIC;
-  signal \gnuram_async_fifo.xpm_fifo_base_inst_n_9\ : STD_LOGIC;
-  signal \^rd_data_count\ : STD_LOGIC_VECTOR ( 10 downto 0 );
+  signal \<const0>\ : STD_LOGIC;
+  signal \NLW_gnuram_async_fifo.xpm_fifo_base_inst_almost_empty_UNCONNECTED\ : STD_LOGIC;
+  signal \NLW_gnuram_async_fifo.xpm_fifo_base_inst_almost_full_UNCONNECTED\ : STD_LOGIC;
+  signal \NLW_gnuram_async_fifo.xpm_fifo_base_inst_data_valid_UNCONNECTED\ : STD_LOGIC;
+  signal \NLW_gnuram_async_fifo.xpm_fifo_base_inst_dbiterr_UNCONNECTED\ : STD_LOGIC;
   signal \NLW_gnuram_async_fifo.xpm_fifo_base_inst_full_n_UNCONNECTED\ : STD_LOGIC;
+  signal \NLW_gnuram_async_fifo.xpm_fifo_base_inst_sbiterr_UNCONNECTED\ : STD_LOGIC;
+  signal \NLW_gnuram_async_fifo.xpm_fifo_base_inst_wr_ack_UNCONNECTED\ : STD_LOGIC;
+  attribute CASCADE_HEIGHT of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 1;
   attribute CDC_DEST_SYNC_FF : integer;
   attribute CDC_DEST_SYNC_FF of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 4;
   attribute COMMON_CLOCK : integer;
   attribute COMMON_CLOCK of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
-  attribute DOUT_RESET_VALUE : string;
   attribute DOUT_RESET_VALUE of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is "0";
-  attribute ECC_MODE : integer;
-  attribute ECC_MODE of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
+  attribute ECC_MODE_integer : integer;
+  attribute ECC_MODE_integer of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
   attribute ENABLE_ECC : integer;
   attribute ENABLE_ECC of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
   attribute EN_ADV_FEATURE : string;
@@ -15060,22 +15566,21 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_async is
   attribute EN_WDC of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is "1'b1";
   attribute FG_EQ_ASYM_DOUT : string;
   attribute FG_EQ_ASYM_DOUT of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is "1'b0";
-  attribute FIFO_MEMORY_TYPE : integer;
-  attribute FIFO_MEMORY_TYPE of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
+  attribute FIFO_MEMORY_TYPE_integer : integer;
+  attribute FIFO_MEMORY_TYPE_integer of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
   attribute FIFO_MEM_TYPE : integer;
   attribute FIFO_MEM_TYPE of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
   attribute FIFO_READ_DEPTH : integer;
   attribute FIFO_READ_DEPTH of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 4096;
-  attribute FIFO_READ_LATENCY : integer;
   attribute FIFO_READ_LATENCY of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
   attribute FIFO_SIZE : integer;
   attribute FIFO_SIZE of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 110592;
-  attribute FIFO_WRITE_DEPTH : integer;
   attribute FIFO_WRITE_DEPTH of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 4096;
-  attribute FULL_RESET_VALUE : integer;
   attribute FULL_RESET_VALUE of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 1;
   attribute FULL_RST_VAL : string;
   attribute FULL_RST_VAL of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is "1'b1";
+  attribute KEEP_HIERARCHY : string;
+  attribute KEEP_HIERARCHY of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is "soft";
   attribute PE_THRESH_ADJ : integer;
   attribute PE_THRESH_ADJ of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 8;
   attribute PE_THRESH_MAX : integer;
@@ -15088,11 +15593,8 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_async is
   attribute PF_THRESH_MAX of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 4091;
   attribute PF_THRESH_MIN : integer;
   attribute PF_THRESH_MIN of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 9;
-  attribute PROG_EMPTY_THRESH : integer;
   attribute PROG_EMPTY_THRESH of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 10;
-  attribute PROG_FULL_THRESH : integer;
   attribute PROG_FULL_THRESH of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 10;
-  attribute RD_DATA_COUNT_WIDTH : integer;
   attribute RD_DATA_COUNT_WIDTH of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 13;
   attribute RD_DC_WIDTH_EXT : integer;
   attribute RD_DC_WIDTH_EXT of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 13;
@@ -15102,59 +15604,305 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0_xpm_fifo_async is
   attribute RD_MODE of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 1;
   attribute RD_PNTR_WIDTH : integer;
   attribute RD_PNTR_WIDTH of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 12;
-  attribute READ_DATA_WIDTH : integer;
   attribute READ_DATA_WIDTH of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 27;
-  attribute READ_MODE : integer;
-  attribute READ_MODE of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 1;
-  attribute RELATED_CLOCKS : integer;
+  attribute READ_MODE_integer : integer;
+  attribute READ_MODE_integer of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 1;
+  attribute READ_MODE_LL : integer;
+  attribute READ_MODE_LL of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 1;
   attribute RELATED_CLOCKS of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
   attribute REMOVE_WR_RD_PROT_LOGIC : integer;
   attribute REMOVE_WR_RD_PROT_LOGIC of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
-  attribute SIM_ASSERT_CHK : integer;
   attribute SIM_ASSERT_CHK of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
-  attribute USE_ADV_FEATURES : string;
   attribute USE_ADV_FEATURES of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is "0707";
   attribute VERSION : integer;
   attribute VERSION of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
-  attribute WAKEUP_TIME : integer;
   attribute WAKEUP_TIME of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
-  attribute WRITE_DATA_WIDTH : integer;
+  attribute WIDTH_RATIO : integer;
+  attribute WIDTH_RATIO of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 1;
   attribute WRITE_DATA_WIDTH of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 27;
-  attribute WR_DATA_COUNT_WIDTH : integer;
   attribute WR_DATA_COUNT_WIDTH of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 13;
   attribute WR_DC_WIDTH_EXT : integer;
   attribute WR_DC_WIDTH_EXT of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 13;
+  attribute WR_DEPTH_LOG : integer;
+  attribute WR_DEPTH_LOG of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 12;
   attribute WR_PNTR_WIDTH : integer;
   attribute WR_PNTR_WIDTH of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 12;
   attribute WR_RD_RATIO : integer;
   attribute WR_RD_RATIO of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
-  attribute XPM_MODULE : string;
+  attribute WR_WIDTH_LOG : integer;
+  attribute WR_WIDTH_LOG of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 5;
   attribute XPM_MODULE of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is "TRUE";
+  attribute both_stages_valid : integer;
+  attribute both_stages_valid of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 3;
+  attribute invalid : integer;
+  attribute invalid of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 0;
+  attribute stage1_valid : integer;
+  attribute stage1_valid of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 2;
+  attribute stage2_valid : integer;
+  attribute stage2_valid of \gnuram_async_fifo.xpm_fifo_base_inst\ : label is 1;
+begin
+  almost_empty <= \<const0>\;
+  almost_full <= \<const0>\;
+  data_valid <= \<const0>\;
+  dbiterr <= \<const0>\;
+  sbiterr <= \<const0>\;
+  wr_ack <= \<const0>\;
+GND: unisim.vcomponents.GND
+     port map (
+      G => \<const0>\
+    );
+\gnuram_async_fifo.xpm_fifo_base_inst\: entity work.system_v_axi4s_vid_out_0_0_xpm_fifo_base
+     port map (
+      almost_empty => \NLW_gnuram_async_fifo.xpm_fifo_base_inst_almost_empty_UNCONNECTED\,
+      almost_full => \NLW_gnuram_async_fifo.xpm_fifo_base_inst_almost_full_UNCONNECTED\,
+      data_valid => \NLW_gnuram_async_fifo.xpm_fifo_base_inst_data_valid_UNCONNECTED\,
+      dbiterr => \NLW_gnuram_async_fifo.xpm_fifo_base_inst_dbiterr_UNCONNECTED\,
+      din(26 downto 0) => din(26 downto 0),
+      dout(26 downto 0) => dout(26 downto 0),
+      empty => empty,
+      full => full,
+      full_n => \NLW_gnuram_async_fifo.xpm_fifo_base_inst_full_n_UNCONNECTED\,
+      injectdbiterr => '0',
+      injectsbiterr => '0',
+      overflow => overflow,
+      prog_empty => prog_empty,
+      prog_full => prog_full,
+      rd_clk => rd_clk,
+      rd_data_count(12 downto 0) => rd_data_count(12 downto 0),
+      rd_en => rd_en,
+      rd_rst_busy => rd_rst_busy,
+      rst => rst,
+      sbiterr => \NLW_gnuram_async_fifo.xpm_fifo_base_inst_sbiterr_UNCONNECTED\,
+      sleep => sleep,
+      underflow => underflow,
+      wr_ack => \NLW_gnuram_async_fifo.xpm_fifo_base_inst_wr_ack_UNCONNECTED\,
+      wr_clk => wr_clk,
+      wr_data_count(12 downto 0) => wr_data_count(12 downto 0),
+      wr_en => wr_en,
+      wr_rst_busy => wr_rst_busy
+    );
+end STRUCTURE;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_fifo_async is
+  port (
+    overflow : out STD_LOGIC;
+    dout : out STD_LOGIC_VECTOR ( 26 downto 0 );
+    fifo_read_level : out STD_LOGIC_VECTOR ( 12 downto 0 );
+    underflow : out STD_LOGIC;
+    fifo_pix_cnt : out STD_LOGIC;
+    \grdc.rd_data_count_i_reg[11]\ : out STD_LOGIC;
+    \grdc.rd_data_count_i_reg[7]\ : out STD_LOGIC;
+    \grdc.rd_data_count_i_reg[4]\ : out STD_LOGIC;
+    fifo_eol_re : out STD_LOGIC;
+    sof_state_out_reg : out STD_LOGIC;
+    aresetn_0 : out STD_LOGIC;
+    s_axis_video_tready : out STD_LOGIC;
+    aclk : in STD_LOGIC;
+    din : in STD_LOGIC_VECTOR ( 26 downto 0 );
+    vid_io_out_clk : in STD_LOGIC;
+    E : in STD_LOGIC_VECTOR ( 0 to 0 );
+    vid_io_out_ce : in STD_LOGIC;
+    fifo_rd_en : in STD_LOGIC;
+    fifo_eol_dly : in STD_LOGIC;
+    aresetn : in STD_LOGIC;
+    s_axis_video_tvalid : in STD_LOGIC;
+    first_sof : in STD_LOGIC;
+    sof_state_out : in STD_LOGIC;
+    locked_from_sync_dly : in STD_LOGIC;
+    dest_out : in STD_LOGIC;
+    aclken : in STD_LOGIC
+  );
+  attribute ORIG_REF_NAME : string;
+  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_fifo_async : entity is "v_axi4s_vid_out_v4_0_14_fifo_async";
+end system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_fifo_async;
+
+architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_fifo_async is
+  signal XPM_FIFO_ASYNC_INST_i_1_n_0 : STD_LOGIC;
+  signal XPM_FIFO_ASYNC_INST_n_10 : STD_LOGIC;
+  signal XPM_FIFO_ASYNC_INST_n_11 : STD_LOGIC;
+  signal XPM_FIFO_ASYNC_INST_n_12 : STD_LOGIC;
+  signal XPM_FIFO_ASYNC_INST_n_13 : STD_LOGIC;
+  signal XPM_FIFO_ASYNC_INST_n_14 : STD_LOGIC;
+  signal XPM_FIFO_ASYNC_INST_n_2 : STD_LOGIC;
+  signal XPM_FIFO_ASYNC_INST_n_3 : STD_LOGIC;
+  signal XPM_FIFO_ASYNC_INST_n_4 : STD_LOGIC;
+  signal XPM_FIFO_ASYNC_INST_n_5 : STD_LOGIC;
+  signal XPM_FIFO_ASYNC_INST_n_6 : STD_LOGIC;
+  signal XPM_FIFO_ASYNC_INST_n_62 : STD_LOGIC;
+  signal XPM_FIFO_ASYNC_INST_n_7 : STD_LOGIC;
+  signal XPM_FIFO_ASYNC_INST_n_8 : STD_LOGIC;
+  signal XPM_FIFO_ASYNC_INST_n_9 : STD_LOGIC;
+  signal \^dout\ : STD_LOGIC_VECTOR ( 26 downto 0 );
+  signal fifo_empty : STD_LOGIC;
+  signal \^fifo_read_level\ : STD_LOGIC_VECTOR ( 12 downto 0 );
+  signal fifo_valid_to_coupler0 : STD_LOGIC;
+  signal full_i : STD_LOGIC;
+  signal \^s_axis_video_tready\ : STD_LOGIC;
+  signal wr_en_i : STD_LOGIC;
+  signal wr_rst_busy_i : STD_LOGIC;
+  signal NLW_XPM_FIFO_ASYNC_INST_almost_empty_UNCONNECTED : STD_LOGIC;
+  signal NLW_XPM_FIFO_ASYNC_INST_almost_full_UNCONNECTED : STD_LOGIC;
+  signal NLW_XPM_FIFO_ASYNC_INST_data_valid_UNCONNECTED : STD_LOGIC;
+  signal NLW_XPM_FIFO_ASYNC_INST_dbiterr_UNCONNECTED : STD_LOGIC;
+  signal NLW_XPM_FIFO_ASYNC_INST_prog_empty_UNCONNECTED : STD_LOGIC;
+  signal NLW_XPM_FIFO_ASYNC_INST_prog_full_UNCONNECTED : STD_LOGIC;
+  signal NLW_XPM_FIFO_ASYNC_INST_sbiterr_UNCONNECTED : STD_LOGIC;
+  signal NLW_XPM_FIFO_ASYNC_INST_wr_ack_UNCONNECTED : STD_LOGIC;
+  attribute CASCADE_HEIGHT : integer;
+  attribute CASCADE_HEIGHT of XPM_FIFO_ASYNC_INST : label is 1;
+  attribute CDC_SYNC_STAGES : integer;
+  attribute CDC_SYNC_STAGES of XPM_FIFO_ASYNC_INST : label is 4;
+  attribute DOUT_RESET_VALUE : string;
+  attribute DOUT_RESET_VALUE of XPM_FIFO_ASYNC_INST : label is "0";
+  attribute ECC_MODE : string;
+  attribute ECC_MODE of XPM_FIFO_ASYNC_INST : label is "no_ecc";
+  attribute EN_ADV_FEATURE_ASYNC : string;
+  attribute EN_ADV_FEATURE_ASYNC of XPM_FIFO_ASYNC_INST : label is "16'b0000011100000111";
+  attribute FIFO_MEMORY_TYPE : string;
+  attribute FIFO_MEMORY_TYPE of XPM_FIFO_ASYNC_INST : label is "auto";
+  attribute FIFO_READ_LATENCY : integer;
+  attribute FIFO_READ_LATENCY of XPM_FIFO_ASYNC_INST : label is 0;
+  attribute FIFO_WRITE_DEPTH : integer;
+  attribute FIFO_WRITE_DEPTH of XPM_FIFO_ASYNC_INST : label is 4096;
+  attribute FULL_RESET_VALUE : integer;
+  attribute FULL_RESET_VALUE of XPM_FIFO_ASYNC_INST : label is 1;
+  attribute PROG_EMPTY_THRESH : integer;
+  attribute PROG_EMPTY_THRESH of XPM_FIFO_ASYNC_INST : label is 10;
+  attribute PROG_FULL_THRESH : integer;
+  attribute PROG_FULL_THRESH of XPM_FIFO_ASYNC_INST : label is 10;
+  attribute P_COMMON_CLOCK : integer;
+  attribute P_COMMON_CLOCK of XPM_FIFO_ASYNC_INST : label is 0;
+  attribute P_ECC_MODE : integer;
+  attribute P_ECC_MODE of XPM_FIFO_ASYNC_INST : label is 0;
+  attribute P_FIFO_MEMORY_TYPE : integer;
+  attribute P_FIFO_MEMORY_TYPE of XPM_FIFO_ASYNC_INST : label is 0;
+  attribute P_READ_MODE : integer;
+  attribute P_READ_MODE of XPM_FIFO_ASYNC_INST : label is 1;
+  attribute P_WAKEUP_TIME : integer;
+  attribute P_WAKEUP_TIME of XPM_FIFO_ASYNC_INST : label is 2;
+  attribute RD_DATA_COUNT_WIDTH : integer;
+  attribute RD_DATA_COUNT_WIDTH of XPM_FIFO_ASYNC_INST : label is 13;
+  attribute READ_DATA_WIDTH : integer;
+  attribute READ_DATA_WIDTH of XPM_FIFO_ASYNC_INST : label is 27;
+  attribute READ_MODE : string;
+  attribute READ_MODE of XPM_FIFO_ASYNC_INST : label is "fwft";
+  attribute RELATED_CLOCKS : integer;
+  attribute RELATED_CLOCKS of XPM_FIFO_ASYNC_INST : label is 0;
+  attribute SIM_ASSERT_CHK : integer;
+  attribute SIM_ASSERT_CHK of XPM_FIFO_ASYNC_INST : label is 0;
+  attribute USE_ADV_FEATURES : string;
+  attribute USE_ADV_FEATURES of XPM_FIFO_ASYNC_INST : label is "0707";
+  attribute WAKEUP_TIME : integer;
+  attribute WAKEUP_TIME of XPM_FIFO_ASYNC_INST : label is 0;
+  attribute WRITE_DATA_WIDTH : integer;
+  attribute WRITE_DATA_WIDTH of XPM_FIFO_ASYNC_INST : label is 27;
+  attribute WR_DATA_COUNT_WIDTH : integer;
+  attribute WR_DATA_COUNT_WIDTH of XPM_FIFO_ASYNC_INST : label is 13;
+  attribute XPM_MODULE : string;
+  attribute XPM_MODULE of XPM_FIFO_ASYNC_INST : label is "TRUE";
+  attribute SOFT_HLUTNM : string;
+  attribute SOFT_HLUTNM of XPM_FIFO_ASYNC_INST_i_1 : label is "soft_lutpair25";
+  attribute SOFT_HLUTNM of first_sof_i_1 : label is "soft_lutpair25";
 begin
   dout(26 downto 0) <= \^dout\(26 downto 0);
-  rd_data_count(10 downto 0) <= \^rd_data_count\(10 downto 0);
-\FSM_sequential_state[0]_i_7\: unisim.vcomponents.LUT6
+  fifo_read_level(12 downto 0) <= \^fifo_read_level\(12 downto 0);
+  s_axis_video_tready <= \^s_axis_video_tready\;
+\FSM_sequential_state[0]_i_10\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"0000000100000000"
+      INIT => X"FFFE"
     )
         port map (
-      I0 => \^rd_data_count\(9),
-      I1 => \^rd_data_count\(10),
-      I2 => \^rd_data_count\(6),
-      I3 => \^rd_data_count\(7),
-      I4 => \^rd_data_count\(8),
-      I5 => \grdc.rd_data_count_i_reg[7]\,
-      O => \FSM_sequential_state_reg[0]\
+      I0 => \^fifo_read_level\(7),
+      I1 => \^fifo_read_level\(6),
+      I2 => \^fifo_read_level\(9),
+      I3 => \^fifo_read_level\(8),
+      O => \grdc.rd_data_count_i_reg[7]\
     );
-\fifo_eol_cnt_dly[12]_i_1\: unisim.vcomponents.LUT3
+\FSM_sequential_state[0]_i_11\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"20"
+      INIT => X"FFFFFEEE"
     )
         port map (
-      I0 => vid_io_out_ce,
-      I1 => \^dout\(25),
-      I2 => fifo_sof_dly,
-      O => E(0)
+      I0 => \^fifo_read_level\(11),
+      I1 => \^fifo_read_level\(10),
+      I2 => \^fifo_read_level\(2),
+      I3 => \^fifo_read_level\(3),
+      I4 => \^fifo_read_level\(12),
+      O => \grdc.rd_data_count_i_reg[11]\
+    );
+\FSM_sequential_state[0]_i_12\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"E"
+    )
+        port map (
+      I0 => \^fifo_read_level\(4),
+      I1 => \^fifo_read_level\(5),
+      O => \grdc.rd_data_count_i_reg[4]\
+    );
+XPM_FIFO_ASYNC_INST: entity work.system_v_axi4s_vid_out_0_0_xpm_fifo_async
+     port map (
+      almost_empty => NLW_XPM_FIFO_ASYNC_INST_almost_empty_UNCONNECTED,
+      almost_full => NLW_XPM_FIFO_ASYNC_INST_almost_full_UNCONNECTED,
+      data_valid => NLW_XPM_FIFO_ASYNC_INST_data_valid_UNCONNECTED,
+      dbiterr => NLW_XPM_FIFO_ASYNC_INST_dbiterr_UNCONNECTED,
+      din(26 downto 0) => din(26 downto 0),
+      dout(26 downto 0) => \^dout\(26 downto 0),
+      empty => fifo_empty,
+      full => full_i,
+      injectdbiterr => '0',
+      injectsbiterr => '0',
+      overflow => overflow,
+      prog_empty => NLW_XPM_FIFO_ASYNC_INST_prog_empty_UNCONNECTED,
+      prog_full => NLW_XPM_FIFO_ASYNC_INST_prog_full_UNCONNECTED,
+      rd_clk => vid_io_out_clk,
+      rd_data_count(12 downto 0) => \^fifo_read_level\(12 downto 0),
+      rd_en => E(0),
+      rd_rst_busy => XPM_FIFO_ASYNC_INST_n_62,
+      rst => XPM_FIFO_ASYNC_INST_i_1_n_0,
+      sbiterr => NLW_XPM_FIFO_ASYNC_INST_sbiterr_UNCONNECTED,
+      sleep => '0',
+      underflow => underflow,
+      wr_ack => NLW_XPM_FIFO_ASYNC_INST_wr_ack_UNCONNECTED,
+      wr_clk => aclk,
+      wr_data_count(12) => XPM_FIFO_ASYNC_INST_n_2,
+      wr_data_count(11) => XPM_FIFO_ASYNC_INST_n_3,
+      wr_data_count(10) => XPM_FIFO_ASYNC_INST_n_4,
+      wr_data_count(9) => XPM_FIFO_ASYNC_INST_n_5,
+      wr_data_count(8) => XPM_FIFO_ASYNC_INST_n_6,
+      wr_data_count(7) => XPM_FIFO_ASYNC_INST_n_7,
+      wr_data_count(6) => XPM_FIFO_ASYNC_INST_n_8,
+      wr_data_count(5) => XPM_FIFO_ASYNC_INST_n_9,
+      wr_data_count(4) => XPM_FIFO_ASYNC_INST_n_10,
+      wr_data_count(3) => XPM_FIFO_ASYNC_INST_n_11,
+      wr_data_count(2) => XPM_FIFO_ASYNC_INST_n_12,
+      wr_data_count(1) => XPM_FIFO_ASYNC_INST_n_13,
+      wr_data_count(0) => XPM_FIFO_ASYNC_INST_n_14,
+      wr_en => wr_en_i,
+      wr_rst_busy => wr_rst_busy_i
+    );
+XPM_FIFO_ASYNC_INST_i_1: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => aresetn,
+      O => XPM_FIFO_ASYNC_INST_i_1_n_0
+    );
+XPM_FIFO_ASYNC_INST_i_2: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"A800000000000000"
+    )
+        port map (
+      I0 => aresetn,
+      I1 => first_sof,
+      I2 => din(25),
+      I3 => s_axis_video_tvalid,
+      I4 => \^s_axis_video_tready\,
+      I5 => aclken,
+      O => wr_en_i
     );
 fifo_eol_re_dly_i_1: unisim.vcomponents.LUT2
     generic map(
@@ -15163,207 +15911,140 @@ fifo_eol_re_dly_i_1: unisim.vcomponents.LUT2
         port map (
       I0 => \^dout\(24),
       I1 => fifo_eol_dly,
-      O => fifo_eol_re_dly_reg
+      O => fifo_eol_re
     );
-\gnuram_async_fifo.xpm_fifo_base_inst\: entity work.system_v_axi4s_vid_out_0_0_xpm_fifo_base
-     port map (
-      almost_empty => \gnuram_async_fifo.xpm_fifo_base_inst_n_64\,
-      almost_full => \gnuram_async_fifo.xpm_fifo_base_inst_n_18\,
-      data_valid => \gnuram_async_fifo.xpm_fifo_base_inst_n_65\,
-      dbiterr => \gnuram_async_fifo.xpm_fifo_base_inst_n_67\,
-      din(26 downto 0) => din(26 downto 0),
-      dout(26 downto 0) => \^dout\(26 downto 0),
-      empty => empty,
-      full => full,
-      full_n => \NLW_gnuram_async_fifo.xpm_fifo_base_inst_full_n_UNCONNECTED\,
-      injectdbiterr => '0',
-      injectsbiterr => '0',
-      overflow => overflow,
-      prog_empty => \gnuram_async_fifo.xpm_fifo_base_inst_n_48\,
-      prog_full => \gnuram_async_fifo.xpm_fifo_base_inst_n_2\,
-      rd_clk => vid_io_out_clk,
-      rd_data_count(12 downto 2) => \^rd_data_count\(10 downto 0),
-      rd_data_count(1 downto 0) => fifo_level_rd(1 downto 0),
-      rd_en => rd_en,
-      rd_rst_busy => \gnuram_async_fifo.xpm_fifo_base_inst_n_63\,
-      rst => \gnuram_async_fifo.xpm_fifo_base_inst_i_1_n_0\,
-      sbiterr => \gnuram_async_fifo.xpm_fifo_base_inst_n_66\,
-      sleep => '0',
-      underflow => underflow,
-      wr_ack => \gnuram_async_fifo.xpm_fifo_base_inst_n_19\,
-      wr_clk => aclk,
-      wr_data_count(12) => \gnuram_async_fifo.xpm_fifo_base_inst_n_3\,
-      wr_data_count(11) => \gnuram_async_fifo.xpm_fifo_base_inst_n_4\,
-      wr_data_count(10) => \gnuram_async_fifo.xpm_fifo_base_inst_n_5\,
-      wr_data_count(9) => \gnuram_async_fifo.xpm_fifo_base_inst_n_6\,
-      wr_data_count(8) => \gnuram_async_fifo.xpm_fifo_base_inst_n_7\,
-      wr_data_count(7) => \gnuram_async_fifo.xpm_fifo_base_inst_n_8\,
-      wr_data_count(6) => \gnuram_async_fifo.xpm_fifo_base_inst_n_9\,
-      wr_data_count(5) => \gnuram_async_fifo.xpm_fifo_base_inst_n_10\,
-      wr_data_count(4) => \gnuram_async_fifo.xpm_fifo_base_inst_n_11\,
-      wr_data_count(3) => \gnuram_async_fifo.xpm_fifo_base_inst_n_12\,
-      wr_data_count(2) => \gnuram_async_fifo.xpm_fifo_base_inst_n_13\,
-      wr_data_count(1) => \gnuram_async_fifo.xpm_fifo_base_inst_n_14\,
-      wr_data_count(0) => \gnuram_async_fifo.xpm_fifo_base_inst_n_15\,
-      wr_en => wr_en,
-      wr_rst_busy => wr_rst_busy
-    );
-\gnuram_async_fifo.xpm_fifo_base_inst_i_1\: unisim.vcomponents.LUT1
+\fifo_pix_cnt[0]_i_2\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"1"
+      INIT => X"20"
     )
         port map (
-      I0 => aresetn,
-      O => \gnuram_async_fifo.xpm_fifo_base_inst_i_1_n_0\
+      I0 => vid_io_out_ce,
+      I1 => fifo_empty,
+      I2 => fifo_rd_en,
+      O => fifo_pix_cnt
+    );
+first_sof_i_1: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"8808"
+    )
+        port map (
+      I0 => fifo_valid_to_coupler0,
+      I1 => aresetn,
+      I2 => locked_from_sync_dly,
+      I3 => dest_out,
+      O => aresetn_0
+    );
+first_sof_i_2: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"FFFFFFFF04000000"
+    )
+        port map (
+      I0 => full_i,
+      I1 => aresetn,
+      I2 => wr_rst_busy_i,
+      I3 => s_axis_video_tvalid,
+      I4 => din(25),
+      I5 => first_sof,
+      O => fifo_valid_to_coupler0
+    );
+s_axis_video_tready_INST_0: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"04"
+    )
+        port map (
+      I0 => wr_rst_busy_i,
+      I1 => aresetn,
+      I2 => full_i,
+      O => \^s_axis_video_tready\
+    );
+sof_state_out_i_1: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"AAAA0000AA6A0000"
+    )
+        port map (
+      I0 => sof_state_out,
+      I1 => din(25),
+      I2 => s_axis_video_tvalid,
+      I3 => wr_rst_busy_i,
+      I4 => aresetn,
+      I5 => full_i,
+      O => sof_state_out_reg
     );
 end STRUCTURE;
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_fifo_async is
-  port (
-    full : out STD_LOGIC;
-    overflow : out STD_LOGIC;
-    wr_rst_busy : out STD_LOGIC;
-    dout : out STD_LOGIC_VECTOR ( 26 downto 0 );
-    empty : out STD_LOGIC;
-    rd_data_count : out STD_LOGIC_VECTOR ( 10 downto 0 );
-    underflow : out STD_LOGIC;
-    \FSM_sequential_state_reg[0]\ : out STD_LOGIC;
-    E : out STD_LOGIC_VECTOR ( 0 to 0 );
-    fifo_eol_re_dly_reg : out STD_LOGIC;
-    aclk : in STD_LOGIC;
-    wr_en : in STD_LOGIC;
-    din : in STD_LOGIC_VECTOR ( 26 downto 0 );
-    vid_io_out_clk : in STD_LOGIC;
-    rd_en : in STD_LOGIC;
-    \grdc.rd_data_count_i_reg[7]\ : in STD_LOGIC;
-    vid_io_out_ce : in STD_LOGIC;
-    fifo_sof_dly : in STD_LOGIC;
-    fifo_eol_dly : in STD_LOGIC;
-    aresetn : in STD_LOGIC
-  );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_fifo_async : entity is "v_axi4s_vid_out_v4_0_8_fifo_async";
-end system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_fifo_async;
-
-architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_fifo_async is
-begin
-XPM_FIFO_ASYNC_INST: entity work.system_v_axi4s_vid_out_0_0_xpm_fifo_async
-     port map (
-      E(0) => E(0),
-      \FSM_sequential_state_reg[0]\ => \FSM_sequential_state_reg[0]\,
-      aclk => aclk,
-      aresetn => aresetn,
-      din(26 downto 0) => din(26 downto 0),
-      dout(26 downto 0) => dout(26 downto 0),
-      empty => empty,
-      fifo_eol_dly => fifo_eol_dly,
-      fifo_eol_re_dly_reg => fifo_eol_re_dly_reg,
-      fifo_sof_dly => fifo_sof_dly,
-      full => full,
-      \grdc.rd_data_count_i_reg[7]\ => \grdc.rd_data_count_i_reg[7]\,
-      overflow => overflow,
-      rd_data_count(10 downto 0) => rd_data_count(10 downto 0),
-      rd_en => rd_en,
-      underflow => underflow,
-      vid_io_out_ce => vid_io_out_ce,
-      vid_io_out_clk => vid_io_out_clk,
-      wr_en => wr_en,
-      wr_rst_busy => wr_rst_busy
-    );
-end STRUCTURE;
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_coupler is
+entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_coupler is
   port (
     overflow : out STD_LOGIC;
     dout : out STD_LOGIC_VECTOR ( 26 downto 0 );
-    empty : out STD_LOGIC;
-    rd_data_count : out STD_LOGIC_VECTOR ( 10 downto 0 );
+    fifo_read_level : out STD_LOGIC_VECTOR ( 12 downto 0 );
     underflow : out STD_LOGIC;
-    \FSM_sequential_state_reg[0]\ : out STD_LOGIC;
-    E : out STD_LOGIC_VECTOR ( 0 to 0 );
-    fifo_eol_re_dly_reg : out STD_LOGIC;
+    fifo_pix_cnt : out STD_LOGIC;
+    \grdc.rd_data_count_i_reg[11]\ : out STD_LOGIC;
+    \grdc.rd_data_count_i_reg[7]\ : out STD_LOGIC;
+    \grdc.rd_data_count_i_reg[4]\ : out STD_LOGIC;
+    fifo_eol_re : out STD_LOGIC;
+    sof_state_out_reg : out STD_LOGIC;
+    aresetn_0 : out STD_LOGIC;
     s_axis_video_tready : out STD_LOGIC;
     aclk : in STD_LOGIC;
     din : in STD_LOGIC_VECTOR ( 26 downto 0 );
     vid_io_out_clk : in STD_LOGIC;
-    rd_en : in STD_LOGIC;
-    \grdc.rd_data_count_i_reg[7]\ : in STD_LOGIC;
+    E : in STD_LOGIC_VECTOR ( 0 to 0 );
     vid_io_out_ce : in STD_LOGIC;
-    fifo_sof_dly : in STD_LOGIC;
+    fifo_rd_en : in STD_LOGIC;
     fifo_eol_dly : in STD_LOGIC;
     aresetn : in STD_LOGIC;
-    aclken : in STD_LOGIC;
-    s_axis_video_tvalid : in STD_LOGIC
+    s_axis_video_tvalid : in STD_LOGIC;
+    first_sof : in STD_LOGIC;
+    sof_state_out : in STD_LOGIC;
+    locked_from_sync_dly : in STD_LOGIC;
+    dest_out : in STD_LOGIC;
+    aclken : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_coupler : entity is "v_axi4s_vid_out_v4_0_8_coupler";
-end system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_coupler;
+  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_coupler : entity is "v_axi4s_vid_out_v4_0_14_coupler";
+end system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_coupler;
 
-architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_coupler is
-  signal full_i : STD_LOGIC;
-  signal \wr_en_i__0\ : STD_LOGIC;
-  signal wr_rst_busy_i : STD_LOGIC;
-  attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of FIFO_READY : label is "soft_lutpair23";
-  attribute SOFT_HLUTNM of wr_en_i : label is "soft_lutpair23";
+architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_coupler is
 begin
-FIFO_READY: unisim.vcomponents.LUT3
-    generic map(
-      INIT => X"02"
-    )
-        port map (
-      I0 => aresetn,
-      I1 => full_i,
-      I2 => wr_rst_busy_i,
-      O => s_axis_video_tready
-    );
-\generate_async_fifo.FIFO_INST\: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_fifo_async
+\generate_async_fifo.FIFO_INST\: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_fifo_async
      port map (
       E(0) => E(0),
-      \FSM_sequential_state_reg[0]\ => \FSM_sequential_state_reg[0]\,
       aclk => aclk,
+      aclken => aclken,
       aresetn => aresetn,
+      aresetn_0 => aresetn_0,
+      dest_out => dest_out,
       din(26 downto 0) => din(26 downto 0),
       dout(26 downto 0) => dout(26 downto 0),
-      empty => empty,
       fifo_eol_dly => fifo_eol_dly,
-      fifo_eol_re_dly_reg => fifo_eol_re_dly_reg,
-      fifo_sof_dly => fifo_sof_dly,
-      full => full_i,
+      fifo_eol_re => fifo_eol_re,
+      fifo_pix_cnt => fifo_pix_cnt,
+      fifo_rd_en => fifo_rd_en,
+      fifo_read_level(12 downto 0) => fifo_read_level(12 downto 0),
+      first_sof => first_sof,
+      \grdc.rd_data_count_i_reg[11]\ => \grdc.rd_data_count_i_reg[11]\,
+      \grdc.rd_data_count_i_reg[4]\ => \grdc.rd_data_count_i_reg[4]\,
       \grdc.rd_data_count_i_reg[7]\ => \grdc.rd_data_count_i_reg[7]\,
+      locked_from_sync_dly => locked_from_sync_dly,
       overflow => overflow,
-      rd_data_count(10 downto 0) => rd_data_count(10 downto 0),
-      rd_en => rd_en,
+      s_axis_video_tready => s_axis_video_tready,
+      s_axis_video_tvalid => s_axis_video_tvalid,
+      sof_state_out => sof_state_out,
+      sof_state_out_reg => sof_state_out_reg,
       underflow => underflow,
       vid_io_out_ce => vid_io_out_ce,
-      vid_io_out_clk => vid_io_out_clk,
-      wr_en => \wr_en_i__0\,
-      wr_rst_busy => wr_rst_busy_i
-    );
-wr_en_i: unisim.vcomponents.LUT5
-    generic map(
-      INIT => X"10000000"
-    )
-        port map (
-      I0 => full_i,
-      I1 => wr_rst_busy_i,
-      I2 => aclken,
-      I3 => s_axis_video_tvalid,
-      I4 => aresetn,
-      O => \wr_en_i__0\
+      vid_io_out_clk => vid_io_out_clk
     );
 end STRUCTURE;
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 is
+entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 is
   port (
     aclk : in STD_LOGIC;
     aclken : in STD_LOGIC;
@@ -15384,6 +16065,11 @@ entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 is
     vid_hblank : out STD_LOGIC;
     vid_field_id : out STD_LOGIC;
     vid_data : out STD_LOGIC_VECTOR ( 23 downto 0 );
+    vid_vsync_arb : out STD_LOGIC_VECTOR ( 0 to 0 );
+    vid_hsync_arb : out STD_LOGIC_VECTOR ( 0 to 0 );
+    vid_active_video_arb : out STD_LOGIC_VECTOR ( 0 to 0 );
+    vid_field_id_arb : out STD_LOGIC;
+    vid_data_arb : out STD_LOGIC_VECTOR ( 23 downto 0 );
     vtg_vsync : in STD_LOGIC;
     vtg_hsync : in STD_LOGIC;
     vtg_vblank : in STD_LOGIC;
@@ -15391,72 +16077,89 @@ entity system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 is
     vtg_active_video : in STD_LOGIC;
     vtg_field_id : in STD_LOGIC;
     vtg_ce : out STD_LOGIC;
+    vtg_hsync_arb : in STD_LOGIC_VECTOR ( 0 to 0 );
+    vtg_hblank_arb : in STD_LOGIC_VECTOR ( 0 to 0 );
+    vtg_vsync_arb : in STD_LOGIC_VECTOR ( 0 to 0 );
+    vtg_vblank_arb : in STD_LOGIC_VECTOR ( 0 to 0 );
+    vtg_active_video_arb : in STD_LOGIC_VECTOR ( 0 to 0 );
+    vtg_field_id_arb : in STD_LOGIC;
+    video_format : in STD_LOGIC_VECTOR ( 1 downto 0 );
     locked : out STD_LOGIC;
     overflow : out STD_LOGIC;
     underflow : out STD_LOGIC;
+    fifo_read_level : out STD_LOGIC_VECTOR ( 12 downto 0 );
     status : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    sof_state_out : out STD_LOGIC;
     repeat_en : in STD_LOGIC;
     remap_420_en : in STD_LOGIC
   );
   attribute C_ADDR_WIDTH : integer;
-  attribute C_ADDR_WIDTH of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is 12;
+  attribute C_ADDR_WIDTH of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 12;
   attribute C_ADDR_WIDTH_PIXEL_REMAP_420 : integer;
-  attribute C_ADDR_WIDTH_PIXEL_REMAP_420 of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is 10;
+  attribute C_ADDR_WIDTH_PIXEL_REMAP_420 of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 10;
+  attribute C_ARBITRARY_RES_EN : integer;
+  attribute C_ARBITRARY_RES_EN of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 0;
   attribute C_COMPONENTS_PER_PIXEL : integer;
-  attribute C_COMPONENTS_PER_PIXEL of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is 3;
+  attribute C_COMPONENTS_PER_PIXEL of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 3;
   attribute C_FAMILY : string;
-  attribute C_FAMILY of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is "zynq";
+  attribute C_FAMILY of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is "zynq";
   attribute C_HAS_ASYNC_CLK : integer;
-  attribute C_HAS_ASYNC_CLK of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is 1;
+  attribute C_HAS_ASYNC_CLK of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 1;
   attribute C_HYSTERESIS_LEVEL : integer;
-  attribute C_HYSTERESIS_LEVEL of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is 12;
+  attribute C_HYSTERESIS_LEVEL of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 12;
   attribute C_INCLUDE_PIXEL_REMAP_420 : integer;
-  attribute C_INCLUDE_PIXEL_REMAP_420 of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is 0;
+  attribute C_INCLUDE_PIXEL_REMAP_420 of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 0;
   attribute C_INCLUDE_PIXEL_REPEAT : integer;
-  attribute C_INCLUDE_PIXEL_REPEAT of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is 0;
+  attribute C_INCLUDE_PIXEL_REPEAT of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 0;
   attribute C_NATIVE_COMPONENT_WIDTH : integer;
-  attribute C_NATIVE_COMPONENT_WIDTH of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is 8;
+  attribute C_NATIVE_COMPONENT_WIDTH of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 8;
   attribute C_NATIVE_DATA_WIDTH : integer;
-  attribute C_NATIVE_DATA_WIDTH of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is 24;
+  attribute C_NATIVE_DATA_WIDTH of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 24;
   attribute C_PIXELS_PER_CLOCK : integer;
-  attribute C_PIXELS_PER_CLOCK of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is 1;
+  attribute C_PIXELS_PER_CLOCK of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 1;
   attribute C_SYNC_LOCK_THRESHOLD : integer;
-  attribute C_SYNC_LOCK_THRESHOLD of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is 4;
+  attribute C_SYNC_LOCK_THRESHOLD of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 4;
   attribute C_S_AXIS_COMPONENT_WIDTH : integer;
-  attribute C_S_AXIS_COMPONENT_WIDTH of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is 8;
+  attribute C_S_AXIS_COMPONENT_WIDTH of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 8;
   attribute C_S_AXIS_TDATA_WIDTH : integer;
-  attribute C_S_AXIS_TDATA_WIDTH of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is 24;
+  attribute C_S_AXIS_TDATA_WIDTH of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 24;
   attribute C_VTG_MASTER_SLAVE : integer;
-  attribute C_VTG_MASTER_SLAVE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is 1;
+  attribute C_VTG_MASTER_SLAVE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is 1;
   attribute DowngradeIPIdentifiedWarnings : string;
-  attribute DowngradeIPIdentifiedWarnings of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is "yes";
+  attribute DowngradeIPIdentifiedWarnings of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is "yes";
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 : entity is "v_axi4s_vid_out_v4_0_8";
-end system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8;
+  attribute ORIG_REF_NAME of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 : entity is "v_axi4s_vid_out_v4_0_14";
+end system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14;
 
-architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8 is
+architecture STRUCTURE of system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14 is
   signal \<const0>\ : STD_LOGIC;
-  signal COUPLER_INST_n_41 : STD_LOGIC;
   signal COUPLER_INST_n_43 : STD_LOGIC;
-  signal SYNC_INST_n_4 : STD_LOGIC;
-  signal SYNC_INST_n_5 : STD_LOGIC;
+  signal COUPLER_INST_n_44 : STD_LOGIC;
+  signal COUPLER_INST_n_45 : STD_LOGIC;
+  signal COUPLER_INST_n_47 : STD_LOGIC;
+  signal COUPLER_INST_n_48 : STD_LOGIC;
   signal fifo_data : STD_LOGIC_VECTOR ( 23 downto 0 );
-  signal fifo_empty : STD_LOGIC;
   signal fifo_eol : STD_LOGIC;
   signal fifo_eol_dly : STD_LOGIC;
+  signal fifo_eol_re : STD_LOGIC;
   signal fifo_fid : STD_LOGIC;
-  signal fifo_level_rd : STD_LOGIC_VECTOR ( 12 downto 2 );
+  signal fifo_pix_cnt : STD_LOGIC;
+  signal fifo_rd_en : STD_LOGIC;
   signal fifo_sof : STD_LOGIC;
-  signal fifo_sof_cnt : STD_LOGIC;
-  signal fifo_sof_dly : STD_LOGIC;
+  signal first_sof : STD_LOGIC;
   signal fivid_reset_full_frame : STD_LOGIC;
+  signal in_de_mux0 : STD_LOGIC;
   signal \^locked\ : STD_LOGIC;
+  signal locked_from_sync : STD_LOGIC;
+  signal locked_from_sync_dly : STD_LOGIC;
   signal rd_en_i : STD_LOGIC;
+  signal \^sof_state_out\ : STD_LOGIC;
   signal \^status\ : STD_LOGIC_VECTOR ( 27 downto 0 );
   signal \^vid_io_out_ce\ : STD_LOGIC;
 begin
   \^vid_io_out_ce\ <= vid_io_out_ce;
   locked <= \^locked\;
+  sof_state_out <= \^sof_state_out\;
   status(31) <= \<const0>\;
   status(30) <= \<const0>\;
   status(29) <= \<const0>\;
@@ -15464,18 +16167,53 @@ begin
   status(27 downto 16) <= \^status\(27 downto 16);
   status(15) <= \<const0>\;
   status(14 downto 0) <= \^status\(14 downto 0);
+  vid_active_video_arb(0) <= \<const0>\;
+  vid_data_arb(23) <= \<const0>\;
+  vid_data_arb(22) <= \<const0>\;
+  vid_data_arb(21) <= \<const0>\;
+  vid_data_arb(20) <= \<const0>\;
+  vid_data_arb(19) <= \<const0>\;
+  vid_data_arb(18) <= \<const0>\;
+  vid_data_arb(17) <= \<const0>\;
+  vid_data_arb(16) <= \<const0>\;
+  vid_data_arb(15) <= \<const0>\;
+  vid_data_arb(14) <= \<const0>\;
+  vid_data_arb(13) <= \<const0>\;
+  vid_data_arb(12) <= \<const0>\;
+  vid_data_arb(11) <= \<const0>\;
+  vid_data_arb(10) <= \<const0>\;
+  vid_data_arb(9) <= \<const0>\;
+  vid_data_arb(8) <= \<const0>\;
+  vid_data_arb(7) <= \<const0>\;
+  vid_data_arb(6) <= \<const0>\;
+  vid_data_arb(5) <= \<const0>\;
+  vid_data_arb(4) <= \<const0>\;
+  vid_data_arb(3) <= \<const0>\;
+  vid_data_arb(2) <= \<const0>\;
+  vid_data_arb(1) <= \<const0>\;
+  vid_data_arb(0) <= \<const0>\;
+  vid_field_id_arb <= \<const0>\;
+  vid_hsync_arb(0) <= \<const0>\;
+  vid_vsync_arb(0) <= \<const0>\;
   vtg_ce <= \^vid_io_out_ce\;
-CDC_SINGLE_REMAP_UNDERFLOW_INST: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_cdc_single
+CDC_SINGLE_LOCKED_INST: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_cdc_single
+     port map (
+      aclk => aclk,
+      dest_out => locked_from_sync,
+      src_in => \^locked\
+    );
+CDC_SINGLE_REMAP_UNDERFLOW_INST: entity work.\system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_cdc_single__xdcDup__1\
      port map (
       vid_io_out_clk => vid_io_out_clk
     );
-COUPLER_INST: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_coupler
+COUPLER_INST: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_coupler
      port map (
-      E(0) => fifo_sof_cnt,
-      \FSM_sequential_state_reg[0]\ => COUPLER_INST_n_41,
+      E(0) => rd_en_i,
       aclk => aclk,
       aclken => aclken,
       aresetn => aresetn,
+      aresetn_0 => COUPLER_INST_n_48,
+      dest_out => locked_from_sync,
       din(26) => fid,
       din(25) => s_axis_video_tuser,
       din(24) => s_axis_video_tlast,
@@ -15484,26 +16222,32 @@ COUPLER_INST: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_coup
       dout(25) => fifo_sof,
       dout(24) => fifo_eol,
       dout(23 downto 0) => fifo_data(23 downto 0),
-      empty => fifo_empty,
       fifo_eol_dly => fifo_eol_dly,
-      fifo_eol_re_dly_reg => COUPLER_INST_n_43,
-      fifo_sof_dly => fifo_sof_dly,
-      \grdc.rd_data_count_i_reg[7]\ => SYNC_INST_n_5,
+      fifo_eol_re => fifo_eol_re,
+      fifo_pix_cnt => fifo_pix_cnt,
+      fifo_rd_en => fifo_rd_en,
+      fifo_read_level(12 downto 0) => fifo_read_level(12 downto 0),
+      first_sof => first_sof,
+      \grdc.rd_data_count_i_reg[11]\ => COUPLER_INST_n_43,
+      \grdc.rd_data_count_i_reg[4]\ => COUPLER_INST_n_45,
+      \grdc.rd_data_count_i_reg[7]\ => COUPLER_INST_n_44,
+      locked_from_sync_dly => locked_from_sync_dly,
       overflow => overflow,
-      rd_data_count(10 downto 0) => fifo_level_rd(12 downto 2),
-      rd_en => rd_en_i,
       s_axis_video_tready => s_axis_video_tready,
       s_axis_video_tvalid => s_axis_video_tvalid,
+      sof_state_out => \^sof_state_out\,
+      sof_state_out_reg => COUPLER_INST_n_47,
       underflow => underflow,
       vid_io_out_ce => \^vid_io_out_ce\,
       vid_io_out_clk => vid_io_out_clk
     );
-FORMATTER_INST: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_formatter
+FORMATTER_INST: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_formatter
      port map (
       D(23 downto 0) => fifo_data(23 downto 0),
-      \FSM_sequential_state_reg[2]\ => SYNC_INST_n_4,
+      E(0) => rd_en_i,
+      SR(0) => in_de_mux0,
       fivid_reset_full_frame => fivid_reset_full_frame,
-      locked => \^locked\,
+      src_in => \^locked\,
       vid_active_video => vid_active_video,
       vid_data(23 downto 0) => vid_data(23 downto 0),
       vid_field_id => vid_field_id,
@@ -15525,23 +16269,22 @@ GND: unisim.vcomponents.GND
      port map (
       G => \<const0>\
     );
-SYNC_INST: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_sync
+SYNC_INST: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14_sync
      port map (
-      E(0) => fifo_sof_cnt,
-      \FSM_sequential_state_reg[1]_0\ => SYNC_INST_n_5,
+      E(0) => rd_en_i,
+      \FSM_sequential_state[0]_i_2_0\ => COUPLER_INST_n_44,
+      \FSM_sequential_state[0]_i_2_1\ => COUPLER_INST_n_43,
+      \FSM_sequential_state[0]_i_2_2\ => COUPLER_INST_n_45,
+      SR(0) => in_de_mux0,
       dout(2) => fifo_fid,
       dout(1) => fifo_sof,
       dout(0) => fifo_eol,
-      empty => fifo_empty,
       fifo_eol_dly => fifo_eol_dly,
-      fifo_sof_dly => fifo_sof_dly,
+      fifo_eol_re => fifo_eol_re,
+      fifo_pix_cnt => fifo_pix_cnt,
+      fifo_rd_en => fifo_rd_en,
       fivid_reset_full_frame => fivid_reset_full_frame,
-      \gen_wr_a.gen_word_narrow.mem_reg_2\ => COUPLER_INST_n_43,
-      \grdc.rd_data_count_i_reg[11]\ => COUPLER_INST_n_41,
-      \in_data_mux_reg[0]\ => SYNC_INST_n_4,
-      locked => \^locked\,
-      rd_data_count(10 downto 0) => fifo_level_rd(12 downto 2),
-      rd_en => rd_en_i,
+      src_in => \^locked\,
       status(26 downto 15) => \^status\(27 downto 16),
       status(14 downto 0) => \^status\(14 downto 0),
       vid_io_out_ce => \^vid_io_out_ce\,
@@ -15550,6 +16293,30 @@ SYNC_INST: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8_sync
       vtg_active_video => vtg_active_video,
       vtg_field_id => vtg_field_id,
       vtg_vsync => vtg_vsync
+    );
+first_sof_reg: unisim.vcomponents.FDRE
+     port map (
+      C => aclk,
+      CE => '1',
+      D => COUPLER_INST_n_48,
+      Q => first_sof,
+      R => '0'
+    );
+locked_from_sync_dly_reg: unisim.vcomponents.FDRE
+     port map (
+      C => aclk,
+      CE => '1',
+      D => locked_from_sync,
+      Q => locked_from_sync_dly,
+      R => '0'
+    );
+sof_state_out_reg: unisim.vcomponents.FDRE
+     port map (
+      C => aclk,
+      CE => '1',
+      D => COUPLER_INST_n_47,
+      Q => \^sof_state_out\,
+      R => '0'
     );
 end STRUCTURE;
 library IEEE;
@@ -15587,23 +16354,35 @@ entity system_v_axi4s_vid_out_0_0 is
     locked : out STD_LOGIC;
     overflow : out STD_LOGIC;
     underflow : out STD_LOGIC;
-    status : out STD_LOGIC_VECTOR ( 31 downto 0 )
+    fifo_read_level : out STD_LOGIC_VECTOR ( 12 downto 0 );
+    status : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    sof_state_out : out STD_LOGIC
   );
   attribute NotValidForBitStream : boolean;
   attribute NotValidForBitStream of system_v_axi4s_vid_out_0_0 : entity is true;
   attribute CHECK_LICENSE_TYPE : string;
-  attribute CHECK_LICENSE_TYPE of system_v_axi4s_vid_out_0_0 : entity is "system_v_axi4s_vid_out_0_0,v_axi4s_vid_out_v4_0_8,{}";
+  attribute CHECK_LICENSE_TYPE of system_v_axi4s_vid_out_0_0 : entity is "system_v_axi4s_vid_out_0_0,v_axi4s_vid_out_v4_0_14,{}";
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of system_v_axi4s_vid_out_0_0 : entity is "yes";
   attribute X_CORE_INFO : string;
-  attribute X_CORE_INFO of system_v_axi4s_vid_out_0_0 : entity is "v_axi4s_vid_out_v4_0_8,Vivado 2017.4";
+  attribute X_CORE_INFO of system_v_axi4s_vid_out_0_0 : entity is "v_axi4s_vid_out_v4_0_14,Vivado 2022.1";
 end system_v_axi4s_vid_out_0_0;
 
 architecture STRUCTURE of system_v_axi4s_vid_out_0_0 is
+  signal \<const0>\ : STD_LOGIC;
+  signal \^status\ : STD_LOGIC_VECTOR ( 27 downto 0 );
+  signal NLW_inst_vid_field_id_arb_UNCONNECTED : STD_LOGIC;
+  signal NLW_inst_status_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 15 );
+  signal NLW_inst_vid_active_video_arb_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal NLW_inst_vid_data_arb_UNCONNECTED : STD_LOGIC_VECTOR ( 23 downto 0 );
+  signal NLW_inst_vid_hsync_arb_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal NLW_inst_vid_vsync_arb_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   attribute C_ADDR_WIDTH : integer;
   attribute C_ADDR_WIDTH of inst : label is 12;
   attribute C_ADDR_WIDTH_PIXEL_REMAP_420 : integer;
   attribute C_ADDR_WIDTH_PIXEL_REMAP_420 of inst : label is 10;
+  attribute C_ARBITRARY_RES_EN : integer;
+  attribute C_ARBITRARY_RES_EN of inst : label is 0;
   attribute C_COMPONENTS_PER_PIXEL : integer;
   attribute C_COMPONENTS_PER_PIXEL of inst : label is 3;
   attribute C_FAMILY : string;
@@ -15634,13 +16413,13 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0 is
   attribute X_INTERFACE_INFO : string;
   attribute X_INTERFACE_INFO of aclk : signal is "xilinx.com:signal:clock:1.0 aclk_intf CLK";
   attribute X_INTERFACE_PARAMETER : string;
-  attribute X_INTERFACE_PARAMETER of aclk : signal is "XIL_INTERFACENAME aclk_intf, ASSOCIATED_BUSIF video_in, FREQ_HZ 133333344, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1";
+  attribute X_INTERFACE_PARAMETER of aclk : signal is "XIL_INTERFACENAME aclk_intf, ASSOCIATED_BUSIF video_in, FREQ_HZ 133333344, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, INSERT_VIP 0";
   attribute X_INTERFACE_INFO of aclken : signal is "xilinx.com:signal:clockenable:1.0 aclken_intf CE";
-  attribute X_INTERFACE_PARAMETER of aclken : signal is "XIL_INTERFACENAME aclken_intf, POLARITY ACTIVE_LOW";
+  attribute X_INTERFACE_PARAMETER of aclken : signal is "XIL_INTERFACENAME aclken_intf, POLARITY ACTIVE_HIGH";
   attribute X_INTERFACE_INFO of aresetn : signal is "xilinx.com:signal:reset:1.0 aresetn_intf RST";
-  attribute X_INTERFACE_PARAMETER of aresetn : signal is "XIL_INTERFACENAME aresetn_intf, POLARITY ACTIVE_LOW";
+  attribute X_INTERFACE_PARAMETER of aresetn : signal is "XIL_INTERFACENAME aresetn_intf, POLARITY ACTIVE_LOW, INSERT_VIP 0";
   attribute X_INTERFACE_INFO of s_axis_video_tlast : signal is "xilinx.com:interface:axis:1.0 video_in TLAST";
-  attribute X_INTERFACE_PARAMETER of s_axis_video_tlast : signal is "XIL_INTERFACENAME video_in, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 1, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 133333344, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, LAYERED_METADATA undef";
+  attribute X_INTERFACE_PARAMETER of s_axis_video_tlast : signal is "XIL_INTERFACENAME video_in, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 1, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 133333344, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, LAYERED_METADATA undef, INSERT_VIP 0";
   attribute X_INTERFACE_INFO of s_axis_video_tready : signal is "xilinx.com:interface:axis:1.0 video_in TREADY";
   attribute X_INTERFACE_INFO of s_axis_video_tuser : signal is "xilinx.com:interface:axis:1.0 video_in TUSER";
   attribute X_INTERFACE_INFO of s_axis_video_tvalid : signal is "xilinx.com:interface:axis:1.0 video_in TVALID";
@@ -15649,11 +16428,11 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0 is
   attribute X_INTERFACE_INFO of vid_hblank : signal is "xilinx.com:interface:vid_io:1.0 vid_io_out HBLANK";
   attribute X_INTERFACE_INFO of vid_hsync : signal is "xilinx.com:interface:vid_io:1.0 vid_io_out HSYNC";
   attribute X_INTERFACE_INFO of vid_io_out_ce : signal is "xilinx.com:signal:clockenable:1.0 vid_io_out_ce_intf CE";
-  attribute X_INTERFACE_PARAMETER of vid_io_out_ce : signal is "XIL_INTERFACENAME vid_io_out_ce_intf, POLARITY ACTIVE_LOW";
+  attribute X_INTERFACE_PARAMETER of vid_io_out_ce : signal is "XIL_INTERFACENAME vid_io_out_ce_intf, POLARITY ACTIVE_HIGH";
   attribute X_INTERFACE_INFO of vid_io_out_clk : signal is "xilinx.com:signal:clock:1.0 vid_io_out_clk_intf CLK";
-  attribute X_INTERFACE_PARAMETER of vid_io_out_clk : signal is "XIL_INTERFACENAME vid_io_out_clk_intf, ASSOCIATED_BUSIF vid_io_out, FREQ_HZ 100000000, PHASE 0.000, CLK_DOMAIN system_axi_dynclk_0_0_PXL_CLK_O";
+  attribute X_INTERFACE_PARAMETER of vid_io_out_clk : signal is "XIL_INTERFACENAME vid_io_out_clk_intf, ASSOCIATED_BUSIF vid_io_out, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_axi_dynclk_0_0_PXL_CLK_O, INSERT_VIP 0";
   attribute X_INTERFACE_INFO of vid_io_out_reset : signal is "xilinx.com:signal:reset:1.0 vid_io_out_reset_intf RST";
-  attribute X_INTERFACE_PARAMETER of vid_io_out_reset : signal is "XIL_INTERFACENAME vid_io_out_reset_intf, POLARITY ACTIVE_HIGH";
+  attribute X_INTERFACE_PARAMETER of vid_io_out_reset : signal is "XIL_INTERFACENAME vid_io_out_reset_intf, POLARITY ACTIVE_HIGH, INSERT_VIP 0";
   attribute X_INTERFACE_INFO of vid_vblank : signal is "xilinx.com:interface:vid_io:1.0 vid_io_out VBLANK";
   attribute X_INTERFACE_INFO of vid_vsync : signal is "xilinx.com:interface:vid_io:1.0 vid_io_out VSYNC";
   attribute X_INTERFACE_INFO of vtg_active_video : signal is "xilinx.com:interface:video_timing:2.0 vtiming_in ACTIVE_VIDEO";
@@ -15665,12 +16444,24 @@ architecture STRUCTURE of system_v_axi4s_vid_out_0_0 is
   attribute X_INTERFACE_INFO of s_axis_video_tdata : signal is "xilinx.com:interface:axis:1.0 video_in TDATA";
   attribute X_INTERFACE_INFO of vid_data : signal is "xilinx.com:interface:vid_io:1.0 vid_io_out DATA";
 begin
-inst: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8
+  status(31) <= \<const0>\;
+  status(30) <= \<const0>\;
+  status(29) <= \<const0>\;
+  status(28) <= \<const0>\;
+  status(27 downto 16) <= \^status\(27 downto 16);
+  status(15) <= \<const0>\;
+  status(14 downto 0) <= \^status\(14 downto 0);
+GND: unisim.vcomponents.GND
+     port map (
+      G => \<const0>\
+    );
+inst: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_14
      port map (
       aclk => aclk,
       aclken => aclken,
       aresetn => aresetn,
       fid => fid,
+      fifo_read_level(12 downto 0) => fifo_read_level(12 downto 0),
       locked => locked,
       overflow => overflow,
       remap_420_en => '0',
@@ -15680,24 +16471,40 @@ inst: entity work.system_v_axi4s_vid_out_0_0_v_axi4s_vid_out_v4_0_8
       s_axis_video_tready => s_axis_video_tready,
       s_axis_video_tuser => s_axis_video_tuser,
       s_axis_video_tvalid => s_axis_video_tvalid,
-      status(31 downto 0) => status(31 downto 0),
+      sof_state_out => sof_state_out,
+      status(31 downto 28) => NLW_inst_status_UNCONNECTED(31 downto 28),
+      status(27 downto 16) => \^status\(27 downto 16),
+      status(15) => NLW_inst_status_UNCONNECTED(15),
+      status(14 downto 0) => \^status\(14 downto 0),
       underflow => underflow,
       vid_active_video => vid_active_video,
+      vid_active_video_arb(0) => NLW_inst_vid_active_video_arb_UNCONNECTED(0),
       vid_data(23 downto 0) => vid_data(23 downto 0),
+      vid_data_arb(23 downto 0) => NLW_inst_vid_data_arb_UNCONNECTED(23 downto 0),
       vid_field_id => vid_field_id,
+      vid_field_id_arb => NLW_inst_vid_field_id_arb_UNCONNECTED,
       vid_hblank => vid_hblank,
       vid_hsync => vid_hsync,
+      vid_hsync_arb(0) => NLW_inst_vid_hsync_arb_UNCONNECTED(0),
       vid_io_out_ce => vid_io_out_ce,
       vid_io_out_clk => vid_io_out_clk,
       vid_io_out_reset => vid_io_out_reset,
       vid_vblank => vid_vblank,
       vid_vsync => vid_vsync,
+      vid_vsync_arb(0) => NLW_inst_vid_vsync_arb_UNCONNECTED(0),
+      video_format(1 downto 0) => B"00",
       vtg_active_video => vtg_active_video,
+      vtg_active_video_arb(0) => '0',
       vtg_ce => vtg_ce,
       vtg_field_id => vtg_field_id,
+      vtg_field_id_arb => '0',
       vtg_hblank => vtg_hblank,
+      vtg_hblank_arb(0) => '0',
       vtg_hsync => vtg_hsync,
+      vtg_hsync_arb(0) => '0',
       vtg_vblank => vtg_vblank,
-      vtg_vsync => vtg_vsync
+      vtg_vblank_arb(0) => '0',
+      vtg_vsync => vtg_vsync,
+      vtg_vsync_arb(0) => '0'
     );
 end STRUCTURE;

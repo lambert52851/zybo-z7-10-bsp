@@ -528,7 +528,7 @@ CONFIG_nfs-utils=y
 # CONFIG_openssh-ssh is not set
 # CONFIG_openssh-dev is not set
 # CONFIG_openssh-sftp is not set
-CONFIG_openssh-sftp-server=y
+# CONFIG_openssh-sftp-server is not set
 # CONFIG_openssh-scp is not set
 
 #
@@ -2506,9 +2506,9 @@ CONFIG_packagegroup-core-buildessential=y
 #
 # packagegroup-core-sdk 
 #
-# CONFIG_packagegroup-core-sdk is not set
-# CONFIG_packagegroup-core-sdk-dbg is not set
-# CONFIG_packagegroup-core-sdk-dev is not set
+CONFIG_packagegroup-core-sdk=y
+CONFIG_packagegroup-core-sdk-dbg=y
+CONFIG_packagegroup-core-sdk-dev=y
 
 #
 # packagegroup-core-ssh-dropbear 
@@ -2520,9 +2520,9 @@ CONFIG_packagegroup-core-ssh-dropbear=y
 #
 # packagegroup-core-standalone-sdk-target 
 #
-# CONFIG_packagegroup-core-standalone-sdk-target is not set
-# CONFIG_packagegroup-core-standalone-sdk-target-dev is not set
-# CONFIG_packagegroup-core-standalone-sdk-target-dbg is not set
+CONFIG_packagegroup-core-standalone-sdk-target=y
+CONFIG_packagegroup-core-standalone-sdk-target-dev=y
+CONFIG_packagegroup-core-standalone-sdk-target-dbg=y
 
 #
 # packagegroup-core-tools-debug 
@@ -2572,7 +2572,7 @@ CONFIG_packagegroup-core-ssh-dropbear=y
 #
 # packagegroup-self-hosted 
 #
-# CONFIG_packagegroup-self-hosted is not set
+CONFIG_packagegroup-self-hosted=y
 # CONFIG_packagegroup-self-hosted-extended-dev is not set
 # CONFIG_packagegroup-self-hosted-debug-dev is not set
 # CONFIG_packagegroup-self-hosted-dev is not set
@@ -3887,7 +3887,7 @@ CONFIG_Init-manager-sysvinit=y
 CONFIG_gpio-demo=y
 # CONFIG_gpiod is not set
 CONFIG_nano=y
-CONFIG_peekpoke=y
+# CONFIG_peekpoke is not set
 
 #
 # PetaLinux RootFS Settings

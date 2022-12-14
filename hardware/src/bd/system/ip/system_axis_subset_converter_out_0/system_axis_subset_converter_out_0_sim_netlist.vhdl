@@ -1,10 +1,10 @@
--- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
--- Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
--- Date        : Fri Mar 23 14:19:49 2018
--- Host        : ubuntu running 64-bit Ubuntu 16.04.3 LTS
+-- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+-- Date        : Wed Dec 14 20:32:43 2022
+-- Host        : linux-hyper running 64-bit Ubuntu 18.04.5 LTS
 -- Command     : write_vhdl -force -mode funcsim
---               /home/digilent/work/git/Zybo-Z7-10-base-linux/src/bd/system/ip/system_axis_subset_converter_out_0/system_axis_subset_converter_out_0_sim_netlist.vhdl
+--               /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axis_subset_converter_out_0/system_axis_subset_converter_out_0_sim_netlist.vhdl
 -- Design      : system_axis_subset_converter_out_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -44,8 +44,8 @@ entity system_axis_subset_converter_out_0_top_system_axis_subset_converter_out_0
   attribute C_DEFAULT_TLAST of system_axis_subset_converter_out_0_top_system_axis_subset_converter_out_0 : entity is 0;
   attribute C_FAMILY : string;
   attribute C_FAMILY of system_axis_subset_converter_out_0_top_system_axis_subset_converter_out_0 : entity is "zynq";
-  attribute C_M_AXIS_SIGNAL_SET : string;
-  attribute C_M_AXIS_SIGNAL_SET of system_axis_subset_converter_out_0_top_system_axis_subset_converter_out_0 : entity is "32'b00000000000000000000000010011011";
+  attribute C_M_AXIS_SIGNAL_SET : integer;
+  attribute C_M_AXIS_SIGNAL_SET of system_axis_subset_converter_out_0_top_system_axis_subset_converter_out_0 : entity is 155;
   attribute C_M_AXIS_TDATA_WIDTH : integer;
   attribute C_M_AXIS_TDATA_WIDTH of system_axis_subset_converter_out_0_top_system_axis_subset_converter_out_0 : entity is 24;
   attribute C_M_AXIS_TDEST_WIDTH : integer;
@@ -54,8 +54,8 @@ entity system_axis_subset_converter_out_0_top_system_axis_subset_converter_out_0
   attribute C_M_AXIS_TID_WIDTH of system_axis_subset_converter_out_0_top_system_axis_subset_converter_out_0 : entity is 1;
   attribute C_M_AXIS_TUSER_WIDTH : integer;
   attribute C_M_AXIS_TUSER_WIDTH of system_axis_subset_converter_out_0_top_system_axis_subset_converter_out_0 : entity is 1;
-  attribute C_S_AXIS_SIGNAL_SET : string;
-  attribute C_S_AXIS_SIGNAL_SET of system_axis_subset_converter_out_0_top_system_axis_subset_converter_out_0 : entity is "32'b00000000000000000000000010011011";
+  attribute C_S_AXIS_SIGNAL_SET : integer;
+  attribute C_S_AXIS_SIGNAL_SET of system_axis_subset_converter_out_0_top_system_axis_subset_converter_out_0 : entity is 155;
   attribute C_S_AXIS_TDATA_WIDTH : integer;
   attribute C_S_AXIS_TDATA_WIDTH of system_axis_subset_converter_out_0_top_system_axis_subset_converter_out_0 : entity is 24;
   attribute C_S_AXIS_TDEST_WIDTH : integer;
@@ -169,7 +169,7 @@ entity system_axis_subset_converter_out_0 is
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of system_axis_subset_converter_out_0 : entity is "yes";
   attribute X_CORE_INFO : string;
-  attribute X_CORE_INFO of system_axis_subset_converter_out_0 : entity is "top_system_axis_subset_converter_out_0,Vivado 2017.4";
+  attribute X_CORE_INFO of system_axis_subset_converter_out_0 : entity is "top_system_axis_subset_converter_out_0,Vivado 2022.1";
 end system_axis_subset_converter_out_0;
 
 architecture STRUCTURE of system_axis_subset_converter_out_0 is
@@ -182,8 +182,8 @@ architecture STRUCTURE of system_axis_subset_converter_out_0 is
   attribute C_DEFAULT_TLAST of inst : label is 0;
   attribute C_FAMILY : string;
   attribute C_FAMILY of inst : label is "zynq";
-  attribute C_M_AXIS_SIGNAL_SET : string;
-  attribute C_M_AXIS_SIGNAL_SET of inst : label is "32'b00000000000000000000000010011011";
+  attribute C_M_AXIS_SIGNAL_SET : integer;
+  attribute C_M_AXIS_SIGNAL_SET of inst : label is 155;
   attribute C_M_AXIS_TDATA_WIDTH : integer;
   attribute C_M_AXIS_TDATA_WIDTH of inst : label is 24;
   attribute C_M_AXIS_TDEST_WIDTH : integer;
@@ -192,8 +192,8 @@ architecture STRUCTURE of system_axis_subset_converter_out_0 is
   attribute C_M_AXIS_TID_WIDTH of inst : label is 1;
   attribute C_M_AXIS_TUSER_WIDTH : integer;
   attribute C_M_AXIS_TUSER_WIDTH of inst : label is 1;
-  attribute C_S_AXIS_SIGNAL_SET : string;
-  attribute C_S_AXIS_SIGNAL_SET of inst : label is "32'b00000000000000000000000010011011";
+  attribute C_S_AXIS_SIGNAL_SET : integer;
+  attribute C_S_AXIS_SIGNAL_SET of inst : label is 155;
   attribute C_S_AXIS_TDATA_WIDTH : integer;
   attribute C_S_AXIS_TDATA_WIDTH of inst : label is 24;
   attribute C_S_AXIS_TDEST_WIDTH : integer;
@@ -243,9 +243,9 @@ architecture STRUCTURE of system_axis_subset_converter_out_0 is
   attribute X_INTERFACE_INFO : string;
   attribute X_INTERFACE_INFO of aclk : signal is "xilinx.com:signal:clock:1.0 CLKIF CLK";
   attribute X_INTERFACE_PARAMETER : string;
-  attribute X_INTERFACE_PARAMETER of aclk : signal is "XIL_INTERFACENAME CLKIF, FREQ_HZ 133333344, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, ASSOCIATED_BUSIF S_AXIS:M_AXIS, ASSOCIATED_RESET aresetn, ASSOCIATED_CLKEN aclken";
+  attribute X_INTERFACE_PARAMETER of aclk : signal is "XIL_INTERFACENAME CLKIF, FREQ_HZ 133333344, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, ASSOCIATED_BUSIF S_AXIS:M_AXIS, ASSOCIATED_RESET aresetn, INSERT_VIP 0, ASSOCIATED_CLKEN aclken";
   attribute X_INTERFACE_INFO of aresetn : signal is "xilinx.com:signal:reset:1.0 RSTIF RST";
-  attribute X_INTERFACE_PARAMETER of aresetn : signal is "XIL_INTERFACENAME RSTIF, POLARITY ACTIVE_LOW, TYPE INTERCONNECT";
+  attribute X_INTERFACE_PARAMETER of aresetn : signal is "XIL_INTERFACENAME RSTIF, POLARITY ACTIVE_LOW, INSERT_VIP 0, TYPE INTERCONNECT";
   attribute X_INTERFACE_INFO of m_axis_tlast : signal is "xilinx.com:interface:axis:1.0 M_AXIS TLAST";
   attribute X_INTERFACE_INFO of m_axis_tready : signal is "xilinx.com:interface:axis:1.0 M_AXIS TREADY";
   attribute X_INTERFACE_INFO of m_axis_tvalid : signal is "xilinx.com:interface:axis:1.0 M_AXIS TVALID";
@@ -255,17 +255,17 @@ architecture STRUCTURE of system_axis_subset_converter_out_0 is
   attribute X_INTERFACE_INFO of m_axis_tdata : signal is "xilinx.com:interface:axis:1.0 M_AXIS TDATA";
   attribute X_INTERFACE_INFO of m_axis_tkeep : signal is "xilinx.com:interface:axis:1.0 M_AXIS TKEEP";
   attribute X_INTERFACE_INFO of m_axis_tuser : signal is "xilinx.com:interface:axis:1.0 M_AXIS TUSER";
-  attribute X_INTERFACE_PARAMETER of m_axis_tuser : signal is "XIL_INTERFACENAME M_AXIS, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 1, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 133333344, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, LAYERED_METADATA undef";
+  attribute X_INTERFACE_PARAMETER of m_axis_tuser : signal is "XIL_INTERFACENAME M_AXIS, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 1, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 133333344, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, LAYERED_METADATA undef, INSERT_VIP 0";
   attribute X_INTERFACE_INFO of s_axis_tdata : signal is "xilinx.com:interface:axis:1.0 S_AXIS TDATA";
   attribute X_INTERFACE_INFO of s_axis_tkeep : signal is "xilinx.com:interface:axis:1.0 S_AXIS TKEEP";
   attribute X_INTERFACE_INFO of s_axis_tuser : signal is "xilinx.com:interface:axis:1.0 S_AXIS TUSER";
-  attribute X_INTERFACE_PARAMETER of s_axis_tuser : signal is "XIL_INTERFACENAME S_AXIS, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 1, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 133333344, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, LAYERED_METADATA undef";
+  attribute X_INTERFACE_PARAMETER of s_axis_tuser : signal is "XIL_INTERFACENAME S_AXIS, TDATA_NUM_BYTES 3, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 1, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 133333344, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, LAYERED_METADATA undef, INSERT_VIP 0";
 begin
 inst: entity work.system_axis_subset_converter_out_0_top_system_axis_subset_converter_out_0
      port map (
-      aclk => aclk,
+      aclk => '0',
       aclken => '1',
-      aresetn => aresetn,
+      aresetn => '0',
       m_axis_tdata(23 downto 0) => m_axis_tdata(23 downto 0),
       m_axis_tdest(0) => NLW_inst_m_axis_tdest_UNCONNECTED(0),
       m_axis_tid(0) => NLW_inst_m_axis_tid_UNCONNECTED(0),

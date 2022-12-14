@@ -1,0 +1,446 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Wed Dec 14 20:30:04 2022
+# Process ID: 8696
+# Current directory: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/system_axi_i2s_adi_0_0_synth_1
+# Command line: vivado -log system_axi_i2s_adi_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source system_axi_i2s_adi_0_0.tcl
+# Log file: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/system_axi_i2s_adi_0_0_synth_1/system_axi_i2s_adi_0_0.vds
+# Journal file: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/system_axi_i2s_adi_0_0_synth_1/vivado.jou
+# Running On: linux-hyper, OS: Linux, CPU Frequency: 3992.308 MHz, CPU Physical cores: 12, Host memory: 20490 MB
+#-----------------------------------------------------------
+source system_axi_i2s_adi_0_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:09 ; elapsed = 00:00:16 . Memory (MB): peak = 2732.203 ; gain = 2.016 ; free physical = 8924 ; free virtual = 12664
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/repo'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/linux/work/03.install_path/Vivado/2022.1/data/ip'.
+Command: synth_design -top system_axi_i2s_adi_0_0 -part xc7z010clg400-1 -incremental_mode off -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z010'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z010'
+INFO: [Device 21-403] Loading part xc7z010clg400-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 9389
+WARNING: [Synth 8-9501] generate block is allowed only inside loop and conditional generate in SystemVerilog mode [/home/linux/work/03.install_path/Vivado/2022.1/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:4023]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:31 . Memory (MB): peak = 2732.207 ; gain = 0.000 ; free physical = 8442 ; free virtual = 9063
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'system_axi_i2s_adi_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_i2s_adi_0_0/synth/system_axi_i2s_adi_0_0.vhd:103]
+	Parameter C_SLOT_WIDTH bound to: 24 - type: integer 
+	Parameter C_LRCLK_POL bound to: 0 - type: integer 
+	Parameter C_BCLK_POL bound to: 0 - type: integer 
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_MIN_SIZE bound to: 32'b00000000000000000000000111111111 
+	Parameter C_FAMILY bound to: zynq - type: string 
+	Parameter C_DMA_TYPE bound to: 1 - type: integer 
+	Parameter C_NUM_CH bound to: 1 - type: integer 
+	Parameter C_HAS_TX bound to: 1 - type: integer 
+	Parameter C_HAS_RX bound to: 1 - type: integer 
+INFO: [Synth 8-3491] module 'axi_i2s_adi' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/axi_i2s_adi.vhd:18' bound to instance 'U0' of component 'axi_i2s_adi' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_i2s_adi_0_0/synth/system_axi_i2s_adi_0_0.vhd:233]
+INFO: [Synth 8-638] synthesizing module 'axi_i2s_adi' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/axi_i2s_adi.vhd:109]
+INFO: [Synth 8-638] synthesizing module 'pl330_dma_fifo' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/pl330_dma_fifo.vhd:46]
+INFO: [Synth 8-638] synthesizing module 'dma_fifo' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/dma_fifo.vhd:27]
+INFO: [Synth 8-256] done synthesizing module 'dma_fifo' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/dma_fifo.vhd:27]
+INFO: [Synth 8-256] done synthesizing module 'pl330_dma_fifo' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/pl330_dma_fifo.vhd:46]
+INFO: [Synth 8-638] synthesizing module 'pl330_dma_fifo__parameterized0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/pl330_dma_fifo.vhd:46]
+INFO: [Synth 8-256] done synthesizing module 'pl330_dma_fifo__parameterized0' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/pl330_dma_fifo.vhd:46]
+INFO: [Synth 8-638] synthesizing module 'i2s_controller' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/i2s_controller.vhd:83]
+INFO: [Synth 8-638] synthesizing module 'fifo_synchronizer' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/fifo_synchronizer.vhd:61]
+INFO: [Synth 8-256] done synthesizing module 'fifo_synchronizer' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/fifo_synchronizer.vhd:61]
+INFO: [Synth 8-638] synthesizing module 'i2s_clkgen' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/i2s_clkgen.vhd:61]
+INFO: [Synth 8-256] done synthesizing module 'i2s_clkgen' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/i2s_clkgen.vhd:61]
+INFO: [Synth 8-638] synthesizing module 'i2s_tx' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/i2s_tx.vhd:63]
+INFO: [Synth 8-256] done synthesizing module 'i2s_tx' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/i2s_tx.vhd:63]
+INFO: [Synth 8-638] synthesizing module 'i2s_rx' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/i2s_rx.vhd:64]
+INFO: [Synth 8-256] done synthesizing module 'i2s_rx' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/i2s_rx.vhd:64]
+INFO: [Synth 8-256] done synthesizing module 'i2s_controller' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/i2s_controller.vhd:83]
+INFO: [Synth 8-638] synthesizing module 'axi_ctrlif' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/axi_ctrlif.vhd:87]
+INFO: [Synth 8-256] done synthesizing module 'axi_ctrlif' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/axi_ctrlif.vhd:87]
+INFO: [Synth 8-256] done synthesizing module 'axi_i2s_adi' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/axi_i2s_adi.vhd:109]
+INFO: [Synth 8-256] done synthesizing module 'system_axi_i2s_adi_0_0' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_i2s_adi_0_0/synth/system_axi_i2s_adi_0_0.vhd:103]
+WARNING: [Synth 8-6014] Unused sequential element prev_bclk_div_rate_reg was removed.  [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/i2s_clkgen.vhd:87]
+WARNING: [Synth 8-6014] Unused sequential element prev_lrclk_div_rate_reg was removed.  [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/i2s_clkgen.vhd:115]
+WARNING: [Synth 8-6014] Unused sequential element seq_reg was removed.  [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/d221/i2s_rx.vhd:110]
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[31] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[30] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[29] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[28] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[27] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[26] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[25] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[24] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[23] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[22] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[21] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[20] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[19] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[18] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[17] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[16] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[15] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[14] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[13] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[12] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[11] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[10] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[9] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[8] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[7] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[6] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[1] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[0] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[3] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[2] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[1] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_WSTRB[0] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[31] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[30] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[29] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[28] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[27] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[26] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[25] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[24] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[23] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[22] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[21] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[20] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[19] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[18] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[17] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[16] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[15] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[14] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[13] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[12] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[11] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[10] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[9] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[8] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[7] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[6] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[1] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARADDR[0] in module axi_ctrlif is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_ACLK in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_ARESETN in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[31] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[30] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[29] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[28] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[27] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[26] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[25] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[24] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[23] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[22] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[21] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[20] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[19] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[18] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[17] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[16] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[15] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[14] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[13] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[12] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[11] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[10] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[9] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[8] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[7] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[6] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[5] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[4] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[3] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[2] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[1] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TDATA[0] in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TLAST in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXIS_TVALID in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXIS_ACLK in module axi_i2s_adi is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_AXIS_TREADY in module axi_i2s_adi is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:12 ; elapsed = 00:00:37 . Memory (MB): peak = 2732.207 ; gain = 0.000 ; free physical = 9185 ; free virtual = 9988
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:00:38 . Memory (MB): peak = 2732.207 ; gain = 0.000 ; free physical = 9150 ; free virtual = 9965
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:38 . Memory (MB): peak = 2732.207 ; gain = 0.000 ; free physical = 9150 ; free virtual = 9965
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2732.207 ; gain = 0.000 ; free physical = 9140 ; free virtual = 9963
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2796.234 ; gain = 0.000 ; free physical = 8533 ; free virtual = 9464
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.08 . Memory (MB): peak = 2796.234 ; gain = 0.000 ; free physical = 8521 ; free virtual = 9453
+INFO: [Designutils 20-5008] Incremental synthesis strategy off
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:29 ; elapsed = 00:01:01 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 6373 ; free virtual = 7365
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z010clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:29 ; elapsed = 00:01:01 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 6376 ; free virtual = 7367
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:29 ; elapsed = 00:01:01 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 6381 ; free virtual = 7373
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'rd_state_reg' in module 'axi_ctrlif'
+INFO: [Synth 8-802] inferred FSM for state register 'wr_state_reg' in module 'axi_ctrlif'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                                0 |                               00
+                    resp |                                1 |                               01
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'rd_state_reg' using encoding 'sequential' in module 'axi_ctrlif'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    idle |                              001 |                               00
+                     ack |                              010 |                               10
+                    resp |                              100 |                               01
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'wr_state_reg' using encoding 'one-hot' in module 'axi_ctrlif'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:30 ; elapsed = 00:01:02 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 8780 ; free virtual = 9811
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input    8 Bit       Adders := 2     
+	   3 Input    4 Bit       Adders := 2     
+	   2 Input    3 Bit       Adders := 4     
+	   2 Input    2 Bit       Adders := 4     
+	   2 Input    1 Bit       Adders := 1     
++---XORs : 
+	   2 Input      1 Bit         XORs := 5     
++---Registers : 
+	               32 Bit    Registers := 6     
+	               24 Bit    Registers := 1     
+	                8 Bit    Registers := 2     
+	                5 Bit    Registers := 3     
+	                4 Bit    Registers := 3     
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 27    
++---RAMs : 
+	              192 Bit	(8 X 24 bit)          RAMs := 2     
+	               20 Bit	(4 X 5 bit)          RAMs := 2     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 4     
+	   6 Input   32 Bit        Muxes := 1     
+	   5 Input   32 Bit        Muxes := 2     
+	   2 Input    8 Bit        Muxes := 5     
+	   2 Input    3 Bit        Muxes := 1     
+	   4 Input    2 Bit        Muxes := 2     
+	   2 Input    2 Bit        Muxes := 4     
+	   2 Input    1 Bit        Muxes := 22    
+	   4 Input    1 Bit        Muxes := 2     
+	   3 Input    1 Bit        Muxes := 1     
+	   5 Input    1 Bit        Muxes := 3     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 80 (col length:40)
+BRAMs: 120 (col length: RAMB18 40 RAMB36 20)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+INFO: [Synth 8-3917] design system_axi_i2s_adi_0_0 has port DMA_REQ_TX_DAREADY driven by constant 1
+INFO: [Synth 8-3917] design system_axi_i2s_adi_0_0 has port DMA_REQ_TX_DRTYPE[0] driven by constant 0
+INFO: [Synth 8-3917] design system_axi_i2s_adi_0_0 has port DMA_REQ_TX_DRLAST driven by constant 0
+INFO: [Synth 8-3917] design system_axi_i2s_adi_0_0 has port DMA_REQ_RX_DAREADY driven by constant 1
+INFO: [Synth 8-3917] design system_axi_i2s_adi_0_0 has port DMA_REQ_RX_DRTYPE[0] driven by constant 0
+INFO: [Synth 8-3917] design system_axi_i2s_adi_0_0 has port DMA_REQ_RX_DRLAST driven by constant 0
+INFO: [Synth 8-3917] design system_axi_i2s_adi_0_0 has port S_AXI_RRESP[1] driven by constant 0
+INFO: [Synth 8-3917] design system_axi_i2s_adi_0_0 has port S_AXI_RRESP[0] driven by constant 0
+INFO: [Synth 8-3917] design system_axi_i2s_adi_0_0 has port S_AXI_BRESP[1] driven by constant 0
+INFO: [Synth 8-3917] design system_axi_i2s_adi_0_0 has port S_AXI_BRESP[0] driven by constant 0
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[31] in module system_axi_i2s_adi_0_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWADDR[30] in module system_axi_i2s_adi_0_0 is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:34 ; elapsed = 00:01:08 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 8618 ; free virtual = 9722
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++-----------------------+------------------------------------------------+-----------+----------------------+-------------+
+|Module Name            | RTL Object                                     | Inference | Size (Depth x Width) | Primitives  | 
++-----------------------+------------------------------------------------+-----------+----------------------+-------------+
+|system_axi_i2s_adi_0_0 | U0/pl330_dma_tx_gen.tx_fifo/fifo/data_fifo_reg | Implied   | 8 x 24               | RAM32M x 4  | 
+|system_axi_i2s_adi_0_0 | U0/ctrl/tx_sync/fifo_reg                       | Implied   | 4 x 5                | RAM32M x 1  | 
+|system_axi_i2s_adi_0_0 | U0/ctrl/rx_gen.rx_sync/fifo_reg                | Implied   | 4 x 5                | RAM32M x 1  | 
+|system_axi_i2s_adi_0_0 | U0/pl330_dma_rx_gen.rx_fifo/fifo/data_fifo_reg | Implied   | 8 x 24               | RAM32M x 4  | 
++-----------------------+------------------------------------------------+-----------+----------------------+-------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:46 ; elapsed = 00:01:24 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 7633 ; free virtual = 8763
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:46 ; elapsed = 00:01:24 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 7629 ; free virtual = 8760
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping Report
++-----------------------+------------------------------------------------+-----------+----------------------+-------------+
+|Module Name            | RTL Object                                     | Inference | Size (Depth x Width) | Primitives  | 
++-----------------------+------------------------------------------------+-----------+----------------------+-------------+
+|system_axi_i2s_adi_0_0 | U0/pl330_dma_tx_gen.tx_fifo/fifo/data_fifo_reg | Implied   | 8 x 24               | RAM32M x 4  | 
+|system_axi_i2s_adi_0_0 | U0/ctrl/tx_sync/fifo_reg                       | Implied   | 4 x 5                | RAM32M x 1  | 
+|system_axi_i2s_adi_0_0 | U0/ctrl/rx_gen.rx_sync/fifo_reg                | Implied   | 4 x 5                | RAM32M x 1  | 
+|system_axi_i2s_adi_0_0 | U0/pl330_dma_rx_gen.rx_fifo/fifo/data_fifo_reg | Implied   | 8 x 24               | RAM32M x 4  | 
++-----------------------+------------------------------------------------+-----------+----------------------+-------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:46 ; elapsed = 00:01:24 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 7597 ; free virtual = 8728
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:53 ; elapsed = 00:01:36 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 8619 ; free virtual = 9824
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:53 ; elapsed = 00:01:36 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 8619 ; free virtual = 9824
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:53 ; elapsed = 00:01:36 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 8621 ; free virtual = 9826
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:53 ; elapsed = 00:01:36 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 8621 ; free virtual = 9825
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:53 ; elapsed = 00:01:36 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 8619 ; free virtual = 9824
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:53 ; elapsed = 00:01:36 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 8618 ; free virtual = 9823
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |CARRY4 |     2|
+|2     |LUT1   |     6|
+|3     |LUT2   |    21|
+|4     |LUT3   |    44|
+|5     |LUT4   |    15|
+|6     |LUT5   |    38|
+|7     |LUT6   |    69|
+|8     |RAM32M |    10|
+|9     |FDRE   |   212|
+|10    |FDSE   |     7|
++------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:53 ; elapsed = 00:01:36 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 8620 ; free virtual = 9821
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 61 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:50 ; elapsed = 00:01:31 . Memory (MB): peak = 2796.234 ; gain = 0.000 ; free physical = 8649 ; free virtual = 9850
+Synthesis Optimization Complete : Time (s): cpu = 00:00:54 ; elapsed = 00:01:36 . Memory (MB): peak = 2796.234 ; gain = 64.027 ; free physical = 8641 ; free virtual = 9842
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.05 . Memory (MB): peak = 2796.234 ; gain = 0.000 ; free physical = 8915 ; free virtual = 10117
+INFO: [Netlist 29-17] Analyzing 12 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2796.234 ; gain = 0.000 ; free physical = 9315 ; free virtual = 10528
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 10 instances were transformed.
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 10 instances
+
+Synth Design complete, checksum: 4dda61f1
+INFO: [Common 17-83] Releasing license: Synthesis
+56 Infos, 105 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:11 ; elapsed = 00:01:55 . Memory (MB): peak = 2796.234 ; gain = 64.031 ; free physical = 9581 ; free virtual = 10791
+INFO: [Common 17-1381] The checkpoint '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/system_axi_i2s_adi_0_0_synth_1/system_axi_i2s_adi_0_0.dcp' has been generated.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP system_axi_i2s_adi_0_0, cache-ID = 0e9fbf0631c38fdf
+INFO: [Coretcl 2-1174] Renamed 12 cell refs.
+INFO: [Common 17-1381] The checkpoint '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/system_axi_i2s_adi_0_0_synth_1/system_axi_i2s_adi_0_0.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file system_axi_i2s_adi_0_0_utilization_synth.rpt -pb system_axi_i2s_adi_0_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed Dec 14 20:32:47 2022...

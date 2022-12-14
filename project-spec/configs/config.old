@@ -19,7 +19,7 @@ CONFIG_SUBSYSTEM_COMPONENT_U__BOOT_NAME_EXT__LOCAL__SRC=y
 #
 # External u-boot local source settings
 #
-CONFIG_SUBSYSTEM_COMPONENT_U__BOOT_NAME_EXT_LOCAL_SRC_PATH="/home/linux/work/03.install_path/local/u-boot-digilent"
+CONFIG_SUBSYSTEM_COMPONENT_U__BOOT_NAME_EXT_LOCAL_SRC_PATH="/home/linux/work/03.install_path/PETA22/u-boot-digilent"
 CONFIG_SUBSYSTEM_COMPONENT_U__BOOT_LIC_FILES_CHKSUM_LOCAL__SRC=""
 # CONFIG_SUBSYSTEM_COMPONENT_LINUX__KERNEL_NAME_LINUX__XLNX is not set
 # CONFIG_SUBSYSTEM_COMPONENT_LINUX__KERNEL_NAME_REMOTE is not set
@@ -28,7 +28,7 @@ CONFIG_SUBSYSTEM_COMPONENT_LINUX__KERNEL_NAME_EXT__LOCAL__SRC=y
 #
 # External linux-kernel local source settings
 #
-CONFIG_SUBSYSTEM_COMPONENT_LINUX__KERNEL_NAME_EXT_LOCAL_SRC_PATH="/home/linux/work/03.install_path/local/linux-digilent/"
+CONFIG_SUBSYSTEM_COMPONENT_LINUX__KERNEL_NAME_EXT_LOCAL_SRC_PATH="/home/linux/work/03.install_path/PETA22/linux-digilent"
 CONFIG_SUBSYSTEM_COMPONENT_LINUX__KERNEL_LIC_FILES_CHKSUM_LOCAL__SRC=""
 
 #
@@ -142,7 +142,7 @@ CONFIG_SUBSYSTEM_EXTRA_DT_FILES=""
 #
 CONFIG_SUBSYSTEM_BOOTARGS_AUTO=y
 CONFIG_SUBSYSTEM_BOOTARGS_EARLYPRINTK=y
-
+CONFIG_SUBSYSTEM_BOOTARGS_GENERATED="console=ttyPS0,115200 earlycon root=/dev/mmcblk0p2 rw rootwait"
 CONFIG_SUBSYSTEM_DEVICETREE_COMPILER_FLAGS="-@"
 # CONFIG_SUBSYSTEM_DTB_OVERLAY is not set
 # CONFIG_SUBSYSTEM_REMOVE_PL_DTB is not set
@@ -239,7 +239,7 @@ CONFIG_YOCTO_MACHINE_NAME="zynq-generic"
 #
 # TMPDIR Location
 #
-CONFIG_TMP_DIR_LOCATION="/home/linux/work/03.install_path/PETA_TMPDIR_ARM_original_os"
+CONFIG_TMP_DIR_LOCATION="/home/linux/work/03.install_path/PETA22/TMPDIR_ARM_zybo"
 
 #
 # Devtool Workspace Location
@@ -255,12 +255,12 @@ CONFIG_YOCTO_PARALLEL_MAKE=""
 #
 # Add pre-mirror url 
 #
-CONFIG_PRE_MIRROR_URL="file:///home/linux/work/03.install_path/PETA_DOWN"
+CONFIG_PRE_MIRROR_URL="file:///home/linux/work/03.install_path/PETA22/downloads"
 
 #
 # Local sstate feeds settings
 #
-CONFIG_YOCTO_LOCAL_SSTATE_FEEDS_URL="/home/linux/work/03.install_path/PETA_ARM"
+CONFIG_YOCTO_LOCAL_SSTATE_FEEDS_URL="/home/linux/work/03.install_path/PETA22/arm"
 # CONFIG_YOCTO_NETWORK_SSTATE_FEEDS is not set
 # CONFIG_YOCTO_BB_NO_NETWORK is not set
 # CONFIG_YOCTO_BUILDTOOLS_EXTENDED is not set
@@ -269,4 +269,3 @@ CONFIG_YOCTO_LOCAL_SSTATE_FEEDS_URL="/home/linux/work/03.install_path/PETA_ARM"
 # User Layers
 #
 CONFIG_USER_LAYER_0=""
-CONFIG_SUBSYSTEM_BOOTARGS_GENERATED="console=ttyPS0,115200 earlycon root=/dev/mmcblk0p2 rw rootwait"

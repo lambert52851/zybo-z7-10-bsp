@@ -1,10 +1,10 @@
--- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
--- Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
--- Date        : Fri Mar 23 14:19:51 2018
--- Host        : ubuntu running 64-bit Ubuntu 16.04.3 LTS
+-- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+-- Date        : Wed Dec 14 20:32:43 2022
+-- Host        : linux-hyper running 64-bit Ubuntu 18.04.5 LTS
 -- Command     : write_vhdl -force -mode funcsim
---               /home/digilent/work/git/Zybo-Z7-10-base-linux/src/bd/system/ip/system_clk_wiz_0_0/system_clk_wiz_0_0_sim_netlist.vhdl
+--               /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_clk_wiz_0_0/system_clk_wiz_0_0_sim_netlist.vhdl
 -- Design      : system_clk_wiz_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -14,16 +14,14 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_clk_wiz_0_0_system_clk_wiz_0_0_clk_wiz is
+entity system_clk_wiz_0_0_clk_wiz is
   port (
     clk_out1 : out STD_LOGIC;
     clk_in1 : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_clk_wiz_0_0_system_clk_wiz_0_0_clk_wiz : entity is "system_clk_wiz_0_0_clk_wiz";
-end system_clk_wiz_0_0_system_clk_wiz_0_0_clk_wiz;
+end system_clk_wiz_0_0_clk_wiz;
 
-architecture STRUCTURE of system_clk_wiz_0_0_system_clk_wiz_0_0_clk_wiz is
+architecture STRUCTURE of system_clk_wiz_0_0_clk_wiz is
   signal clk_in1_system_clk_wiz_0_0 : STD_LOGIC;
   signal clk_out1_system_clk_wiz_0_0 : STD_LOGIC;
   signal clkfbout_buf_system_clk_wiz_0_0 : STD_LOGIC;
@@ -139,7 +137,7 @@ end system_clk_wiz_0_0;
 
 architecture STRUCTURE of system_clk_wiz_0_0 is
 begin
-inst: entity work.system_clk_wiz_0_0_system_clk_wiz_0_0_clk_wiz
+inst: entity work.system_clk_wiz_0_0_clk_wiz
      port map (
       clk_in1 => clk_in1,
       clk_out1 => clk_out1

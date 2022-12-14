@@ -1,8 +1,8 @@
---Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+--Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
---Tool Version: Vivado v.2017.4 (lin64) Build 2086221 Fri Dec 15 20:54:30 MST 2017
---Date        : Tue Mar 27 14:07:38 2018
---Host        : ubuntu running 64-bit Ubuntu 16.04.3 LTS
+--Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
+--Date        : Wed Dec 14 20:29:06 2022
+--Host        : linux-hyper running 64-bit Ubuntu 18.04.5 LTS
 --Command     : generate_target system.bd
 --Design      : system
 --Purpose     : IP block netlist
@@ -2641,7 +2641,7 @@ entity system_axi_mem_intercon_HP0_0 is
 end system_axi_mem_intercon_HP0_0;
 
 architecture STRUCTURE of system_axi_mem_intercon_HP0_0 is
-  component system_xbar_0 is
+  component system_xbar_2 is
   port (
     aclk : in STD_LOGIC;
     aresetn : in STD_LOGIC;
@@ -2722,7 +2722,7 @@ architecture STRUCTURE of system_axi_mem_intercon_HP0_0 is
     m_axi_rvalid : in STD_LOGIC_VECTOR ( 0 to 0 );
     m_axi_rready : out STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  end component system_xbar_0;
+  end component system_xbar_2;
   signal M00_ACLK_1 : STD_LOGIC;
   signal M00_ARESETN_1 : STD_LOGIC;
   signal S00_ACLK_1 : STD_LOGIC;
@@ -3117,7 +3117,7 @@ s01_couplers: entity work.s01_couplers_imp_1J3S6TC
       S_AXI_wstrb(7 downto 0) => axi_mem_intercon_HP0_to_s01_couplers_WSTRB(7 downto 0),
       S_AXI_wvalid => axi_mem_intercon_HP0_to_s01_couplers_WVALID
     );
-xbar: component system_xbar_0
+xbar: component system_xbar_2
      port map (
       aclk => axi_mem_intercon_HP0_ACLK_net,
       aresetn => axi_mem_intercon_HP0_ARESETN_net,
@@ -3514,7 +3514,7 @@ entity system_ps7_0_axi_periph_GP0_0 is
 end system_ps7_0_axi_periph_GP0_0;
 
 architecture STRUCTURE of system_ps7_0_axi_periph_GP0_0 is
-  component system_xbar_1 is
+  component system_xbar_3 is
   port (
     aclk : in STD_LOGIC;
     aresetn : in STD_LOGIC;
@@ -3557,7 +3557,7 @@ architecture STRUCTURE of system_ps7_0_axi_periph_GP0_0 is
     m_axi_rvalid : in STD_LOGIC_VECTOR ( 11 downto 0 );
     m_axi_rready : out STD_LOGIC_VECTOR ( 11 downto 0 )
   );
-  end component system_xbar_1;
+  end component system_xbar_3;
   signal M00_ACLK_1 : STD_LOGIC;
   signal M00_ARESETN_1 : STD_LOGIC;
   signal M01_ACLK_1 : STD_LOGIC;
@@ -4891,7 +4891,7 @@ s00_couplers: entity work.s00_couplers_imp_4WZP47
       S_AXI_wstrb(3 downto 0) => ps7_0_axi_periph_GP0_to_s00_couplers_WSTRB(3 downto 0),
       S_AXI_wvalid => ps7_0_axi_periph_GP0_to_s00_couplers_WVALID
     );
-xbar: component system_xbar_1
+xbar: component system_xbar_3
      port map (
       aclk => ps7_0_axi_periph_GP0_ACLK_net,
       aresetn => ps7_0_axi_periph_GP0_ARESETN_net,
@@ -5212,10 +5212,10 @@ entity system is
     sws_4bits_tri_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
     sys_clock : in STD_LOGIC
   );
-  attribute core_generation_info : string;
-  attribute core_generation_info of system : entity is "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=52,numReposBlks=34,numNonXlnxBlks=5,numHierBlks=18,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,synth_mode=OOC_per_IP}";
-  attribute hw_handoff : string;
-  attribute hw_handoff of system : entity is "system.hwdef";
+  attribute CORE_GENERATION_INFO : string;
+  attribute CORE_GENERATION_INFO of system : entity is "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=52,numReposBlks=34,numNonXlnxBlks=5,numHierBlks=18,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,synth_mode=OOC_per_IP}";
+  attribute HW_HANDOFF : string;
+  attribute HW_HANDOFF of system : entity is "system.hwdef";
 end system;
 
 architecture STRUCTURE of system is
@@ -5335,6 +5335,154 @@ architecture STRUCTURE of system is
     SerialClk : in STD_LOGIC
   );
   end component system_rgb2dvi_1_0;
+  component system_processing_system7_0_0 is
+  port (
+    I2C0_SDA_I : in STD_LOGIC;
+    I2C0_SDA_O : out STD_LOGIC;
+    I2C0_SDA_T : out STD_LOGIC;
+    I2C0_SCL_I : in STD_LOGIC;
+    I2C0_SCL_O : out STD_LOGIC;
+    I2C0_SCL_T : out STD_LOGIC;
+    I2C1_SDA_I : in STD_LOGIC;
+    I2C1_SDA_O : out STD_LOGIC;
+    I2C1_SDA_T : out STD_LOGIC;
+    I2C1_SCL_I : in STD_LOGIC;
+    I2C1_SCL_O : out STD_LOGIC;
+    I2C1_SCL_T : out STD_LOGIC;
+    TTC0_WAVE0_OUT : out STD_LOGIC;
+    TTC0_WAVE1_OUT : out STD_LOGIC;
+    TTC0_WAVE2_OUT : out STD_LOGIC;
+    USB0_PORT_INDCTL : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    USB0_VBUS_PWRSELECT : out STD_LOGIC;
+    USB0_VBUS_PWRFAULT : in STD_LOGIC;
+    M_AXI_GP0_ARVALID : out STD_LOGIC;
+    M_AXI_GP0_AWVALID : out STD_LOGIC;
+    M_AXI_GP0_BREADY : out STD_LOGIC;
+    M_AXI_GP0_RREADY : out STD_LOGIC;
+    M_AXI_GP0_WLAST : out STD_LOGIC;
+    M_AXI_GP0_WVALID : out STD_LOGIC;
+    M_AXI_GP0_ARID : out STD_LOGIC_VECTOR ( 11 downto 0 );
+    M_AXI_GP0_AWID : out STD_LOGIC_VECTOR ( 11 downto 0 );
+    M_AXI_GP0_WID : out STD_LOGIC_VECTOR ( 11 downto 0 );
+    M_AXI_GP0_ARBURST : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    M_AXI_GP0_ARLOCK : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    M_AXI_GP0_ARSIZE : out STD_LOGIC_VECTOR ( 2 downto 0 );
+    M_AXI_GP0_AWBURST : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    M_AXI_GP0_AWLOCK : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    M_AXI_GP0_AWSIZE : out STD_LOGIC_VECTOR ( 2 downto 0 );
+    M_AXI_GP0_ARPROT : out STD_LOGIC_VECTOR ( 2 downto 0 );
+    M_AXI_GP0_AWPROT : out STD_LOGIC_VECTOR ( 2 downto 0 );
+    M_AXI_GP0_ARADDR : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    M_AXI_GP0_AWADDR : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    M_AXI_GP0_WDATA : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    M_AXI_GP0_ARCACHE : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    M_AXI_GP0_ARLEN : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    M_AXI_GP0_ARQOS : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    M_AXI_GP0_AWCACHE : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    M_AXI_GP0_AWLEN : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    M_AXI_GP0_AWQOS : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    M_AXI_GP0_WSTRB : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    M_AXI_GP0_ACLK : in STD_LOGIC;
+    M_AXI_GP0_ARREADY : in STD_LOGIC;
+    M_AXI_GP0_AWREADY : in STD_LOGIC;
+    M_AXI_GP0_BVALID : in STD_LOGIC;
+    M_AXI_GP0_RLAST : in STD_LOGIC;
+    M_AXI_GP0_RVALID : in STD_LOGIC;
+    M_AXI_GP0_WREADY : in STD_LOGIC;
+    M_AXI_GP0_BID : in STD_LOGIC_VECTOR ( 11 downto 0 );
+    M_AXI_GP0_RID : in STD_LOGIC_VECTOR ( 11 downto 0 );
+    M_AXI_GP0_BRESP : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    M_AXI_GP0_RRESP : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    M_AXI_GP0_RDATA : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    S_AXI_HP0_ARREADY : out STD_LOGIC;
+    S_AXI_HP0_AWREADY : out STD_LOGIC;
+    S_AXI_HP0_BVALID : out STD_LOGIC;
+    S_AXI_HP0_RLAST : out STD_LOGIC;
+    S_AXI_HP0_RVALID : out STD_LOGIC;
+    S_AXI_HP0_WREADY : out STD_LOGIC;
+    S_AXI_HP0_BRESP : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    S_AXI_HP0_RRESP : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    S_AXI_HP0_BID : out STD_LOGIC_VECTOR ( 5 downto 0 );
+    S_AXI_HP0_RID : out STD_LOGIC_VECTOR ( 5 downto 0 );
+    S_AXI_HP0_RDATA : out STD_LOGIC_VECTOR ( 63 downto 0 );
+    S_AXI_HP0_RCOUNT : out STD_LOGIC_VECTOR ( 7 downto 0 );
+    S_AXI_HP0_WCOUNT : out STD_LOGIC_VECTOR ( 7 downto 0 );
+    S_AXI_HP0_RACOUNT : out STD_LOGIC_VECTOR ( 2 downto 0 );
+    S_AXI_HP0_WACOUNT : out STD_LOGIC_VECTOR ( 5 downto 0 );
+    S_AXI_HP0_ACLK : in STD_LOGIC;
+    S_AXI_HP0_ARVALID : in STD_LOGIC;
+    S_AXI_HP0_AWVALID : in STD_LOGIC;
+    S_AXI_HP0_BREADY : in STD_LOGIC;
+    S_AXI_HP0_RDISSUECAP1_EN : in STD_LOGIC;
+    S_AXI_HP0_RREADY : in STD_LOGIC;
+    S_AXI_HP0_WLAST : in STD_LOGIC;
+    S_AXI_HP0_WRISSUECAP1_EN : in STD_LOGIC;
+    S_AXI_HP0_WVALID : in STD_LOGIC;
+    S_AXI_HP0_ARBURST : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    S_AXI_HP0_ARLOCK : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    S_AXI_HP0_ARSIZE : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    S_AXI_HP0_AWBURST : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    S_AXI_HP0_AWLOCK : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    S_AXI_HP0_AWSIZE : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    S_AXI_HP0_ARPROT : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    S_AXI_HP0_AWPROT : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    S_AXI_HP0_ARADDR : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    S_AXI_HP0_AWADDR : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    S_AXI_HP0_ARCACHE : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    S_AXI_HP0_ARLEN : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    S_AXI_HP0_ARQOS : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    S_AXI_HP0_AWCACHE : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    S_AXI_HP0_AWLEN : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    S_AXI_HP0_AWQOS : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    S_AXI_HP0_ARID : in STD_LOGIC_VECTOR ( 5 downto 0 );
+    S_AXI_HP0_AWID : in STD_LOGIC_VECTOR ( 5 downto 0 );
+    S_AXI_HP0_WID : in STD_LOGIC_VECTOR ( 5 downto 0 );
+    S_AXI_HP0_WDATA : in STD_LOGIC_VECTOR ( 63 downto 0 );
+    S_AXI_HP0_WSTRB : in STD_LOGIC_VECTOR ( 7 downto 0 );
+    IRQ_F2P : in STD_LOGIC_VECTOR ( 5 downto 0 );
+    DMA0_DATYPE : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    DMA0_DAVALID : out STD_LOGIC;
+    DMA0_DRREADY : out STD_LOGIC;
+    DMA1_DATYPE : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    DMA1_DAVALID : out STD_LOGIC;
+    DMA1_DRREADY : out STD_LOGIC;
+    DMA0_ACLK : in STD_LOGIC;
+    DMA0_DAREADY : in STD_LOGIC;
+    DMA0_DRLAST : in STD_LOGIC;
+    DMA0_DRVALID : in STD_LOGIC;
+    DMA1_ACLK : in STD_LOGIC;
+    DMA1_DAREADY : in STD_LOGIC;
+    DMA1_DRLAST : in STD_LOGIC;
+    DMA1_DRVALID : in STD_LOGIC;
+    DMA0_DRTYPE : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    DMA1_DRTYPE : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    FCLK_CLK0 : out STD_LOGIC;
+    FCLK_CLK1 : out STD_LOGIC;
+    FCLK_CLK2 : out STD_LOGIC;
+    FCLK_RESET0_N : out STD_LOGIC;
+    MIO : inout STD_LOGIC_VECTOR ( 53 downto 0 );
+    DDR_CAS_n : inout STD_LOGIC;
+    DDR_CKE : inout STD_LOGIC;
+    DDR_Clk_n : inout STD_LOGIC;
+    DDR_Clk : inout STD_LOGIC;
+    DDR_CS_n : inout STD_LOGIC;
+    DDR_DRSTB : inout STD_LOGIC;
+    DDR_ODT : inout STD_LOGIC;
+    DDR_RAS_n : inout STD_LOGIC;
+    DDR_WEB : inout STD_LOGIC;
+    DDR_BankAddr : inout STD_LOGIC_VECTOR ( 2 downto 0 );
+    DDR_Addr : inout STD_LOGIC_VECTOR ( 14 downto 0 );
+    DDR_VRN : inout STD_LOGIC;
+    DDR_VRP : inout STD_LOGIC;
+    DDR_DM : inout STD_LOGIC_VECTOR ( 3 downto 0 );
+    DDR_DQ : inout STD_LOGIC_VECTOR ( 31 downto 0 );
+    DDR_DQS_n : inout STD_LOGIC_VECTOR ( 3 downto 0 );
+    DDR_DQS : inout STD_LOGIC_VECTOR ( 3 downto 0 );
+    PS_SRSTB : inout STD_LOGIC;
+    PS_CLK : inout STD_LOGIC;
+    PS_PORB : inout STD_LOGIC
+  );
+  end component system_processing_system7_0_0;
   component system_axi_gpio_eth_0 is
   port (
     s_axi_aclk : in STD_LOGIC;
@@ -5573,6 +5721,29 @@ architecture STRUCTURE of system is
     clk_out1 : out STD_LOGIC
   );
   end component system_clk_wiz_0_0;
+  component system_dvi2rgb_1_0 is
+  port (
+    TMDS_Clk_p : in STD_LOGIC;
+    TMDS_Clk_n : in STD_LOGIC;
+    TMDS_Data_p : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    TMDS_Data_n : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    RefClk : in STD_LOGIC;
+    aRst_n : in STD_LOGIC;
+    vid_pData : out STD_LOGIC_VECTOR ( 23 downto 0 );
+    vid_pVDE : out STD_LOGIC;
+    vid_pHSync : out STD_LOGIC;
+    vid_pVSync : out STD_LOGIC;
+    PixelClk : out STD_LOGIC;
+    aPixelClkLckd : out STD_LOGIC;
+    SDA_I : in STD_LOGIC;
+    SDA_O : out STD_LOGIC;
+    SDA_T : out STD_LOGIC;
+    SCL_I : in STD_LOGIC;
+    SCL_O : out STD_LOGIC;
+    SCL_T : out STD_LOGIC;
+    pRst_n : in STD_LOGIC
+  );
+  end component system_dvi2rgb_1_0;
   component system_proc_sys_reset_0_0 is
   port (
     slowest_sync_clk : in STD_LOGIC;
@@ -5587,154 +5758,6 @@ architecture STRUCTURE of system is
     peripheral_aresetn : out STD_LOGIC_VECTOR ( 0 to 0 )
   );
   end component system_proc_sys_reset_0_0;
-  component system_processing_system7_0_0 is
-  port (
-    I2C0_SDA_I : in STD_LOGIC;
-    I2C0_SDA_O : out STD_LOGIC;
-    I2C0_SDA_T : out STD_LOGIC;
-    I2C0_SCL_I : in STD_LOGIC;
-    I2C0_SCL_O : out STD_LOGIC;
-    I2C0_SCL_T : out STD_LOGIC;
-    I2C1_SDA_I : in STD_LOGIC;
-    I2C1_SDA_O : out STD_LOGIC;
-    I2C1_SDA_T : out STD_LOGIC;
-    I2C1_SCL_I : in STD_LOGIC;
-    I2C1_SCL_O : out STD_LOGIC;
-    I2C1_SCL_T : out STD_LOGIC;
-    TTC0_WAVE0_OUT : out STD_LOGIC;
-    TTC0_WAVE1_OUT : out STD_LOGIC;
-    TTC0_WAVE2_OUT : out STD_LOGIC;
-    USB0_PORT_INDCTL : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    USB0_VBUS_PWRSELECT : out STD_LOGIC;
-    USB0_VBUS_PWRFAULT : in STD_LOGIC;
-    M_AXI_GP0_ARVALID : out STD_LOGIC;
-    M_AXI_GP0_AWVALID : out STD_LOGIC;
-    M_AXI_GP0_BREADY : out STD_LOGIC;
-    M_AXI_GP0_RREADY : out STD_LOGIC;
-    M_AXI_GP0_WLAST : out STD_LOGIC;
-    M_AXI_GP0_WVALID : out STD_LOGIC;
-    M_AXI_GP0_ARID : out STD_LOGIC_VECTOR ( 11 downto 0 );
-    M_AXI_GP0_AWID : out STD_LOGIC_VECTOR ( 11 downto 0 );
-    M_AXI_GP0_WID : out STD_LOGIC_VECTOR ( 11 downto 0 );
-    M_AXI_GP0_ARBURST : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    M_AXI_GP0_ARLOCK : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    M_AXI_GP0_ARSIZE : out STD_LOGIC_VECTOR ( 2 downto 0 );
-    M_AXI_GP0_AWBURST : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    M_AXI_GP0_AWLOCK : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    M_AXI_GP0_AWSIZE : out STD_LOGIC_VECTOR ( 2 downto 0 );
-    M_AXI_GP0_ARPROT : out STD_LOGIC_VECTOR ( 2 downto 0 );
-    M_AXI_GP0_AWPROT : out STD_LOGIC_VECTOR ( 2 downto 0 );
-    M_AXI_GP0_ARADDR : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    M_AXI_GP0_AWADDR : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    M_AXI_GP0_WDATA : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    M_AXI_GP0_ARCACHE : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    M_AXI_GP0_ARLEN : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    M_AXI_GP0_ARQOS : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    M_AXI_GP0_AWCACHE : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    M_AXI_GP0_AWLEN : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    M_AXI_GP0_AWQOS : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    M_AXI_GP0_WSTRB : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    M_AXI_GP0_ACLK : in STD_LOGIC;
-    M_AXI_GP0_ARREADY : in STD_LOGIC;
-    M_AXI_GP0_AWREADY : in STD_LOGIC;
-    M_AXI_GP0_BVALID : in STD_LOGIC;
-    M_AXI_GP0_RLAST : in STD_LOGIC;
-    M_AXI_GP0_RVALID : in STD_LOGIC;
-    M_AXI_GP0_WREADY : in STD_LOGIC;
-    M_AXI_GP0_BID : in STD_LOGIC_VECTOR ( 11 downto 0 );
-    M_AXI_GP0_RID : in STD_LOGIC_VECTOR ( 11 downto 0 );
-    M_AXI_GP0_BRESP : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    M_AXI_GP0_RRESP : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    M_AXI_GP0_RDATA : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    S_AXI_HP0_ARREADY : out STD_LOGIC;
-    S_AXI_HP0_AWREADY : out STD_LOGIC;
-    S_AXI_HP0_BVALID : out STD_LOGIC;
-    S_AXI_HP0_RLAST : out STD_LOGIC;
-    S_AXI_HP0_RVALID : out STD_LOGIC;
-    S_AXI_HP0_WREADY : out STD_LOGIC;
-    S_AXI_HP0_BRESP : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    S_AXI_HP0_RRESP : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    S_AXI_HP0_BID : out STD_LOGIC_VECTOR ( 5 downto 0 );
-    S_AXI_HP0_RID : out STD_LOGIC_VECTOR ( 5 downto 0 );
-    S_AXI_HP0_RDATA : out STD_LOGIC_VECTOR ( 63 downto 0 );
-    S_AXI_HP0_RCOUNT : out STD_LOGIC_VECTOR ( 7 downto 0 );
-    S_AXI_HP0_WCOUNT : out STD_LOGIC_VECTOR ( 7 downto 0 );
-    S_AXI_HP0_RACOUNT : out STD_LOGIC_VECTOR ( 2 downto 0 );
-    S_AXI_HP0_WACOUNT : out STD_LOGIC_VECTOR ( 5 downto 0 );
-    S_AXI_HP0_ACLK : in STD_LOGIC;
-    S_AXI_HP0_ARVALID : in STD_LOGIC;
-    S_AXI_HP0_AWVALID : in STD_LOGIC;
-    S_AXI_HP0_BREADY : in STD_LOGIC;
-    S_AXI_HP0_RDISSUECAP1_EN : in STD_LOGIC;
-    S_AXI_HP0_RREADY : in STD_LOGIC;
-    S_AXI_HP0_WLAST : in STD_LOGIC;
-    S_AXI_HP0_WRISSUECAP1_EN : in STD_LOGIC;
-    S_AXI_HP0_WVALID : in STD_LOGIC;
-    S_AXI_HP0_ARBURST : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    S_AXI_HP0_ARLOCK : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    S_AXI_HP0_ARSIZE : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    S_AXI_HP0_AWBURST : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    S_AXI_HP0_AWLOCK : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    S_AXI_HP0_AWSIZE : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    S_AXI_HP0_ARPROT : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    S_AXI_HP0_AWPROT : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    S_AXI_HP0_ARADDR : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    S_AXI_HP0_AWADDR : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    S_AXI_HP0_ARCACHE : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    S_AXI_HP0_ARLEN : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    S_AXI_HP0_ARQOS : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    S_AXI_HP0_AWCACHE : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    S_AXI_HP0_AWLEN : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    S_AXI_HP0_AWQOS : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    S_AXI_HP0_ARID : in STD_LOGIC_VECTOR ( 5 downto 0 );
-    S_AXI_HP0_AWID : in STD_LOGIC_VECTOR ( 5 downto 0 );
-    S_AXI_HP0_WID : in STD_LOGIC_VECTOR ( 5 downto 0 );
-    S_AXI_HP0_WDATA : in STD_LOGIC_VECTOR ( 63 downto 0 );
-    S_AXI_HP0_WSTRB : in STD_LOGIC_VECTOR ( 7 downto 0 );
-    IRQ_F2P : in STD_LOGIC_VECTOR ( 5 downto 0 );
-    DMA0_DATYPE : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    DMA0_DAVALID : out STD_LOGIC;
-    DMA0_DRREADY : out STD_LOGIC;
-    DMA1_DATYPE : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    DMA1_DAVALID : out STD_LOGIC;
-    DMA1_DRREADY : out STD_LOGIC;
-    DMA0_ACLK : in STD_LOGIC;
-    DMA0_DAREADY : in STD_LOGIC;
-    DMA0_DRLAST : in STD_LOGIC;
-    DMA0_DRVALID : in STD_LOGIC;
-    DMA1_ACLK : in STD_LOGIC;
-    DMA1_DAREADY : in STD_LOGIC;
-    DMA1_DRLAST : in STD_LOGIC;
-    DMA1_DRVALID : in STD_LOGIC;
-    DMA0_DRTYPE : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    DMA1_DRTYPE : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    FCLK_CLK0 : out STD_LOGIC;
-    FCLK_CLK1 : out STD_LOGIC;
-    FCLK_CLK2 : out STD_LOGIC;
-    FCLK_RESET0_N : out STD_LOGIC;
-    MIO : inout STD_LOGIC_VECTOR ( 53 downto 0 );
-    DDR_CAS_n : inout STD_LOGIC;
-    DDR_CKE : inout STD_LOGIC;
-    DDR_Clk_n : inout STD_LOGIC;
-    DDR_Clk : inout STD_LOGIC;
-    DDR_CS_n : inout STD_LOGIC;
-    DDR_DRSTB : inout STD_LOGIC;
-    DDR_ODT : inout STD_LOGIC;
-    DDR_RAS_n : inout STD_LOGIC;
-    DDR_WEB : inout STD_LOGIC;
-    DDR_BankAddr : inout STD_LOGIC_VECTOR ( 2 downto 0 );
-    DDR_Addr : inout STD_LOGIC_VECTOR ( 14 downto 0 );
-    DDR_VRN : inout STD_LOGIC;
-    DDR_VRP : inout STD_LOGIC;
-    DDR_DM : inout STD_LOGIC_VECTOR ( 3 downto 0 );
-    DDR_DQ : inout STD_LOGIC_VECTOR ( 31 downto 0 );
-    DDR_DQS_n : inout STD_LOGIC_VECTOR ( 3 downto 0 );
-    DDR_DQS : inout STD_LOGIC_VECTOR ( 3 downto 0 );
-    PS_SRSTB : inout STD_LOGIC;
-    PS_CLK : inout STD_LOGIC;
-    PS_PORB : inout STD_LOGIC
-  );
-  end component system_processing_system7_0_0;
   component system_rst_ps7_0_100M_0 is
   port (
     slowest_sync_clk : in STD_LOGIC;
@@ -5800,7 +5823,9 @@ architecture STRUCTURE of system is
     locked : out STD_LOGIC;
     overflow : out STD_LOGIC;
     underflow : out STD_LOGIC;
-    status : out STD_LOGIC_VECTOR ( 31 downto 0 )
+    fifo_read_level : out STD_LOGIC_VECTOR ( 12 downto 0 );
+    status : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    sof_state_out : out STD_LOGIC
   );
   end component system_v_axi4s_vid_out_0_0;
   component system_v_tc_in_0 is
@@ -5810,6 +5835,7 @@ architecture STRUCTURE of system is
     s_axi_aclk : in STD_LOGIC;
     s_axi_aclken : in STD_LOGIC;
     det_clken : in STD_LOGIC;
+    sof_state : in STD_LOGIC;
     intc_if : out STD_LOGIC_VECTOR ( 31 downto 0 );
     hsync_in : in STD_LOGIC;
     vsync_in : in STD_LOGIC;
@@ -5843,6 +5869,7 @@ architecture STRUCTURE of system is
     s_axi_aclk : in STD_LOGIC;
     s_axi_aclken : in STD_LOGIC;
     gen_clken : in STD_LOGIC;
+    sof_state : in STD_LOGIC;
     hsync_out : out STD_LOGIC;
     hblank_out : out STD_LOGIC;
     vsync_out : out STD_LOGIC;
@@ -5964,29 +5991,6 @@ architecture STRUCTURE of system is
     dout : out STD_LOGIC_VECTOR ( 0 to 0 )
   );
   end component system_xlconstant_1_0;
-  component system_dvi2rgb_1_0 is
-  port (
-    TMDS_Clk_p : in STD_LOGIC;
-    TMDS_Clk_n : in STD_LOGIC;
-    TMDS_Data_p : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    TMDS_Data_n : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    RefClk : in STD_LOGIC;
-    aRst_n : in STD_LOGIC;
-    vid_pData : out STD_LOGIC_VECTOR ( 23 downto 0 );
-    vid_pVDE : out STD_LOGIC;
-    vid_pHSync : out STD_LOGIC;
-    vid_pVSync : out STD_LOGIC;
-    PixelClk : out STD_LOGIC;
-    aPixelClkLckd : out STD_LOGIC;
-    SDA_I : in STD_LOGIC;
-    SDA_O : out STD_LOGIC;
-    SDA_T : out STD_LOGIC;
-    SCL_I : in STD_LOGIC;
-    SCL_O : out STD_LOGIC;
-    SCL_T : out STD_LOGIC;
-    pRst_n : in STD_LOGIC
-  );
-  end component system_dvi2rgb_1_0;
   signal SDATA_I_1 : STD_LOGIC_VECTOR ( 0 to 0 );
   signal Vaux14_1_V_N : STD_LOGIC;
   signal Vaux14_1_V_P : STD_LOGIC;
@@ -6471,10 +6475,12 @@ architecture STRUCTURE of system is
   signal NLW_rst_ps7_0_133M_peripheral_reset_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_v_axi4s_vid_out_0_locked_UNCONNECTED : STD_LOGIC;
   signal NLW_v_axi4s_vid_out_0_overflow_UNCONNECTED : STD_LOGIC;
+  signal NLW_v_axi4s_vid_out_0_sof_state_out_UNCONNECTED : STD_LOGIC;
   signal NLW_v_axi4s_vid_out_0_underflow_UNCONNECTED : STD_LOGIC;
   signal NLW_v_axi4s_vid_out_0_vid_field_id_UNCONNECTED : STD_LOGIC;
   signal NLW_v_axi4s_vid_out_0_vid_hblank_UNCONNECTED : STD_LOGIC;
   signal NLW_v_axi4s_vid_out_0_vid_vblank_UNCONNECTED : STD_LOGIC;
+  signal NLW_v_axi4s_vid_out_0_fifo_read_level_UNCONNECTED : STD_LOGIC_VECTOR ( 12 downto 0 );
   signal NLW_v_axi4s_vid_out_0_status_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal NLW_v_tc_in_intc_if_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal NLW_v_tc_out_fsync_out_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
@@ -6489,79 +6495,79 @@ architecture STRUCTURE of system is
   signal NLW_xadc_wiz_0_eoc_out_UNCONNECTED : STD_LOGIC;
   signal NLW_xadc_wiz_0_eos_out_UNCONNECTED : STD_LOGIC;
   signal NLW_xadc_wiz_0_channel_out_UNCONNECTED : STD_LOGIC_VECTOR ( 4 downto 0 );
-  attribute x_interface_info : string;
-  attribute x_interface_info of DDR_cas_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CAS_N";
-  attribute x_interface_info of DDR_ck_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CK_N";
-  attribute x_interface_info of DDR_ck_p : signal is "xilinx.com:interface:ddrx:1.0 DDR CK_P";
-  attribute x_interface_info of DDR_cke : signal is "xilinx.com:interface:ddrx:1.0 DDR CKE";
-  attribute x_interface_info of DDR_cs_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CS_N";
-  attribute x_interface_info of DDR_odt : signal is "xilinx.com:interface:ddrx:1.0 DDR ODT";
-  attribute x_interface_info of DDR_ras_n : signal is "xilinx.com:interface:ddrx:1.0 DDR RAS_N";
-  attribute x_interface_info of DDR_reset_n : signal is "xilinx.com:interface:ddrx:1.0 DDR RESET_N";
-  attribute x_interface_info of DDR_we_n : signal is "xilinx.com:interface:ddrx:1.0 DDR WE_N";
-  attribute x_interface_info of FIXED_IO_ddr_vrn : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO DDR_VRN";
-  attribute x_interface_parameter : string;
-  attribute x_interface_parameter of FIXED_IO_ddr_vrn : signal is "XIL_INTERFACENAME FIXED_IO, CAN_DEBUG false";
-  attribute x_interface_info of FIXED_IO_ddr_vrp : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO DDR_VRP";
-  attribute x_interface_info of FIXED_IO_ps_clk : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_CLK";
-  attribute x_interface_info of FIXED_IO_ps_porb : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_PORB";
-  attribute x_interface_info of FIXED_IO_ps_srstb : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_SRSTB";
-  attribute x_interface_info of Vaux14_v_n : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux14 V_N";
-  attribute x_interface_info of Vaux14_v_p : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux14 V_P";
-  attribute x_interface_info of Vaux15_v_n : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux15 V_N";
-  attribute x_interface_info of Vaux15_v_p : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux15 V_P";
-  attribute x_interface_info of Vaux6_v_n : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux6 V_N";
-  attribute x_interface_info of Vaux6_v_p : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux6 V_P";
-  attribute x_interface_info of Vaux7_v_n : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux7 V_N";
-  attribute x_interface_info of Vaux7_v_p : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux7 V_P";
-  attribute x_interface_info of Vp_Vn_v_n : signal is "xilinx.com:interface:diff_analog_io:1.0 Vp_Vn V_N";
-  attribute x_interface_info of Vp_Vn_v_p : signal is "xilinx.com:interface:diff_analog_io:1.0 Vp_Vn V_P";
-  attribute x_interface_info of ac_iic_scl_i : signal is "xilinx.com:interface:iic:1.0 ac_iic SCL_I";
-  attribute x_interface_info of ac_iic_scl_o : signal is "xilinx.com:interface:iic:1.0 ac_iic SCL_O";
-  attribute x_interface_info of ac_iic_scl_t : signal is "xilinx.com:interface:iic:1.0 ac_iic SCL_T";
-  attribute x_interface_info of ac_iic_sda_i : signal is "xilinx.com:interface:iic:1.0 ac_iic SDA_I";
-  attribute x_interface_info of ac_iic_sda_o : signal is "xilinx.com:interface:iic:1.0 ac_iic SDA_O";
-  attribute x_interface_info of ac_iic_sda_t : signal is "xilinx.com:interface:iic:1.0 ac_iic SDA_T";
-  attribute x_interface_info of ac_mclk : signal is "xilinx.com:signal:clock:1.0 CLK.AC_MCLK CLK";
-  attribute x_interface_parameter of ac_mclk : signal is "XIL_INTERFACENAME CLK.AC_MCLK, CLK_DOMAIN /clk_wiz_0_clk_out1, FREQ_HZ 12000000, PHASE 0.0";
-  attribute x_interface_info of hdmi_in_clk_n : signal is "digilentinc.com:interface:tmds:1.0 hdmi_in CLK_N";
-  attribute x_interface_info of hdmi_in_clk_p : signal is "digilentinc.com:interface:tmds:1.0 hdmi_in CLK_P";
-  attribute x_interface_info of hdmi_in_ddc_scl_i : signal is "xilinx.com:interface:iic:1.0 hdmi_in_ddc SCL_I";
-  attribute x_interface_info of hdmi_in_ddc_scl_o : signal is "xilinx.com:interface:iic:1.0 hdmi_in_ddc SCL_O";
-  attribute x_interface_info of hdmi_in_ddc_scl_t : signal is "xilinx.com:interface:iic:1.0 hdmi_in_ddc SCL_T";
-  attribute x_interface_info of hdmi_in_ddc_sda_i : signal is "xilinx.com:interface:iic:1.0 hdmi_in_ddc SDA_I";
-  attribute x_interface_info of hdmi_in_ddc_sda_o : signal is "xilinx.com:interface:iic:1.0 hdmi_in_ddc SDA_O";
-  attribute x_interface_info of hdmi_in_ddc_sda_t : signal is "xilinx.com:interface:iic:1.0 hdmi_in_ddc SDA_T";
-  attribute x_interface_info of hdmi_out_clk_n : signal is "digilentinc.com:interface:tmds:1.0 hdmi_out CLK_N";
-  attribute x_interface_info of hdmi_out_clk_p : signal is "digilentinc.com:interface:tmds:1.0 hdmi_out CLK_P";
-  attribute x_interface_info of hdmi_out_ddc_scl_i : signal is "xilinx.com:interface:iic:1.0 hdmi_out_ddc SCL_I";
-  attribute x_interface_info of hdmi_out_ddc_scl_o : signal is "xilinx.com:interface:iic:1.0 hdmi_out_ddc SCL_O";
-  attribute x_interface_info of hdmi_out_ddc_scl_t : signal is "xilinx.com:interface:iic:1.0 hdmi_out_ddc SCL_T";
-  attribute x_interface_info of hdmi_out_ddc_sda_i : signal is "xilinx.com:interface:iic:1.0 hdmi_out_ddc SDA_I";
-  attribute x_interface_info of hdmi_out_ddc_sda_o : signal is "xilinx.com:interface:iic:1.0 hdmi_out_ddc SDA_O";
-  attribute x_interface_info of hdmi_out_ddc_sda_t : signal is "xilinx.com:interface:iic:1.0 hdmi_out_ddc SDA_T";
-  attribute x_interface_info of sys_clock : signal is "xilinx.com:signal:clock:1.0 CLK.SYS_CLOCK CLK";
-  attribute x_interface_parameter of sys_clock : signal is "XIL_INTERFACENAME CLK.SYS_CLOCK, CLK_DOMAIN system_sys_clock, FREQ_HZ 125000000, PHASE 0.000";
-  attribute x_interface_info of DDR_addr : signal is "xilinx.com:interface:ddrx:1.0 DDR ADDR";
-  attribute x_interface_parameter of DDR_addr : signal is "XIL_INTERFACENAME DDR, AXI_ARBITRATION_SCHEME TDM, BURST_LENGTH 8, CAN_DEBUG false, CAS_LATENCY 11, CAS_WRITE_LATENCY 11, CS_ENABLED true, DATA_MASK_ENABLED true, DATA_WIDTH 8, MEMORY_TYPE COMPONENTS, MEM_ADDR_MAP ROW_COLUMN_BANK, SLOT Single, TIMEPERIOD_PS 1250";
-  attribute x_interface_info of DDR_ba : signal is "xilinx.com:interface:ddrx:1.0 DDR BA";
-  attribute x_interface_info of DDR_dm : signal is "xilinx.com:interface:ddrx:1.0 DDR DM";
-  attribute x_interface_info of DDR_dq : signal is "xilinx.com:interface:ddrx:1.0 DDR DQ";
-  attribute x_interface_info of DDR_dqs_n : signal is "xilinx.com:interface:ddrx:1.0 DDR DQS_N";
-  attribute x_interface_info of DDR_dqs_p : signal is "xilinx.com:interface:ddrx:1.0 DDR DQS_P";
-  attribute x_interface_info of FIXED_IO_mio : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO MIO";
-  attribute x_interface_info of btns_4bits_tri_i : signal is "xilinx.com:interface:gpio:1.0 btns_4bits TRI_I";
-  attribute x_interface_info of eth_rst_b_tri_i : signal is "xilinx.com:interface:gpio:1.0 eth_rst_b TRI_I";
-  attribute x_interface_info of eth_rst_b_tri_o : signal is "xilinx.com:interface:gpio:1.0 eth_rst_b TRI_O";
-  attribute x_interface_info of eth_rst_b_tri_t : signal is "xilinx.com:interface:gpio:1.0 eth_rst_b TRI_T";
-  attribute x_interface_info of hdmi_in_data_n : signal is "digilentinc.com:interface:tmds:1.0 hdmi_in DATA_N";
-  attribute x_interface_info of hdmi_in_data_p : signal is "digilentinc.com:interface:tmds:1.0 hdmi_in DATA_P";
-  attribute x_interface_info of hdmi_out_data_n : signal is "digilentinc.com:interface:tmds:1.0 hdmi_out DATA_N";
-  attribute x_interface_info of hdmi_out_data_p : signal is "digilentinc.com:interface:tmds:1.0 hdmi_out DATA_P";
-  attribute x_interface_info of leds_4bits_tri_i : signal is "xilinx.com:interface:gpio:1.0 leds_4bits TRI_I";
-  attribute x_interface_info of leds_4bits_tri_o : signal is "xilinx.com:interface:gpio:1.0 leds_4bits TRI_O";
-  attribute x_interface_info of leds_4bits_tri_t : signal is "xilinx.com:interface:gpio:1.0 leds_4bits TRI_T";
-  attribute x_interface_info of sws_4bits_tri_i : signal is "xilinx.com:interface:gpio:1.0 sws_4bits TRI_I";
+  attribute X_INTERFACE_INFO : string;
+  attribute X_INTERFACE_INFO of DDR_cas_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CAS_N";
+  attribute X_INTERFACE_INFO of DDR_ck_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CK_N";
+  attribute X_INTERFACE_INFO of DDR_ck_p : signal is "xilinx.com:interface:ddrx:1.0 DDR CK_P";
+  attribute X_INTERFACE_INFO of DDR_cke : signal is "xilinx.com:interface:ddrx:1.0 DDR CKE";
+  attribute X_INTERFACE_INFO of DDR_cs_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CS_N";
+  attribute X_INTERFACE_INFO of DDR_odt : signal is "xilinx.com:interface:ddrx:1.0 DDR ODT";
+  attribute X_INTERFACE_INFO of DDR_ras_n : signal is "xilinx.com:interface:ddrx:1.0 DDR RAS_N";
+  attribute X_INTERFACE_INFO of DDR_reset_n : signal is "xilinx.com:interface:ddrx:1.0 DDR RESET_N";
+  attribute X_INTERFACE_INFO of DDR_we_n : signal is "xilinx.com:interface:ddrx:1.0 DDR WE_N";
+  attribute X_INTERFACE_INFO of FIXED_IO_ddr_vrn : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO DDR_VRN";
+  attribute X_INTERFACE_PARAMETER : string;
+  attribute X_INTERFACE_PARAMETER of FIXED_IO_ddr_vrn : signal is "XIL_INTERFACENAME FIXED_IO, CAN_DEBUG false";
+  attribute X_INTERFACE_INFO of FIXED_IO_ddr_vrp : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO DDR_VRP";
+  attribute X_INTERFACE_INFO of FIXED_IO_ps_clk : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_CLK";
+  attribute X_INTERFACE_INFO of FIXED_IO_ps_porb : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_PORB";
+  attribute X_INTERFACE_INFO of FIXED_IO_ps_srstb : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_SRSTB";
+  attribute X_INTERFACE_INFO of Vaux14_v_n : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux14 V_N";
+  attribute X_INTERFACE_INFO of Vaux14_v_p : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux14 V_P";
+  attribute X_INTERFACE_INFO of Vaux15_v_n : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux15 V_N";
+  attribute X_INTERFACE_INFO of Vaux15_v_p : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux15 V_P";
+  attribute X_INTERFACE_INFO of Vaux6_v_n : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux6 V_N";
+  attribute X_INTERFACE_INFO of Vaux6_v_p : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux6 V_P";
+  attribute X_INTERFACE_INFO of Vaux7_v_n : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux7 V_N";
+  attribute X_INTERFACE_INFO of Vaux7_v_p : signal is "xilinx.com:interface:diff_analog_io:1.0 Vaux7 V_P";
+  attribute X_INTERFACE_INFO of Vp_Vn_v_n : signal is "xilinx.com:interface:diff_analog_io:1.0 Vp_Vn V_N";
+  attribute X_INTERFACE_INFO of Vp_Vn_v_p : signal is "xilinx.com:interface:diff_analog_io:1.0 Vp_Vn V_P";
+  attribute X_INTERFACE_INFO of ac_iic_scl_i : signal is "xilinx.com:interface:iic:1.0 ac_iic SCL_I";
+  attribute X_INTERFACE_INFO of ac_iic_scl_o : signal is "xilinx.com:interface:iic:1.0 ac_iic SCL_O";
+  attribute X_INTERFACE_INFO of ac_iic_scl_t : signal is "xilinx.com:interface:iic:1.0 ac_iic SCL_T";
+  attribute X_INTERFACE_INFO of ac_iic_sda_i : signal is "xilinx.com:interface:iic:1.0 ac_iic SDA_I";
+  attribute X_INTERFACE_INFO of ac_iic_sda_o : signal is "xilinx.com:interface:iic:1.0 ac_iic SDA_O";
+  attribute X_INTERFACE_INFO of ac_iic_sda_t : signal is "xilinx.com:interface:iic:1.0 ac_iic SDA_T";
+  attribute X_INTERFACE_INFO of ac_mclk : signal is "xilinx.com:signal:clock:1.0 CLK.AC_MCLK CLK";
+  attribute X_INTERFACE_PARAMETER of ac_mclk : signal is "XIL_INTERFACENAME CLK.AC_MCLK, CLK_DOMAIN /clk_wiz_0_clk_out1, FREQ_HZ 12000000, FREQ_TOLERANCE_HZ 0, INSERT_VIP 0, PHASE 0.0";
+  attribute X_INTERFACE_INFO of hdmi_in_clk_n : signal is "digilentinc.com:interface:tmds:1.0 hdmi_in CLK_N";
+  attribute X_INTERFACE_INFO of hdmi_in_clk_p : signal is "digilentinc.com:interface:tmds:1.0 hdmi_in CLK_P";
+  attribute X_INTERFACE_INFO of hdmi_in_ddc_scl_i : signal is "xilinx.com:interface:iic:1.0 hdmi_in_ddc SCL_I";
+  attribute X_INTERFACE_INFO of hdmi_in_ddc_scl_o : signal is "xilinx.com:interface:iic:1.0 hdmi_in_ddc SCL_O";
+  attribute X_INTERFACE_INFO of hdmi_in_ddc_scl_t : signal is "xilinx.com:interface:iic:1.0 hdmi_in_ddc SCL_T";
+  attribute X_INTERFACE_INFO of hdmi_in_ddc_sda_i : signal is "xilinx.com:interface:iic:1.0 hdmi_in_ddc SDA_I";
+  attribute X_INTERFACE_INFO of hdmi_in_ddc_sda_o : signal is "xilinx.com:interface:iic:1.0 hdmi_in_ddc SDA_O";
+  attribute X_INTERFACE_INFO of hdmi_in_ddc_sda_t : signal is "xilinx.com:interface:iic:1.0 hdmi_in_ddc SDA_T";
+  attribute X_INTERFACE_INFO of hdmi_out_clk_n : signal is "digilentinc.com:interface:tmds:1.0 hdmi_out CLK_N";
+  attribute X_INTERFACE_INFO of hdmi_out_clk_p : signal is "digilentinc.com:interface:tmds:1.0 hdmi_out CLK_P";
+  attribute X_INTERFACE_INFO of hdmi_out_ddc_scl_i : signal is "xilinx.com:interface:iic:1.0 hdmi_out_ddc SCL_I";
+  attribute X_INTERFACE_INFO of hdmi_out_ddc_scl_o : signal is "xilinx.com:interface:iic:1.0 hdmi_out_ddc SCL_O";
+  attribute X_INTERFACE_INFO of hdmi_out_ddc_scl_t : signal is "xilinx.com:interface:iic:1.0 hdmi_out_ddc SCL_T";
+  attribute X_INTERFACE_INFO of hdmi_out_ddc_sda_i : signal is "xilinx.com:interface:iic:1.0 hdmi_out_ddc SDA_I";
+  attribute X_INTERFACE_INFO of hdmi_out_ddc_sda_o : signal is "xilinx.com:interface:iic:1.0 hdmi_out_ddc SDA_O";
+  attribute X_INTERFACE_INFO of hdmi_out_ddc_sda_t : signal is "xilinx.com:interface:iic:1.0 hdmi_out_ddc SDA_T";
+  attribute X_INTERFACE_INFO of sys_clock : signal is "xilinx.com:signal:clock:1.0 CLK.SYS_CLOCK CLK";
+  attribute X_INTERFACE_PARAMETER of sys_clock : signal is "XIL_INTERFACENAME CLK.SYS_CLOCK, CLK_DOMAIN system_sys_clock, FREQ_HZ 125000000, FREQ_TOLERANCE_HZ 0, INSERT_VIP 0, PHASE 0.000";
+  attribute X_INTERFACE_INFO of DDR_addr : signal is "xilinx.com:interface:ddrx:1.0 DDR ADDR";
+  attribute X_INTERFACE_PARAMETER of DDR_addr : signal is "XIL_INTERFACENAME DDR, AXI_ARBITRATION_SCHEME TDM, BURST_LENGTH 8, CAN_DEBUG false, CAS_LATENCY 11, CAS_WRITE_LATENCY 11, CS_ENABLED true, DATA_MASK_ENABLED true, DATA_WIDTH 8, MEMORY_TYPE COMPONENTS, MEM_ADDR_MAP ROW_COLUMN_BANK, SLOT Single, TIMEPERIOD_PS 1250";
+  attribute X_INTERFACE_INFO of DDR_ba : signal is "xilinx.com:interface:ddrx:1.0 DDR BA";
+  attribute X_INTERFACE_INFO of DDR_dm : signal is "xilinx.com:interface:ddrx:1.0 DDR DM";
+  attribute X_INTERFACE_INFO of DDR_dq : signal is "xilinx.com:interface:ddrx:1.0 DDR DQ";
+  attribute X_INTERFACE_INFO of DDR_dqs_n : signal is "xilinx.com:interface:ddrx:1.0 DDR DQS_N";
+  attribute X_INTERFACE_INFO of DDR_dqs_p : signal is "xilinx.com:interface:ddrx:1.0 DDR DQS_P";
+  attribute X_INTERFACE_INFO of FIXED_IO_mio : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO MIO";
+  attribute X_INTERFACE_INFO of btns_4bits_tri_i : signal is "xilinx.com:interface:gpio:1.0 btns_4bits TRI_I";
+  attribute X_INTERFACE_INFO of eth_rst_b_tri_i : signal is "xilinx.com:interface:gpio:1.0 eth_rst_b TRI_I";
+  attribute X_INTERFACE_INFO of eth_rst_b_tri_o : signal is "xilinx.com:interface:gpio:1.0 eth_rst_b TRI_O";
+  attribute X_INTERFACE_INFO of eth_rst_b_tri_t : signal is "xilinx.com:interface:gpio:1.0 eth_rst_b TRI_T";
+  attribute X_INTERFACE_INFO of hdmi_in_data_n : signal is "digilentinc.com:interface:tmds:1.0 hdmi_in DATA_N";
+  attribute X_INTERFACE_INFO of hdmi_in_data_p : signal is "digilentinc.com:interface:tmds:1.0 hdmi_in DATA_P";
+  attribute X_INTERFACE_INFO of hdmi_out_data_n : signal is "digilentinc.com:interface:tmds:1.0 hdmi_out DATA_N";
+  attribute X_INTERFACE_INFO of hdmi_out_data_p : signal is "digilentinc.com:interface:tmds:1.0 hdmi_out DATA_P";
+  attribute X_INTERFACE_INFO of leds_4bits_tri_i : signal is "xilinx.com:interface:gpio:1.0 leds_4bits TRI_I";
+  attribute X_INTERFACE_INFO of leds_4bits_tri_o : signal is "xilinx.com:interface:gpio:1.0 leds_4bits TRI_O";
+  attribute X_INTERFACE_INFO of leds_4bits_tri_t : signal is "xilinx.com:interface:gpio:1.0 leds_4bits TRI_T";
+  attribute X_INTERFACE_INFO of sws_4bits_tri_i : signal is "xilinx.com:interface:gpio:1.0 sws_4bits TRI_I";
 begin
   SDATA_I_1(0) <= ac_recdat(0);
   Vaux14_1_V_N <= Vaux14_v_n;
@@ -7533,6 +7539,7 @@ v_axi4s_vid_out_0: component system_v_axi4s_vid_out_0_0
       aclken => '1',
       aresetn => xlconstant_0_dout(0),
       fid => '0',
+      fifo_read_level(12 downto 0) => NLW_v_axi4s_vid_out_0_fifo_read_level_UNCONNECTED(12 downto 0),
       locked => NLW_v_axi4s_vid_out_0_locked_UNCONNECTED,
       overflow => NLW_v_axi4s_vid_out_0_overflow_UNCONNECTED,
       s_axis_video_tdata(23 downto 0) => axis_subset_converter_out_M_AXIS_TDATA(23 downto 0),
@@ -7540,6 +7547,7 @@ v_axi4s_vid_out_0: component system_v_axi4s_vid_out_0_0
       s_axis_video_tready => axis_subset_converter_out_M_AXIS_TREADY,
       s_axis_video_tuser => axis_subset_converter_out_M_AXIS_TUSER(0),
       s_axis_video_tvalid => axis_subset_converter_out_M_AXIS_TVALID,
+      sof_state_out => NLW_v_axi4s_vid_out_0_sof_state_out_UNCONNECTED,
       status(31 downto 0) => NLW_v_axi4s_vid_out_0_status_UNCONNECTED(31 downto 0),
       underflow => NLW_v_axi4s_vid_out_0_underflow_UNCONNECTED,
       vid_active_video => v_axi4s_vid_out_0_vid_io_out_ACTIVE_VIDEO,
@@ -7590,6 +7598,7 @@ v_tc_in: component system_v_tc_in_0
       s_axi_wready => ps7_0_axi_periph_M01_AXI_WREADY,
       s_axi_wstrb(3 downto 0) => ps7_0_axi_periph_M01_AXI_WSTRB(3 downto 0),
       s_axi_wvalid => ps7_0_axi_periph_M01_AXI_WVALID,
+      sof_state => '0',
       vsync_in => v_vid_in_axi4s_0_vtiming_out_VSYNC
     );
 v_tc_out: component system_v_tc_out_0
@@ -7624,6 +7633,7 @@ v_tc_out: component system_v_tc_out_0
       s_axi_wready => ps7_0_axi_periph_M02_AXI_WREADY,
       s_axi_wstrb(3 downto 0) => ps7_0_axi_periph_M02_AXI_WSTRB(3 downto 0),
       s_axi_wvalid => ps7_0_axi_periph_M02_AXI_WVALID,
+      sof_state => '0',
       vblank_out => v_tc_1_vtiming_out_VBLANK,
       vsync_out => v_tc_1_vtiming_out_VSYNC
     );
