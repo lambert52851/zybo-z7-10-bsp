@@ -100,7 +100,7 @@ CONFIG_system-zynq=y
 #
 # dnf
 #
-CONFIG_dnf=y
+# CONFIG_dnf is not set
 
 #
 # e2fsprogs 
@@ -2499,16 +2499,16 @@ CONFIG_packagegroup-core-boot=y
 #
 # packagegroup-core-buildessential 
 #
-CONFIG_packagegroup-core-buildessential=y
+# CONFIG_packagegroup-core-buildessential is not set
 # CONFIG_packagegroup-core-buildessential-dev is not set
 # CONFIG_packagegroup-core-buildessential-dbg is not set
 
 #
 # packagegroup-core-sdk 
 #
-CONFIG_packagegroup-core-sdk=y
-CONFIG_packagegroup-core-sdk-dbg=y
-CONFIG_packagegroup-core-sdk-dev=y
+# CONFIG_packagegroup-core-sdk is not set
+# CONFIG_packagegroup-core-sdk-dbg is not set
+# CONFIG_packagegroup-core-sdk-dev is not set
 
 #
 # packagegroup-core-ssh-dropbear 
@@ -2520,9 +2520,9 @@ CONFIG_packagegroup-core-ssh-dropbear=y
 #
 # packagegroup-core-standalone-sdk-target 
 #
-CONFIG_packagegroup-core-standalone-sdk-target=y
-CONFIG_packagegroup-core-standalone-sdk-target-dev=y
-CONFIG_packagegroup-core-standalone-sdk-target-dbg=y
+# CONFIG_packagegroup-core-standalone-sdk-target is not set
+# CONFIG_packagegroup-core-standalone-sdk-target-dev is not set
+# CONFIG_packagegroup-core-standalone-sdk-target-dbg is not set
 
 #
 # packagegroup-core-tools-debug 
@@ -2572,7 +2572,7 @@ CONFIG_packagegroup-core-standalone-sdk-target-dbg=y
 #
 # packagegroup-self-hosted 
 #
-CONFIG_packagegroup-self-hosted=y
+# CONFIG_packagegroup-self-hosted is not set
 # CONFIG_packagegroup-self-hosted-extended-dev is not set
 # CONFIG_packagegroup-self-hosted-debug-dev is not set
 # CONFIG_packagegroup-self-hosted-dev is not set
@@ -3759,7 +3759,7 @@ CONFIG_u-boot-tools=y
 #
 # packagegroup-petalinux 
 #
-# CONFIG_packagegroup-petalinux is not set
+CONFIG_packagegroup-petalinux=y
 # CONFIG_packagegroup-petalinux-dev is not set
 # CONFIG_packagegroup-petalinux-dbg is not set
 
@@ -3780,7 +3780,7 @@ CONFIG_u-boot-tools=y
 #
 # packagegroup-petalinux-lmsensors 
 #
-# CONFIG_packagegroup-petalinux-lmsensors is not set
+CONFIG_packagegroup-petalinux-lmsensors=y
 # CONFIG_packagegroup-petalinux-lmsensors-dbg is not set
 # CONFIG_packagegroup-petalinux-lmsensors-dev is not set
 
@@ -3858,16 +3858,16 @@ CONFIG_u-boot-tools=y
 #
 # packagegroup-petalinux-v4lutils 
 #
-# CONFIG_packagegroup-petalinux-v4lutils is not set
-# CONFIG_packagegroup-petalinux-v4lutils-dbg is not set
-# CONFIG_packagegroup-petalinux-v4lutils-dev is not set
+CONFIG_packagegroup-petalinux-v4lutils=y
+CONFIG_packagegroup-petalinux-v4lutils-dbg=y
+CONFIG_packagegroup-petalinux-v4lutils-dev=y
 
 #
 # packagegroup-petalinux-x11 
 #
-# CONFIG_packagegroup-petalinux-x11 is not set
-# CONFIG_packagegroup-petalinux-x11-dbg is not set
-# CONFIG_packagegroup-petalinux-x11-dev is not set
+CONFIG_packagegroup-petalinux-x11=y
+CONFIG_packagegroup-petalinux-x11-dbg=y
+CONFIG_packagegroup-petalinux-x11-dev=y
 
 #
 # Image Features

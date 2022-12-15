@@ -1,10 +1,10 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-// Date        : Wed Dec 14 20:37:18 2022
+// Date        : Wed Dec 14 20:37:16 2022
 // Host        : linux-hyper running 64-bit Ubuntu 18.04.5 LTS
-// Command     : write_verilog -force -mode synth_stub
-//               /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_s00_regslice_0/system_s00_regslice_0_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top system_s00_regslice_0 -prefix
+//               system_s00_regslice_0_ system_s00_regslice_0_stub.v
 // Design      : system_s00_regslice_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7z010clg400-1

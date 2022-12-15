@@ -1,8 +1,8 @@
 --Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
---Date        : Wed Dec 14 20:29:06 2022
---Host        : linux-hyper running 64-bit Ubuntu 18.04.5 LTS
+--Date        : Thu Dec 15 22:35:49 2022
+--Host        : linux running 64-bit Ubuntu 20.04.3 LTS
 --Command     : generate_target system_wrapper.bd
 --Design      : system_wrapper
 --Purpose     : IP block netlist
@@ -78,6 +78,44 @@ end system_wrapper;
 architecture STRUCTURE of system_wrapper is
   component system is
   port (
+    ac_recdat : in STD_LOGIC_VECTOR ( 0 to 0 );
+    hdmi_in_hpd : out STD_LOGIC_VECTOR ( 0 to 0 );
+    ac_bclk : out STD_LOGIC_VECTOR ( 0 to 0 );
+    ac_reclrc : out STD_LOGIC_VECTOR ( 0 to 0 );
+    ac_pblrc : out STD_LOGIC_VECTOR ( 0 to 0 );
+    ac_pbdat : out STD_LOGIC_VECTOR ( 0 to 0 );
+    ac_mclk : out STD_LOGIC;
+    sys_clock : in STD_LOGIC;
+    ac_muten : out STD_LOGIC_VECTOR ( 0 to 0 );
+    pwm_rgb : out STD_LOGIC_VECTOR ( 2 downto 0 );
+    Vaux14_v_n : in STD_LOGIC;
+    Vaux14_v_p : in STD_LOGIC;
+    Vaux15_v_n : in STD_LOGIC;
+    Vaux15_v_p : in STD_LOGIC;
+    Vaux6_v_n : in STD_LOGIC;
+    Vaux6_v_p : in STD_LOGIC;
+    Vaux7_v_n : in STD_LOGIC;
+    Vaux7_v_p : in STD_LOGIC;
+    Vp_Vn_v_n : in STD_LOGIC;
+    Vp_Vn_v_p : in STD_LOGIC;
+    sws_4bits_tri_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    leds_4bits_tri_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    leds_4bits_tri_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    leds_4bits_tri_t : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    btns_4bits_tri_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    eth_rst_b_tri_i : in STD_LOGIC_VECTOR ( 0 to 0 );
+    eth_rst_b_tri_o : out STD_LOGIC_VECTOR ( 0 to 0 );
+    eth_rst_b_tri_t : out STD_LOGIC_VECTOR ( 0 to 0 );
+    hdmi_in_ddc_scl_i : in STD_LOGIC;
+    hdmi_in_ddc_scl_o : out STD_LOGIC;
+    hdmi_in_ddc_scl_t : out STD_LOGIC;
+    hdmi_in_ddc_sda_i : in STD_LOGIC;
+    hdmi_in_ddc_sda_o : out STD_LOGIC;
+    hdmi_in_ddc_sda_t : out STD_LOGIC;
+    hdmi_in_clk_p : in STD_LOGIC;
+    hdmi_in_clk_n : in STD_LOGIC;
+    hdmi_in_data_p : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    hdmi_in_data_n : in STD_LOGIC_VECTOR ( 2 downto 0 );
     DDR_cas_n : inout STD_LOGIC;
     DDR_cke : inout STD_LOGIC;
     DDR_ck_n : inout STD_LOGIC;
@@ -99,60 +137,22 @@ architecture STRUCTURE of system_wrapper is
     FIXED_IO_ps_srstb : inout STD_LOGIC;
     FIXED_IO_ps_clk : inout STD_LOGIC;
     FIXED_IO_ps_porb : inout STD_LOGIC;
-    Vaux6_v_n : in STD_LOGIC;
-    Vaux6_v_p : in STD_LOGIC;
-    Vaux7_v_n : in STD_LOGIC;
-    Vaux7_v_p : in STD_LOGIC;
-    Vaux14_v_n : in STD_LOGIC;
-    Vaux14_v_p : in STD_LOGIC;
-    Vaux15_v_n : in STD_LOGIC;
-    Vaux15_v_p : in STD_LOGIC;
-    Vp_Vn_v_n : in STD_LOGIC;
-    Vp_Vn_v_p : in STD_LOGIC;
-    ac_iic_sda_i : in STD_LOGIC;
-    ac_iic_sda_o : out STD_LOGIC;
-    ac_iic_sda_t : out STD_LOGIC;
-    ac_iic_scl_i : in STD_LOGIC;
-    ac_iic_scl_o : out STD_LOGIC;
-    ac_iic_scl_t : out STD_LOGIC;
-    btns_4bits_tri_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    eth_rst_b_tri_i : in STD_LOGIC_VECTOR ( 0 to 0 );
-    eth_rst_b_tri_o : out STD_LOGIC_VECTOR ( 0 to 0 );
-    eth_rst_b_tri_t : out STD_LOGIC_VECTOR ( 0 to 0 );
-    hdmi_in_clk_p : in STD_LOGIC;
-    hdmi_in_clk_n : in STD_LOGIC;
-    hdmi_in_data_p : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    hdmi_in_data_n : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    hdmi_in_ddc_scl_i : in STD_LOGIC;
-    hdmi_in_ddc_scl_o : out STD_LOGIC;
-    hdmi_in_ddc_scl_t : out STD_LOGIC;
-    hdmi_in_ddc_sda_i : in STD_LOGIC;
-    hdmi_in_ddc_sda_o : out STD_LOGIC;
-    hdmi_in_ddc_sda_t : out STD_LOGIC;
-    hdmi_out_clk_p : out STD_LOGIC;
-    hdmi_out_clk_n : out STD_LOGIC;
-    hdmi_out_data_p : out STD_LOGIC_VECTOR ( 2 downto 0 );
-    hdmi_out_data_n : out STD_LOGIC_VECTOR ( 2 downto 0 );
     hdmi_out_ddc_sda_i : in STD_LOGIC;
     hdmi_out_ddc_sda_o : out STD_LOGIC;
     hdmi_out_ddc_sda_t : out STD_LOGIC;
     hdmi_out_ddc_scl_i : in STD_LOGIC;
     hdmi_out_ddc_scl_o : out STD_LOGIC;
     hdmi_out_ddc_scl_t : out STD_LOGIC;
-    leds_4bits_tri_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    leds_4bits_tri_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    leds_4bits_tri_t : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    sws_4bits_tri_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    ac_recdat : in STD_LOGIC_VECTOR ( 0 to 0 );
-    hdmi_in_hpd : out STD_LOGIC_VECTOR ( 0 to 0 );
-    ac_bclk : out STD_LOGIC_VECTOR ( 0 to 0 );
-    ac_reclrc : out STD_LOGIC_VECTOR ( 0 to 0 );
-    ac_pblrc : out STD_LOGIC_VECTOR ( 0 to 0 );
-    ac_pbdat : out STD_LOGIC_VECTOR ( 0 to 0 );
-    ac_mclk : out STD_LOGIC;
-    sys_clock : in STD_LOGIC;
-    ac_muten : out STD_LOGIC_VECTOR ( 0 to 0 );
-    pwm_rgb : out STD_LOGIC_VECTOR ( 2 downto 0 )
+    ac_iic_sda_i : in STD_LOGIC;
+    ac_iic_sda_o : out STD_LOGIC;
+    ac_iic_sda_t : out STD_LOGIC;
+    ac_iic_scl_i : in STD_LOGIC;
+    ac_iic_scl_o : out STD_LOGIC;
+    ac_iic_scl_t : out STD_LOGIC;
+    hdmi_out_clk_p : out STD_LOGIC;
+    hdmi_out_clk_n : out STD_LOGIC;
+    hdmi_out_data_p : out STD_LOGIC_VECTOR ( 2 downto 0 );
+    hdmi_out_data_n : out STD_LOGIC_VECTOR ( 2 downto 0 )
   );
   end component system;
   component IOBUF is

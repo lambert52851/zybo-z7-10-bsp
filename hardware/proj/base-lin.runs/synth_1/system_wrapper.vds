@@ -2,29 +2,34 @@
 # Vivado v2022.1 (64-bit)
 # SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
 # IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
-# Start of session at: Wed Dec 14 20:40:03 2022
-# Process ID: 14601
+# Start of session at: Thu Dec 15 23:05:12 2022
+# Process ID: 1038416
 # Current directory: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1
 # Command line: vivado -log system_wrapper.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source system_wrapper.tcl
 # Log file: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/system_wrapper.vds
 # Journal file: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/vivado.jou
-# Running On: linux-hyper, OS: Linux, CPU Frequency: 4090.970 MHz, CPU Physical cores: 12, Host memory: 27502 MB
+# Running On: linux, OS: Linux, CPU Frequency: 2200.000 MHz, CPU Physical cores: 12, Host memory: 33590 MB
 #-----------------------------------------------------------
 source system_wrapper.tcl -notrace
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/repo'.
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/linux/work/03.install_path/Vivado/2022.1/data/ip'.
+Command: read_checkpoint -auto_incremental -incremental /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.srcs/utils_1/imports/synth_1/system_wrapper.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.srcs/utils_1/imports/synth_1/system_wrapper.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
 Command: synth_design -top system_wrapper -part xc7z010clg400-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7z010'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z010'
 INFO: [Device 21-403] Loading part xc7z010clg400-1
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 14658
+INFO: [Synth 8-7075] Helper process launched with PID 1038502
 WARNING: [Synth 8-9501] generate block is allowed only inside loop and conditional generate in SystemVerilog mode [/home/linux/work/03.install_path/Vivado/2022.1/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:4023]
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2722.875 ; gain = 0.000 ; free physical = 12041 ; free virtual = 14088
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2696.848 ; gain = 0.000 ; free physical = 422 ; free virtual = 16705
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'system_wrapper' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/hdl/system_wrapper.vhd:78]
 INFO: [Synth 8-3491] module 'IOBUF' declared at '/home/linux/work/03.install_path/Vivado/2022.1/scripts/rt/data/unisim_comp.v:59734' bound to instance 'ac_iic_scl_iobuf' of component 'IOBUF' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/hdl/system_wrapper.vhd:205]
@@ -42,52 +47,52 @@ INFO: [Synth 8-3491] module 'IOBUF' declared at '/home/linux/work/03.install_pat
 INFO: [Synth 8-3491] module 'IOBUF' declared at '/home/linux/work/03.install_path/Vivado/2022.1/scripts/rt/data/unisim_comp.v:59734' bound to instance 'leds_4bits_tri_iobuf_3' of component 'IOBUF' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/hdl/system_wrapper.vhd:275]
 INFO: [Synth 8-3491] module 'system' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:5137' bound to instance 'system_i' of component 'system' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/hdl/system_wrapper.vhd:282]
 INFO: [Synth 8-638] synthesizing module 'system' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:5221]
-INFO: [Synth 8-3491] module 'system_axi_dynclk_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_dynclk_0_0_stub.vhdl:5' bound to instance 'axi_dynclk_0' of component 'system_axi_dynclk_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6626]
-INFO: [Synth 8-638] synthesizing module 'system_axi_dynclk_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_dynclk_0_0_stub.vhdl:36]
-INFO: [Synth 8-3491] module 'system_axi_gpio_eth_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_gpio_eth_0_stub.vhdl:5' bound to instance 'axi_gpio_eth' of component 'system_axi_gpio_eth_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6654]
-INFO: [Synth 8-638] synthesizing module 'system_axi_gpio_eth_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_gpio_eth_0_stub.vhdl:33]
-INFO: [Synth 8-3491] module 'system_axi_gpio_led_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_gpio_led_0_stub.vhdl:5' bound to instance 'axi_gpio_led' of component 'system_axi_gpio_led_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6679]
-INFO: [Synth 8-638] synthesizing module 'system_axi_gpio_led_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_gpio_led_0_stub.vhdl:33]
-INFO: [Synth 8-3491] module 'system_axi_gpio_sw_btn_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_gpio_sw_btn_0_stub.vhdl:5' bound to instance 'axi_gpio_sw_btn' of component 'system_axi_gpio_sw_btn_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6704]
-INFO: [Synth 8-638] synthesizing module 'system_axi_gpio_sw_btn_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_gpio_sw_btn_0_stub.vhdl:32]
-INFO: [Synth 8-3491] module 'system_axi_gpio_video_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_gpio_video_0_stub.vhdl:5' bound to instance 'axi_gpio_video' of component 'system_axi_gpio_video_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6728]
-INFO: [Synth 8-638] synthesizing module 'system_axi_gpio_video_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_gpio_video_0_stub.vhdl:33]
-INFO: [Synth 8-3491] module 'system_axi_i2s_adi_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_i2s_adi_0_0_stub.vhdl:5' bound to instance 'axi_i2s_adi_0' of component 'system_axi_i2s_adi_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6753]
-INFO: [Synth 8-638] synthesizing module 'system_axi_i2s_adi_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_i2s_adi_0_0_stub.vhdl:53]
+INFO: [Synth 8-3491] module 'system_axi_dynclk_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_dynclk_0_0_stub.vhdl:5' bound to instance 'axi_dynclk_0' of component 'system_axi_dynclk_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6626]
+INFO: [Synth 8-638] synthesizing module 'system_axi_dynclk_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_dynclk_0_0_stub.vhdl:36]
+INFO: [Synth 8-3491] module 'system_axi_gpio_eth_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_gpio_eth_0_stub.vhdl:5' bound to instance 'axi_gpio_eth' of component 'system_axi_gpio_eth_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6654]
+INFO: [Synth 8-638] synthesizing module 'system_axi_gpio_eth_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_gpio_eth_0_stub.vhdl:33]
+INFO: [Synth 8-3491] module 'system_axi_gpio_led_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_gpio_led_0_stub.vhdl:5' bound to instance 'axi_gpio_led' of component 'system_axi_gpio_led_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6679]
+INFO: [Synth 8-638] synthesizing module 'system_axi_gpio_led_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_gpio_led_0_stub.vhdl:33]
+INFO: [Synth 8-3491] module 'system_axi_gpio_sw_btn_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_gpio_sw_btn_0_stub.vhdl:5' bound to instance 'axi_gpio_sw_btn' of component 'system_axi_gpio_sw_btn_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6704]
+INFO: [Synth 8-638] synthesizing module 'system_axi_gpio_sw_btn_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_gpio_sw_btn_0_stub.vhdl:32]
+INFO: [Synth 8-3491] module 'system_axi_gpio_video_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_gpio_video_0_stub.vhdl:5' bound to instance 'axi_gpio_video' of component 'system_axi_gpio_video_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6728]
+INFO: [Synth 8-638] synthesizing module 'system_axi_gpio_video_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_gpio_video_0_stub.vhdl:33]
+INFO: [Synth 8-3491] module 'system_axi_i2s_adi_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_i2s_adi_0_0_stub.vhdl:5' bound to instance 'axi_i2s_adi_0' of component 'system_axi_i2s_adi_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6753]
+INFO: [Synth 8-638] synthesizing module 'system_axi_i2s_adi_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_i2s_adi_0_0_stub.vhdl:53]
 INFO: [Synth 8-638] synthesizing module 'system_axi_mem_intercon_HP0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:2643]
 INFO: [Synth 8-638] synthesizing module 'm00_couplers_imp_QHSX34' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:196]
-INFO: [Synth 8-3491] module 'system_auto_pc_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_auto_pc_0_stub.vhdl:5' bound to instance 'auto_pc' of component 'system_auto_pc_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:563]
-INFO: [Synth 8-638] synthesizing module 'system_auto_pc_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_auto_pc_0_stub.vhdl:90]
-INFO: [Synth 8-3491] module 'system_m00_regslice_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_m00_regslice_0_stub.vhdl:5' bound to instance 'm00_regslice' of component 'system_m00_regslice_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:645]
-INFO: [Synth 8-638] synthesizing module 'system_m00_regslice_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_m00_regslice_0_stub.vhdl:89]
+INFO: [Synth 8-3491] module 'system_auto_pc_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_auto_pc_0_stub.vhdl:5' bound to instance 'auto_pc' of component 'system_auto_pc_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:563]
+INFO: [Synth 8-638] synthesizing module 'system_auto_pc_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_auto_pc_0_stub.vhdl:90]
+INFO: [Synth 8-3491] module 'system_m00_regslice_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_m00_regslice_0_stub.vhdl:5' bound to instance 'm00_regslice' of component 'system_m00_regslice_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:645]
+INFO: [Synth 8-638] synthesizing module 'system_m00_regslice_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_m00_regslice_0_stub.vhdl:89]
 INFO: [Synth 8-256] done synthesizing module 'm00_couplers_imp_QHSX34' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:196]
 INFO: [Synth 8-638] synthesizing module 's00_couplers_imp_T4AL1T' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:2210]
-INFO: [Synth 8-3491] module 'system_s00_regslice_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_s00_regslice_0_stub.vhdl:5' bound to instance 's00_regslice' of component 'system_s00_regslice_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:2311]
-INFO: [Synth 8-638] synthesizing module 'system_s00_regslice_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_s00_regslice_0_stub.vhdl:45]
+INFO: [Synth 8-3491] module 'system_s00_regslice_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_s00_regslice_0_stub.vhdl:5' bound to instance 's00_regslice' of component 'system_s00_regslice_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:2311]
+INFO: [Synth 8-638] synthesizing module 'system_s00_regslice_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_s00_regslice_0_stub.vhdl:45]
 INFO: [Synth 8-256] done synthesizing module 's00_couplers_imp_T4AL1T' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:2210]
 INFO: [Synth 8-638] synthesizing module 's01_couplers_imp_1J3S6TC' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:2396]
-INFO: [Synth 8-3491] module 'system_s01_regslice_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_s01_regslice_0_stub.vhdl:5' bound to instance 's01_regslice' of component 'system_s01_regslice_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:2515]
-INFO: [Synth 8-638] synthesizing module 'system_s01_regslice_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_s01_regslice_0_stub.vhdl:51]
+INFO: [Synth 8-3491] module 'system_s01_regslice_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_s01_regslice_0_stub.vhdl:5' bound to instance 's01_regslice' of component 'system_s01_regslice_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:2515]
+INFO: [Synth 8-638] synthesizing module 'system_s01_regslice_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_s01_regslice_0_stub.vhdl:51]
 INFO: [Synth 8-256] done synthesizing module 's01_couplers_imp_1J3S6TC' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:2396]
-INFO: [Synth 8-3491] module 'system_xbar_2' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_xbar_2_stub.vhdl:5' bound to instance 'xbar' of component 'system_xbar_2' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:3120]
-INFO: [Synth 8-638] synthesizing module 'system_xbar_2' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_xbar_2_stub.vhdl:89]
+INFO: [Synth 8-3491] module 'system_xbar_2' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_xbar_2_stub.vhdl:5' bound to instance 'xbar' of component 'system_xbar_2' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:3120]
+INFO: [Synth 8-638] synthesizing module 'system_xbar_2' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_xbar_2_stub.vhdl:89]
 INFO: [Synth 8-256] done synthesizing module 'system_axi_mem_intercon_HP0_0' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:2643]
-INFO: [Synth 8-3491] module 'system_axi_vdma_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_vdma_0_0_stub.vhdl:5' bound to instance 'axi_vdma_0' of component 'system_axi_vdma_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6876]
-INFO: [Synth 8-638] synthesizing module 'system_axi_vdma_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_vdma_0_0_stub.vhdl:56]
-INFO: [Synth 8-3491] module 'system_axi_vdma_1_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_vdma_1_0_stub.vhdl:5' bound to instance 'axi_vdma_1' of component 'system_axi_vdma_1_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6924]
-INFO: [Synth 8-638] synthesizing module 'system_axi_vdma_1_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axi_vdma_1_0_stub.vhdl:53]
-INFO: [Synth 8-3491] module 'system_axis_subset_converter_in_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axis_subset_converter_in_0_stub.vhdl:5' bound to instance 'axis_subset_converter_in' of component 'system_axis_subset_converter_in_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6969]
-INFO: [Synth 8-638] synthesizing module 'system_axis_subset_converter_in_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axis_subset_converter_in_0_stub.vhdl:23]
-INFO: [Synth 8-3491] module 'system_axis_subset_converter_out_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axis_subset_converter_out_0_stub.vhdl:5' bound to instance 'axis_subset_converter_out' of component 'system_axis_subset_converter_out_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6984]
-INFO: [Synth 8-638] synthesizing module 'system_axis_subset_converter_out_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_axis_subset_converter_out_0_stub.vhdl:25]
-INFO: [Synth 8-3491] module 'system_clk_wiz_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_clk_wiz_0_0_stub.vhdl:5' bound to instance 'clk_wiz_0' of component 'system_clk_wiz_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7001]
-INFO: [Synth 8-638] synthesizing module 'system_clk_wiz_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_clk_wiz_0_0_stub.vhdl:13]
-INFO: [Synth 8-3491] module 'system_dvi2rgb_1_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_dvi2rgb_1_0_stub.vhdl:5' bound to instance 'dvi2rgb_1' of component 'system_dvi2rgb_1_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7006]
-INFO: [Synth 8-638] synthesizing module 'system_dvi2rgb_1_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_dvi2rgb_1_0_stub.vhdl:30]
-INFO: [Synth 8-3491] module 'system_proc_sys_reset_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_proc_sys_reset_0_0_stub.vhdl:5' bound to instance 'proc_sys_reset_0' of component 'system_proc_sys_reset_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7028]
-INFO: [Synth 8-638] synthesizing module 'system_proc_sys_reset_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_proc_sys_reset_0_0_stub.vhdl:21]
-INFO: [Synth 8-3491] module 'system_processing_system7_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_processing_system7_0_0_stub.vhdl:5' bound to instance 'processing_system7_0' of component 'system_processing_system7_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7041]
-INFO: [Synth 8-638] synthesizing module 'system_processing_system7_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_processing_system7_0_0_stub.vhdl:155]
+INFO: [Synth 8-3491] module 'system_axi_vdma_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_vdma_0_0_stub.vhdl:5' bound to instance 'axi_vdma_0' of component 'system_axi_vdma_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6876]
+INFO: [Synth 8-638] synthesizing module 'system_axi_vdma_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_vdma_0_0_stub.vhdl:56]
+INFO: [Synth 8-3491] module 'system_axi_vdma_1_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_vdma_1_0_stub.vhdl:5' bound to instance 'axi_vdma_1' of component 'system_axi_vdma_1_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6924]
+INFO: [Synth 8-638] synthesizing module 'system_axi_vdma_1_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axi_vdma_1_0_stub.vhdl:53]
+INFO: [Synth 8-3491] module 'system_axis_subset_converter_in_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axis_subset_converter_in_0_stub.vhdl:5' bound to instance 'axis_subset_converter_in' of component 'system_axis_subset_converter_in_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6969]
+INFO: [Synth 8-638] synthesizing module 'system_axis_subset_converter_in_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axis_subset_converter_in_0_stub.vhdl:23]
+INFO: [Synth 8-3491] module 'system_axis_subset_converter_out_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axis_subset_converter_out_0_stub.vhdl:5' bound to instance 'axis_subset_converter_out' of component 'system_axis_subset_converter_out_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:6984]
+INFO: [Synth 8-638] synthesizing module 'system_axis_subset_converter_out_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_axis_subset_converter_out_0_stub.vhdl:25]
+INFO: [Synth 8-3491] module 'system_clk_wiz_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_clk_wiz_0_0_stub.vhdl:5' bound to instance 'clk_wiz_0' of component 'system_clk_wiz_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7001]
+INFO: [Synth 8-638] synthesizing module 'system_clk_wiz_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_clk_wiz_0_0_stub.vhdl:13]
+INFO: [Synth 8-3491] module 'system_dvi2rgb_1_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_dvi2rgb_1_0_stub.vhdl:5' bound to instance 'dvi2rgb_1' of component 'system_dvi2rgb_1_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7006]
+INFO: [Synth 8-638] synthesizing module 'system_dvi2rgb_1_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_dvi2rgb_1_0_stub.vhdl:30]
+INFO: [Synth 8-3491] module 'system_proc_sys_reset_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_proc_sys_reset_0_0_stub.vhdl:5' bound to instance 'proc_sys_reset_0' of component 'system_proc_sys_reset_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7028]
+INFO: [Synth 8-638] synthesizing module 'system_proc_sys_reset_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_proc_sys_reset_0_0_stub.vhdl:21]
+INFO: [Synth 8-3491] module 'system_processing_system7_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_processing_system7_0_0_stub.vhdl:5' bound to instance 'processing_system7_0' of component 'system_processing_system7_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7041]
+INFO: [Synth 8-638] synthesizing module 'system_processing_system7_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_processing_system7_0_0_stub.vhdl:155]
 INFO: [Synth 8-638] synthesizing module 'system_ps7_0_axi_periph_GP0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:3516]
 INFO: [Synth 8-638] synthesizing module 'm00_couplers_imp_ALOWHI' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:55]
 INFO: [Synth 8-256] done synthesizing module 'm00_couplers_imp_ALOWHI' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:55]
@@ -114,32 +119,32 @@ INFO: [Synth 8-256] done synthesizing module 'm10_couplers_imp_18TTR91' (0#1) [/
 INFO: [Synth 8-638] synthesizing module 'm11_couplers_imp_4FIC9W' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:1799]
 INFO: [Synth 8-256] done synthesizing module 'm11_couplers_imp_4FIC9W' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:1799]
 INFO: [Synth 8-638] synthesizing module 's00_couplers_imp_4WZP47' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:1923]
-INFO: [Synth 8-3491] module 'system_auto_pc_1' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_auto_pc_1_stub.vhdl:5' bound to instance 'auto_pc' of component 'system_auto_pc_1' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:2106]
-INFO: [Synth 8-638] synthesizing module 'system_auto_pc_1' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_auto_pc_1_stub.vhdl:70]
+INFO: [Synth 8-3491] module 'system_auto_pc_1' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_auto_pc_1_stub.vhdl:5' bound to instance 'auto_pc' of component 'system_auto_pc_1' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:2106]
+INFO: [Synth 8-638] synthesizing module 'system_auto_pc_1' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_auto_pc_1_stub.vhdl:70]
 INFO: [Synth 8-256] done synthesizing module 's00_couplers_imp_4WZP47' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:1923]
-INFO: [Synth 8-3491] module 'system_xbar_3' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_xbar_3_stub.vhdl:5' bound to instance 'xbar' of component 'system_xbar_3' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:4894]
-INFO: [Synth 8-638] synthesizing module 'system_xbar_3' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_xbar_3_stub.vhdl:51]
+INFO: [Synth 8-3491] module 'system_xbar_3' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_xbar_3_stub.vhdl:5' bound to instance 'xbar' of component 'system_xbar_3' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:4894]
+INFO: [Synth 8-638] synthesizing module 'system_xbar_3' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_xbar_3_stub.vhdl:51]
 INFO: [Synth 8-256] done synthesizing module 'system_ps7_0_axi_periph_GP0_0' (0#1) [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:3516]
-INFO: [Synth 8-3491] module 'system_PWM_RGB_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_PWM_RGB_0_stub.vhdl:5' bound to instance 'pwm_rgb_RnM' of component 'system_PWM_RGB_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7466]
-INFO: [Synth 8-638] synthesizing module 'system_PWM_RGB_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_PWM_RGB_0_stub.vhdl:33]
-INFO: [Synth 8-3491] module 'system_rgb2dvi_1_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_rgb2dvi_1_0_stub.vhdl:5' bound to instance 'rgb2dvi_1' of component 'system_rgb2dvi_1_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7491]
-INFO: [Synth 8-638] synthesizing module 'system_rgb2dvi_1_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_rgb2dvi_1_0_stub.vhdl:22]
-INFO: [Synth 8-3491] module 'system_rst_ps7_0_100M_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_rst_ps7_0_100M_0_stub.vhdl:5' bound to instance 'rst_ps7_0_100M' of component 'system_rst_ps7_0_100M_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7505]
-INFO: [Synth 8-638] synthesizing module 'system_rst_ps7_0_100M_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_rst_ps7_0_100M_0_stub.vhdl:21]
-INFO: [Synth 8-3491] module 'system_rst_ps7_0_133M_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_rst_ps7_0_133M_0_stub.vhdl:5' bound to instance 'rst_ps7_0_133M' of component 'system_rst_ps7_0_133M_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7518]
-INFO: [Synth 8-638] synthesizing module 'system_rst_ps7_0_133M_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_rst_ps7_0_133M_0_stub.vhdl:21]
-INFO: [Synth 8-3491] module 'system_util_ds_buf_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_util_ds_buf_0_0_stub.vhdl:5' bound to instance 'util_ds_buf_fclk1' of component 'system_util_ds_buf_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7531]
-INFO: [Synth 8-638] synthesizing module 'system_util_ds_buf_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_util_ds_buf_0_0_stub.vhdl:13]
-INFO: [Synth 8-3491] module 'system_v_axi4s_vid_out_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_v_axi4s_vid_out_0_0_stub.vhdl:5' bound to instance 'v_axi4s_vid_out_0' of component 'system_v_axi4s_vid_out_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7536]
-INFO: [Synth 8-638] synthesizing module 'system_v_axi4s_vid_out_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_v_axi4s_vid_out_0_0_stub.vhdl:43]
-INFO: [Synth 8-3491] module 'system_v_tc_in_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_v_tc_in_0_stub.vhdl:5' bound to instance 'v_tc_in' of component 'system_v_tc_in_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7571]
-INFO: [Synth 8-638] synthesizing module 'system_v_tc_in_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_v_tc_in_0_stub.vhdl:41]
-INFO: [Synth 8-3491] module 'system_v_tc_out_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_v_tc_out_0_stub.vhdl:5' bound to instance 'v_tc_out' of component 'system_v_tc_out_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7604]
-INFO: [Synth 8-638] synthesizing module 'system_v_tc_out_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_v_tc_out_0_stub.vhdl:44]
-INFO: [Synth 8-3491] module 'system_v_vid_in_axi4s_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_v_vid_in_axi4s_0_0_stub.vhdl:5' bound to instance 'v_vid_in_axi4s_0' of component 'system_v_vid_in_axi4s_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7640]
-INFO: [Synth 8-638] synthesizing module 'system_v_vid_in_axi4s_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_v_vid_in_axi4s_0_0_stub.vhdl:39]
-INFO: [Synth 8-3491] module 'system_xadc_wiz_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_xadc_wiz_0_0_stub.vhdl:5' bound to instance 'xadc_wiz_0' of component 'system_xadc_wiz_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7671]
-INFO: [Synth 8-638] synthesizing module 'system_xadc_wiz_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-14601-linux-hyper/realtime/system_xadc_wiz_0_0_stub.vhdl:46]
+INFO: [Synth 8-3491] module 'system_PWM_RGB_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_PWM_RGB_0_stub.vhdl:5' bound to instance 'pwm_rgb_RnM' of component 'system_PWM_RGB_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7466]
+INFO: [Synth 8-638] synthesizing module 'system_PWM_RGB_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_PWM_RGB_0_stub.vhdl:33]
+INFO: [Synth 8-3491] module 'system_rgb2dvi_1_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_rgb2dvi_1_0_stub.vhdl:5' bound to instance 'rgb2dvi_1' of component 'system_rgb2dvi_1_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7491]
+INFO: [Synth 8-638] synthesizing module 'system_rgb2dvi_1_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_rgb2dvi_1_0_stub.vhdl:22]
+INFO: [Synth 8-3491] module 'system_rst_ps7_0_100M_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_rst_ps7_0_100M_0_stub.vhdl:5' bound to instance 'rst_ps7_0_100M' of component 'system_rst_ps7_0_100M_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7505]
+INFO: [Synth 8-638] synthesizing module 'system_rst_ps7_0_100M_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_rst_ps7_0_100M_0_stub.vhdl:21]
+INFO: [Synth 8-3491] module 'system_rst_ps7_0_133M_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_rst_ps7_0_133M_0_stub.vhdl:5' bound to instance 'rst_ps7_0_133M' of component 'system_rst_ps7_0_133M_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7518]
+INFO: [Synth 8-638] synthesizing module 'system_rst_ps7_0_133M_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_rst_ps7_0_133M_0_stub.vhdl:21]
+INFO: [Synth 8-3491] module 'system_util_ds_buf_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_util_ds_buf_0_0_stub.vhdl:5' bound to instance 'util_ds_buf_fclk1' of component 'system_util_ds_buf_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7531]
+INFO: [Synth 8-638] synthesizing module 'system_util_ds_buf_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_util_ds_buf_0_0_stub.vhdl:13]
+INFO: [Synth 8-3491] module 'system_v_axi4s_vid_out_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_v_axi4s_vid_out_0_0_stub.vhdl:5' bound to instance 'v_axi4s_vid_out_0' of component 'system_v_axi4s_vid_out_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7536]
+INFO: [Synth 8-638] synthesizing module 'system_v_axi4s_vid_out_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_v_axi4s_vid_out_0_0_stub.vhdl:43]
+INFO: [Synth 8-3491] module 'system_v_tc_in_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_v_tc_in_0_stub.vhdl:5' bound to instance 'v_tc_in' of component 'system_v_tc_in_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7571]
+INFO: [Synth 8-638] synthesizing module 'system_v_tc_in_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_v_tc_in_0_stub.vhdl:41]
+INFO: [Synth 8-3491] module 'system_v_tc_out_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_v_tc_out_0_stub.vhdl:5' bound to instance 'v_tc_out' of component 'system_v_tc_out_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7604]
+INFO: [Synth 8-638] synthesizing module 'system_v_tc_out_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_v_tc_out_0_stub.vhdl:44]
+INFO: [Synth 8-3491] module 'system_v_vid_in_axi4s_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_v_vid_in_axi4s_0_0_stub.vhdl:5' bound to instance 'v_vid_in_axi4s_0' of component 'system_v_vid_in_axi4s_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7640]
+INFO: [Synth 8-638] synthesizing module 'system_v_vid_in_axi4s_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_v_vid_in_axi4s_0_0_stub.vhdl:39]
+INFO: [Synth 8-3491] module 'system_xadc_wiz_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_xadc_wiz_0_0_stub.vhdl:5' bound to instance 'xadc_wiz_0' of component 'system_xadc_wiz_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7671]
+INFO: [Synth 8-638] synthesizing module 'system_xadc_wiz_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/.Xil/Vivado-1038416-linux/realtime/system_xadc_wiz_0_0_stub.vhdl:46]
 INFO: [Synth 8-3491] module 'system_xlconcat_0_0' declared at '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xlconcat_0_0/synth/system_xlconcat_0_0.v:53' bound to instance 'xlconcat_0' of component 'system_xlconcat_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/synth/system.vhd:7709]
 INFO: [Synth 8-6157] synthesizing module 'system_xlconcat_0_0' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xlconcat_0_0/synth/system_xlconcat_0_0.v:53]
 INFO: [Synth 8-6157] synthesizing module 'xlconcat_v2_1_4_xlconcat' [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ipshared/4b67/hdl/xlconcat_v2_1_vl_rfs.v:14]
@@ -257,18 +262,18 @@ WARNING: [Synth 8-7129] Port In104[0] in module xlconcat_v2_1_4_xlconcat is eith
 WARNING: [Synth 8-7129] Port In105[0] in module xlconcat_v2_1_4_xlconcat is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2722.875 ; gain = 0.000 ; free physical = 12104 ; free virtual = 14159
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2696.848 ; gain = 0.000 ; free physical = 1463 ; free virtual = 17778
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2722.875 ; gain = 0.000 ; free physical = 12101 ; free virtual = 14156
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2696.848 ; gain = 0.000 ; free physical = 1464 ; free virtual = 17780
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2722.875 ; gain = 0.000 ; free physical = 12101 ; free virtual = 14156
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2696.848 ; gain = 0.000 ; free physical = 1464 ; free virtual = 17780
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.06 . Memory (MB): peak = 2722.875 ; gain = 0.000 ; free physical = 12093 ; free virtual = 14149
+Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.03 . Memory (MB): peak = 2696.848 ; gain = 0.000 ; free physical = 1457 ; free virtual = 17777
 INFO: [Netlist 29-17] Analyzing 11 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -338,6 +343,18 @@ Finished Parsing XDC File [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hard
 Parsing XDC File [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xadc_wiz_0_0/system_xadc_wiz_0_0/system_xadc_wiz_0_0_in_context.xdc] for cell 'system_i/xadc_wiz_0'
 Finished Parsing XDC File [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xadc_wiz_0_0/system_xadc_wiz_0_0/system_xadc_wiz_0_0_in_context.xdc] for cell 'system_i/xadc_wiz_0'
 Parsing XDC File [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc]
+WARNING: [Vivado 12-584] No ports matched 'sw[0]'. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:13]
+WARNING: [Vivado 12-584] No ports matched 'sw[1]'. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:14]
+WARNING: [Vivado 12-584] No ports matched 'sw[2]'. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:15]
+WARNING: [Vivado 12-584] No ports matched 'sw[3]'. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:16]
+WARNING: [Vivado 12-584] No ports matched 'btn[0]'. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:20]
+WARNING: [Vivado 12-584] No ports matched 'btn[1]'. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:21]
+WARNING: [Vivado 12-584] No ports matched 'btn[2]'. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:22]
+WARNING: [Vivado 12-584] No ports matched 'btn[3]'. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:23]
+WARNING: [Vivado 12-584] No ports matched 'led[0]'. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:27]
+WARNING: [Vivado 12-584] No ports matched 'led[1]'. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:28]
+WARNING: [Vivado 12-584] No ports matched 'led[2]'. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:29]
+WARNING: [Vivado 12-584] No ports matched 'led[3]'. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:30]
 WARNING: [Vivado 12-627] No clocks matched 'clk_out1_system_clk_wiz_0_0'. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:206]
 INFO: [Vivado 12-626] No clocks found. Please use 'create_clock' or 'create_generated_clock' command to create clocks. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:206]
 WARNING: [Vivado 12-627] No clocks matched 'clk_fpga_0'. [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/constraints/Zybo-Z7-Master.xdc:206]
@@ -355,24 +372,26 @@ Parsing XDC File [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj
 Finished Parsing XDC File [/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/dont_touch.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2786.902 ; gain = 0.000 ; free physical = 11977 ; free virtual = 14060
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2760.879 ; gain = 0.000 ; free physical = 1369 ; free virtual = 17699
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 11 instances were transformed.
   IOBUF => IOBUF (IBUF, OBUFT): 11 instances
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2786.902 ; gain = 0.000 ; free physical = 11977 ; free virtual = 14060
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2760.879 ; gain = 0.000 ; free physical = 1369 ; free virtual = 17699
 WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'system_i/proc_sys_reset_0' at clock pin 'slowest_sync_clk' is different from the actual clock period '6.060', this can lead to different synthesis results.
 WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'system_i/v_tc_in' at clock pin 'clk' is different from the actual clock period '6.060', this can lead to different synthesis results.
 WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'system_i/v_vid_in_axi4s_0' at clock pin 'vid_io_in_clk' is different from the actual clock period '6.060', this can lead to different synthesis results.
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 12002 ; free virtual = 14115
+Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1322 ; free virtual = 17722
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z010clg400-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 12002 ; free virtual = 14115
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1322 ; free virtual = 17722
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
@@ -709,10 +728,10 @@ Applied set_property KEEP_HIERARCHY = SOFT for system_i/xlconcat_0. (constraint 
 Applied set_property KEEP_HIERARCHY = SOFT for system_i/xlconstant_0. (constraint file  auto generated constraint).
 Applied set_property KEEP_HIERARCHY = SOFT for system_i/xlconstant_1. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 11996 ; free virtual = 14112
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1304 ; free virtual = 17715
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 11994 ; free virtual = 14114
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1280 ; free virtual = 17700
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -735,26 +754,26 @@ Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 11988 ; free virtual = 14122
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1303 ; free virtual = 17729
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-565] redefining clock 'hdmi_in_clk_p'
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 11832 ; free virtual = 14012
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1153 ; free virtual = 17653
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 11832 ; free virtual = 14013
+Finished Timing Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1148 ; free virtual = 17653
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 11753 ; free virtual = 13976
+Finished Technology Mapping : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1139 ; free virtual = 17645
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -772,37 +791,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 11589 ; free virtual = 13911
+Finished IO Insertion : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1097 ; free virtual = 17628
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 11589 ; free virtual = 13911
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1097 ; free virtual = 17628
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 11589 ; free virtual = 13911
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1097 ; free virtual = 17628
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 11590 ; free virtual = 13912
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1097 ; free virtual = 17628
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 11590 ; free virtual = 13912
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1097 ; free virtual = 17629
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 11591 ; free virtual = 13913
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1097 ; free virtual = 17629
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -885,27 +904,27 @@ Report Cell Usage:
 |34    |OBUF                                    |    10|
 +------+----------------------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 11591 ; free virtual = 13913
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1097 ; free virtual = 17629
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 36 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:29 ; elapsed = 00:00:30 . Memory (MB): peak = 2786.902 ; gain = 0.000 ; free physical = 11640 ; free virtual = 13962
-Synthesis Optimization Complete : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 2786.902 ; gain = 64.027 ; free physical = 11639 ; free virtual = 13961
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2760.879 ; gain = 0.000 ; free physical = 1147 ; free virtual = 17680
+Synthesis Optimization Complete : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1146 ; free virtual = 17679
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.05 . Memory (MB): peak = 2786.902 ; gain = 0.000 ; free physical = 11710 ; free virtual = 14038
+Netlist sorting complete. Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.03 . Memory (MB): peak = 2760.879 ; gain = 0.000 ; free physical = 1234 ; free virtual = 17774
 INFO: [Netlist 29-17] Analyzing 11 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2786.902 ; gain = 0.000 ; free physical = 11656 ; free virtual = 13987
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2760.879 ; gain = 0.000 ; free physical = 1153 ; free virtual = 17711
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 11 instances were transformed.
   IOBUF => IOBUF (IBUF, OBUFT): 11 instances
 
 Synth Design complete, checksum: 8fb6ba62
 INFO: [Common 17-83] Releasing license: Synthesis
-154 Infos, 112 Warnings, 0 Critical Warnings and 0 Errors encountered.
+160 Infos, 124 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:42 ; elapsed = 00:00:39 . Memory (MB): peak = 2786.902 ; gain = 64.031 ; free physical = 11858 ; free virtual = 14190
+synth_design: Time (s): cpu = 00:00:29 ; elapsed = 00:00:26 . Memory (MB): peak = 2760.879 ; gain = 64.031 ; free physical = 1350 ; free virtual = 17911
 INFO: [Common 17-1381] The checkpoint '/home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.runs/synth_1/system_wrapper.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file system_wrapper_utilization_synth.rpt -pb system_wrapper_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Wed Dec 14 20:41:00 2022...
+INFO: [Common 17-206] Exiting Vivado at Thu Dec 15 23:05:50 2022...

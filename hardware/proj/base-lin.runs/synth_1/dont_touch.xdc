@@ -12,6 +12,15 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_PWM_
 # IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_dynclk_0_0/system_axi_dynclk_0_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_axi_dynclk_0_0 || ORIG_REF_NAME==system_axi_dynclk_0_0} -quiet] -quiet
 
+# IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_i2s_adi_0_0/system_axi_i2s_adi_0_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_axi_i2s_adi_0_0 || ORIG_REF_NAME==system_axi_i2s_adi_0_0} -quiet] -quiet
+
+# IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rgb2dvi_1_0/system_rgb2dvi_1_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_rgb2dvi_1_0 || ORIG_REF_NAME==system_rgb2dvi_1_0} -quiet] -quiet
+
+# IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_processing_system7_0_0 || ORIG_REF_NAME==system_processing_system7_0_0} -quiet] -quiet
+
 # IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_gpio_eth_0/system_axi_gpio_eth_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_axi_gpio_eth_0 || ORIG_REF_NAME==system_axi_gpio_eth_0} -quiet] -quiet
 
@@ -24,8 +33,8 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_axi_
 # IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_gpio_video_0/system_axi_gpio_video_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_axi_gpio_video_0 || ORIG_REF_NAME==system_axi_gpio_video_0} -quiet] -quiet
 
-# IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_i2s_adi_0_0/system_axi_i2s_adi_0_0.xci
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_axi_i2s_adi_0_0 || ORIG_REF_NAME==system_axi_i2s_adi_0_0} -quiet] -quiet
+# IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xbar_2/system_xbar_2.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_xbar_2 || ORIG_REF_NAME==system_xbar_2} -quiet] -quiet
 
 # IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_mem_intercon_HP0_0/system_axi_mem_intercon_HP0_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_axi_mem_intercon_HP0_0 || ORIG_REF_NAME==system_axi_mem_intercon_HP0_0} -quiet] -quiet
@@ -51,20 +60,20 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_dvi2
 # IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_proc_sys_reset_0_0/system_proc_sys_reset_0_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_proc_sys_reset_0_0 || ORIG_REF_NAME==system_proc_sys_reset_0_0} -quiet] -quiet
 
-# IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.xci
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_processing_system7_0_0 || ORIG_REF_NAME==system_processing_system7_0_0} -quiet] -quiet
+# IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xbar_3/system_xbar_3.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_xbar_3 || ORIG_REF_NAME==system_xbar_3} -quiet] -quiet
 
 # IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_ps7_0_axi_periph_GP0_0/system_ps7_0_axi_periph_GP0_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_ps7_0_axi_periph_GP0_0 || ORIG_REF_NAME==system_ps7_0_axi_periph_GP0_0} -quiet] -quiet
-
-# IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rgb2dvi_1_0/system_rgb2dvi_1_0.xci
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_rgb2dvi_1_0 || ORIG_REF_NAME==system_rgb2dvi_1_0} -quiet] -quiet
 
 # IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rst_ps7_0_100M_0/system_rst_ps7_0_100M_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_rst_ps7_0_100M_0 || ORIG_REF_NAME==system_rst_ps7_0_100M_0} -quiet] -quiet
 
 # IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rst_ps7_0_133M_0/system_rst_ps7_0_133M_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_rst_ps7_0_133M_0 || ORIG_REF_NAME==system_rst_ps7_0_133M_0} -quiet] -quiet
+
+# IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_util_ds_buf_0_0/system_util_ds_buf_0_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_util_ds_buf_0_0 || ORIG_REF_NAME==system_util_ds_buf_0_0} -quiet] -quiet
 
 # IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_v_axi4s_vid_out_0_0/system_v_axi4s_vid_out_0_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_v_axi4s_vid_out_0_0 || ORIG_REF_NAME==system_v_axi4s_vid_out_0_0} -quiet] -quiet
@@ -89,15 +98,6 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_xlco
 
 # IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xlconstant_1_0/system_xlconstant_1_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_xlconstant_1_0 || ORIG_REF_NAME==system_xlconstant_1_0} -quiet] -quiet
-
-# IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_util_ds_buf_0_0/system_util_ds_buf_0_0.xci
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_util_ds_buf_0_0 || ORIG_REF_NAME==system_util_ds_buf_0_0} -quiet] -quiet
-
-# IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xbar_2/system_xbar_2.xci
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_xbar_2 || ORIG_REF_NAME==system_xbar_2} -quiet] -quiet
-
-# IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xbar_3/system_xbar_3.xci
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_xbar_3 || ORIG_REF_NAME==system_xbar_3} -quiet] -quiet
 
 # IP: /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_s00_regslice_0/system_s00_regslice_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==system_s00_regslice_0 || ORIG_REF_NAME==system_s00_regslice_0} -quiet] -quiet

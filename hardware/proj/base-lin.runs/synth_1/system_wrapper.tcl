@@ -70,6 +70,10 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param checkpoint.writeSynthRtdsInDcp 1
+set_param synth.incrementalSynthesisCache ./.Xil/Vivado-52925-linux/incrSyn
+set_msg_config -id {Synth 8-256} -limit 10000
+set_msg_config -id {Synth 8-638} -limit 10000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7z010clg400-1
 
@@ -92,6 +96,10 @@ OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_vhdl -library xil_defaultlib /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/hdl/system_wrapper.vhd
 add_files /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/system.bd
+set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rgb2dvi_1_0/src/rgb2dvi.xdc]
+set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rgb2dvi_1_0/src/rgb2dvi_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rgb2dvi_1_0/src/rgb2dvi_clocks.xdc]
+set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_gpio_eth_0/system_axi_gpio_eth_0_board.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_gpio_eth_0/system_axi_gpio_eth_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_gpio_eth_0/system_axi_gpio_eth_0.xdc]
@@ -104,6 +112,7 @@ set_property used_in_implementation false [get_files -all /home/linux/work/01.pe
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_gpio_video_0/system_axi_gpio_video_0_board.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_gpio_video_0/system_axi_gpio_video_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_gpio_video_0/system_axi_gpio_video_0.xdc]
+set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xbar_2/system_xbar_2_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_vdma_0_0/system_axi_vdma_0_0.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_vdma_0_0/system_axi_vdma_0_0_clocks.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_axi_vdma_0_0/system_axi_vdma_0_0_ooc.xdc]
@@ -115,26 +124,25 @@ set_property used_in_implementation false [get_files -all /home/linux/work/01.pe
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_clk_wiz_0_0/system_clk_wiz_0_0_board.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_clk_wiz_0_0/system_clk_wiz_0_0.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_clk_wiz_0_0/system_clk_wiz_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_dvi2rgb_1_0/src/ila_pixclk/ila_v6_2/constraints/ila.xdc]
+set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_dvi2rgb_1_0/src/ila_pixclk/ila_pixclk_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_dvi2rgb_1_0/src/ila_refclk/ila_v6_2/constraints/ila.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_dvi2rgb_1_0/src/ila_refclk/ila_refclk_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_dvi2rgb_1_0/src/ila_timing_workaround.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_dvi2rgb_1_0/src/dvi2rgb.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_dvi2rgb_1_0/src/dvi2rgb_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_dvi2rgb_1_0/src/ila_pixclk/ila_v6_2/constraints/ila.xdc]
-set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_dvi2rgb_1_0/src/ila_pixclk/ila_pixclk_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_proc_sys_reset_0_0/system_proc_sys_reset_0_0_board.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_proc_sys_reset_0_0/system_proc_sys_reset_0_0.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_proc_sys_reset_0_0/system_proc_sys_reset_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0.xdc]
-set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rgb2dvi_1_0/src/rgb2dvi.xdc]
-set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rgb2dvi_1_0/src/rgb2dvi_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rgb2dvi_1_0/src/rgb2dvi_clocks.xdc]
+set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xbar_3/system_xbar_3_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rst_ps7_0_100M_0/system_rst_ps7_0_100M_0_board.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rst_ps7_0_100M_0/system_rst_ps7_0_100M_0.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rst_ps7_0_100M_0/system_rst_ps7_0_100M_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rst_ps7_0_133M_0/system_rst_ps7_0_133M_0_board.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rst_ps7_0_133M_0/system_rst_ps7_0_133M_0.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_rst_ps7_0_133M_0/system_rst_ps7_0_133M_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_util_ds_buf_0_0/system_util_ds_buf_0_0_board.xdc]
+set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_util_ds_buf_0_0/system_util_ds_buf_0_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_v_axi4s_vid_out_0_0/system_v_axi4s_vid_out_0_0_clocks.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_v_axi4s_vid_out_0_0/system_v_axi4s_vid_out_0_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_v_tc_in_0/system_v_tc_in_0_clocks.xdc]
@@ -145,10 +153,6 @@ set_property used_in_implementation false [get_files -all /home/linux/work/01.pe
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_v_vid_in_axi4s_0_0/system_v_vid_in_axi4s_0_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xadc_wiz_0_0/system_xadc_wiz_0_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xadc_wiz_0_0/system_xadc_wiz_0_0.xdc]
-set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_util_ds_buf_0_0/system_util_ds_buf_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_util_ds_buf_0_0/system_util_ds_buf_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xbar_2/system_xbar_2_ooc.xdc]
-set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_xbar_3/system_xbar_3_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_s00_regslice_0/system_s00_regslice_0_clocks.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_s00_regslice_0/system_s00_regslice_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/src/bd/system/ip/system_s01_regslice_0/system_s01_regslice_0_clocks.xdc]
@@ -174,6 +178,8 @@ set_property used_in_implementation false [get_files /home/linux/work/01.petalin
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
+
+read_checkpoint -auto_incremental -incremental /home/linux/work/01.petalinux/bsp/zybo-z7-10-bsp/hardware/proj/base-lin.srcs/utils_1/imports/synth_1/system_wrapper.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
